@@ -1,10 +1,11 @@
 name: Build & publish to target release
 
 # Manual trigger. Builds the llflash-rtmp-host native messaging binary
-# for macOS/Windows/Linux and the generic web extension zip. Resolves
-# APP_VERSION from [workspace.package].version in Cargo.toml, then
-# publishes every artifact to a release tag on a *different* repo — all
-# targeting is via secrets so this file stays repo-portable.
+# for macOS/Windows/Linux and ships it with versioned install bootstrap
+# scripts. Resolves APP_VERSION from [workspace.package].version in
+# Cargo.toml, then publishes every artifact to a release tag on a
+# *different* repo — all targeting is via secrets so this file stays
+# repo-portable.
 #
 # Required secrets:
 #   TARGET_REPO         — destination repo in `owner/repo` form
@@ -173,87 +174,17 @@ jobs:
                   if-no-files-found: error
                   path: dist/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-Linux-x64.tar.gz
 
-    extension:
-        name: Web extension (generic .zip)
-        needs: preflight
-        runs-on: ubuntu-22.04
+    release:
+        name: Publish to target repo release
+        needs: [preflight, macos, windows, linux]
+        runs-on: ubuntu-latest
         env:
             APP_VERSION: ${{ needs.preflight.outputs.version }}
         steps:
+            # We need native-host/install.{sh,ps1} from the repo so we can
+            # stamp them with the version and upload them as release assets.
             - uses: actions/checkout@v4
 
-            # Pin wasm32 target — llflash-core's build pipeline shells out
-            # to cargo for the .wasm modules.
-            - name: Install stable Rust + wasm32 target
-              uses: dtolnay/rust-toolchain@stable
-              with:
-                  targets: wasm32-unknown-unknown
-
-            - name: Cache cargo
-              uses: Swatinem/rust-cache@v2
-
-            # Must match `wasm-bindgen = "=0.2.120"` in Cargo.toml — version
-            # mismatch produces a runtime error in the .wasm glue.
-            - name: Install wasm-bindgen-cli 0.2.120
-              uses: taiki-e/install-action@v2
-              with:
-                  tool: wasm-bindgen-cli@0.2.120
-
-            - name: Setup pnpm
-              uses: pnpm/action-setup@v4
-              with:
-                  version: 10.33.0
-
-            - name: Setup Node.js 24
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 24
-                  cache: pnpm
-                  cache-dependency-path: web/pnpm-lock.yaml
-
-            # llflash-core's build pipeline drives `wit2java` / other JVM
-            # tooling for the .wasm modules.
-            - name: Setup Java 17
-              uses: actions/setup-java@v4
-              with:
-                  distribution: temurin
-                  java-version: 17
-
-            - name: Install JS deps
-              working-directory: web
-              run: pnpm install --frozen-lockfile
-
-            # Build llflash-core first (extension depends on it), then run
-            # only the *generic* extension target. We skip the firefox
-            # target because `build:firefox` chains into `sign-firefox`
-            # which requires Mozilla AMO API credentials we don't have.
-            - name: Build llflash-core
-              working-directory: web
-              run: pnpm --filter llflash-core build
-
-            - name: Build extension (generic only)
-              working-directory: web
-              run: |
-                  pnpm --filter llflash-extension exec tsc -p jsconfig.json
-                  pnpm --filter llflash-extension run build:generic
-
-            - name: Stamp version into artifact name
-              run: |
-                  cp web/packages/extension/dist/llflash_extension.zip \
-                     "llflash_extension-${APP_VERSION}.zip"
-
-            - name: Upload artifact
-              uses: actions/upload-artifact@v4
-              with:
-                  name: extension
-                  if-no-files-found: error
-                  path: llflash_extension-${{ needs.preflight.outputs.version }}.zip
-
-    release:
-        name: Publish to target repo release
-        needs: [preflight, macos, windows, linux, extension]
-        runs-on: ubuntu-latest
-        steps:
             # `merge-multiple: true` flattens all artifact dirs into one
             # `release/` folder so the file globs below stay simple.
             - name: Download all artifacts
@@ -262,12 +193,24 @@ jobs:
                   path: release
                   merge-multiple: true
 
-            # Wipe every asset currently attached to the target release
-            # before uploading the new ones. Without this, files from prior
-            # versions (e.g. `LongLiveFlash-0.9.0-*`) stay on the release
-            # forever because `softprops/action-gh-release@v2` only
-            # overwrites assets whose filenames match. Scoped to this one
-            # tag — other releases on TARGET_REPO are untouched.
+            # Install bootstrap scripts. Names stay un-versioned so the
+            # one-liner URLs are stable: end users always paste the same
+            # `.../rtmp-host-install.sh` or `.../rtmp-host-install.ps1`
+            # link. The scripts hit the GitHub API at runtime to find the
+            # matching binary tarball for whatever version is currently
+            # attached to this tag.
+            - name: Stage install bootstrap scripts
+              run: |
+                  cp native-host/install.sh  release/rtmp-host-install.sh
+                  cp native-host/install.ps1 release/rtmp-host-install.ps1
+
+            # Delete every asset currently attached to TARGET_TAG before
+            # uploading the new ones. This guarantees old rtmp-host
+            # binaries from previous releases are removed — without it,
+            # softprops/action-gh-release@v2 only overwrites assets whose
+            # filenames match exactly, so stale versions accumulate
+            # forever. Scoped to this one tag — other releases on
+            # TARGET_REPO are untouched.
             - name: Clear old assets from target release
               env:
                   GH_TOKEN: ${{ secrets.RELEASE_PAT }}
@@ -297,7 +240,7 @@ jobs:
                   tag_name: ${{ secrets.TARGET_RELEASE_TAG }}
                   name: ${{ secrets.TARGET_RELEASE_TAG }}
                   body: |
-                      Long Live Flash `${{ needs.preflight.outputs.version }}` — web extension and RTMP native messaging host.
+                      Long Live Flash `${{ needs.preflight.outputs.version }}` — RTMP native messaging host.
                       Source commit: `${{ github.sha }}` on `${{ github.ref_name }}`.
                   prerelease: false
                   # Don't promote this tag over whatever the target repo
@@ -307,4 +250,5 @@ jobs:
                       release/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-macOS-arm64.tar.gz
                       release/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-Windows-x64.zip
                       release/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-Linux-x64.tar.gz
-                      release/llflash_extension-${{ needs.preflight.outputs.version }}.zip
+                      release/rtmp-host-install.sh
+                      release/rtmp-host-install.ps1
