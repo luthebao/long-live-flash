@@ -36,7 +36,7 @@ impl From<swf::Compression> for Compression {
 pub enum Step {
     /// Nothing has been done yet.
     ///
-    /// Usually this indicates a significant problem unrelated to Ruffle, or a
+    /// Usually this indicates a significant problem unrelated to Llflash, or a
     /// scanner child process panic.
     Start,
 
@@ -49,7 +49,7 @@ pub enum Step {
     /// Parsing of the decompressed SWF.
     Parse,
 
-    /// Execution of the SWF in Ruffle.
+    /// Execution of the SWF in Llflash.
     Execute,
 
     /// Completion of all prior steps without error.

@@ -1,4 +1,4 @@
-about-ruffle = אודות Ruffle
+about-ruffle = אודות Llflash
 about-ruffle-version = גרסה
 about-ruffle-channel = ערוץ
 about-ruffle-build-time = זמן הגרסה

@@ -8,7 +8,7 @@ package flash.display {
     import flash.utils.setTimeout;
 
     [API("674")]
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public class Stage3D extends EventDispatcher {
         public native function get context3D():Context3D;
 

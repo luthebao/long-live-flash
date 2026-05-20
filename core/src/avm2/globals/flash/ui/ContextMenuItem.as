@@ -39,13 +39,13 @@ package flash.ui {
             return new ContextMenuItem(this.caption, this.separatorBefore, this.enabled, this.visible);
         }
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _caption:String;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _separatorBefore:Boolean;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _visible:Boolean;
     }
 }

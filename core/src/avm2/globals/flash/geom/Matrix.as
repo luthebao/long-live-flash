@@ -1,21 +1,21 @@
 package flash.geom {
     public class Matrix {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var a:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var b:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var c:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var d:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var tx:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var ty:Number;
 
         public function Matrix(a:Number = 1, b:Number = 0, c:Number = 0, d:Number = 1, tx:Number = 0, ty:Number = 0) {

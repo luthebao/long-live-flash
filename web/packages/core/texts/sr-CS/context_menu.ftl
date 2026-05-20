@@ -3,8 +3,8 @@ context-menu-copy-debug-info = Kopirajte informacije za otklanjanje grešaka
 context-menu-open-save-manager = Otvori menadžer skladišta
 context-menu-about-ruffle =
     { $flavor ->
-    [extension] O ekstenziji Ruffle ({ $version })
-    *[other] O Ruffle ({ $version })
+    [extension] O ekstenziji Llflash ({ $version })
+    *[other] O Llflash ({ $version })
     }
 context-menu-hide = Sakrij ovaj meni
 context-menu-exit-fullscreen = Izađi iz režima celog ekrana

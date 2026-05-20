@@ -1,10 +1,10 @@
 # ruffle-extension
 
-ruffle-extension is all of the power of Ruffle, in your browser.
+ruffle-extension is all of the power of Llflash, in your browser.
 
-Without needing websites to do anything, the browser extension automatically replaces any Flash content on websites with the Ruffle player.
+Without needing websites to do anything, the browser extension automatically replaces any Flash content on websites with the Llflash player.
 
-It automatically negotiates with websites that do have Ruffle installed, to ensure that there is no conflict between the versions. Newer version of ruffle, either from the website or extension, will always take precedence and disable the other.
+It automatically negotiates with websites that do have Llflash installed, to ensure that there is no conflict between the versions. Newer version of ruffle, either from the website or extension, will always take precedence and disable the other.
 
 ## Using ruffle-extension
 

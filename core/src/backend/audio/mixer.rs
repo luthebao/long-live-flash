@@ -4,8 +4,8 @@ use super::decoders::{
 use super::{SoundHandle, SoundInstanceHandle, SoundStreamInfo, SoundTransform};
 use crate::backend::audio::{DecodeError, RegisterError};
 use crate::tag_utils::SwfSlice;
-use ruffle_common::buffer::Substream;
-use ruffle_common::duration::FloatDuration;
+use llflash_common::buffer::Substream;
+use llflash_common::duration::FloatDuration;
 use slotmap::SlotMap;
 use std::io::Cursor;
 use std::sync::{Arc, Mutex, RwLock};
@@ -1104,7 +1104,7 @@ macro_rules! impl_audio_mixer_backend {
         #[inline]
         fn start_substream(
             &mut self,
-            stream_data: ruffle_core::backend::audio::Substream,
+            stream_data: llflash_core::backend::audio::Substream,
             stream_info: &SoundStreamInfo,
         ) -> Result<SoundInstanceHandle, DecodeError> {
             self.$mixer.start_substream(stream_data, stream_info)

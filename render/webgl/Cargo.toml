@@ -1,5 +1,5 @@
 [package]
-name = "ruffle_render_webgl"
+name = "llflash_render_webgl"
 authors.workspace = true
 edition.workspace = true
 homepage.workspace = true
@@ -13,8 +13,8 @@ workspace = true
 [dependencies]
 js-sys = { workspace = true }
 log = { workspace = true }
-ruffle_web_common = { path = "../../web/common" }
-ruffle_render = { path = "..", features = ["tessellator", "web"] }
+llflash_web_common = { path = "../../web/common" }
+llflash_render = { path = "..", features = ["tessellator", "web"] }
 wasm-bindgen = { workspace = true }
 bytemuck = { workspace = true, features = ["derive"] }
 swf = { path = "../../swf" }

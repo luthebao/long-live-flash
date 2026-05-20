@@ -9,7 +9,7 @@ package flash.text.engine {
 
         internal var _text:String = null;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _elementFormat:ElementFormat;
 
         public function ContentElement(
@@ -21,7 +21,7 @@ package flash.text.engine {
             this._elementFormat = elementFormat;
         }
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         public function get text():String {
             return this._text;
         }

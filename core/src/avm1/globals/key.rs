@@ -62,7 +62,7 @@ pub fn is_toggled<'gc>(
     args: &[Value<'gc>],
 ) -> Result<Value<'gc>, Error<'gc>> {
     // This is not perfect: Flash Player could get the status of the Caps Lock, Num Lock,
-    // and Scroll Lock keys properly. We are just toggling them if the Ruffle window is
+    // and Scroll Lock keys properly. We are just toggling them if the Llflash window is
     // in focus. This is the desired behavior for all keys, except these three.
     let key = KeyCode::from_code(
         args.get(0)

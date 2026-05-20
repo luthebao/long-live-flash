@@ -2,40 +2,40 @@ package flash.filters {
     public final class BevelFilter extends BitmapFilter {
         // FIXME these should all be getters/setters to match Flash
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var angle:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var blurX:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var blurY:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var distance:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var highlightAlpha:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var highlightColor:uint;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var knockout:Boolean;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var quality:int;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var shadowAlpha:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var shadowColor:uint;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var strength:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var type:String;
 
         public function BevelFilter(

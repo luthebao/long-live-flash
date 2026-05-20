@@ -2,7 +2,7 @@ package flash.ui {
     import __ruffle__.stub_getter;
     import __ruffle__.stub_method;
 
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class Mouse {
         public static native function hide():void;
         public static native function show():void;

@@ -1,4 +1,4 @@
-preferences-dialog = העדפות עבור Ruffle
+preferences-dialog = העדפות עבור Llflash
 preference-locked-by-cli = לקריאה בלבד (הוגדר על ידי ממשק שורת הפקודות)
 graphics-backend = גרפיקת צד שרת
 graphics-backend-default = ברירת מחדל
@@ -26,8 +26,8 @@ theme-dark = כהה
 # See for context https://github.com/FeralInteractive/gamemode
 gamemode = GameMode
 gamemode-tooltip =
-    GameMode מחיל באופן זמני כמה אופטימיזציות על המחשב ו/או גם על Ruffle.
-    Ruffle משתמש בGameMode רק כאשר קובץ מתנגן.
+    GameMode מחיל באופן זמני כמה אופטימיזציות על המחשב ו/או גם על Llflash.
+    Llflash משתמש בGameMode רק כאשר קובץ מתנגן.
 gamemode-default = ברירת מחדל
 gamemode-default-tooltip = GameMode יופעל רק כאשר העדפת הספק מוגדרת לרמה גבוהה.
 # See for context https://wiki.archlinux.org/title/Input_method

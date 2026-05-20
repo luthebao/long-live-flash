@@ -14,14 +14,14 @@ use crate::runner::image_test::capture_and_compare_image;
 use crate::runner::trace::compare_trace_output;
 use crate::test::Test;
 use anyhow::{Result, anyhow};
-use ruffle_core::FloatDuration;
-use ruffle_core::backend::navigator::NullExecutor;
-use ruffle_core::limits::ExecutionLimit;
-use ruffle_core::tag_utils::SwfMovie;
-use ruffle_core::{Player, PlayerBuilder};
-use ruffle_input_format::InputInjector;
-use ruffle_render::backend::{RenderBackend, ViewportDimensions};
-use ruffle_socket_format::SocketEvent;
+use llflash_core::FloatDuration;
+use llflash_core::backend::navigator::NullExecutor;
+use llflash_core::limits::ExecutionLimit;
+use llflash_core::tag_utils::SwfMovie;
+use llflash_core::{Player, PlayerBuilder};
+use llflash_input_format::InputInjector;
+use llflash_render::backend::{RenderBackend, ViewportDimensions};
+use llflash_socket_format::SocketEvent;
 use std::any::Any;
 use std::borrow::Cow;
 use std::collections::HashMap;
@@ -198,7 +198,7 @@ impl TestRunner {
                 // tests that call 'flash.utils.getTimer()' and use
                 // 'setInterval'/'flash.utils.Timer'
                 //
-                // Note that when Ruffle actually runs frames, we can
+                // Note that when Llflash actually runs frames, we can
                 // execute frames faster than this in order to 'catch up'
                 // if we've fallen behind. However, in order to make regression
                 // tests deterministic, we always call 'update_timers' with

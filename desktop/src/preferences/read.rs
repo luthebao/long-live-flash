@@ -1,5 +1,5 @@
 use crate::preferences::SavedGlobalPreferences;
-use ruffle_frontend_utils::parse::{
+use llflash_frontend_utils::parse::{
     DocumentHolder, ParseContext, ParseDetails, ParseWarning, ReadExt,
 };
 use toml_edit::DocumentMut;
@@ -101,7 +101,7 @@ mod tests {
     use crate::log::FilenamePattern;
     use crate::preferences::{LogPreferences, StoragePreferences, storage::StorageBackend};
     use fluent_templates::loader::langid;
-    use ruffle_render_wgpu::clap::{GraphicsBackend, PowerPreference};
+    use llflash_render_wgpu::clap::{GraphicsBackend, PowerPreference};
 
     #[test]
     fn invalid_toml() {

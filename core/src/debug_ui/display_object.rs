@@ -1,6 +1,6 @@
 mod search;
 
-use ruffle_render::blend::ExtendedBlendMode;
+use llflash_render::blend::ExtendedBlendMode;
 pub use search::DisplayObjectSearchWindow;
 
 use crate::avm2::object::TObject as _;
@@ -22,7 +22,7 @@ use egui::{
     Button, Checkbox, CollapsingHeader, ComboBox, DragValue, Grid, Id, Label, Sense, TextEdit, Ui,
     Widget, Window,
 };
-use ruffle_wstr::{WStr, WString};
+use llflash_wstr::{WStr, WString};
 use std::borrow::Cow;
 use std::ops::RangeInclusive;
 use swf::{Color, ColorTransform, Fixed8, Rectangle, Twips};
@@ -1573,7 +1573,7 @@ impl DisplayObjectWindow {
         ui: &mut Ui,
         name: &str,
         object: DisplayObject<'_>,
-        matrix: &ruffle_render::matrix::Matrix,
+        matrix: &llflash_render::matrix::Matrix,
         hoverable_bounds: bool,
     ) {
         ui.collapsing(name, |ui| {

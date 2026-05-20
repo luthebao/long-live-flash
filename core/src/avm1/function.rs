@@ -13,18 +13,18 @@ use crate::display_object::TDisplayObject;
 use crate::string::{AvmString, StringContext, SwfStrExt as _};
 use crate::tag_utils::SwfSlice;
 use gc_arena::{Collect, Gc, Mutation};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::{borrow::Cow, cell::Cell, num::NonZeroU8};
 use swf::{SwfStr, avm1::types::FunctionFlags};
 
-/// Represents a function defined in Ruffle's code.
+/// Represents a function defined in Llflash's code.
 pub type NativeFunction = for<'gc> fn(
     &mut Activation<'_, 'gc>,
     Object<'gc>,
     &[Value<'gc>],
 ) -> Result<Value<'gc>, Error<'gc>>;
 
-/// Represents a function defined in Ruffle's code, compatible with ASnative.
+/// Represents a function defined in Llflash's code, compatible with ASnative.
 pub type TableNativeFunction = for<'gc> fn(
     &mut Activation<'_, 'gc>,
     Object<'gc>,
@@ -414,12 +414,12 @@ struct Param<'gc> {
     name: AvmString<'gc>,
 }
 
-/// Represents a function that can be defined in the Ruffle runtime or by the
+/// Represents a function that can be defined in the Llflash runtime or by the
 /// AVM1 bytecode itself.
 #[derive(Copy, Clone, Collect)]
 #[collect(no_drop)]
 enum Executable<'gc> {
-    /// A function provided by the Ruffle runtime and implemented in Rust.
+    /// A function provided by the Llflash runtime and implemented in Rust.
     Native(#[collect(require_static)] NativeFunction),
 
     TableNative {

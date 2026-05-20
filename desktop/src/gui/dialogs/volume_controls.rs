@@ -1,10 +1,10 @@
 use crate::gui::text;
 use crate::preferences::GlobalPreferences;
 use egui::{Align2, Slider};
-use ruffle_core::Player;
+use llflash_core::Player;
 use unic_langid::LanguageIdentifier;
 
-/// The volume controls of the Ruffle GUI.
+/// The volume controls of the Llflash GUI.
 pub struct VolumeControls {
     is_muted: bool,
     volume: f32,

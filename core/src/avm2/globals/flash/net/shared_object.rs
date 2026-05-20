@@ -7,7 +7,7 @@ use crate::avm2::{Activation, Error, Object, Value};
 use crate::string::AvmString;
 use crate::{avm2_stub_getter, avm2_stub_method, avm2_stub_setter};
 use flash_lso::types::{AMFVersion, Lso};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::borrow::Cow;
 
 fn new_lso<'gc>(

@@ -2,7 +2,7 @@ use crate::avm2::Activation;
 use crate::avm2::error::Error;
 use crate::avm2::value::Value;
 use crate::string::AvmString;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 // NOTE: This is used to get the movie domain when null is passed to connect function.
 pub fn get_domain<'gc>(

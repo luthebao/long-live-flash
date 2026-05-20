@@ -3,32 +3,32 @@ import { PublicAPI } from "./public-api";
 import { internalSourceApi } from "../../internal/internal-source-api";
 
 /**
- * Options to use with this specific installation of Ruffle.
+ * Options to use with this specific installation of Llflash.
  *
  * This is mostly to provide a way to configure environmental settings, like using
  * `onFirstLoad` to potentially configure webpack prior to loading wasm files.
  */
 export interface InstallationOptions {
     /**
-     * A callback to be run before the very first time Ruffle is loaded.
+     * A callback to be run before the very first time Llflash is loaded.
      * This may be used to configure a bundler prior to asset loading.
      */
     onFirstLoad?: () => void;
 }
 
 /**
- * Install this version of Ruffle into the current page.
+ * Install this version of Llflash into the current page.
  *
- * Multiple (or zero) versions of Ruffle may be installed at the same time,
+ * Multiple (or zero) versions of Llflash may be installed at the same time,
  * and you should use `window.RufflePlayer.newest()` or similar to access the appropriate
  * installation at time of use.
  *
  * @param sourceName The name of this particular
- * Ruffle source. Common convention is "local" for websites that bundle their own Ruffle,
+ * Llflash source. Common convention is "local" for websites that bundle their own Llflash,
  * "extension" for browser extensions, and something else for other use cases.
  * Names are unique, and last-installed will replace earlier installations with the same name,
  * regardless of what those installations are or which version they represent.
- * @param options Any options used to configure this specific installation of Ruffle.
+ * @param options Any options used to configure this specific installation of Llflash.
  */
 export function installRuffle(
     sourceName: string,

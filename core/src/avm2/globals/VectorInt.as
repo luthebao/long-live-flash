@@ -1,6 +1,6 @@
 package __AS3__.vec {
-    [Ruffle(CallHandler)]
-    [Ruffle(InstanceAllocator)]
+    [Llflash(CallHandler)]
+    [Llflash(InstanceAllocator)]
     internal final dynamic class Vector$int {
         {
             prototype.concat = function(...rest):* {
@@ -145,7 +145,7 @@ package __AS3__.vec {
 
         public native function set fixed(isFixed:Boolean):*;
 
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         public native function get length():uint;
 
         public native function set length(length:uint):*;

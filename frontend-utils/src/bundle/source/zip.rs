@@ -81,7 +81,7 @@ mod tests {
         let mut string = String::new();
         file.read_to_string(&mut string).unwrap();
         assert_eq!(
-            "[bundle]\nname = \"Ruffle Logo Animation\"\nurl = \"https://ruffle.rs/demo/logo-anim.swf\"",
+            "[bundle]\nname = \"Llflash Logo Animation\"\nurl = \"https://ruffle.rs/demo/logo-anim.swf\"",
             string
         );
     }

@@ -10,8 +10,8 @@ use crate::avm1::{Object, Value};
 use crate::avm1_stub;
 use crate::backend::navigator::{NavigationMethod, Request};
 use crate::string::AvmString;
-use ruffle_macros::istr;
-use ruffle_wstr::WString;
+use llflash_macros::istr;
+use llflash_wstr::WString;
 
 const PROTO_DECLS: StaticDeclarations = declare_static_properties! {
     "load" => method(load; DONT_ENUM | DONT_DELETE);

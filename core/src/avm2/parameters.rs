@@ -3,7 +3,7 @@ use crate::avm2::object::{FunctionObject, Object};
 use crate::avm2::{Activation, Error, Value};
 use crate::string::AvmString;
 
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 /// Extensions over parameters that are passed into AS-defined, Rust-implemented methods.
 ///

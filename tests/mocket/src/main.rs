@@ -1,6 +1,6 @@
 use anyhow::{Error, anyhow};
 use clap::Parser;
-use ruffle_socket_format::SocketEvent;
+use llflash_socket_format::SocketEvent;
 use std::io::{BufRead, BufReader, ErrorKind, Read, Write};
 use std::net::TcpListener;
 use std::path::PathBuf;

@@ -1,4 +1,4 @@
-use ruffle_core::external::FsCommandProvider;
+use llflash_core::external::FsCommandProvider;
 use std::sync::mpsc;
 
 #[derive(Debug)]

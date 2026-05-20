@@ -1,4 +1,4 @@
-//! An internal Ruffle utility to build our playerglobal
+//! An internal Llflash utility to build our playerglobal
 //! `library.swf`
 
 use convert_case::{Boundary, Case, Casing};
@@ -23,19 +23,19 @@ use swf::{DoAbc2, DoAbc2Flag, Header, Tag};
 use walkdir::WalkDir;
 
 // The metadata name - all metadata in our .as files
-// should be of the form `[Ruffle(key1 = value1, key2 = value2)]`
-const RUFFLE_METADATA_NAME: &str = "Ruffle";
+// should be of the form `[Llflash(key1 = value1, key2 = value2)]`
+const RUFFLE_METADATA_NAME: &str = "Llflash";
 // Indicates that we should generate a reference to an instance allocator
-// method (used as a metadata key with `Ruffle` metadata)
+// method (used as a metadata key with `Llflash` metadata)
 const METADATA_INSTANCE_ALLOCATOR: &str = "InstanceAllocator";
 /// Indicates that we should generate a reference to a class call handler
-/// method (used as a metadata key with `Ruffle` metadata)
+/// method (used as a metadata key with `Llflash` metadata)
 const METADATA_CALL_HANDLER: &str = "CallHandler";
 /// Indicates that we should generate a class call handler that constructs the
 /// class being called.
 const METADATA_CONSTRUCT_ON_CALL: &str = "ConstructOnCall";
 /// Indicates that we should generate a reference to a custom constructor
-/// method (used as a metadata key with `Ruffle` metadata)
+/// method (used as a metadata key with `Llflash` metadata)
 const METADATA_CUSTOM_CONSTRUCTOR: &str = "CustomConstructor";
 /// Indicates that the class can't be directly instantiated (but its child classes might be).
 /// Binds to an always-throwing allocator.
@@ -140,7 +140,7 @@ fn resolve_multiname_name<'a>(abc: &'a AbcFile, multiname: &Multiname) -> Cow<'a
 
 // Strips off the version mark inserted by 'asc.jar',
 // giving us a valid Rust module name. The actual versioning logic
-// is handling in Ruffle when we load playerglobals
+// is handling in Llflash when we load playerglobals
 fn strip_version_mark(val: Cow<'_, str>) -> Cow<'_, str> {
     const MIN_API_MARK: usize = 0xE000;
     const MAX_API_MARK: usize = 0xF8FF;
@@ -430,7 +430,7 @@ fn trait_has_metadata(abc: &AbcFile, trait_: &Trait, metadata_value: &str) -> bo
 /// This table gets used when we first load a method from an ABC file.
 /// If it's a native method in our `playerglobal`, we swap it out
 /// with a `NativeMethod` retrieved from the table. To the rest of
-/// the Ruffle codebase, it appears as though the method was always defined
+/// the Llflash codebase, it appears as though the method was always defined
 /// as a native method, and never existed in the bytecode at all.
 ///
 /// See `flash.system.Security.allowDomain` for an example of defining
@@ -570,7 +570,7 @@ fn write_native_table(data: &[u8], out_dir: &Path) -> Result<Vec<u8>, Box<dyn st
         }
     }
 
-    // Look for `[Ruffle(InstanceAllocator)]` and similar metadata - if present,
+    // Look for `[Llflash(InstanceAllocator)]` and similar metadata - if present,
     // generate a reference to a function in the native instance
     // allocators table.
     let mut check_class = |trait_: &Trait| {
@@ -632,7 +632,7 @@ fn write_native_table(data: &[u8], out_dir: &Path) -> Result<Vec<u8>, Box<dyn st
                 let value =
                     String::from_utf8_lossy(&abc.constant_pool.strings[item.value.0 as usize - 1]);
                 match (key, &*value) {
-                    // Match `[Ruffle(InstanceAllocator)]`
+                    // Match `[Llflash(InstanceAllocator)]`
                     (None, METADATA_INSTANCE_ALLOCATOR) if !is_versioning => {
                         // This results in a path of the form
                         // `crate::avm2::globals::<path::to::class>::<class_allocator>`
@@ -715,7 +715,7 @@ fn write_native_table(data: &[u8], out_dir: &Path) -> Result<Vec<u8>, Box<dyn st
         // native, so this should only waste a small amount of memory.
         //
         // If a function pointer doesn't exist at the expected path,
-        // then Ruffle compilation will fail
+        // then Llflash compilation will fail
         // with an error message that mentions the non-existent path.
         //
         // When we initially load a method from an ABC file, we check if it's from our playerglobal,
@@ -729,27 +729,27 @@ fn write_native_table(data: &[u8], out_dir: &Path) -> Result<Vec<u8>, Box<dyn st
         // This is very similar to `NATIVE_METHOD_TABLE`, but we have one entry per
         // class, rather than per method. When an entry is `Some(fn_ptr)`, we use
         // `fn_ptr` as the instance allocator for the corresponding class when we
-        // load it into Ruffle.
+        // load it into Llflash.
         pub const NATIVE_INSTANCE_ALLOCATOR_TABLE: &[Option<crate::avm2::class::AllocatorFn>] = &[
             #(#rust_instance_allocators,)*
         ];
 
         // This is very similar to `NATIVE_INSTANCE_ALLOCATOR_TABLE`.
         // When an entry is `Some(fn_ptr)`, we use `fn_ptr` as the native call
-        // handler for the corresponding class when we load it into Ruffle.
+        // handler for the corresponding class when we load it into Llflash.
         pub const NATIVE_CALL_HANDLER_TABLE: &[Option<crate::avm2::method::NativeMethodImpl>] = &[
             #(#rust_call_handlers,)*
         ];
 
         // This is very similar to `NATIVE_INSTANCE_ALLOCATOR_TABLE`.
         // When an entry is `Some(fn_ptr)`, we use `fn_ptr` as the native custom
-        // constructor for the corresponding class when we load it into Ruffle.
+        // constructor for the corresponding class when we load it into Llflash.
         pub const NATIVE_CUSTOM_CONSTRUCTOR_TABLE: &[Option<crate::avm2::class::CustomConstructorFn>] = &[
             #(#rust_custom_constructors,)*
         ];
 
         // This is an array containing the method ids of every method marked
-        // "[Ruffle(FastCall)]". Unlike the rest, it is not indexed by method id-
+        // "[Llflash(FastCall)]". Unlike the rest, it is not indexed by method id-
         // instead, every item in the list is a method id.
         //
         // FIXME: should this be some sort of hashset?
@@ -778,7 +778,7 @@ fn write_native_table(data: &[u8], out_dir: &Path) -> Result<Vec<u8>, Box<dyn st
     let mut native_table_file = File::create(out_dir.join("native_table.rs"))?;
     native_table_file.write_all(make_native_table.as_bytes())?;
 
-    // Ruffle doesn't need metadata items at runtime, so strip
+    // Llflash doesn't need metadata items at runtime, so strip
     // them out to save space
     strip_metadata(&mut abc);
 

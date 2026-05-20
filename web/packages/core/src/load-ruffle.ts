@@ -9,7 +9,7 @@ import {
     signExtensions,
     referenceTypes,
 } from "wasm-feature-detect";
-import type { RuffleInstanceBuilder, ZipWriter } from "../dist/ruffle_web";
+import type { RuffleInstanceBuilder, ZipWriter } from "../dist/llflash_web";
 import { setPolyfillsOnLoad } from "./js-polyfills";
 
 import { internalSourceApi } from "./internal/internal-source-api";
@@ -19,11 +19,11 @@ type ProgressCallback = (bytesLoaded: number, bytesTotal: number) => void;
 /**
  * Load ruffle from an automatically-detected location.
  *
- * This function returns a new instance of Ruffle and downloads it every time.
+ * This function returns a new instance of Llflash and downloads it every time.
  * You should not use it directly; this module will memoize the resource
  * download.
  *
- * @param progressCallback The callback that will be run with Ruffle's download progress.
+ * @param progressCallback The callback that will be run with Llflash's download progress.
  * @returns A ruffle-builder constructor that may be used to create new RuffleInstanceBuilder
  * instances.
  */
@@ -46,9 +46,9 @@ async function fetchRuffle(
     ).every(Boolean);
 
     // @ts-expect-error TS2367 %FALLBACK_WASM% gets replaced in set_version.ts.
-    // %FALLBACK_WASM% is "ruffle_web-wasm_mvp" if this is a dual-wasm build.
+    // %FALLBACK_WASM% is "llflash_web-wasm_mvp" if this is a dual-wasm build.
     // We don't say we're falling back if we have only an extension build.
-    if (!extensionsSupported && "%FALLBACK_WASM%" === "ruffle_web-wasm_mvp") {
+    if (!extensionsSupported && "%FALLBACK_WASM%" === "llflash_web-wasm_mvp") {
         console.log(
             "Some WebAssembly extensions are NOT available, falling back to the vanilla WebAssembly module",
         );
@@ -65,12 +65,12 @@ async function fetchRuffle(
         RuffleInstanceBuilder,
         ZipWriter,
     } = await (extensionsSupported
-        ? import("../dist/ruffle_web")
+        ? import("../dist/llflash_web")
         : // @ts-expect-error TS2307 TypeScript compiler is trying to do the import.
           import("../dist/%FALLBACK_WASM%"));
     let response;
     const wasmUrl = extensionsSupported
-        ? new URL("../dist/ruffle_web_bg.wasm", import.meta.url)
+        ? new URL("../dist/llflash_web_bg.wasm", import.meta.url)
         : new URL("../dist/%FALLBACK_WASM%_bg.wasm", import.meta.url);
     const wasmResponse = await fetch(wasmUrl);
     // The Pale Moon browser lacks full support for ReadableStream.
@@ -121,11 +121,11 @@ let nativeConstructors: Promise<
 > | null = null;
 
 /**
- * Obtain an instance of `Ruffle`.
+ * Obtain an instance of `Llflash`.
  *
  * This function returns a promise which yields a new `RuffleInstanceBuilder` asynchronously.
  *
- * @param progressCallback The callback that will be run with Ruffle's download progress.
+ * @param progressCallback The callback that will be run with Llflash's download progress.
  * @returns A ruffle instance builder.
  */
 export async function createRuffleBuilder(

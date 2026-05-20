@@ -1,6 +1,6 @@
 package {
-    [Ruffle(ConstructOnCall)]
-    [Ruffle(CustomConstructor)]
+    [Llflash(ConstructOnCall)]
+    [Llflash(CustomConstructor)]
     public final class Namespace {
         prototype.toString = function():String {
             var n:Namespace = this;
@@ -19,9 +19,9 @@ package {
             // this AS-defined method does nothing
         }
 
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         public native function get prefix():*;
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         public native function get uri():String;
 
         AS3 function toString():String {

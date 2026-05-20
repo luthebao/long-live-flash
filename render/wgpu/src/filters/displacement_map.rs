@@ -6,7 +6,7 @@ use crate::filters::{FilterSource, FilterVertex, VERTEX_BUFFERS_DESCRIPTION_FILT
 use crate::surface::target::CommandTarget;
 use crate::utils::SampleCountMap;
 use bytemuck::{Pod, Zeroable};
-use ruffle_render::filters::{
+use llflash_render::filters::{
     DisplacementMapFilter as DisplacementMapFilterArgs, DisplacementMapFilterMode,
 };
 use std::sync::OnceLock;

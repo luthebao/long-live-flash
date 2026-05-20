@@ -25,7 +25,7 @@ const pendingMessages: ({
 const ID = Math.floor(Math.random() * 100000000000);
 
 /**
- * Send a message to the main world, where Ruffle runs.
+ * Send a message to the main world, where Llflash runs.
  * @param {*} data - JSON-serializable data to send to main world.
  * @returns {Promise<*>} JSON-serializable response from main world.
  */
@@ -74,7 +74,7 @@ function injectScriptURL(url: string): Promise<void> {
 
 /**
  * Check whether the current page (or one of its ancestors) is configured
- * to opt-out from Ruffle.
+ * to opt-out from Llflash.
  * @returns {boolean} Whether the current page opts-out or not.
  */
 function checkPageOptout(): boolean {

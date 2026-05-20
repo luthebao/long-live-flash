@@ -11,6 +11,6 @@ version.workspace = true
 workspace = true
 
 [dependencies]
-ruffle_render = { path = "../" }
+llflash_render = { path = "../" }
 naga = { workspace = true, features = ["wgsl-in"] }
 anyhow = { workspace = true }

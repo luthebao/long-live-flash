@@ -1,15 +1,15 @@
 use crate::decoder::VideoDecoder;
-use ruffle_render::backend::RenderBackend;
-use ruffle_render::bitmap::{BitmapHandle, BitmapInfo, PixelRegion};
-use ruffle_video::VideoStreamHandle;
-use ruffle_video::backend::VideoBackend;
-use ruffle_video::error::Error;
-use ruffle_video::frame::{EncodedFrame, FrameDependency};
+use llflash_render::backend::RenderBackend;
+use llflash_render::bitmap::{BitmapHandle, BitmapInfo, PixelRegion};
+use llflash_video::VideoStreamHandle;
+use llflash_video::backend::VideoBackend;
+use llflash_video::error::Error;
+use llflash_video::frame::{EncodedFrame, FrameDependency};
 use slotmap::SlotMap;
 use swf::{VideoCodec, VideoDeblocking};
 
 /// Software video backend that proxies to CPU-only codec implementations that
-/// ship with Ruffle.
+/// ship with Llflash.
 pub struct SoftwareVideoBackend {
     streams: SlotMap<VideoStreamHandle, VideoStream>,
 }

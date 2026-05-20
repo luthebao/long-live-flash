@@ -15,20 +15,20 @@ workspace = true
 # since the images we compare against are generated on CI, and may
 # not match your local machine's Vulkan version / image output.
 imgtests = [
-    "ruffle_render_wgpu",
-    "ruffle_test_framework/ruffle_video_software",
-    "ruffle_test_framework/ruffle_video_external",
+    "llflash_render_wgpu",
+    "llflash_test_framework/llflash_video_software",
+    "llflash_test_framework/llflash_video_external",
 ]
-jpegxr = ["ruffle_test_framework/jpegxr"]
-lzma = ["ruffle_test_framework/lzma"]
+jpegxr = ["llflash_test_framework/jpegxr"]
+lzma = ["llflash_test_framework/lzma"]
 
 [dependencies]
-ruffle_render_wgpu = { path = "../render/wgpu", optional = true }
+llflash_render_wgpu = { path = "../render/wgpu", optional = true }
 
 [dev-dependencies]
-ruffle_core = { path = "../core", features = ["deterministic", "timeline_debug", "avm_debug", "audio", "mp3", "aac", "default_font"] }
-ruffle_test_framework = { path = "framework", features = ["clap"] }
-ruffle_fs_tests_runner = { path = "fs-tests-runner" }
+llflash_core = { path = "../core", features = ["deterministic", "timeline_debug", "avm_debug", "audio", "mp3", "aac", "default_font"] }
+llflash_test_framework = { path = "framework", features = ["clap"] }
+llflash_fs_tests_runner = { path = "fs-tests-runner" }
 libtest-mimic = { workspace = true }
 anyhow = { workspace = true }
 image = { workspace = true, features = ["png"] }

@@ -6,7 +6,7 @@ use crate::context::UpdateContext;
 use crate::string::AvmString;
 
 use gc_arena::Collect;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use swf::avm2::types::{Index as AbcIndex, Metadata as AbcMetadata};
 
 // Represents a single key-value pair for a trait metadata.

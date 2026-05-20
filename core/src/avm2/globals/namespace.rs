@@ -1,6 +1,6 @@
 //! `Namespace` impl
 
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 use crate::avm2::Error;
 use crate::avm2::Namespace;

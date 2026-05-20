@@ -1,5 +1,5 @@
 [package]
-name = "ruffle_desktop"
+name = "llflash_desktop"
 authors.workspace = true
 edition.workspace = true
 homepage.workspace = true
@@ -19,13 +19,13 @@ egui-wgpu = { version = "0.33.3", features = ["winit"] }
 image = { workspace = true, features = ["png"] }
 egui-winit = "0.33.3"
 fontdb = "0.23"
-ruffle_core = { path = "../core", features = ["audio", "clap", "mp3", "aac", "nellymoser", "default_compatibility_rules", "egui"] }
-ruffle_render = { path = "../render", features = ["clap"] }
-ruffle_render_wgpu = { path = "../render/wgpu", features = ["clap"] }
-ruffle_video_software = { path = "../video/software", optional = true }
-ruffle_video_external = { path = "../video/external", features = ["openh264"], optional = true }
-ruffle_frontend_utils = { path = "../frontend-utils", features = ["cpal", "fs", "navigator"] }
-ruffle_rtmp = { path = "../rtmp" }
+llflash_core = { path = "../core", features = ["audio", "clap", "mp3", "aac", "nellymoser", "default_compatibility_rules", "egui"] }
+llflash_render = { path = "../render", features = ["clap"] }
+llflash_render_wgpu = { path = "../render/wgpu", features = ["clap"] }
+llflash_video_software = { path = "../video/software", optional = true }
+llflash_video_external = { path = "../video/external", features = ["openh264"], optional = true }
+llflash_frontend_utils = { path = "../frontend-utils", features = ["cpal", "fs", "navigator"] }
+llflash_rtmp = { path = "../rtmp" }
 tracing = { workspace = true }
 tracing-subscriber = { workspace = true }
 tracing-appender = "0.2.5"
@@ -70,28 +70,28 @@ winresource = "0.1"
 
 [package.metadata.winresource]
 # https://learn.microsoft.com/en-us/windows/win32/menurc/stringfileinfo-block
-ProductName = "Ruffle"
+ProductName = "Long Live Flash"
 FileDescription = "Adobe Flash Player emulator"
-CompanyName = "Ruffle LLC"
-LegalCopyright = "Copyright © 2018 Ruffle LLC and Ruffle contributors"
+CompanyName = "Long Live Flash"
+LegalCopyright = "Copyright © 2018 Llflash LLC and Llflash contributors"
 # InternalName should be the same as the module name
-InternalName = "ruffle_desktop"
-OriginalFilename = "ruffle.exe"
+InternalName = "llflash_desktop"
+OriginalFilename = "llflash.exe"
 
 [features]
 default = ["software_video", "external_video", "lzma", "fontconfig"]
-jpegxr = ["ruffle_core/jpegxr"]
+jpegxr = ["llflash_core/jpegxr"]
 
 # core features
-avm_debug = ["ruffle_core/avm_debug"]
-lzma = ["ruffle_core/lzma"]
-software_video = ["ruffle_video_software"]
-external_video = ["ruffle_video_external"]
-tracy = ["tracing-tracy", "ruffle_render_wgpu/profile-with-tracy"]
+avm_debug = ["llflash_core/avm_debug"]
+lzma = ["llflash_core/lzma"]
+software_video = ["llflash_video_software"]
+external_video = ["llflash_video_external"]
+tracy = ["tracing-tracy", "llflash_render_wgpu/profile-with-tracy"]
 fontconfig = ["dep:fontconfig"]
 
 # wgpu features
-render_debug_labels = ["ruffle_render_wgpu/render_debug_labels"]
+render_debug_labels = ["llflash_render_wgpu/render_debug_labels"]
 
 # sandboxing
 sandbox = []

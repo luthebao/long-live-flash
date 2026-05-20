@@ -7,8 +7,8 @@ use crate::backend::navigator::Request;
 use crate::html::{CssStream, StyleSheet, TextFormat, transform_dashes_to_camel_case};
 use crate::string::AvmString;
 use gc_arena::{Collect, Gc, Mutation};
-use ruffle_macros::istr;
-use ruffle_wstr::{WStr, WString};
+use llflash_macros::istr;
+use llflash_wstr::{WStr, WString};
 
 /// A `StyleSheet` object that is tied to a style sheet.
 #[derive(Clone, Copy, Collect)]

@@ -8,7 +8,7 @@ use crate::avm2::parameters::ParametersExt;
 use crate::avm2::{Activation, Error, Object, TObject as _, Value};
 use crate::avm2_stub_setter;
 use crate::display_object::TDisplayObject;
-use ruffle_render::perspective_projection::PerspectiveProjection;
+use llflash_render::perspective_projection::PerspectiveProjection;
 
 fn get_width<'gc>(activation: &mut Activation<'_, 'gc>, this: Object<'gc>) -> f64 {
     let dobj = this

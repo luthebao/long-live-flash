@@ -13,8 +13,8 @@ use crate::string::WString;
 use crate::string::{AvmString, Units, WStrToUtf8};
 use bitflags::bitflags;
 use gc_arena::Collect;
-use ruffle_macros::istr;
-use ruffle_wstr::WStr;
+use llflash_macros::istr;
+use llflash_wstr::WStr;
 
 use super::object::RegExpObject;
 

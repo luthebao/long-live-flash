@@ -15,13 +15,13 @@ package flash.text.engine {
         private var _tabStops:Vector.<TabStop>;
         private var _textJustifier:TextJustifier;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _content:ContentElement;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _textLineCreationResult:String = null;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _firstLine:TextLine = null;
 
         public function TextBlock(

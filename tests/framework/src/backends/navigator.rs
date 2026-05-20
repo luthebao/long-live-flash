@@ -2,16 +2,16 @@ use crate::backends::TestLogBackend;
 use crate::util::read_bytes;
 use async_channel::{Receiver, Sender};
 use percent_encoding::percent_decode_str;
-use ruffle_core::backend::log::LogBackend;
-use ruffle_core::backend::navigator::{
+use llflash_core::backend::log::LogBackend;
+use llflash_core::backend::navigator::{
     ErrorResponse, NavigationMethod, NavigatorBackend, NullExecutor, NullSpawner, OwnedFuture,
     Request, SuccessResponse, async_return, create_fetch_error,
 };
-use ruffle_core::indexmap::IndexMap;
-use ruffle_core::loader::Error;
-use ruffle_core::socket::{ConnectionState, SocketAction, SocketHandle};
-use ruffle_core::swf::Encoding;
-use ruffle_socket_format::SocketEvent;
+use llflash_core::indexmap::IndexMap;
+use llflash_core::loader::Error;
+use llflash_core::socket::{ConnectionState, SocketAction, SocketHandle};
+use llflash_core::swf::Encoding;
+use llflash_socket_format::SocketEvent;
 use std::borrow::Cow;
 use std::time::Duration;
 use url::{ParseError, Url};

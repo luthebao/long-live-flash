@@ -1,6 +1,6 @@
 use fnv::FnvHashMap;
 use gc_arena::{Collect, Gc, Mutation};
-use ruffle_wstr::{WStr, WString};
+use llflash_wstr::{WStr, WString};
 use std::borrow::Cow;
 use std::cell::RefCell;
 use std::fmt;
@@ -384,7 +384,7 @@ pub fn parse_font_list(input: &WStr) -> WString {
 mod tests {
     use super::{CssError, CssStream};
     use fnv::FnvHashMap;
-    use ruffle_wstr::WStr;
+    use llflash_wstr::WStr;
 
     #[test]
     fn parse_selectors_single() {

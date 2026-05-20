@@ -1,4 +1,4 @@
-preferences-dialog = Ruffle-preferenser
+preferences-dialog = Llflash-preferenser
 preference-locked-by-cli = Endast läsbar (sätt av CLI:n)
 graphics-backend = Grafik-backend
 graphics-backend-default = Standard

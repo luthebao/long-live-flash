@@ -4,8 +4,8 @@ use crate::preferences::GlobalPreferences;
 use crate::{custom_event::RuffleEvent, player::LaunchOptions};
 use egui::{Align2, Button, Grid, Label, Layout, Sense, Ui, Widget, Window};
 use egui_extras::{Column, TableBuilder};
-use ruffle_frontend_utils::bookmarks::Bookmark;
-use ruffle_frontend_utils::content::ContentDescriptor;
+use llflash_frontend_utils::bookmarks::Bookmark;
+use llflash_frontend_utils::content::ContentDescriptor;
 use unic_langid::LanguageIdentifier;
 use winit::event_loop::EventLoopProxy;
 
@@ -26,7 +26,7 @@ impl BookmarkAddDialog {
             name: content_descriptor
                 .as_ref()
                 .map(|desc| &desc.url)
-                .map(|url| ruffle_frontend_utils::url_to_readable_name(url).into_owned())
+                .map(|url| llflash_frontend_utils::url_to_readable_name(url).into_owned())
                 .unwrap_or_default(),
             // TODO: Hint.
             url: PathOrUrlField::new(

@@ -3,10 +3,10 @@ package flash.events {
     public class PressAndTapGestureEvent extends GestureEvent {
         public static const GESTURE_PRESS_AND_TAP:String = "gesturePressAndTap";
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _tapLocalX:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _tapLocalY:Number;
 
         public function PressAndTapGestureEvent(

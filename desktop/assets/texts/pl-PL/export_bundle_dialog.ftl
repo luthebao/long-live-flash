@@ -1,4 +1,4 @@
-export-bundle-dialog-title = Wyeksportuj pakiet Ruffle
+export-bundle-dialog-title = Wyeksportuj pakiet Llflash
 export-bundle-dialog-bundle-name = Nazwa pakietu:
 export-bundle-dialog-files-description = Wybierz pliki do spakowania:
 export-bundle-dialog-files-select-all = Zaznacz wszystkie
@@ -8,5 +8,5 @@ export-bundle-dialog-exporting-failed = Eksportowanie nie powiodło się.
 export-bundle-dialog-error-user-canceled = Anulowane przez użytkownika.
 export-bundle-dialog-error-failed-to-show-picker = Nie udało się pokazać selektora plików.
 export-bundle-dialog-error-io-error = Błąd przy zapisywaniu pakietu.
-export-bundle-dialog-info-title = Czym jest pakiet Ruffle?
-export-bundle-dialog-info-description = Pakiet Ruffle to uniwersalna paczka zawierająca konfigurację oraz wszystkie zasoby potrzebne do uruchomienia pliku SWF. Dzięki pakietowi Ruffle SWF zadziała od razu po uruchomieniu — bez brakujących plików, bez ręcznej konfiguracji, po prostu otwórz pakiet Ruffle i ciesz się odtwarzaną treścią.
+export-bundle-dialog-info-title = Czym jest pakiet Llflash?
+export-bundle-dialog-info-description = Pakiet Llflash to uniwersalna paczka zawierająca konfigurację oraz wszystkie zasoby potrzebne do uruchomienia pliku SWF. Dzięki pakietowi Llflash SWF zadziała od razu po uruchomieniu — bez brakujących plików, bez ręcznej konfiguracji, po prostu otwórz pakiet Llflash i ciesz się odtwarzaną treścią.

@@ -1,6 +1,6 @@
 package {
-    [Ruffle(InstanceAllocator)]
-    [Ruffle(CallHandler)]
+    [Llflash(InstanceAllocator)]
+    [Llflash(CallHandler)]
     public dynamic class Date {
         public static const length:int = 7;
 

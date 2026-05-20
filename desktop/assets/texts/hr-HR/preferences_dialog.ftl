@@ -26,8 +26,8 @@ theme-dark = Tamna
 # See for context https://github.com/FeralInteractive/gamemode
 gamemode = GameMode
 gamemode-tooltip =
-    GameMode privremeno primjenjuje skup optimizacija na vaše računalo i/ili Ruffle.
-    Ruffle zahtijeva GameMode samo kada se reproducira film.
+    GameMode privremeno primjenjuje skup optimizacija na vaše računalo i/ili Llflash.
+    Llflash zahtijeva GameMode samo kada se reproducira film.
 gamemode-default = Zadano
 gamemode-default-tooltip = GameMode će biti omogućen samo kada je postavka napajanja postavljena na visoku.
 # See for context https://wiki.archlinux.org/title/Input_method

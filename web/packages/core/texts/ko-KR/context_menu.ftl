@@ -3,8 +3,8 @@ context-menu-copy-debug-info = 디버그 정보 복사
 context-menu-open-save-manager = 저장 관리자 열기
 context-menu-about-ruffle =
     { $flavor ->
-        [extension] Ruffle 확장 프로그램 정보 ({ $version })
-       *[other] Ruffle 정보 ({ $version })
+        [extension] Llflash 확장 프로그램 정보 ({ $version })
+       *[other] Llflash 정보 ({ $version })
     }
 context-menu-hide = 이 메뉴 숨기기
 context-menu-exit-fullscreen = 전체화면 나가기

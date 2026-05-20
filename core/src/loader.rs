@@ -39,8 +39,8 @@ use chardetng::EncodingDetector;
 use encoding_rs::{UTF_8, WINDOWS_1252};
 use gc_arena::Collect;
 use indexmap::IndexMap;
-use ruffle_macros::istr;
-use ruffle_render::utils::{JpegTagFormat, determine_jpeg_tag_format};
+use llflash_macros::istr;
+use llflash_render::utils::{JpegTagFormat, determine_jpeg_tag_format};
 use slotmap::{SlotMap, new_key_type};
 use std::borrow::Borrow;
 use std::fmt;
@@ -58,7 +58,7 @@ new_key_type! {
 /// The depth of AVM1 movies that AVM2 loads.
 const LOADER_INSERTED_AVM1_DEPTH: i32 = -0xF000;
 
-/// How Ruffle should load movies.
+/// How Llflash should load movies.
 #[cfg_attr(feature = "clap", derive(clap::ValueEnum))]
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum LoadBehavior {
@@ -75,7 +75,7 @@ pub enum LoadBehavior {
     /// skipped. This may break movies that depend on loading during execution.
     Delayed,
 
-    /// Block Ruffle until movies have finished loading.
+    /// Block Llflash until movies have finished loading.
     ///
     /// This has the same implications as `Delay`, but tag processing will be
     /// done synchronously. Complex movies will visibly block the player from
@@ -182,7 +182,7 @@ pub enum Error {
     InvalidSwf(#[from] swf::error::Error),
 
     #[error("Invalid bitmap")]
-    InvalidBitmap(#[from] ruffle_render::error::Error),
+    InvalidBitmap(#[from] llflash_render::error::Error),
 
     #[error("Invalid sound: {0}")]
     InvalidSound(#[from] crate::backend::audio::DecodeError),
@@ -1660,7 +1660,7 @@ impl<'gc> MovieLoader<'gc> {
             }
             ContentType::Gif | ContentType::Jpeg | ContentType::Png => {
                 let (width, height) =
-                    ruffle_render::utils::decode_define_bits_jpeg_dimensions(data)
+                    llflash_render::utils::decode_define_bits_jpeg_dimensions(data)
                         .unwrap_or((0, 0));
                 Arc::new(SwfMovie::from_loaded_image(
                     url.clone(),
@@ -1806,7 +1806,7 @@ impl<'gc> MovieLoader<'gc> {
 
                 // This will construct AVM2-side objects even under AVM1, but it doesn't matter,
                 // since Bitmap and BitmapData never have AVM1-side objects.
-                let bitmap = ruffle_render::utils::decode_define_bits_jpeg(data, None)?;
+                let bitmap = llflash_render::utils::decode_define_bits_jpeg(data, None)?;
 
                 let transparency = true;
                 let bitmapdata = BitmapData::new_with_pixels(

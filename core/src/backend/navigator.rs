@@ -498,7 +498,7 @@ pub fn create_specific_fetch_error<ErrorType: Display>(
 }
 
 // Url doesn't implement from_file_path and to_file_path for WASM targets.
-// Therefore, we need to use cfg to make Ruffle compile for all targets.
+// Therefore, we need to use cfg to make Llflash compile for all targets.
 
 #[cfg(any(unix, windows, target_os = "redox"))]
 fn url_from_file_path(path: &Path) -> Result<Url, ()> {

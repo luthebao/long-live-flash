@@ -3,7 +3,7 @@ use crate::options::image_comparison::ImageComparison;
 use crate::util::{read_bytes, write_bytes};
 use anyhow::{Context as _, anyhow};
 use image::{EncodableLayout, ImageBuffer, ImageFormat, Pixel, PixelWithColorType};
-use ruffle_core::Player;
+use llflash_core::Player;
 use std::borrow::Cow;
 use std::io::Cursor;
 use std::ops::Deref;
@@ -67,12 +67,12 @@ pub fn capture_and_compare_image(
             let ruffle_name = format!("{name}.ruffle");
             let image = if ruffle_expected_path.exists()? {
                 image::load_from_memory(&read_bytes(&ruffle_expected_path)?)
-                    .context("Failed to open Ruffle-expected image")?
+                    .context("Failed to open Llflash-expected image")?
                     .into_rgba8()
             } else {
                 write_image(&ruffle_expected_path, &actual_image)?;
                 return Err(anyhow!(
-                    "Image '{ruffle_name}': No image to compare to! Saved actual image as Ruffle-expected."
+                    "Image '{ruffle_name}': No image to compare to! Saved actual image as Llflash-expected."
                 ));
             };
 

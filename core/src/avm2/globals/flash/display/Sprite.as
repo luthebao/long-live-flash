@@ -4,9 +4,9 @@ package flash.display {
     import flash.geom.Rectangle;
     import flash.media.SoundTransform;
 
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public class Sprite extends DisplayObjectContainer {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _graphics:Graphics;
 
         public function Sprite() {

@@ -7,7 +7,7 @@ package flash.geom {
     import flash.geom.PerspectiveProjection;
 
     public class Transform {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var displayObject:DisplayObject;
 
         function Transform(object:DisplayObject) {

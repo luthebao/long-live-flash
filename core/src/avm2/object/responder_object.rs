@@ -6,7 +6,7 @@ use crate::net_connection::ResponderCallback;
 use flash_lso::types::Value as AMFValue;
 use gc_arena::barrier::unlock;
 use gc_arena::{Collect, Gc, GcWeak, Mutation, lock::Lock};
-use ruffle_common::utils::HasPrefixField;
+use llflash_common::utils::HasPrefixField;
 use std::fmt;
 
 /// A class instance allocator that allocates Responder objects.

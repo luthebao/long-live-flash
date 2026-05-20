@@ -2,10 +2,10 @@ use std::path::PathBuf;
 
 use anyhow::Result;
 use clap::Parser;
-use ruffle_core::PlayerBuilder;
+use llflash_core::PlayerBuilder;
 
 #[derive(Parser, Debug)]
-#[clap(name = "Ruffle Stub Report Generator", author, version)]
+#[clap(name = "Llflash Stub Report Generator", author, version)]
 struct Opt {
     /// The file to store the stub report output
     #[clap(name = "output")]

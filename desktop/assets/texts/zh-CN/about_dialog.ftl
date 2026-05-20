@@ -1,4 +1,4 @@
-about-ruffle = 关于 Ruffle
+about-ruffle = 关于 Llflash
 about-ruffle-version = 版本
 about-ruffle-channel = 频道
 about-ruffle-build-time = 构建时间

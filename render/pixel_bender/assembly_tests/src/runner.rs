@@ -5,7 +5,7 @@ use libtest_mimic::Trial;
 use pixel_bender::assembly::PixelBenderShaderAssembly;
 use pixel_bender::disassembly::PixelBenderShaderDisassembly;
 use pixel_bender::parse_shader;
-use ruffle_fs_tests_runner::{FsTestsRunner, TestLoaderParams};
+use llflash_fs_tests_runner::{FsTestsRunner, TestLoaderParams};
 use serde::Deserialize;
 use std::fs::File;
 use std::io::Write;

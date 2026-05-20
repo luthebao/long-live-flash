@@ -1,6 +1,6 @@
 //! `String` class impl
 
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 use crate::avm1::activation::Activation;
 use crate::avm1::error::Error;

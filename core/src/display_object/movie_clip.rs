@@ -44,9 +44,9 @@ use core::fmt;
 use gc_arena::barrier::unlock;
 use gc_arena::lock::{Lock, RefLock};
 use gc_arena::{Collect, DynamicRoot, Gc, GcWeak, Mutation, Rootable};
-use ruffle_common::utils::HasPrefixField;
-use ruffle_macros::istr;
-use ruffle_render::perspective_projection::PerspectiveProjection;
+use llflash_common::utils::HasPrefixField;
+use llflash_macros::istr;
+use llflash_render::perspective_projection::PerspectiveProjection;
 use smallvec::SmallVec;
 use std::borrow::Cow;
 use std::cell::{Cell, OnceCell, Ref, RefCell, RefMut};
@@ -92,11 +92,11 @@ enum NextFrame {
 /// This is the default state a MovieClip is in after it's created (in AVM1 with createEmptyMovieClip).
 ///
 /// ## Initial Loading State
-/// This state is entered when FP / Ruffle try to load the MovieClip. As soon as FP / Ruffle either
+/// This state is entered when FP / Llflash try to load the MovieClip. As soon as FP / Llflash either
 /// load the first frame of the SWF or realise the movie can't be loaded, a different state is
 /// entered.
 ///
-/// Therefore, if FP / Ruffle are too fast to determine whether the file exists or not, the state
+/// Therefore, if FP / Llflash are too fast to determine whether the file exists or not, the state
 /// can directly change after one frame from the default state to a different state.
 ///
 /// The initial loading state is different, depending on whether the SWF file which is loading is
@@ -116,11 +116,11 @@ enum NextFrame {
 /// This state is entered on the next frame after the movie has been unloaded.
 ///
 /// ## States in AVM2
-/// In AVM2, only the success state is accessible to the ActionScript code. The Ruffle MovieClip
+/// In AVM2, only the success state is accessible to the ActionScript code. The Llflash MovieClip
 /// can still be in the default state, initial loading state and error state, however it is only
 /// passed to the code (via the ActionScript Loader) after it has reached the success state. If
 /// an image is loaded in AVM2, the ActionScript code doesn't get any MovieClip object, even if
-/// the MovieClip exists in Ruffle and is in the image state.
+/// the MovieClip exists in Llflash and is in the image state.
 ///
 /// The unloaded state can only be reached in AVM1 through the unloadMovie function.
 #[derive(Clone, Collect, Copy)]
@@ -653,7 +653,7 @@ impl<'gc> MovieClip<'gc> {
         // TODO: Init actions are supposed to be executed once, and it gives a
         // sprite ID... how does that work?
         // TODO: what happens with `DoInitAction` blocks nested in a `DefineSprite`?
-        // The SWF spec forbids this, but Ruffle will currently execute them in the context
+        // The SWF spec forbids this, but Llflash will currently execute them in the context
         // of the character itself, which is probably nonsense.
         let _sprite_id = reader.read_u16()?;
         let num_read = reader.pos(start);
@@ -1534,7 +1534,7 @@ impl<'gc> MovieClip<'gc> {
                     if let (Some(clip_actions), Some(clip)) =
                         (&place_object.clip_actions, child.as_movie_clip())
                     {
-                        // Convert from `swf::ClipAction` to Ruffle's `ClipEventHandler`.
+                        // Convert from `swf::ClipAction` to Llflash's `ClipEventHandler`.
                         clip.init_clip_event_handlers(
                             clip_actions
                                 .iter()
@@ -2355,7 +2355,7 @@ impl<'gc> MovieClip<'gc> {
         // is not a root MovieClip (see the movieclip_library_state_values test).
         // However, if avm1_unload and transform_to_unloaded_state are called with a one
         // frame delay when the MovieClip is not a root MovieClip, regressions appear.
-        // Ruffle is probably replacing a MovieClip differently to Flash, therefore
+        // Llflash is probably replacing a MovieClip differently to Flash, therefore
         // introducing these regressions when trying to emulate that delay.
 
         if self.is_root() {
@@ -3561,8 +3561,8 @@ impl<'gc, 'a> MovieClipShared<'gc> {
         let (id, jpeg_data) = reader.read_define_bits()?;
         let jpeg_tables = library.jpeg_tables();
         let jpeg_data =
-            ruffle_render::utils::glue_tables_to_jpeg(jpeg_data, jpeg_tables).into_owned();
-        let (width, height) = ruffle_render::utils::decode_define_bits_jpeg_dimensions(&jpeg_data)?;
+            llflash_render::utils::glue_tables_to_jpeg(jpeg_data, jpeg_tables).into_owned();
+        let (width, height) = llflash_render::utils::decode_define_bits_jpeg_dimensions(&jpeg_data)?;
         let bitmap = Character::Bitmap(Gc::new(
             mc,
             BitmapCharacter::new(CompressedBitmap::Jpeg {
@@ -3583,7 +3583,7 @@ impl<'gc, 'a> MovieClipShared<'gc> {
         reader: &mut SwfStream<'a>,
     ) -> Result<(), Error> {
         let (id, jpeg_data) = reader.read_define_bits_jpeg_2()?;
-        let (width, height) = ruffle_render::utils::decode_define_bits_jpeg_dimensions(jpeg_data)?;
+        let (width, height) = llflash_render::utils::decode_define_bits_jpeg_dimensions(jpeg_data)?;
         let bitmap = Character::Bitmap(Gc::new(
             context.gc(),
             BitmapCharacter::new(CompressedBitmap::Jpeg {
@@ -3605,7 +3605,7 @@ impl<'gc, 'a> MovieClipShared<'gc> {
         version: u8,
     ) -> Result<(), Error> {
         let jpeg = reader.read_define_bits_jpeg_3(version)?;
-        let (width, height) = ruffle_render::utils::decode_define_bits_jpeg_dimensions(jpeg.data)?;
+        let (width, height) = llflash_render::utils::decode_define_bits_jpeg_dimensions(jpeg.data)?;
 
         let bitmap = Character::Bitmap(Gc::new(
             context.gc(),
@@ -4207,7 +4207,7 @@ impl<'gc, 'a> MovieClipShared<'gc> {
 
             // Ensure invalid UTF-8 sequences are treated as raw bytes (matching AVM2 behavior)
             // rather than being replaced with the Unicode replacement character.
-            let class_name = ruffle_wstr::from_utf8_bytes(reader.read_str()?.as_bytes());
+            let class_name = llflash_wstr::from_utf8_bytes(reader.read_str()?.as_bytes());
 
             // Store the name and symbol with in the global data for this frame. The first time
             // we execute this frame (for any instance of this MovieClip), we will load the symbolclass

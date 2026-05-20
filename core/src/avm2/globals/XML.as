@@ -1,6 +1,6 @@
 package {
-    [Ruffle(InstanceAllocator)]
-    [Ruffle(CallHandler)]
+    [Llflash(InstanceAllocator)]
+    [Llflash(CallHandler)]
     public final dynamic class XML {
         AS3 static function setSettings(settings:Object = null):void {
             if (settings == null) {
@@ -65,10 +65,10 @@ package {
         AS3 native function parent():*;
         AS3 native function text():XMLList;
 
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         AS3 native function toString():String;
 
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         AS3 native function toXMLString():String;
 
         AS3 native function attributes():XMLList;
@@ -110,62 +110,62 @@ package {
 
         private native function namespace_internal_impl(hasPrefix:Boolean, prefix:String = null):*;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 function namespace(prefix:* = null):* {
             return namespace_internal_impl(arguments.length > 0, prefix);
         }
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 native function addNamespace(ns:*):XML;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 native function appendChild(child:*):XML;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 native function childIndex():int;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 native function inScopeNamespaces():Array;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 native function insertChildAfter(child1:*, child2:*):*;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 native function insertChildBefore(child1:*, child2:*):*;
 
-        [Ruffle(FastCall)]
-        [Ruffle(NativeCallable)]
+        [Llflash(FastCall)]
+        [Llflash(NativeCallable)]
         AS3 native function localName():Object;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 native function name():Object;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 native function namespaceDeclarations():Array;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 native function nodeKind():String;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 native function prependChild(child:*):XML;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 native function removeNamespace(ns:*):XML;
 
         // NOTE: Docs lie, value can be anything not just XML.
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 native function replace(propertyName:*, value:*):XML;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 native function setChildren(value:*):XML;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 native function setLocalName(name:*):void;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 native function setName(name:*):void;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         AS3 native function setNamespace(ns:*):void;
 
         // Prototype methods

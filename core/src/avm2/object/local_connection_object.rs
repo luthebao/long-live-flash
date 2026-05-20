@@ -12,8 +12,8 @@ use core::fmt;
 use flash_lso::types::Value as AmfValue;
 use gc_arena::barrier::unlock;
 use gc_arena::{Collect, Gc, GcWeak, Mutation, lock::Lock};
-use ruffle_common::utils::HasPrefixField;
-use ruffle_macros::istr;
+use llflash_common::utils::HasPrefixField;
+use llflash_macros::istr;
 use std::cell::RefCell;
 
 /// A class instance allocator that allocates LocalConnection objects.

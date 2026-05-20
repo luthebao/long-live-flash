@@ -1,7 +1,7 @@
 package flash.display {
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public class Shape extends DisplayObject {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _graphics:Graphics;
 
         public native function get graphics():Graphics;

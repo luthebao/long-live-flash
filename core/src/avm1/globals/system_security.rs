@@ -6,7 +6,7 @@ use crate::avm1_stub;
 use crate::prelude::TDisplayObject;
 use crate::string::AvmString;
 
-use ruffle_common::sandbox::SandboxType;
+use llflash_common::sandbox::SandboxType;
 
 const OBJECT_DECLS: StaticDeclarations = declare_static_properties! {
     "allowDomain" => method(allow_domain);

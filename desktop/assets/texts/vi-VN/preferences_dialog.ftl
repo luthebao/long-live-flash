@@ -1,4 +1,4 @@
-preferences-dialog = Tuỳ biến Ruffle
+preferences-dialog = Tuỳ biến Llflash
 preference-locked-by-cli = Chỉ được đọc (thiết lập bởi CLI)
 graphics-backend = Trình xử lý đồ hoạ
 graphics-backend-default = Mặc định
@@ -26,8 +26,8 @@ theme-dark = Tối
 # See for context https://github.com/FeralInteractive/gamemode
 gamemode = Chế độ GameMode
 gamemode-tooltip =
-    Chế độ GameMode thiết lập các tuỳ chỉnh tạm thời để tối ưu cho máy tính của bạn và/hoặc Ruffle.
-    Ruffle chỉ yêu cầu GameMode khi đang hoạt động.
+    Chế độ GameMode thiết lập các tuỳ chỉnh tạm thời để tối ưu cho máy tính của bạn và/hoặc Llflash.
+    Llflash chỉ yêu cầu GameMode khi đang hoạt động.
 gamemode-default = Mặc định
 gamemode-default-tooltip = Chế độ GameMode sẽ chỉ được bật khi thiết lập nguồn điện được chỉnh ở mức cao.
 # See for context https://wiki.archlinux.org/title/Input_method

@@ -1,6 +1,6 @@
 use crate::player::LaunchOptions;
-use ruffle_core::backend::storage::MemoryStorageBackend;
-use ruffle_frontend_utils::backends::storage::DiskStorageBackend;
+use llflash_core::backend::storage::MemoryStorageBackend;
+use llflash_frontend_utils::backends::storage::DiskStorageBackend;
 use std::str::FromStr;
 
 #[derive(clap::ValueEnum, Copy, Clone, PartialEq, Eq, Debug, Default)]
@@ -33,7 +33,7 @@ impl StorageBackend {
     pub fn create_backend(
         self,
         opt: &LaunchOptions,
-    ) -> Box<dyn ruffle_core::backend::storage::StorageBackend> {
+    ) -> Box<dyn llflash_core::backend::storage::StorageBackend> {
         match self {
             StorageBackend::Disk => Box::new(DiskStorageBackend::new(opt.save_directory.clone())),
             StorageBackend::Memory => Box::new(MemoryStorageBackend::new()),

@@ -195,11 +195,11 @@ function createPanicError(error: Error | null): {
             };
         }
 
-        // This is a selfhosted build of Ruffle that tried to make a cross-origin request
+        // This is a selfhosted build of Llflash that tried to make a cross-origin request
         return {
             body: textAsParagraphs("error-swf-cors"),
             actions: [
-                CommonActions.openWiki("Using-Ruffle#configure-cors-header"),
+                CommonActions.openWiki("Using-Llflash#configure-cors-header"),
                 CommonActions.ShowDetails,
             ],
         };
@@ -231,7 +231,7 @@ function createPanicError(error: Error | null): {
                 body: textAsParagraphs("error-wasm-mime-type"),
                 actions: [
                     CommonActions.openWiki(
-                        "Using-Ruffle#configure-webassembly-mime-type",
+                        "Using-Llflash#configure-webassembly-mime-type",
                     ),
                     CommonActions.ShowDetails,
                 ],
@@ -248,7 +248,7 @@ function createPanicError(error: Error | null): {
                 body: textAsParagraphs("error-wasm-cors"),
                 actions: [
                     CommonActions.openWiki(
-                        "Using-Ruffle#configure-cors-header",
+                        "Using-Llflash#configure-cors-header",
                     ),
                     CommonActions.ShowDetails,
                 ],
@@ -260,7 +260,7 @@ function createPanicError(error: Error | null): {
             return {
                 body: textAsParagraphs("error-csp-conflict"),
                 actions: [
-                    CommonActions.openWiki("Using-Ruffle#configure-wasm-csp"),
+                    CommonActions.openWiki("Using-Llflash#configure-wasm-csp"),
                     CommonActions.ShowDetails,
                 ],
             };
@@ -291,7 +291,7 @@ function createPanicError(error: Error | null): {
                 body: textAsParagraphs("error-wasm-invalid"),
                 actions: [
                     CommonActions.openWiki(
-                        "Using-Ruffle#addressing-a-compileerror",
+                        "Using-Llflash#addressing-a-compileerror",
                     ),
                     CommonActions.ShowDetails,
                 ],
@@ -351,7 +351,7 @@ function createPanicError(error: Error | null): {
         return {
             body: textAsParagraphs("error-wasm-not-found"),
             actions: [
-                CommonActions.openWiki("Using-Ruffle#configuration-options"),
+                CommonActions.openWiki("Using-Llflash#configuration-options"),
                 CommonActions.ShowDetails,
             ],
         };
@@ -362,7 +362,7 @@ function createPanicError(error: Error | null): {
         return {
             body: textAsParagraphs("error-javascript-config"),
             actions: [
-                CommonActions.openWiki("Using-Ruffle#javascript-api"),
+                CommonActions.openWiki("Using-Llflash#javascript-api"),
                 CommonActions.ShowDetails,
             ],
         };

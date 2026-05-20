@@ -23,7 +23,7 @@ async function typeText(text: string) {
 }
 
 // The idea of the test is to verify whether the site
-// can programmatically send events to Ruffle.
+// can programmatically send events to Llflash.
 // This is used by websites e.g. for implementing custom
 // input overlays for mobile.
 describe("Programmatic Events", () => {
@@ -99,7 +99,7 @@ describe("Programmatic Events", () => {
         ]);
     });
 
-    // That's probably the most sane way of focusing Ruffle.
+    // That's probably the most sane way of focusing Llflash.
     it("scenario: programmatic focus on the player", async () => {
         const player = await browser.$("#objectElement").getElement();
 

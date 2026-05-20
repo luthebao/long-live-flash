@@ -11,7 +11,7 @@ use crate::avm2::parameters::ParametersExt;
 use crate::avm2::value::Value;
 use crate::ecma_conversions::f64_to_wrapping_i32;
 use crate::string::{AvmString, Units};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use serde::Serialize;
 use serde_json::{Map as JsonObject, Value as JsonValue};
 use std::borrow::Cow;

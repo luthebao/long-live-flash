@@ -6,7 +6,7 @@ use crate::gui::dialogs::select_path_dialog::{
 };
 use crate::preferences::GlobalPreferences;
 use rfd::AsyncFileDialog;
-use ruffle_frontend_utils::bundle::Bundle;
+use llflash_frontend_utils::bundle::Bundle;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Weak};
@@ -117,7 +117,7 @@ impl FilePicker {
     /// Pick a directory and content to play.
     ///
     /// This can return:
-    ///  * a Ruffle bundle as a directory (`/dir/bundle_dir`, `/dir/bundle_dir`),
+    ///  * a Llflash bundle as a directory (`/dir/bundle_dir`, `/dir/bundle_dir`),
     ///  * a multi-asset SWF movie (`/dir/root_dir`, `/dir/root_dir/root_movie.swf`).
     pub async fn pick_ruffle_directory_and_content(
         &self,

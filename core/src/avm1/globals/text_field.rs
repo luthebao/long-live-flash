@@ -10,7 +10,7 @@ use crate::display_object::{
 use crate::html::TextFormat;
 use crate::string::{AvmString, WStr};
 use gc_arena::Gc;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use swf::Color;
 
 macro_rules! tf_method {

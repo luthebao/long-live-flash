@@ -5,16 +5,16 @@ package flash.net {
     import flash.net.URLRequest;
 
     public class URLLoader extends EventDispatcher {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var data:*;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var dataFormat:String = "text";
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var bytesLoaded:uint;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var bytesTotal:uint;
 
         public function URLLoader(request:URLRequest = null) {

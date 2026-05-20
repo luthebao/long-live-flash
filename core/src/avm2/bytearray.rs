@@ -236,7 +236,7 @@ impl ByteArrayStorage {
                 .err()
                 .map(|e| e.into()),
             #[cfg(not(feature = "lzma"))]
-            CompressionAlgorithm::Lzma => Some("Ruffle was not compiled with LZMA support".into()),
+            CompressionAlgorithm::Lzma => Some("Llflash was not compiled with LZMA support".into()),
         };
         if let Some(error) = error {
             // On error, just return an empty buffer.
@@ -263,7 +263,7 @@ impl ByteArrayStorage {
                 .err()
                 .map(|e| e.into()),
             #[cfg(not(feature = "lzma"))]
-            CompressionAlgorithm::Lzma => Some("Ruffle was not compiled with LZMA support".into()),
+            CompressionAlgorithm::Lzma => Some("Llflash was not compiled with LZMA support".into()),
         };
         if let Some(error) = error {
             tracing::warn!("ByteArray.decompress: {}", error);

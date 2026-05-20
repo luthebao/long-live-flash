@@ -1,6 +1,6 @@
 use crate::blend::ComplexBlend;
 use enum_map::{EnumMap, enum_map};
-use ruffle_render::shader_source::SHADER_FILTER_COMMON;
+use llflash_render::shader_source::SHADER_FILTER_COMMON;
 
 #[derive(Debug)]
 pub struct Shaders {

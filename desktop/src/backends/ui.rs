@@ -10,11 +10,11 @@ use fontdb::{FaceInfo, Family};
 use rfd::{
     AsyncFileDialog, FileHandle, MessageButtons, MessageDialog, MessageDialogResult, MessageLevel,
 };
-use ruffle_core::backend::ui::{
+use llflash_core::backend::ui::{
     DialogLoaderError, DialogResultFuture, FileDialogResult, FileFilter, FontDefinition,
     FullscreenError, LanguageIdentifier, MouseCursor, UiBackend,
 };
-use ruffle_core::font::{FontFileData, FontQuery};
+use llflash_core::font::{FontFileData, FontQuery};
 use std::fs::File;
 use std::path::Path;
 use std::rc::Rc;
@@ -246,7 +246,7 @@ impl UiBackend for DesktopUiBackend {
             .event_loop
             .send_event(RuffleEvent::OpenDialog(DialogDescriptor::ShowMessage(
                 MessageDialogConfiguration::new(
-                    LocalizableText::NonLocalizedText("Ruffle".into()),
+                    LocalizableText::NonLocalizedText("Llflash".into()),
                     LocalizableText::NonLocalizedText(message.to_string().into()),
                 ),
             )));
@@ -284,7 +284,7 @@ impl UiBackend for DesktopUiBackend {
 
         // TODO: This opens local files in the browser while flash opens them
         // in the default program for the respective filetype.
-        // This especially includes mailto links. Ruffle opens the browser which opens
+        // This especially includes mailto links. Llflash opens the browser which opens
         // the preferred program while flash opens the preferred program directly.
 
         match webbrowser::open(url.as_str()) {
@@ -405,7 +405,7 @@ fn load_font_from_file(
     // However, we never store other references to this data, and we reparse
     // the whole file each time we're accessing any font data.
     // Realistically, when the underlying file or memory region changes,
-    // we can expect Ruffle to crash due to SIGBUS or errors when parsing.
+    // we can expect Llflash to crash due to SIGBUS or errors when parsing.
     let mmap = unsafe { memmap2::Mmap::map(&file) };
 
     let mmap = mmap.map_err(|e| anyhow!("Failed to mmap font file at {path:?}: {e}"))?;

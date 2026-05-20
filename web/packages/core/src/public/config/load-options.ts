@@ -53,7 +53,7 @@ export enum Letterbox {
 }
 
 /**
- * When the player is muted, this controls whether or not Ruffle will show a
+ * When the player is muted, this controls whether or not Llflash will show a
  * "click to unmute" overlay on top of the movie.
  */
 export enum UnmuteOverlay {
@@ -80,45 +80,45 @@ export enum LogLevel {
 }
 
 /**
- * The window mode of a Ruffle player.
+ * The window mode of a Llflash player.
  */
 export enum WindowMode {
     /**
      * The Flash content is rendered in its own window and layering is done with the browser's
      * default behavior.
      *
-     * In Ruffle, this mode functions like `WindowMode::Opaque` and will layer the Flash content
+     * In Llflash, this mode functions like `WindowMode::Opaque` and will layer the Flash content
      * together with other HTML elements.
      */
     Window = "window",
 
     /**
      * The Flash content is layered together with other HTML elements, and the stage color is
-     * opaque. Content can render above or below Ruffle based on CSS rendering order.
+     * opaque. Content can render above or below Llflash based on CSS rendering order.
      */
     Opaque = "opaque",
 
     /**
      * The Flash content is layered together with other HTML elements, and the SWF stage color is
-     * transparent. Content beneath Ruffle will be visible through transparent areas.
+     * transparent. Content beneath Llflash will be visible through transparent areas.
      */
     Transparent = "transparent",
 
     /**
      * Request compositing with hardware acceleration when possible.
-     * This mode has no effect in Ruffle and will function like `WindowMode.Opaque`.
+     * This mode has no effect in Llflash and will function like `WindowMode.Opaque`.
      */
     Direct = "direct",
 
     /**
      * Request a direct rendering path, bypassing browser compositing when possible.
-     * This mode has no effect in Ruffle and will function like `WindowMode::Opaque`.
+     * This mode has no effect in Llflash and will function like `WindowMode::Opaque`.
      */
     Gpu = "gpu",
 }
 
 /**
- * The render backend of a Ruffle player.
+ * The render backend of a Llflash player.
  *
  * The available backends may change in future releases.
  */
@@ -158,19 +158,19 @@ export enum RenderBackend {
 export enum ContextMenu {
     /**
      * The context menu should appear when right-clicking or long-pressing
-     * the Ruffle instance.
+     * the Llflash instance.
      */
     On = "on",
 
     /**
      * The context menu should only appear when right-clicking
-     * the Ruffle instance.
+     * the Llflash instance.
      */
     RightClickOnly = "rightClickOnly",
 
     /**
      * The context menu should not appear when right-clicking or long-pressing
-     * the Ruffle instance.
+     * the Llflash instance.
      */
     Off = "off",
 }
@@ -231,7 +231,7 @@ export enum OpenURLMode {
 }
 
 /**
- * The networking API access mode of the Ruffle player.
+ * The networking API access mode of the Llflash player.
  */
 export enum NetworkingAccessMode {
     /**
@@ -288,7 +288,7 @@ export enum ScrollingBehavior {
  */
 export enum DeviceFontRenderer {
     /**
-     * Use Ruffle's embedded text rendering engine.
+     * Use Llflash's embedded text rendering engine.
      *
      * It cannot access device fonts and uses fonts provided in the
      * configuration and the default Noto Sans font as a fallback.
@@ -312,12 +312,12 @@ export enum DeviceFontRenderer {
  */
 export enum BackgroundExecutionMode {
     /**
-     * Ruffle will pause when the tab is hidden and resume when it becomes visible again.
+     * Llflash will pause when the tab is hidden and resume when it becomes visible again.
      */
     None = "none",
 
     /**
-     * Ruffle will keep running on the main thread while the tab is hidden,
+     * Llflash will keep running on the main thread while the tab is hidden,
      * keeping audio and game logic alive at the cost of some background CPU usage.
      */
     MainThread = "mainThread",
@@ -428,7 +428,7 @@ export interface BaseLoadOptions {
     parameters?: URLSearchParams | string | Record<string, string> | null;
 
     /**
-     * Controls the auto-play behaviour of Ruffle.
+     * Controls the auto-play behaviour of Llflash.
      *
      * @default AutoPlay.Auto
      */
@@ -463,9 +463,9 @@ export interface BaseLoadOptions {
      * Whether or not to auto-upgrade all embedded URLs to https.
      *
      * Flash content that embeds http urls will be blocked from
-     * accessing those urls by the browser when Ruffle is loaded
+     * accessing those urls by the browser when Llflash is loaded
      * in a https context. Set to `true` to automatically change
-     * `http://` to `https://` for all embedded URLs when Ruffle is
+     * `http://` to `https://` for all embedded URLs when Llflash is
      * loaded in an https context.
      *
      * @default true
@@ -473,7 +473,7 @@ export interface BaseLoadOptions {
     upgradeToHttps?: boolean;
 
     /**
-     * Enable (true) or disable (false) Ruffle's built in compatibility rules.
+     * Enable (true) or disable (false) Llflash's built in compatibility rules.
      *
      * These are rules that may make some content work by deliberately changing
      * behaviour, for example by rewriting requests or spoofing SWF urls if they
@@ -484,7 +484,7 @@ export interface BaseLoadOptions {
     compatibilityRules?: boolean;
 
     /**
-     * Favor using the real Adobe Flash Player over Ruffle if the browser supports it.
+     * Favor using the real Adobe Flash Player over Llflash if the browser supports it.
      *
      * @default true
      */
@@ -520,21 +520,21 @@ export interface BaseLoadOptions {
 
     /**
      * Whether or not to show a context menu when right-clicking
-     * a Ruffle instance.
+     * a Llflash instance.
      *
      * @default ContextMenu.On
      */
     contextMenu?: ContextMenu | boolean;
 
     /**
-     * Whether or not to show a splash screen before the SWF has loaded with Ruffle (backwards-compatibility).
+     * Whether or not to show a splash screen before the SWF has loaded with Llflash (backwards-compatibility).
      *
      * @default true
      */
     preloader?: boolean;
 
     /**
-     * Whether or not to show a splash screen before the SWF has loaded with Ruffle.
+     * Whether or not to show a splash screen before the SWF has loaded with Llflash.
      *
      * @default true
      */
@@ -624,9 +624,9 @@ export interface BaseLoadOptions {
     frameRate?: number | null;
 
     /**
-     * The window mode of the Ruffle player.
+     * The window mode of the Llflash player.
      *
-     * This setting controls how the Ruffle container is layered and rendered with other content on the page.
+     * This setting controls how the Llflash container is layered and rendered with other content on the page.
      *
      * @default WindowMode.Window
      */
@@ -643,11 +643,11 @@ export interface BaseLoadOptions {
     playerVersion?: number | null;
 
     /**
-     * The preferred render backend of the Ruffle player.
+     * The preferred render backend of the Llflash player.
      *
      * This option should only be used for testing;
      * the available backends may change in future releases.
-     * By default, Ruffle chooses the most featureful backend supported by the user's system,
+     * By default, Llflash chooses the most featureful backend supported by the user's system,
      * falling back to more basic backends if necessary.
      * The available values in order of default preference are:
      * "webgpu", "wgpu-webgl", "webgl", "canvas".
@@ -657,7 +657,7 @@ export interface BaseLoadOptions {
     preferredRenderer?: RenderBackend | null;
 
     /**
-     * The URL at which Ruffle can load its extra files (i.e. `.wasm`).
+     * The URL at which Llflash can load its extra files (i.e. `.wasm`).
      *
      * @default null
      */
@@ -668,7 +668,7 @@ export interface BaseLoadOptions {
      *
      * Polyfills will look for "legacy" flash content like `<object>`
      * and `<embed>` elements, and replace them with compatible
-     * Ruffle elements.
+     * Llflash elements.
      *
      * @default true
      */
@@ -692,7 +692,7 @@ export interface BaseLoadOptions {
      * A function to call for opening content in a new tab.
      *
      * This is only used if the content cannot be loaded due to CORS,
-     * and the Extension version of Ruffle will override this to provide a local player.
+     * and the Extension version of Llflash will override this to provide a local player.
      *
      * @default null
      */
@@ -701,11 +701,11 @@ export interface BaseLoadOptions {
     /**
      * An array of SocketProxy objects.
      *
-     * When a SWF tries to establish a Socket connection, Ruffle will search for
+     * When a SWF tries to establish a Socket connection, Llflash will search for
      * a matching SocketProxy object in this array and use it to establish a WebSocket connection,
      * through which all communication is tunneled through.
      *
-     * When none are found, Ruffle will fail the connection gracefully.
+     * When none are found, Llflash will fail the connection gracefully.
      * When multiple matching SocketProxy objects exist, the first one is used.
      *
      * @default []
@@ -713,13 +713,13 @@ export interface BaseLoadOptions {
     socketProxy?: Array<SocketProxy>;
 
     /**
-     * An array of font URLs to eagerly load and provide to Ruffle.
+     * An array of font URLs to eagerly load and provide to Llflash.
      *
      * These will be fetched by the browser as part of the loading of Flash content, which may slow down load times.
      *
      * Currently only SWFs are supported, and each font embedded within that SWF will be used as device font by Flash content.
      *
-     * If any URL fails to load (either it's an invalid file, or a network error occurs), Ruffle will log an error but continue without it.
+     * If any URL fails to load (either it's an invalid file, or a network error occurs), Llflash will log an error but continue without it.
      *
      * @default []
      */
@@ -807,7 +807,7 @@ export interface BaseLoadOptions {
     deviceFontRenderer?: DeviceFontRenderer;
 
     /**
-     * Controls how Ruffle behaves when the browser tab is hidden.
+     * Controls how Llflash behaves when the browser tab is hidden.
      *
      * @default BackgroundExecutionMode.MainThread
      */

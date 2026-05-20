@@ -1,7 +1,7 @@
 //! Custom event type for desktop ruffle
 
-use ruffle_core::events::PlayerNotification;
-use ruffle_frontend_utils::content::ContentDescriptor;
+use llflash_core::events::PlayerNotification;
+use llflash_frontend_utils::content::ContentDescriptor;
 
 use crate::gui::DialogDescriptor;
 use crate::player::{LaunchOptions, PlayerRunnable};
@@ -17,7 +17,7 @@ pub enum RuffleEvent {
     TaskPoll(PlayerRunnable),
 
     /// Indicates that an asynchronous SWF metadata load has been completed.
-    OnMetadata(ruffle_core::swf::HeaderExt),
+    OnMetadata(llflash_core::swf::HeaderExt),
 
     /// The user requested to pick and then open a file.
     BrowseAndOpen(Box<LaunchOptions>, OpenType),
@@ -34,7 +34,7 @@ pub enum RuffleEvent {
     /// The user requested to exit full screen.
     ExitFullScreen,
 
-    /// The user requested to exit Ruffle.
+    /// The user requested to exit Llflash.
     ExitRequested,
 
     /// The user selected an item in the right-click context menu.
@@ -43,10 +43,10 @@ pub enum RuffleEvent {
     /// The movie wants to open a dialog.
     OpenDialog(DialogDescriptor),
 
-    /// Ruffle core has a notification to handle.
+    /// Llflash core has a notification to handle.
     PlayerNotification(PlayerNotification),
 
-    /// Export Ruffle Bundle from currently playing content and open save dialog.
+    /// Export Llflash Bundle from currently playing content and open save dialog.
     ExportBundle,
 
     /// Re-apply the cached `ime_allowed` state on the main window.

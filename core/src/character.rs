@@ -9,9 +9,9 @@ use crate::font::Font;
 use gc_arena::barrier::unlock;
 use gc_arena::lock::Lock;
 use gc_arena::{Collect, Gc, Mutation};
-use ruffle_render::backend::RenderBackend;
-use ruffle_render::bitmap::{Bitmap as RenderBitmap, BitmapHandle, BitmapSize};
-use ruffle_render::error::Error as RenderError;
+use llflash_render::backend::RenderBackend;
+use llflash_render::bitmap::{Bitmap as RenderBitmap, BitmapHandle, BitmapSize};
+use llflash_render::error::Error as RenderError;
 use swf::DefineBitsLossless;
 
 #[derive(Copy, Clone, Collect, Debug)]
@@ -116,9 +116,9 @@ impl CompressedBitmap {
                 alpha,
                 width: _,
                 height: _,
-            } => ruffle_render::utils::decode_define_bits_jpeg(data, alpha.as_deref()),
+            } => llflash_render::utils::decode_define_bits_jpeg(data, alpha.as_deref()),
             CompressedBitmap::Lossless(define_bits_lossless) => {
-                ruffle_render::utils::decode_define_bits_lossless(define_bits_lossless)
+                llflash_render::utils::decode_define_bits_lossless(define_bits_lossless)
             }
         }
     }

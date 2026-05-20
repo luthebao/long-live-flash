@@ -17,7 +17,7 @@ pub use locale::text;
 pub use locale::text_with_args;
 pub use movie::MovieView;
 pub use picker::FilePicker;
-use ruffle_frontend_utils::content::ContentDescriptor;
+use llflash_frontend_utils::content::ContentDescriptor;
 pub use theme::ThemePreference;
 
 use crate::custom_event::RuffleEvent;
@@ -28,8 +28,8 @@ use dialogs::Dialogs;
 use egui::*;
 use menu_bar::MenuBar;
 use rfd::AsyncFileDialog;
-use ruffle_core::debug_ui::Message as DebugMessage;
-use ruffle_core::{Player, PlayerEvent};
+use llflash_core::debug_ui::Message as DebugMessage;
+use llflash_core::{Player, PlayerEvent};
 use std::sync::{MutexGuard, Weak};
 use std::{fs, mem};
 use winit::event_loop::EventLoopProxy;
@@ -39,7 +39,7 @@ use winit::event_loop::EventLoopProxy;
 /// and added to the window size if trying to match a movie.
 pub const MENU_HEIGHT: u32 = 24;
 
-/// The main controller for the Ruffle GUI.
+/// The main controller for the Llflash GUI.
 pub struct RuffleGui {
     event_loop: EventLoopProxy<RuffleEvent>,
     context_menu: Option<ContextMenu>,
@@ -80,7 +80,7 @@ impl RuffleGui {
         }
     }
 
-    /// Renders all of the main Ruffle UI, including the main menu and context menus.
+    /// Renders all of the main Llflash UI, including the main menu and context menus.
     fn update(
         &mut self,
         egui_ctx: &egui::Context,
@@ -140,7 +140,7 @@ impl RuffleGui {
 
     pub fn show_context_menu(
         &mut self,
-        menu: Vec<ruffle_core::ContextMenuItem>,
+        menu: Vec<llflash_core::ContextMenuItem>,
         close_event: PlayerEvent,
     ) {
         if !menu.is_empty() {

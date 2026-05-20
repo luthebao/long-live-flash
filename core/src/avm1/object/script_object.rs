@@ -12,7 +12,7 @@ use crate::string::{AvmString, StringContext};
 use core::{fmt, mem};
 use gc_arena::lock::RefLock;
 use gc_arena::{Collect, DynamicRoot, Gc, GcWeak, Mutation, Rootable};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::cell::Ref;
 
 use super::super_object::SuperObject;

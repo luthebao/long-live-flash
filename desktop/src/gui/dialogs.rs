@@ -21,8 +21,8 @@ use network_access_dialog::{NetworkAccessDialog, NetworkAccessDialogConfiguratio
 use open_dialog::OpenDialog;
 use open_url_dialog::OpenUrlDialog;
 use preferences_dialog::PreferencesDialog;
-use ruffle_core::Player;
-use ruffle_frontend_utils::content::ContentDescriptor;
+use llflash_core::Player;
+use llflash_frontend_utils::content::ContentDescriptor;
 use select_path_dialog::{SelectPathDialog, SelectPathDialogConfiguration};
 use std::{collections::VecDeque, sync::Weak};
 use unic_langid::LanguageIdentifier;

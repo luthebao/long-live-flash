@@ -25,8 +25,8 @@ use either::Either;
 use gc_arena::barrier::unlock;
 use gc_arena::lock::Lock;
 use gc_arena::{Collect, Gc, Mutation};
-use ruffle_common::utils::HasPrefixField;
-use ruffle_render::filters::Filter;
+use llflash_common::utils::HasPrefixField;
+use llflash_render::filters::Filter;
 use std::cell::{Cell, RefCell};
 use std::sync::Arc;
 

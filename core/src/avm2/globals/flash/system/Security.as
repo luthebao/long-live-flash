@@ -1,5 +1,5 @@
 package flash.system {
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class Security {
         public static native function get pageDomain():String;
         public static native function get sandboxType():String;

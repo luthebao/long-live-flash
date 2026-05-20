@@ -1,4 +1,4 @@
-export-bundle-dialog-title = Ruffle paketi dışa aktar
+export-bundle-dialog-title = Llflash paketi dışa aktar
 export-bundle-dialog-bundle-name = Paket adı:
 export-bundle-dialog-files-description = Paketlenecek dosyaları seçin:
 export-bundle-dialog-files-select-all = Tümünü seç
@@ -8,4 +8,4 @@ export-bundle-dialog-exporting-failed = Dışa aktarma başarısız oldu.
 export-bundle-dialog-error-user-canceled = Kullanıcı tarafından iptal edildi.
 export-bundle-dialog-error-failed-to-show-picker = Dosya seçici gösterilemedi.
 export-bundle-dialog-error-io-error = Paket yazılırken hata oluştu.
-export-bundle-dialog-info-title = Ruffle paketi nedir?
+export-bundle-dialog-info-title = Llflash paketi nedir?

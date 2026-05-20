@@ -3,8 +3,8 @@ context-menu-copy-debug-info = Kopiera felsökningsinfo
 context-menu-open-save-manager = Öppna Sparhanteraren
 context-menu-about-ruffle =
     { $flavor ->
-        [extension] Om Ruffle-tillägget ({ $version })
-       *[other] Om Ruffle ({ $version })
+        [extension] Om Llflash-tillägget ({ $version })
+       *[other] Om Llflash ({ $version })
     }
 context-menu-hide = Dölj denna meny
 context-menu-exit-fullscreen = Avsluta helskärm

@@ -4,7 +4,7 @@ use crate::avm1::property_decl::{DeclContext, StaticDeclarations, SystemClass};
 use crate::avm1::{Object, Value};
 use crate::context_menu;
 use crate::display_object::DisplayObject;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 const PROTO_DECLS: StaticDeclarations = declare_static_properties! {
     "copy" => method(copy; DONT_ENUM | DONT_DELETE);

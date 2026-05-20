@@ -5,16 +5,16 @@ use futures_util::future::Either;
 use futures_util::{SinkExt, StreamExt, future};
 use gloo_net::websocket::{Message, futures::WebSocket};
 use js_sys::{Array, Promise, RegExp, Uint8Array};
-use ruffle_core::Player;
-use ruffle_core::backend::navigator::{
+use llflash_core::Player;
+use llflash_core::backend::navigator::{
     ErrorResponse, NavigationMethod, NavigatorBackend, OwnedFuture, Request, SuccessResponse,
     async_return, create_fetch_error, create_specific_fetch_error, get_encoding,
 };
-use ruffle_core::config::NetworkingAccessMode;
-use ruffle_core::indexmap::IndexMap;
-use ruffle_core::loader::Error;
-use ruffle_core::socket::{ConnectionState, SocketAction, SocketHandle};
-use ruffle_core::swf::Encoding;
+use llflash_core::config::NetworkingAccessMode;
+use llflash_core::indexmap::IndexMap;
+use llflash_core::loader::Error;
+use llflash_core::socket::{ConnectionState, SocketAction, SocketHandle};
+use llflash_core::swf::Encoding;
 use std::borrow::Cow;
 use std::cell::RefCell;
 use std::rc::Rc;

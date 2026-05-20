@@ -9,7 +9,7 @@ package flash.display {
     import flash.filters.ShaderFilter;
     import flash.utils.ByteArray;
 
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public class BitmapData implements IBitmapDrawable {
         public function BitmapData(width:int, height:int, transparent:Boolean = true, fillColor:uint = 0xFFFFFFFF) {
             this.init(width, height, transparent, fillColor);

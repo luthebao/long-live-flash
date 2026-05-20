@@ -5,7 +5,7 @@ use crate::avm1::property_decl::{DeclContext, StaticDeclarations, SystemClass};
 use crate::avm1::{Activation, Error, Object, Value};
 use crate::string::AvmString;
 use gc_arena::{Collect, Gc};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::cell::Cell;
 use swf::{ColorTransform, Fixed8};
 

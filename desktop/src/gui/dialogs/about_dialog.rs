@@ -5,7 +5,7 @@ use unic_langid::LanguageIdentifier;
 
 const VERGEN_UNKNOWN: &str = "VERGEN_IDEMPOTENT_OUTPUT";
 
-/// Renders the About Ruffle dialog.
+/// Renders the About Llflash dialog.
 pub fn show_about_dialog(locale: &LanguageIdentifier, egui_ctx: &egui::Context) -> bool {
     let mut keep_open = true;
 

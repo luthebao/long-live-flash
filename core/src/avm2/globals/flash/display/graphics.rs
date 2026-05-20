@@ -21,7 +21,7 @@ use crate::avm2_stub_method;
 use crate::display_object::TDisplayObject;
 use crate::drawing::Drawing;
 use crate::string::{AvmString, WStr};
-use ruffle_render::shape_utils::{DrawCommand, FillRule, GradientType};
+use llflash_render::shape_utils::{DrawCommand, FillRule, GradientType};
 use std::f64::consts::FRAC_1_SQRT_2;
 use swf::{
     Color, FillStyle, Fixed8, Gradient, GradientInterpolation, GradientRecord, GradientSpread,
@@ -78,7 +78,7 @@ pub fn begin_bitmap_fill<'gc>(
 
         let handle = bitmap.bitmap_handle(activation.gc(), activation.context.renderer);
 
-        let bitmap = ruffle_render::bitmap::BitmapInfo {
+        let bitmap = llflash_render::bitmap::BitmapInfo {
             handle,
             width: bitmap.width(),
             height: bitmap.height(),
@@ -1315,7 +1315,7 @@ pub fn line_bitmap_style<'gc>(
 
         let handle = bitmap.bitmap_handle(activation.gc(), activation.context.renderer);
 
-        let bitmap = ruffle_render::bitmap::BitmapInfo {
+        let bitmap = llflash_render::bitmap::BitmapInfo {
             handle,
             width: bitmap.width(),
             height: bitmap.height(),
@@ -1772,7 +1772,7 @@ fn handle_bitmap_fill<'gc>(
 
     let handle = bitmap_data.bitmap_handle(activation.gc(), activation.context.renderer);
 
-    let bitmap = ruffle_render::bitmap::BitmapInfo {
+    let bitmap = llflash_render::bitmap::BitmapInfo {
         handle,
         width: bitmap_data.width(),
         height: bitmap_data.height(),

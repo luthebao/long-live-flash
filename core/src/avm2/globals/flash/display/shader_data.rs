@@ -7,8 +7,8 @@ use crate::avm2::value::Value;
 use crate::pixel_bender::PixelBenderTypeExt;
 use crate::string::AvmString;
 
-use ruffle_macros::istr;
-use ruffle_render::pixel_bender::{
+use llflash_macros::istr;
+use llflash_render::pixel_bender::{
     OUT_COORD_NAME, PixelBenderParam, PixelBenderParamQualifier, PixelBenderParsingError,
     parse_shader,
 };

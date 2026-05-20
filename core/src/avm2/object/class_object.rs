@@ -26,8 +26,8 @@ use gc_arena::{
     Collect, Gc, GcWeak, Mutation,
     lock::{Lock, RefLock},
 };
-use ruffle_common::utils::HasPrefixField;
-use ruffle_macros::istr;
+use llflash_common::utils::HasPrefixField;
+use llflash_macros::istr;
 use std::fmt::Debug;
 use std::hash::{Hash, Hasher};
 

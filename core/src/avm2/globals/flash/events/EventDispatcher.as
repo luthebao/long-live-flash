@@ -1,9 +1,9 @@
 package flash.events {
     public class EventDispatcher implements IEventDispatcher {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var target:IEventDispatcher;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var dispatchList:Object;
 
         public function EventDispatcher(target:IEventDispatcher = null) {
@@ -25,7 +25,7 @@ package flash.events {
 
         public native function hasEventListener(type:String):Boolean;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         public function dispatchEvent(event:Event):Boolean {
             // Some SWFs rely on the getter for `target` being called
             if (event.target) {

@@ -53,11 +53,11 @@ filter = 'os = "windows"'
 # If true, this test is known to fail and the test runner will expect the check against
 # the trace output (specified `output_path`) to fail.
 # When the test passes in the future, it'll fail and alert that it now passes.
-# This will not catch Ruffle panics; if the test is expected to panic, use
+# This will not catch Llflash panics; if the test is expected to panic, use
 #   `known_failure.panic = "panic message"`
 # instead (note that 'panicky' tests will be skipped if the test harness is run
 # with debug assertions disabled, e.g. with `--release`).
-# By default, the test runner will additionally check Ruffle's output against itself
+# By default, the test runner will additionally check Llflash's output against itself
 # to detect regressions in failing tests; this can be disabled with
 #    `known_failure.ruffle_check = false`.
 known_failure = false
@@ -113,9 +113,9 @@ runtime = "AIR"
 # The version of the player to emulate. If not set, it uses the newest one ruffle knows about.
 version = 32
 
-# Whether Ruffle's default font should be available.
+# Whether Llflash's default font should be available.
 # It's not recommended to enable this option, as it will introduce differences
-# in behavior between Ruffle and Flash.
+# in behavior between Llflash and Flash.
 with_default_font = false
 
 # A list of image comparisons to perform during the test. This block is repeatable infinitely, as long as each name is unique.
@@ -299,7 +299,7 @@ player_options.version = 10
 ## Frame-based tests
 
 Some older tests break with tick timing, so they instead use frames.
-When `num_frames` is specified, Ruffle's `tick` method will not be called and tick-based processing will not occur.
+When `num_frames` is specified, Llflash's `tick` method will not be called and tick-based processing will not occur.
 Instead, `run_frame` will be called directly.
 
 Tests that use video or other tick processing must not use `num_frames`, and in general its use is deprecated.

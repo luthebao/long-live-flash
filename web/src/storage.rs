@@ -1,6 +1,6 @@
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
-use ruffle_core::backend::storage::StorageBackend;
+use llflash_core::backend::storage::StorageBackend;
 use web_sys::Storage;
 
 pub struct LocalStorageBackend {

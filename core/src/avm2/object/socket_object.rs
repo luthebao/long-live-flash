@@ -6,7 +6,7 @@ use crate::avm2::object::{ClassObject, Object, TObject};
 use crate::socket::SocketHandle;
 use gc_arena::GcWeak;
 use gc_arena::{Collect, Gc};
-use ruffle_common::utils::HasPrefixField;
+use llflash_common::utils::HasPrefixField;
 use std::cell::{Cell, RefCell, RefMut};
 use std::collections::VecDeque;
 use std::fmt;

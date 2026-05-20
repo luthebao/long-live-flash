@@ -3,7 +3,7 @@ use egui::{
     Align, Area, Button, Checkbox, Color32, Frame, Id, Key, KeyboardShortcut, Layout, Modifiers,
     Order, Pos2, Stroke, Style, Widget, vec2,
 };
-use ruffle_core::{ContextMenuItem, PlayerEvent};
+use llflash_core::{ContextMenuItem, PlayerEvent};
 use unic_langid::LanguageIdentifier;
 use winit::event_loop::EventLoopProxy;
 

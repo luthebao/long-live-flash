@@ -624,8 +624,8 @@ mod tests {
 
         let player_options = PlayerOptions {
             dummy_external_interface: Some(true),
-            align: Some(ruffle_core::StageAlign::empty()),
-            letterbox: Some(ruffle_core::config::Letterbox::Off),
+            align: Some(llflash_core::StageAlign::empty()),
+            letterbox: Some(llflash_core::config::Letterbox::Off),
             ..Default::default()
         };
 

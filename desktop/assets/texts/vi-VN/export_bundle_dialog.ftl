@@ -1,4 +1,4 @@
-export-bundle-dialog-title = Xuất gói Ruffle
+export-bundle-dialog-title = Xuất gói Llflash
 export-bundle-dialog-bundle-name = Tên gói:
 export-bundle-dialog-files-description = Chọn các file để đóng gói:
 export-bundle-dialog-files-select-all = Chọn tất cả
@@ -8,5 +8,5 @@ export-bundle-dialog-exporting-failed = Xuất gói thất bại.
 export-bundle-dialog-error-user-canceled = Bị huỷ bởi người dùng.
 export-bundle-dialog-error-failed-to-show-picker = Hiển thị trình duyệt file không thành công.
 export-bundle-dialog-error-io-error = Lỗi khi ghi ra gói.
-export-bundle-dialog-info-title = Gói Ruffle là gì?
-export-bundle-dialog-info-description = Gói Ruffle là một gói (thư mục) đã bao gồm mọi thứ cần thiết để chạy một tệp SWF — gồm tất cả thành phần và tuỳ chỉnh cần thiết. Với gói này, tệp SWF của bạn có thể chạy ngay mà không lo thiếu tệp hay phải cài đặt thủ công.
+export-bundle-dialog-info-title = Gói Llflash là gì?
+export-bundle-dialog-info-description = Gói Llflash là một gói (thư mục) đã bao gồm mọi thứ cần thiết để chạy một tệp SWF — gồm tất cả thành phần và tuỳ chỉnh cần thiết. Với gói này, tệp SWF của bạn có thể chạy ngay mà không lo thiếu tệp hay phải cài đặt thủ công.

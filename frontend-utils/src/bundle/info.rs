@@ -92,7 +92,7 @@ mod test {
     use crate::bundle::info::{BundleInformation, BundleInformationParseError};
     use crate::parse::ParseWarning;
     use crate::player_options::PlayerOptions;
-    use ruffle_core::PlayerRuntime;
+    use llflash_core::PlayerRuntime;
     use url::Url;
 
     fn read(

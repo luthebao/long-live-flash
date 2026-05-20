@@ -4,7 +4,7 @@ package flash.system {
     public class LoaderContext {
         public var allowCodeImport:Boolean;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var applicationDomain:ApplicationDomain;
 
         public var checkPolicyFile:Boolean;

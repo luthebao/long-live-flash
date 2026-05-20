@@ -9,7 +9,7 @@ use naga::{
     VectorSize,
     valid::{Capabilities, ValidationFlags, Validator},
 };
-use ruffle_render::pixel_bender::{
+use llflash_render::pixel_bender::{
     OUT_COORD_NAME, Opcode, Operation, PixelBenderParam, PixelBenderParamQualifier, PixelBenderReg,
     PixelBenderRegChannel, PixelBenderRegKind, PixelBenderShader, PixelBenderTypeOpcode,
 };
@@ -115,7 +115,7 @@ pub const SHADER_INT_PARAMETERS_INDEX: u32 = 4;
 // claims that coordinates outside the range are 'transparent black'.
 // However, some testing shows that the actual behavior is 'clamp' (at least
 // when a shader is run through a ShaderJob, and is only 'transparent black'
-// when a ShaderFilter is used. We set this uniform from Ruffle based on
+// when a ShaderFilter is used. We set this uniform from Llflash based on
 // how the shader is being invoked.
 pub const ZEROED_OUT_OF_RANGE_MODE_INDEX: u32 = 5;
 
@@ -126,7 +126,7 @@ impl ShaderBuilder<'_> {
         let mut module = Module::default();
 
         static VERTEX_SHADER: LazyLock<Module> = LazyLock::new(|| {
-            naga::front::wgsl::parse_str(ruffle_render::shader_source::SHADER_FILTER_COMMON)
+            naga::front::wgsl::parse_str(llflash_render::shader_source::SHADER_FILTER_COMMON)
                 .expect("Failed to parse vertex shader")
         });
         let vertex_shader = VERTEX_SHADER.clone();

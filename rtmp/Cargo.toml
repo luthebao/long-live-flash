@@ -1,5 +1,5 @@
 [package]
-name = "ruffle_rtmp"
+name = "llflash_rtmp"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true

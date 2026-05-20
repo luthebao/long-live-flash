@@ -1,5 +1,5 @@
 use either::Either;
-use ruffle_render::pixel_bender::{PixelBenderType, PixelBenderTypeOpcode};
+use llflash_render::pixel_bender::{PixelBenderType, PixelBenderTypeOpcode};
 
 use crate::avm2::error::{Error2004Type, make_error_2004};
 use crate::avm2::{Activation, ArrayObject, ArrayStorage, Error, Object, Value};

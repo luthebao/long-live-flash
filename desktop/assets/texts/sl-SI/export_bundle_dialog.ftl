@@ -1,4 +1,4 @@
-export-bundle-dialog-title = Izvoz paketa Ruffle
+export-bundle-dialog-title = Izvoz paketa Llflash
 export-bundle-dialog-bundle-name = Ime paketa:
 export-bundle-dialog-files-description = Izberite datoteke za pakiranje:
 export-bundle-dialog-files-select-all = Izberi vse
@@ -8,5 +8,5 @@ export-bundle-dialog-exporting-failed = Izvoz ni uspel.
 export-bundle-dialog-error-user-canceled = Preklicano s strani uporabnika.
 export-bundle-dialog-error-failed-to-show-picker = Ni mogoče prikazati izbirnika datotek.
 export-bundle-dialog-error-io-error = Napaka pri pisanju paketa.
-export-bundle-dialog-info-title = Kaj je Ruffle paket?
-export-bundle-dialog-info-description = Ruffle bundle je univerzalni paket, ki vsebuje vse, kar je potrebno za zagon datoteke SWF – vse potrebne vire in konfiguracijo. S paketom vaša datoteka SWF deluje takoj po namestitvi – brez manjkajočih datotek, brez ročne nastavitve, samo zaženite in uporabljajte.
+export-bundle-dialog-info-title = Kaj je Llflash paket?
+export-bundle-dialog-info-description = Llflash bundle je univerzalni paket, ki vsebuje vse, kar je potrebno za zagon datoteke SWF – vse potrebne vire in konfiguracijo. S paketom vaša datoteka SWF deluje takoj po namestitvi – brez manjkajočih datotek, brez ročne nastavitve, samo zaženite in uporabljajte.

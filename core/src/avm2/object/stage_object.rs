@@ -7,7 +7,7 @@ use crate::avm2::object::script_object::ScriptObjectData;
 use crate::avm2::object::{ClassObject, TObject};
 use crate::display_object::DisplayObject;
 use gc_arena::{Collect, Gc, GcWeak, Mutation};
-use ruffle_common::utils::HasPrefixField;
+use llflash_common::utils::HasPrefixField;
 use std::fmt::Debug;
 
 #[derive(Clone, Collect, Copy)]

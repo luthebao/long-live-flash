@@ -42,7 +42,7 @@ static ASCII_CHARS: [u8; ASCII_CHARS_LEN] = {
     chs
 };
 
-ruffle_macros::define_common_strings! {
+llflash_macros::define_common_strings! {
     ascii_chars,
 
     // Order alphabetically.

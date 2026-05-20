@@ -3,8 +3,8 @@ use crate::gui::ThemePreference;
 use crate::log::FilenamePattern;
 use crate::preferences::storage::StorageBackend;
 use crate::preferences::{GlobalPreferencesWatchers, SavedGlobalPreferences};
-use ruffle_frontend_utils::parse::DocumentHolder;
-use ruffle_render_wgpu::clap::{GraphicsBackend, PowerPreference};
+use llflash_frontend_utils::parse::DocumentHolder;
+use llflash_render_wgpu::clap::{GraphicsBackend, PowerPreference};
 use toml_edit::value;
 use unic_langid::LanguageIdentifier;
 
@@ -150,7 +150,7 @@ mod tests {
     use crate::preferences::read::read_preferences;
     use fluent_templates::loader::langid;
 
-    ruffle_frontend_utils::define_serialization_test_helpers!(
+    llflash_frontend_utils::define_serialization_test_helpers!(
         read_preferences,
         SavedGlobalPreferences,
         PreferencesWriter

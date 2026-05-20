@@ -7,7 +7,7 @@ package flash.system {
     import flash.system.MessageChannel;
 
     [API("682")]
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class Worker extends EventDispatcher {
         public static function get isSupported():Boolean {
             return false;

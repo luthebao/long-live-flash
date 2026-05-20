@@ -1,4 +1,4 @@
-about-ruffle = О Ruffle
+about-ruffle = О Llflash
 about-ruffle-version = Версия
 about-ruffle-channel = Канал
 about-ruffle-build-time = Время сборки

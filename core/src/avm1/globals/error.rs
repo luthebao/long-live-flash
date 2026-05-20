@@ -4,7 +4,7 @@ use crate::avm1::activation::Activation;
 use crate::avm1::error::Error;
 use crate::avm1::property_decl::{DeclContext, StaticDeclarations, SystemClass};
 use crate::avm1::{Object, Value};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 const PROTO_DECLS: StaticDeclarations = declare_static_properties! {
     "message" => value("Error");

@@ -1,7 +1,7 @@
 # ruffle-demo
 
-ruffle-demo is an example of how to include Ruffle in your website.
-It also serves as a nice local test to run Ruffle in the web locally, for developers.
+ruffle-demo is an example of how to include Llflash in your website.
+It also serves as a nice local test to run Llflash in the web locally, for developers.
 
 ## Using ruffle-demo
 
@@ -23,7 +23,7 @@ Navigate to that website (usually [http://localhost:4173](http://localhost:4173)
 
 The demo provides the ability to have a list of sample SWFs to choose from.
 This can be helpful if you have a list of useful SWFs to test through, and we use it ourselves
-to showcase Ruffle on various games or animations.
+to showcase Llflash on various games or animations.
 
 To use this, add a new file `swfs.json` in this directory. The contents should look like this:
 
@@ -32,8 +32,8 @@ To use this, add a new file `swfs.json` in this directory. The contents should l
   "swfs": [
     {
       "location": "logo-anim.swf",
-      "title": "Ruffle Logo",
-      "author": "Ruffle contributors",
+      "title": "Llflash Logo",
+      "author": "Llflash contributors",
       "authorLink": "https://ruffle.rs",
       "config": {
         "autoplay": "on",

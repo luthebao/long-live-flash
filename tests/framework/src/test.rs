@@ -6,10 +6,10 @@ use crate::options::known_failure::KnownFailure;
 use crate::runner::TestRunner;
 use crate::util::read_bytes;
 use anyhow::{Result, anyhow};
-use ruffle_core::font::{FontQuery, FontType};
-use ruffle_core::tag_utils::SwfMovie;
-use ruffle_input_format::InputInjector;
-use ruffle_socket_format::SocketEvent;
+use llflash_core::font::{FontQuery, FontType};
+use llflash_core::tag_utils::SwfMovie;
+use llflash_input_format::InputInjector;
+use llflash_socket_format::SocketEvent;
 use vfs::VfsPath;
 
 pub struct Font {

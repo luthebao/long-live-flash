@@ -1,8 +1,8 @@
 use crate::player_ext::PlayerExporterExt;
 use anyhow::Result;
 use clap::Parser;
-use ruffle_core::Player;
-use ruffle_render_wgpu::clap::{GraphicsBackend, PowerPreference};
+use llflash_core::Player;
+use llflash_render_wgpu::clap::{GraphicsBackend, PowerPreference};
 use std::num::NonZeroU32;
 use std::path::PathBuf;
 use std::str::FromStr;
@@ -64,7 +64,7 @@ impl FromStr for FrameSelection {
 }
 
 #[derive(Parser, Debug)]
-#[clap(name = "Ruffle Exporter", author, version)]
+#[clap(name = "Llflash Exporter", author, version)]
 pub struct Opt {
     /// The file or directory of files to export frames from
     #[clap(name = "swf")]

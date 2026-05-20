@@ -1,8 +1,8 @@
 use crate::context::RenderContext;
-use ruffle_render::backend::{RenderBackend, ShapeHandle};
-use ruffle_render::bitmap::{BitmapHandle, BitmapInfo, BitmapSize, BitmapSource};
-use ruffle_render::commands::CommandHandler;
-use ruffle_render::shape_utils::{
+use llflash_render::backend::{RenderBackend, ShapeHandle};
+use llflash_render::bitmap::{BitmapHandle, BitmapInfo, BitmapSize, BitmapSource};
+use llflash_render::commands::CommandHandler;
+use llflash_render::shape_utils::{
     DistilledShape, DrawCommand, DrawPath, FillRule, cubic_curve_bounds, quadratic_curve_bounds,
 };
 use std::cell::OnceCell;
@@ -332,9 +332,9 @@ impl Drawing {
     pub fn hit_test(
         &self,
         point: Point<Twips>,
-        local_matrix: &ruffle_render::matrix::Matrix,
+        local_matrix: &llflash_render::matrix::Matrix,
     ) -> bool {
-        use ruffle_render::shape_utils;
+        use llflash_render::shape_utils;
         for path in &self.paths {
             match path {
                 DrawingPath::Fill(fill) => {

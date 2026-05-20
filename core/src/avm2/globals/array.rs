@@ -10,7 +10,7 @@ use crate::avm2::parameters::ParametersExt;
 use crate::avm2::value::Value;
 use crate::string::AvmString;
 use bitflags::bitflags;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::cmp::Ordering;
 use std::mem::swap;
 

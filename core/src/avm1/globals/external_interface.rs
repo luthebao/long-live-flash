@@ -1,8 +1,8 @@
 //! flash.external.ExternalInterface object
 
-use ruffle_common::avm_string::AvmString;
-use ruffle_macros::istr;
-use ruffle_wstr::{WStr, WString};
+use llflash_common::avm_string::AvmString;
+use llflash_macros::istr;
+use llflash_wstr::{WStr, WString};
 
 use crate::avm1::activation::Activation;
 use crate::avm1::error::Error;

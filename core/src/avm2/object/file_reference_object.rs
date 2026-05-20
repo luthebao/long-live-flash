@@ -4,7 +4,7 @@ use crate::avm2::{Activation, Error};
 use crate::backend::ui::FileDialogResult;
 use crate::context::UpdateContext;
 use gc_arena::{Collect, DynamicRoot, Gc, GcWeak, Rootable};
-use ruffle_common::utils::HasPrefixField;
+use llflash_common::utils::HasPrefixField;
 use std::cell::{Cell, Ref, RefCell};
 use std::fmt;
 

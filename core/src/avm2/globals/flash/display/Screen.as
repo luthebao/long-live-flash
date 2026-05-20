@@ -5,7 +5,7 @@ package flash.display {
     import flash.geom.Rectangle;
 
     [API("661")]
-    // FIXME this class should be `[Ruffle(Abstract)]`
+    // FIXME this class should be `[Llflash(Abstract)]`
     public final class Screen extends EventDispatcher {
         private static var _mainScreen:Screen = null;
 

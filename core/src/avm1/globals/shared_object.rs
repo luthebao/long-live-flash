@@ -7,7 +7,7 @@ use flash_lso::amf0::read::AMF0Decoder;
 use flash_lso::amf0::writer::{Amf0Writer, CacheKey, ObjWriter};
 use flash_lso::types::{Lso, ObjectId, Reference, Value as AmfValue};
 use gc_arena::{Collect, Gc};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::borrow::Cow;
 use std::collections::BTreeMap;
 

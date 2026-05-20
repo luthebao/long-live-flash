@@ -3,24 +3,24 @@
 #![allow(clippy::arc_with_non_send_sync)]
 
 use bytemuck::{Pod, Zeroable};
-use ruffle_render::backend::{
+use llflash_render::backend::{
     BitmapCacheEntry, Context3D, Context3DProfile, PixelBenderOutput, PixelBenderTarget,
     RenderBackend, ShapeHandle, ShapeHandleImpl, ViewportDimensions,
 };
-use ruffle_render::bitmap::{
+use llflash_render::bitmap::{
     Bitmap, BitmapFormat, BitmapHandle, BitmapHandleImpl, BitmapSource, PixelRegion, PixelSnapping,
     RgbaBufRead, SyncHandle,
 };
-use ruffle_render::commands::{CommandHandler, CommandList, RenderBlendMode};
-use ruffle_render::error::Error as BitmapError;
-use ruffle_render::matrix::Matrix;
-use ruffle_render::quality::StageQuality;
-use ruffle_render::shape_utils::{DistilledShape, GradientType};
-use ruffle_render::tessellator::{
+use llflash_render::commands::{CommandHandler, CommandList, RenderBlendMode};
+use llflash_render::error::Error as BitmapError;
+use llflash_render::matrix::Matrix;
+use llflash_render::quality::StageQuality;
+use llflash_render::shape_utils::{DistilledShape, GradientType};
+use llflash_render::tessellator::{
     Gradient as TessGradient, ShapeTessellator, Vertex as TessVertex,
 };
-use ruffle_render::transform::Transform;
-use ruffle_web_common::{JsError, JsResult};
+use llflash_render::transform::Transform;
+use llflash_web_common::{JsError, JsResult};
 use std::any::Any;
 use std::borrow::Cow;
 use std::num::NonZeroU32;
@@ -569,7 +569,7 @@ impl WebGlRenderBackend {
         bitmap_source: &dyn BitmapSource,
         scale: f32,
     ) -> Result<Vec<Draw>, Error> {
-        use ruffle_render::tessellator::DrawType as TessDrawType;
+        use llflash_render::tessellator::DrawType as TessDrawType;
 
         let lyon_mesh =
             self.shape_tessellator
@@ -1205,8 +1205,8 @@ impl RenderBackend for WebGlRenderBackend {
 
     fn compile_pixelbender_shader(
         &mut self,
-        _shader: ruffle_render::pixel_bender::PixelBenderShader,
-    ) -> Result<ruffle_render::pixel_bender::PixelBenderShaderHandle, BitmapError> {
+        _shader: llflash_render::pixel_bender::PixelBenderShader,
+    ) -> Result<llflash_render::pixel_bender::PixelBenderShaderHandle, BitmapError> {
         Err(BitmapError::Unimplemented(
             "compile_pixelbender_shader".into(),
         ))
@@ -1216,16 +1216,16 @@ impl RenderBackend for WebGlRenderBackend {
         &mut self,
         _handle: Box<dyn SyncHandle>,
         _with_rgba: RgbaBufRead,
-    ) -> Result<(), ruffle_render::error::Error> {
-        Err(ruffle_render::error::Error::Unimplemented(
+    ) -> Result<(), llflash_render::error::Error> {
+        Err(llflash_render::error::Error::Unimplemented(
             "Sync handle resolution".into(),
         ))
     }
 
     fn run_pixelbender_shader(
         &mut self,
-        _handle: ruffle_render::pixel_bender::PixelBenderShaderHandle,
-        _arguments: &[ruffle_render::pixel_bender_support::PixelBenderShaderArgument],
+        _handle: llflash_render::pixel_bender::PixelBenderShaderHandle,
+        _arguments: &[llflash_render::pixel_bender_support::PixelBenderShaderArgument],
         _target: &PixelBenderTarget,
     ) -> Result<PixelBenderOutput, BitmapError> {
         Err(BitmapError::Unimplemented("run_pixelbender_shader".into()))

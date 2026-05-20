@@ -237,7 +237,7 @@ impl<'gc> VTable<'gc> {
         // Any attempt to use `callmethod` opcode to observe the disp_id fails
         // with VerifyError.
         //
-        // disp_id in Ruffle:
+        // disp_id in Llflash:
         // Let's just do the same. We could go the easy way and always-increment,
         // but reusing same disp_id for overriding virtual methods is a nice idea,
         // both for space savings and lets us still use call_method() internally
@@ -265,7 +265,7 @@ impl<'gc> VTable<'gc> {
         //   on class defined in same script also throws VerifyError;
         //   not sure why it's treated as "different constant pool")
 
-        // slot_id in Ruffle:
+        // slot_id in Llflash:
         // Currently we don't really have ability to "compare abc between
         // methods/activations/traits/etc", so let's do something simpler.
         // We try to respect slot_id whenever possible, but if a conflict arises,
@@ -275,7 +275,7 @@ impl<'gc> VTable<'gc> {
         // such slot with `getslot` wouldn't have passed verification in the first place.
         // So such SWFs shouldn't be encountered in the wild.
         //
-        // Worst-case is that someone can hand-craft such an SWF specifically for Ruffle
+        // Worst-case is that someone can hand-craft such an SWF specifically for Llflash
         // and be able to access private class members with `getslot/setslot,
         // so long-term it's still something we should verify.
         // (and it's far from the only verification check we lack anyway)

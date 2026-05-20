@@ -3,7 +3,7 @@ package flash.net {
     import flash.utils.ByteArray;
     import __ruffle__.stub_method;
 
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public class FileReference extends EventDispatcher {
         public function FileReference() {}
 

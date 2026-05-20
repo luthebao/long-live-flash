@@ -1,9 +1,9 @@
 {
     "settings_ruffle_enable": {
-        "message": "RuffleでFlashコンテンツを再生する"
+        "message": "LlflashでFlashコンテンツを再生する"
     },
     "settings_ignore_optout": {
-        "message": "Ruffleを許可していないサイトでもFlashコンテンツを再生する"
+        "message": "Llflashを許可していないサイトでもFlashコンテンツを再生する"
     },
     "settings_show_swf_download": {
         "message": "SWFのダウンロードをコンテキストメニューに表示する"
@@ -57,7 +57,7 @@
         "message": "設定をリセット"
     },
     "settings_reset_confirm": {
-        "message": "Ruffleの設定をデフォルトの状態に復元します。よろしいですか？"
+        "message": "Llflashの設定をデフォルトの状態に復元します。よろしいですか？"
     },
     "status_init": {
         "message": "現在のタブを読み込み中..."
@@ -69,25 +69,25 @@
         "message": "現在のタブを検索中にエラーが発生しました。"
     },
     "status_message_init": {
-        "message": "Ruffleの状態を確認しています..."
+        "message": "Llflashの状態を確認しています..."
     },
     "status_result_running": {
-        "message": "RuffleでFlashを実行する準備が整いました。"
+        "message": "LlflashでFlashを実行する準備が整いました。"
     },
     "status_result_running_protected": {
-        "message": "RuffleはリクエストされたFlashコンテンツを実行する準備ができました。"
+        "message": "LlflashはリクエストされたFlashコンテンツを実行する準備ができました。"
     },
     "status_result_optout": {
-        "message": "現在のサイトは互換性がないため、Ruffleをロードできません。"
+        "message": "現在のサイトは互換性がないため、Llflashをロードできません。"
     },
     "status_result_disabled": {
-        "message": "Ruffleは無効化されています。"
+        "message": "Llflashは無効化されています。"
     },
     "status_result_error": {
-        "message": "現在のページでRuffleインスタンスの照会中にエラーが発生しました。"
+        "message": "現在のページでLlflashインスタンスの照会中にエラーが発生しました。"
     },
     "status_result_protected": {
-        "message": "Ruffleは、ブラウザの保護されたページでは読み込まれません。"
+        "message": "Llflashは、ブラウザの保護されたページでは読み込まれません。"
     },
     "action_reload": {
         "message": "タブをリロードして変更を適用する"
@@ -114,16 +114,16 @@
         "message": "オンボーディング ページ"
     },
     "permissions_grant": {
-        "message": "Ruffleにすべてのウェブサイトでデータへのアクセスを許可"
+        "message": "Llflashにすべてのウェブサイトでデータへのアクセスを許可"
     },
     "permissions_not_granted": {
-        "message": "Ruffleを使用したいサイトそれぞれでRuffle拡張機能のアイコンをクリックする必要があります"
+        "message": "Llflashを使用したいサイトそれぞれでLlflash拡張機能のアイコンをクリックする必要があります"
     },
     "grant_single_site_permission": {
         "message": "このサイトに対して永続的に有効化する"
     },
     "permissions_explanation": {
-        "message": "Ruffle拡張機能を最適に動作させるには、すべてのWebサイトへのアクセス権を付与する必要があります。これにより、サイトの読み込み時にRuffleが実行され、Flashコンテンツを即座に実行することができます。また、URLで直接SWFファイルを指定してRuffleの組み込みプレーヤーで実行することが可能になります。アクセス権を付与しない場合は、Ruffleを使用したいWebサイトで拡張機能アイコンより手動でアクセス権の付与が必要になります。"
+        "message": "Llflash拡張機能を最適に動作させるには、すべてのWebサイトへのアクセス権を付与する必要があります。これにより、サイトの読み込み時にLlflashが実行され、Flashコンテンツを即座に実行することができます。また、URLで直接SWFファイルを指定してLlflashの組み込みプレーヤーで実行することが可能になります。アクセス権を付与しない場合は、Llflashを使用したいWebサイトで拡張機能アイコンより手動でアクセス権の付与が必要になります。"
     },
     "swf_player_permissions": {
         "message": "このURLオリジンからSWFを読み込むには、URLオリジンにアクセス許可を与える必要があります。"

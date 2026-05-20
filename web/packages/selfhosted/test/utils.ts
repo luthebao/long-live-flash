@@ -38,7 +38,7 @@ export async function isRufflePlayerLoaded(
 
 export async function waitForRuffle(browser: WebdriverIO.Browser) {
     await browser.waitUntil(async () => await isRuffleLoaded(browser), {
-        timeoutMsg: "Expected Ruffle to load",
+        timeoutMsg: "Expected Llflash to load",
     });
     await throwIfError(browser);
 }
@@ -124,7 +124,7 @@ export async function getTraceOutput(
             return log.length >= messageCount;
         },
         {
-            timeoutMsg: `Expected Ruffle to trace ${messageCount} messages`,
+            timeoutMsg: `Expected Llflash to trace ${messageCount} messages`,
         },
     );
 
@@ -185,7 +185,7 @@ export async function waitForPlayerToLoad(
     await browser.waitUntil(
         async () => await isRufflePlayerLoaded(browser, player),
         {
-            timeoutMsg: "Expected Ruffle to load",
+            timeoutMsg: "Expected Llflash to load",
             timeout: 60000,
         },
     );

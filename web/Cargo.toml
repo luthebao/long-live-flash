@@ -1,6 +1,6 @@
 [package]
-name = "ruffle_web"
-description = "Web (WASM) bindings to the Ruffle Flash player"
+name = "llflash_web"
+description = "Web (WASM) bindings to the Llflash Flash player"
 authors.workspace = true
 edition.workspace = true
 homepage.workspace = true
@@ -19,15 +19,15 @@ crate-type = ["cdylib", "rlib"]
 default = ["canvas", "console_error_panic_hook", "webgl", "wgpu-webgl", "webgpu"]
 
 # core features
-avm_debug = ["ruffle_core/avm_debug"]
-lzma = ["ruffle_core/lzma"]
-jpegxr = ["ruffle_core/jpegxr"]
+avm_debug = ["llflash_core/avm_debug"]
+lzma = ["llflash_core/lzma"]
+jpegxr = ["llflash_core/jpegxr"]
 
 # web features
-canvas = ["ruffle_render_canvas"]
-webgl = ["ruffle_render_webgl"]
-webgpu = ["ruffle_render_wgpu"]
-wgpu-webgl = ["ruffle_render_wgpu", "ruffle_render_wgpu/webgl"]
+canvas = ["llflash_render_canvas"]
+webgl = ["llflash_render_webgl"]
+webgpu = ["llflash_render_wgpu"]
+wgpu-webgl = ["llflash_render_wgpu", "llflash_render_wgpu/webgl"]
 profiling = []
 
 [dependencies]
@@ -38,12 +38,12 @@ tracing = { workspace = true, features = ["log"] }
 tracing-subscriber = { version = "0.3.23", default-features = false, features = ["registry"] }
 tracing-log = "0.2.0"
 tracing-wasm = { workspace = true }
-ruffle_render_canvas = { path = "../render/canvas", optional = true }
-ruffle_web_common = { path = "common" }
-ruffle_render = { path = "../render" }
-ruffle_render_webgl = { path = "../render/webgl", optional = true }
-ruffle_render_wgpu = { path = "../render/wgpu", optional = true }
-ruffle_video_external = { path = "../video/external", features = ["webcodecs"] }
+llflash_render_canvas = { path = "../render/canvas", optional = true }
+llflash_web_common = { path = "common" }
+llflash_render = { path = "../render" }
+llflash_render_webgl = { path = "../render/webgl", optional = true }
+llflash_render_wgpu = { path = "../render/wgpu", optional = true }
+llflash_video_external = { path = "../video/external", features = ["webcodecs"] }
 url = { workspace = true }
 wasm-bindgen = { workspace = true }
 wasm-bindgen-futures = "0.4.70"
@@ -60,7 +60,7 @@ wasm-streams = "0.5.0"
 futures = { workspace = true }
 zip = { version = "8.6.0", default-features = false }
 
-[dependencies.ruffle_core]
+[dependencies.llflash_core]
 path = "../core"
 features = ["audio", "mp3", "aac", "nellymoser", "default_compatibility_rules", "default_font", "serde"]
 

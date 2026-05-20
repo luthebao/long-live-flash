@@ -12,7 +12,7 @@ use encoding_rs::UTF_8;
 use flash_lso::amf0::read::AMF0Decoder;
 use flash_lso::amf3::read::AMF3Decoder;
 use flash_lso::types::{AMFVersion, Element};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 macro_rules! assert_socket_open {
     ($activation:expr, $socket:expr) => {

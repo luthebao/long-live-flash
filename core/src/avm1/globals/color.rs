@@ -11,7 +11,7 @@ use crate::avm1::{Object, Value};
 use crate::display_object::{DisplayObject, TDisplayObject};
 use crate::string::AvmString;
 
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use swf::Fixed8;
 
 const PROTO_DECLS: StaticDeclarations = declare_static_properties! {

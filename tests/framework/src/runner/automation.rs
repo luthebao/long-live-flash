@@ -1,10 +1,10 @@
-use ruffle_core::events::{
+use llflash_core::events::{
     ImeEvent, KeyDescriptor, KeyLocation, LogicalKey, NamedKey, PhysicalKey,
     TextControlCode as RuffleTextControlCode,
 };
-use ruffle_core::events::{MouseButton as RuffleMouseButton, MouseWheelDelta};
-use ruffle_core::{Player, PlayerEvent};
-use ruffle_input_format::{
+use llflash_core::events::{MouseButton as RuffleMouseButton, MouseWheelDelta};
+use llflash_core::{Player, PlayerEvent};
+use llflash_input_format::{
     AutomatedEvent, AutomatedKey, MouseButton as InputMouseButton,
     TextControlCode as InputTextControlCode,
 };

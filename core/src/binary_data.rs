@@ -1,5 +1,5 @@
 use gc_arena::Collect;
-use ruffle_common::tag_utils::{SwfMovie, SwfSlice};
+use llflash_common::tag_utils::{SwfMovie, SwfSlice};
 use std::sync::Arc;
 
 #[derive(Collect, Debug)]

@@ -1,8 +1,8 @@
 use crate::VideoStreamHandle;
 use crate::error::Error;
 use crate::frame::{EncodedFrame, FrameDependency};
-use ruffle_render::backend::RenderBackend;
-use ruffle_render::bitmap::BitmapInfo;
+use llflash_render::backend::RenderBackend;
+use llflash_render::bitmap::BitmapInfo;
 use swf::{VideoCodec, VideoDeblocking};
 
 /// A backend that provides access to some number of video decoders.

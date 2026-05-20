@@ -1,9 +1,9 @@
-use ruffle_core::backend::audio::{
+use llflash_core::backend::audio::{
     AudioBackend, AudioMixer, AudioMixerProxy, DecodeError, RegisterError, SoundHandle,
     SoundInstanceHandle, SoundStreamInfo, SoundTransform, swf,
 };
-use ruffle_core::impl_audio_mixer_backend;
-use ruffle_web_common::JsResult;
+use llflash_core::impl_audio_mixer_backend;
+use llflash_web_common::JsResult;
 use std::cell::{Cell, RefCell};
 use std::rc::Rc;
 use std::sync::Arc;

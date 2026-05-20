@@ -2,13 +2,13 @@ use crate::decoder::VideoDecoder;
 #[cfg(feature = "openh264")]
 use crate::decoder::openh264::OpenH264Codec;
 
-use ruffle_render::backend::RenderBackend;
-use ruffle_render::bitmap::{BitmapHandle, BitmapInfo, PixelRegion};
-use ruffle_video::VideoStreamHandle;
-use ruffle_video::backend::VideoBackend;
-use ruffle_video::error::Error;
-use ruffle_video::frame::{EncodedFrame, FrameDependency};
-use ruffle_video_software::backend::SoftwareVideoBackend;
+use llflash_render::backend::RenderBackend;
+use llflash_render::bitmap::{BitmapHandle, BitmapInfo, PixelRegion};
+use llflash_video::VideoStreamHandle;
+use llflash_video::backend::VideoBackend;
+use llflash_video::error::Error;
+use llflash_video::frame::{EncodedFrame, FrameDependency};
+use llflash_video_software::backend::SoftwareVideoBackend;
 use slotmap::SlotMap;
 
 use swf::{VideoCodec, VideoDeblocking};

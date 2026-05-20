@@ -1,7 +1,7 @@
 //! TextSnapshot object
 
 use gc_arena::Collect;
-use ruffle_common::avm_string::AvmString;
+use llflash_common::avm_string::AvmString;
 
 use crate::avm1::activation::Activation;
 use crate::avm1::error::Error;

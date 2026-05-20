@@ -1,9 +1,9 @@
 {
     "settings_ruffle_enable": {
-        "message": "Chạy nội dung Flash trong Ruffle"
+        "message": "Chạy nội dung Flash trong Llflash"
     },
     "settings_ignore_optout": {
-        "message": "Chạy nội dung Flash ngay cả trên các trang chặn Ruffle"
+        "message": "Chạy nội dung Flash ngay cả trên các trang chặn Llflash"
     },
     "settings_show_swf_download": {
         "message": "Hiển thị Tải xuống SWF trong menu ngữ cảnh"
@@ -51,7 +51,7 @@
         "message": "Khôi phục cài đặt mặc định"
     },
     "settings_reset_confirm": {
-        "message": "Bạn có chắc chắn muốn khôi phục cài đặt Ruffle về mặc định ban đầu?"
+        "message": "Bạn có chắc chắn muốn khôi phục cài đặt Llflash về mặc định ban đầu?"
     },
     "status_init": {
         "message": "Đang đọc tab hiện tại…"
@@ -63,25 +63,25 @@
         "message": "Có lỗi xảy ra khi tìm kiếm tab hiện tại."
     },
     "status_message_init": {
-        "message": "Đang kiểm tra trạng thái Ruffle trên tab hiện tại…"
+        "message": "Đang kiểm tra trạng thái Llflash trên tab hiện tại…"
     },
     "status_result_running": {
-        "message": "Ruffle đã sẵn sàng chạy nội dung Flash trên tab hiện tại."
+        "message": "Llflash đã sẵn sàng chạy nội dung Flash trên tab hiện tại."
     },
     "status_result_running_protected": {
-        "message": "Ruffle đã sẵn sàng chạy nội dung Flash mà bạn yêu cầu."
+        "message": "Llflash đã sẵn sàng chạy nội dung Flash mà bạn yêu cầu."
     },
     "status_result_optout": {
-        "message": "Ruffle không khả dụng vì trang web hiện tại tự đánh dấu là không tương thích."
+        "message": "Llflash không khả dụng vì trang web hiện tại tự đánh dấu là không tương thích."
     },
     "status_result_disabled": {
-        "message": "Ruffle đã bị vô hiệu hoá."
+        "message": "Llflash đã bị vô hiệu hoá."
     },
     "status_result_error": {
-        "message": "Đã xảy ra lỗi khi truy vấn Ruffle của trang hiện tại."
+        "message": "Đã xảy ra lỗi khi truy vấn Llflash của trang hiện tại."
     },
     "status_result_protected": {
-        "message": "Ruffle không khả dụng ở chế độ duyệt web an toàn nâng cao của trình duyệt."
+        "message": "Llflash không khả dụng ở chế độ duyệt web an toàn nâng cao của trình duyệt."
     },
     "action_reload": {
         "message": "Tải lại tab để áp dụng các thay đổi"
@@ -108,16 +108,16 @@
         "message": "Trang giới thiệu tổng quan"
     },
     "permissions_grant": {
-        "message": "Cấp quyền cho Ruffle được phép truy cập dữ liệu trang web của tôi trên tất cả các trang"
+        "message": "Cấp quyền cho Llflash được phép truy cập dữ liệu trang web của tôi trên tất cả các trang"
     },
     "permissions_not_granted": {
-        "message": "Bạn sẽ cần phải bấm vào biểu tượng Ruffle trên mỗi trang web mà bạn muốn sử dụng Ruffle"
+        "message": "Bạn sẽ cần phải bấm vào biểu tượng Llflash trên mỗi trang web mà bạn muốn sử dụng Llflash"
     },
     "grant_single_site_permission": {
         "message": "Bật vĩnh viễn đối với trang web này"
     },
     "permissions_explanation": {
-        "message": "Tiện ích mở rộng Ruffle hoạt động tốt nhất với quyền cho phép truy cập dữ liệu trang web trên tất cả các trang. Điều này cho phép nó được quyền chạy khi bất kỳ trang web nào tải lần đầu, cho phép nó giúp các trang web phát hiện Flash Player ngay lập tức để cho phép nội dung Flash chạy. Nó cũng cấp quyền để nó có khả năng tải các tệp SWF vào trang trình phát nội bộ của nó từ các nơi khác trên web và cho phép nó tự động tải các liên kết SWF trực tiếp vào trang đó. Nếu bạn không cấp quyền này, bạn sẽ cần phải bật Ruffle theo cách thủ công trên mọi trang web mà bạn muốn sử dụng bằng cách nhấp vào biểu tượng của tiện ích mở rộng và bật nó cho trang web đó."
+        "message": "Tiện ích mở rộng Llflash hoạt động tốt nhất với quyền cho phép truy cập dữ liệu trang web trên tất cả các trang. Điều này cho phép nó được quyền chạy khi bất kỳ trang web nào tải lần đầu, cho phép nó giúp các trang web phát hiện Flash Player ngay lập tức để cho phép nội dung Flash chạy. Nó cũng cấp quyền để nó có khả năng tải các tệp SWF vào trang trình phát nội bộ của nó từ các nơi khác trên web và cho phép nó tự động tải các liên kết SWF trực tiếp vào trang đó. Nếu bạn không cấp quyền này, bạn sẽ cần phải bật Llflash theo cách thủ công trên mọi trang web mà bạn muốn sử dụng bằng cách nhấp vào biểu tượng của tiện ích mở rộng và bật nó cho trang web đó."
     },
     "swf_player_permissions": {
         "message": "Bạn phải cấp phép cho miền URL này để có thể tải các file SWF từ đó."

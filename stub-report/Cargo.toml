@@ -10,7 +10,7 @@ version.workspace = true
 [dependencies]
 clap = { workspace = true }
 anyhow = { workspace = true }
-ruffle_core = { path = "../core", features = ["known_stubs"] }
+llflash_core = { path = "../core", features = ["known_stubs"] }
 
 [lints]
 workspace = true

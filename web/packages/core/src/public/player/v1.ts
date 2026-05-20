@@ -46,7 +46,7 @@ export interface PlayerV1 {
     /**
      * The metadata of the playing movie (such as movie width and height).
      * These are inherent properties stored in the SWF file and are not affected by runtime changes.
-     * For example, `metadata.width` is the width of the SWF file, and not the width of the Ruffle player.
+     * For example, `metadata.width` is the width of the SWF file, and not the width of the Llflash player.
      *
      * @returns The metadata of the movie, or `null` if the movie metadata has not yet loaded.
      */

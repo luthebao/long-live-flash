@@ -11,7 +11,7 @@ package flash.display {
     import flash.display.InteractiveObject;
     import flash.text.TextSnapshot;
 
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public class DisplayObjectContainer extends InteractiveObject {
         public native function get numChildren():int;
         public native function get mouseChildren():Boolean;

@@ -1,4 +1,4 @@
-about-ruffle = About Ruffle
+about-ruffle = About Llflash
 
 about-ruffle-version = Version
 about-ruffle-channel = Channel

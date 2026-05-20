@@ -8,7 +8,7 @@ package flash.display {
     // but airglobal.swc disagrees with that:
     [API("667")]
     public class NativeMenuItem extends EventDispatcher {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _enabled:Boolean = false;
 
         private var _checked:Boolean = false;

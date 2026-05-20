@@ -1,6 +1,6 @@
 use gc_arena::{Collect, Gc};
 
-pub use ruffle_macros::HasPrefixField;
+pub use llflash_macros::HasPrefixField;
 
 /// A trait indicating that `Self` has `Inner` as an initial prefix.
 ///

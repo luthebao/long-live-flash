@@ -1,5 +1,5 @@
 use h263_rs_yuv::bt601::yuv420_to_rgba;
-use ruffle_wstr::{FromWStr, WStr};
+use llflash_wstr::{FromWStr, WStr};
 use std::any::Any;
 use std::borrow::Cow;
 use std::fmt::Debug;

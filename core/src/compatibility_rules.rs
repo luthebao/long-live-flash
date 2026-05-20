@@ -103,7 +103,7 @@ impl CompatibilityRules {
                     )],
                     domain_block_rules: vec![],
                 },
-                // Replaces fpdownload.adobe.com with Ruffle's CDN. fpdownload.adobe.com hosts SWZ files
+                // Replaces fpdownload.adobe.com with Llflash's CDN. fpdownload.adobe.com hosts SWZ files
                 // which do not work on web due to CORS (and the reliability of fpdownload.adobe.com is
                 // questionable).
                 RuleSet {

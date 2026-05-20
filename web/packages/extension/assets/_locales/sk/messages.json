@@ -1,9 +1,9 @@
 {
     "settings_ruffle_enable": {
-        "message": "Spustiť Flash obsah v Ruffle"
+        "message": "Spustiť Flash obsah v Llflash"
     },
     "settings_ignore_optout": {
-        "message": "Spustiť Flash obsah aj na stránkach, ktoré nepovoľujú Ruffle"
+        "message": "Spustiť Flash obsah aj na stránkach, ktoré nepovoľujú Llflash"
     },
     "settings_show_swf_download": {
         "message": "Zobraziť možnosť stiahnuť SWF v kontextovej ponuke"
@@ -51,7 +51,7 @@
         "message": "Obnoviť nastavenia"
     },
     "settings_reset_confirm": {
-        "message": "Naozaj chcete obnoviť nastavenia Ruffle na pôvodné predvolené hodnoty?"
+        "message": "Naozaj chcete obnoviť nastavenia Llflash na pôvodné predvolené hodnoty?"
     },
     "status_init": {
         "message": "Číta sa aktuálna karta…"
@@ -63,25 +63,25 @@
         "message": "Pri prezeraní aktuálnej karty sa vyskytla chyba."
     },
     "status_message_init": {
-        "message": "Kontroluje sa stav Ruffle na aktuálnej karte…"
+        "message": "Kontroluje sa stav Llflash na aktuálnej karte…"
     },
     "status_result_running": {
-        "message": "Ruffle je načítaný a pripravený na spustenie Flash obsahu na aktuálnej karte."
+        "message": "Llflash je načítaný a pripravený na spustenie Flash obsahu na aktuálnej karte."
     },
     "status_result_running_protected": {
-        "message": "Ruffle je načítaný a spúšťa Flash obsah, ktorý ste požadovali."
+        "message": "Llflash je načítaný a spúšťa Flash obsah, ktorý ste požadovali."
     },
     "status_result_optout": {
-        "message": "Ruffle sa nenačítal, pretože aktuálna stránka sa označila ako nekompatibilná."
+        "message": "Llflash sa nenačítal, pretože aktuálna stránka sa označila ako nekompatibilná."
     },
     "status_result_disabled": {
-        "message": "Ruffle nie je načítaný, pretože je vypnutý."
+        "message": "Llflash nie je načítaný, pretože je vypnutý."
     },
     "status_result_error": {
-        "message": "Pri dotazovaní na inštanciu Ruffle na aktuálnej karte sa vyskytla chyba."
+        "message": "Pri dotazovaní na inštanciu Llflash na aktuálnej karte sa vyskytla chyba."
     },
     "status_result_protected": {
-        "message": "Ruffle sa nemôže načítať na chránených stránkach prehliadača."
+        "message": "Llflash sa nemôže načítať na chránených stránkach prehliadača."
     },
     "action_reload": {
         "message": "Ak chcete použiť zmeny, znova načítajte kartu"
@@ -108,16 +108,16 @@
         "message": "Vstupná stránka"
     },
     "permissions_grant": {
-        "message": "Udeliť Ruffle povolenie na prístup k mojim údajom na všetkých stránkach"
+        "message": "Udeliť Llflash povolenie na prístup k mojim údajom na všetkých stránkach"
     },
     "permissions_not_granted": {
-        "message": "Budete musieť kliknúť na ikonu Ruffle na každej stránke, na ktorej chcete Ruffle použiť"
+        "message": "Budete musieť kliknúť na ikonu Llflash na každej stránke, na ktorej chcete Llflash použiť"
     },
     "grant_single_site_permission": {
         "message": "Natrvalo povoliť pre túto stránku"
     },
     "permissions_explanation": {
-        "message": "Rozšírenie Ruffle funguje najlepšie s možnosťou prístupu k dátam na všetkých webových stránkach. To mu umožňuje spustiť sa pri prvom načítaní ľubovoľnej webovej stránky, a preto môže presvedčiť webové stránky, ktoré vykonávajú detekciu Flash Playeru, aby okamžite nechali spustiť obsah Flash. Dáva mu to tiež možnosť načítať súbory SWF do svojej internej stránky prehrávača z iných miest na webe a umožňuje mu to automaticky načítať priame odkazy SWF do tejto stránky. Ak toto oprávnenie neudelíte, budete musieť Ruffle povoliť ručne na každej webovej stránke, na ktorej ho chcete používať, kliknutím na ikonu rozšírenia a jeho povolením pre danú webovú stránku."
+        "message": "Rozšírenie Llflash funguje najlepšie s možnosťou prístupu k dátam na všetkých webových stránkach. To mu umožňuje spustiť sa pri prvom načítaní ľubovoľnej webovej stránky, a preto môže presvedčiť webové stránky, ktoré vykonávajú detekciu Flash Playeru, aby okamžite nechali spustiť obsah Flash. Dáva mu to tiež možnosť načítať súbory SWF do svojej internej stránky prehrávača z iných miest na webe a umožňuje mu to automaticky načítať priame odkazy SWF do tejto stránky. Ak toto oprávnenie neudelíte, budete musieť Llflash povoliť ručne na každej webovej stránke, na ktorej ho chcete používať, kliknutím na ikonu rozšírenia a jeho povolením pre danú webovú stránku."
     },
     "swf_player_permissions": {
         "message": "Ak chcete z tejto URL adresy načítať súbory SWF, musíte udeliť oprávnenie."

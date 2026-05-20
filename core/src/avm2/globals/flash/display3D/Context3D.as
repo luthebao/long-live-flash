@@ -15,7 +15,7 @@ package flash.display3D {
     import flash.display3D.textures.VideoTexture;
 
     [API("674")]
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class Context3D extends EventDispatcher {
         public native function clear(
             red:Number = 0.0,
@@ -100,7 +100,7 @@ package flash.display3D {
 
         public function get driverInfo():String {
             stub_getter("flash.display3D.Context3D", "driverInfo");
-            return "Dummy Ruffle driver";
+            return "Dummy Llflash driver";
         }
 
         private var _enableErrorChecking:Boolean = false;

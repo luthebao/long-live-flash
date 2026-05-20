@@ -4,9 +4,9 @@ pub use read::read_player_options;
 pub use write::PlayerOptionsWriter;
 pub use write::write_player_options;
 
-use ruffle_core::config::Letterbox;
-use ruffle_core::{LoadBehavior, PlayerRuntime, StageAlign, StageScaleMode};
-use ruffle_render::quality::StageQuality;
+use llflash_core::config::Letterbox;
+use llflash_core::{LoadBehavior, PlayerRuntime, StageAlign, StageScaleMode};
+use llflash_render::quality::StageQuality;
 use std::time::Duration;
 use url::Url;
 

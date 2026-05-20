@@ -1,4 +1,4 @@
-preferences-dialog = Ruffle tercihleri
+preferences-dialog = Llflash tercihleri
 preference-locked-by-cli = Salt-okunur (CLI tarafından ayarlanır)
 graphics-backend = Grafik altyapısı
 graphics-backend-default = Varsayılan
@@ -25,7 +25,7 @@ theme-light = Aydınlık
 theme-dark = Karanlık
 # See for context https://github.com/FeralInteractive/gamemode
 gamemode = GameMode
-gamemode-tooltip = GameMode, bilgisayarınıza ve/veya Ruffle'a geçici olarak bir dizi optimizasyon uygular. Ruffle, yalnızca bir film oynatıldığında GameMode'u talep eder.
+gamemode-tooltip = GameMode, bilgisayarınıza ve/veya Llflash'a geçici olarak bir dizi optimizasyon uygular. Llflash, yalnızca bir film oynatıldığında GameMode'u talep eder.
 gamemode-default = Varsayılan
 gamemode-default-tooltip = GameMode yalnızca güç tercihi yüksek olarak ayarlandığında etkinleştirilecektir.
 # See for context https://wiki.archlinux.org/title/Input_method

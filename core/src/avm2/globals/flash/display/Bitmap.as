@@ -1,5 +1,5 @@
 package flash.display {
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public class Bitmap extends DisplayObject {
         public native function get bitmapData():BitmapData;
         public native function set bitmapData(value:BitmapData):void;

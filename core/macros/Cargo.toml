@@ -1,5 +1,5 @@
 [package]
-name = "ruffle_macros"
+name = "llflash_macros"
 authors.workspace = true
 edition.workspace = true
 homepage.workspace = true

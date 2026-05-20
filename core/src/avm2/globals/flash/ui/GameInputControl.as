@@ -2,6 +2,6 @@ package flash.ui {
     import flash.events.EventDispatcher;
 
     [API("688")]
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public dynamic class GameInputControl extends EventDispatcher {}
 }

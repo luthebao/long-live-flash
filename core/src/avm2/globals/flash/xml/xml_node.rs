@@ -3,7 +3,7 @@ use crate::avm2::activation::Activation;
 use crate::avm2::parameters::ParametersExt;
 use crate::avm2::value::Value;
 use crate::string::AvmString;
-use ruffle_wstr::from_utf8;
+use llflash_wstr::from_utf8;
 
 pub fn _escape_xml<'gc>(
     activation: &mut Activation<'_, 'gc>,

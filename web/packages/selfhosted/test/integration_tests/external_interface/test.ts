@@ -189,7 +189,7 @@ describe("ExternalInterface", () => {
         ]);
     });
 
-    // [NA] Broken on Ruffle at time of writing
+    // [NA] Broken on Llflash at time of writing
     it.skip("calls a reentrant JS method", async () => {
         // JS -> Flash -> JS within one call
         const player = await browser.$("<ruffle-object>").getElement();
@@ -307,7 +307,7 @@ describe("ExternalInterface", () => {
         ]);
     });
 
-    it("allows overriding a Ruffle method", async () => {
+    it("allows overriding a Llflash method", async () => {
         const player = await browser.$("<ruffle-object>").getElement();
         await browser.execute((player) => {
             player.addAnotherCallback("isPlaying", "isPlaying from EI");

@@ -5,7 +5,7 @@ package flash.net {
     import flash.events.StatusEvent;
     import flash.utils.setTimeout;
 
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public class LocalConnection extends EventDispatcher {
         public function LocalConnection() {
             super();

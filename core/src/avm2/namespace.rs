@@ -4,7 +4,7 @@ use crate::avm2::script::TranslationUnit;
 use crate::string::{AvmAtom, AvmString, StringContext};
 use gc_arena::{Collect, Gc};
 use num_traits::FromPrimitive;
-use ruffle_wstr::WStr;
+use llflash_wstr::WStr;
 use std::fmt::Debug;
 use swf::avm2::types::{Index, Namespace as AbcNamespace};
 

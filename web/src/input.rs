@@ -1,4 +1,4 @@
-use ruffle_core::events::{
+use llflash_core::events::{
     KeyDescriptor, KeyLocation, LogicalKey, NamedKey, PhysicalKey, TextControlCode,
 };
 use web_sys::KeyboardEvent;
@@ -14,7 +14,7 @@ pub fn web_input_to_ruffle_key_descriptor(event: &KeyboardEvent) -> KeyDescripto
     }
 }
 
-/// Convert a web `KeyboardEvent.code` value into a Ruffle `PhysicalKey`.
+/// Convert a web `KeyboardEvent.code` value into a Llflash `PhysicalKey`.
 fn map_physical_key(key_code: &str) -> PhysicalKey {
     match key_code {
         "Backquote" => PhysicalKey::Backquote,
@@ -154,7 +154,7 @@ fn map_physical_key(key_code: &str) -> PhysicalKey {
     }
 }
 
-/// Convert a web `KeyboardEvent.key` value into a Ruffle `LogicalKey`.
+/// Convert a web `KeyboardEvent.key` value into a Llflash `LogicalKey`.
 fn map_logical_key(key: &str) -> LogicalKey {
     // TODO: This is a very cheesy way to tell if a `KeyboardEvent.key` is a printable character.
     // Single character strings will be an actual printable char that we can use as text input.
@@ -253,7 +253,7 @@ fn map_logical_key(key: &str) -> LogicalKey {
     }
 }
 
-/// Convert a web `KeyboardEvent.location` value into a Ruffle `KeyLocation`.
+/// Convert a web `KeyboardEvent.location` value into a Llflash `KeyLocation`.
 fn map_key_location(location: u32) -> KeyLocation {
     match location {
         1 => KeyLocation::Left,
@@ -263,7 +263,7 @@ fn map_key_location(location: u32) -> KeyLocation {
     }
 }
 
-/// Convert a web keyboard event to a Ruffle `TextControlCode`, given the
+/// Convert a web keyboard event to a Llflash `TextControlCode`, given the
 /// states of the modifier keys. Return `None` if there is no match.
 ///
 /// `key` is `KeyboardEvent.key` (the produced character — layout-dependent;

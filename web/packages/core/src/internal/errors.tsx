@@ -17,7 +17,7 @@ export class InvalidSwfError extends Error {
 
 export class LoadRuffleWasmError extends Error {
     constructor(public cause: Error) {
-        super("Failed to load Ruffle WASM");
+        super("Failed to load Llflash WASM");
     }
 }
 

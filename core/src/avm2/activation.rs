@@ -28,7 +28,7 @@ use crate::context::UpdateContext;
 use crate::string::{AvmAtom, AvmString, HasStringContext, StringContext};
 use crate::tag_utils::SwfMovie;
 use gc_arena::Gc;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::cell::Cell;
 use std::cmp::{Ordering, min};
 use std::sync::Arc;

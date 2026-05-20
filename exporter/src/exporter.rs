@@ -4,19 +4,19 @@ use std::sync::Arc;
 use std::sync::Mutex;
 
 use image::RgbaImage;
-use ruffle_core::Player;
-use ruffle_core::PlayerBuilder;
-use ruffle_core::limits::ExecutionLimit;
-use ruffle_core::tag_utils::movie_from_path;
-use ruffle_render_wgpu::backend::{
+use llflash_core::Player;
+use llflash_core::PlayerBuilder;
+use llflash_core::limits::ExecutionLimit;
+use llflash_core::tag_utils::movie_from_path;
+use llflash_render_wgpu::backend::{
     WgpuRenderBackend, create_wgpu_instance, request_adapter_and_device,
 };
-use ruffle_render_wgpu::descriptors::Descriptors;
+use llflash_render_wgpu::descriptors::Descriptors;
 
 use anyhow::Result;
 use anyhow::anyhow;
-use ruffle_render_wgpu::target::TextureTarget;
-use ruffle_render_wgpu::wgpu;
+use llflash_render_wgpu::target::TextureTarget;
+use llflash_render_wgpu::wgpu;
 
 use crate::cli::FrameSelection;
 use crate::cli::Opt;

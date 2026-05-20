@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component type="desktop-application">
-    <id>rs.ruffle.Ruffle</id>
+    <id>rs.ruffle.Llflash</id>
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>MIT OR Apache-2.0</project_license>
-    <name>Ruffle</name>
+    <name>Llflash</name>
     <summary>Play Flash games &amp; movies</summary>
     <developer id="rs.ruffle">
-        <name>The Ruffle Team</name>
+        <name>The Llflash Team</name>
     </developer>
     <update_contact>ruffle@ruffle.rs</update_contact>
-    <launchable type="desktop-id">rs.ruffle.Ruffle.desktop</launchable>
+    <launchable type="desktop-id">rs.ruffle.Llflash.desktop</launchable>
     <description>
         <p>
-            Ruffle is a Flash Player emulator written in Rust.
+            Llflash is a Flash Player emulator written in Rust.
             Leveraging the safety guarantees of Rust, we can confidently avoid all
             the security pitfalls that Flash had a reputation for.
-            Ruffle puts Flash back on the web, where it belongs!
+            Llflash puts Flash back on the web, where it belongs!
         </p>
         <p>
             This application lets you run Flash content on your computer without a browser in-between,
             and take full advantage of your GPU and system resources to get those extra frames when playing intense games.
         </p>
         <p>
-            Ruffle is an entirely open source project maintained by volunteers.
+            Llflash is an entirely open source project maintained by volunteers.
             We're all passionate about the preservation of internet history, and we were drawn to working on this
             project to help preserve the many websites and plethora of content that will no longer be accessible
             when users can no longer run the official Flash Player.

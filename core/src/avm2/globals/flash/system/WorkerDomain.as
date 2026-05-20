@@ -5,7 +5,7 @@ package flash.system {
     import flash.system.Worker;
 
     [API("680")] // the docs say 682, that's wrong
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class WorkerDomain {
         public static function get isSupported():Boolean {
             return false;

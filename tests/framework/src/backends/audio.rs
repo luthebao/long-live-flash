@@ -1,8 +1,8 @@
-use ruffle_core::backend::audio::{
+use llflash_core::backend::audio::{
     AudioBackend, AudioMixer, DecodeError, RegisterError, SoundHandle, SoundInstanceHandle,
     SoundStreamInfo, SoundTransform, swf,
 };
-use ruffle_core::impl_audio_mixer_backend;
+use llflash_core::impl_audio_mixer_backend;
 
 pub struct TestAudioBackend {
     mixer: AudioMixer,

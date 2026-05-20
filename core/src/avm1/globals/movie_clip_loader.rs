@@ -9,7 +9,7 @@ use crate::avm1::{ArrayBuilder, Object, Value};
 use crate::backend::navigator::Request;
 use crate::display_object::TDisplayObject;
 use crate::loader::MovieLoaderVMData;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 const PROTO_DECLS: StaticDeclarations = declare_static_properties! {
     "loadClip" => method(load_clip; DONT_ENUM | DONT_DELETE);

@@ -1,4 +1,4 @@
-about-ruffle = Ruffle hakkında
+about-ruffle = Llflash hakkında
 about-ruffle-version = Sürüm
 about-ruffle-channel = Kanal
 about-ruffle-build-time = Yükl. tarihi

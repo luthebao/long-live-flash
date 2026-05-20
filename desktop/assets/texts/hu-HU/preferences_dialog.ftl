@@ -1,4 +1,4 @@
-preferences-dialog = Ruffle beállítások
+preferences-dialog = Llflash beállítások
 preference-locked-by-cli = Csak olvasható (parancssorból beállítva)
 graphics-backend = Grafikus backend
 graphics-backend-default = Alapértelmezett
@@ -26,8 +26,8 @@ theme-dark = Sötét
 # See for context https://github.com/FeralInteractive/gamemode
 gamemode = GameMode
 gamemode-tooltip =
-    A GameMode ideiglenesen különféle optimalizációkat alkalmaz a számítógépeden és/vagy a Ruffle-ön.
-    A Ruffle csak akkor igényli a GameMode-ot, amikor épp lejátszik valamit.
+    A GameMode ideiglenesen különféle optimalizációkat alkalmaz a számítógépeden és/vagy a Llflash-ön.
+    A Llflash csak akkor igényli a GameMode-ot, amikor épp lejátszik valamit.
 gamemode-default = Alapértelmezett
 gamemode-default-tooltip = A GameMode csak akkor lesz bekapcsolva, ha a teljesítménypreferencia magasra van állítva.
 # See for context https://wiki.archlinux.org/title/Input_method

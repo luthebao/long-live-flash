@@ -12,7 +12,7 @@ use crate::display_object::{
 use crate::string::{AvmString, StringContext, WStr};
 use crate::types::Percent;
 use gc_arena::Collect;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use smallvec::SmallVec;
 use swf::Twips;
 
@@ -522,7 +522,7 @@ fn high_quality<'gc>(
     activation: &mut Activation<'_, 'gc>,
     _this: DisplayObject<'gc>,
 ) -> Value<'gc> {
-    use ruffle_render::quality::StageQuality;
+    use llflash_render::quality::StageQuality;
     let quality = match activation.context.stage.quality() {
         StageQuality::Best => 2,
         StageQuality::High => 1,
@@ -536,7 +536,7 @@ fn set_high_quality<'gc>(
     _this: DisplayObject<'gc>,
     val: Value<'gc>,
 ) -> Result<(), Error<'gc>> {
-    use ruffle_render::quality::StageQuality;
+    use llflash_render::quality::StageQuality;
     let val = val.coerce_to_f64(activation)?;
     if !val.is_nan() {
         // 0 -> Low, 1 -> High, 2 -> Best, but with some odd rules for non-integers.
@@ -617,7 +617,7 @@ fn set_sound_buf_time<'gc>(
     _this: DisplayObject<'gc>,
     val: Value<'gc>,
 ) -> Result<(), Error<'gc>> {
-    avm_warn!(activation, "_soundbuftime is currently ignored by Ruffle");
+    avm_warn!(activation, "_soundbuftime is currently ignored by Llflash");
     let val = val.coerce_to_f64(activation)?;
     // NaN/undefined/null are invalid values; do not set.
     if !val.is_nan() {

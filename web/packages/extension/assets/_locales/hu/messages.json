@@ -1,9 +1,9 @@
 {
     "settings_ruffle_enable": {
-        "message": "Flash tartalom lejátszása Ruffle-lel"
+        "message": "Flash tartalom lejátszása Llflash-lel"
     },
     "settings_ignore_optout": {
-        "message": "Flash tartalom lejátszása Ruffle-lel még azon oldalakon is, amelyek letiltják"
+        "message": "Flash tartalom lejátszása Llflash-lel még azon oldalakon is, amelyek letiltják"
     },
     "settings_show_swf_download": {
         "message": "SWF letöltése opció a helyi menüben"
@@ -57,7 +57,7 @@
         "message": "Alapbeállítások"
     },
     "settings_reset_confirm": {
-        "message": "Biztos, hogy vissza szeretnéd állítani a Ruffle beállításait az eredeti értékeikre?"
+        "message": "Biztos, hogy vissza szeretnéd állítani a Llflash beállításait az eredeti értékeikre?"
     },
     "status_init": {
         "message": "Jelenlegi fül olvasása…"
@@ -69,25 +69,25 @@
         "message": "Hiba történt a jelenlegi fül keresése közben."
     },
     "status_message_init": {
-        "message": "A Ruffle állapotának ellenőrzése a jelenlegi fülön…"
+        "message": "A Llflash állapotának ellenőrzése a jelenlegi fülön…"
     },
     "status_result_running": {
-        "message": "A Ruffle Flash tartalom futtatására kész a jelenlegi fülön."
+        "message": "A Llflash Flash tartalom futtatására kész a jelenlegi fülön."
     },
     "status_result_running_protected": {
-        "message": "A Ruffle kész a kért Flash tartalmak futtatására."
+        "message": "A Llflash kész a kért Flash tartalmak futtatására."
     },
     "status_result_optout": {
-        "message": "A Ruffle nincs betöltve, mivel az oldal nem kompatibilisnek jelezte magát."
+        "message": "A Llflash nincs betöltve, mivel az oldal nem kompatibilisnek jelezte magát."
     },
     "status_result_disabled": {
-        "message": "A Ruffle ki van kapcsolva."
+        "message": "A Llflash ki van kapcsolva."
     },
     "status_result_error": {
-        "message": "Hiba történt a Ruffle-lel a jelenlegi fülön."
+        "message": "Hiba történt a Llflash-lel a jelenlegi fülön."
     },
     "status_result_protected": {
-        "message": "A Ruffle nem tud betöltődni védett böngészőlapokon."
+        "message": "A Llflash nem tud betöltődni védett böngészőlapokon."
     },
     "action_reload": {
         "message": "Töltsd újra a lapot, hogy mentsd a beállításokat."
@@ -114,16 +114,16 @@
         "message": "Bevezető oldal"
     },
     "permissions_grant": {
-        "message": "Engedélyezem a Ruffle-nek, hogy hozzáférjen az adataimhoz az összes webhelyen"
+        "message": "Engedélyezem a Llflash-nek, hogy hozzáférjen az adataimhoz az összes webhelyen"
     },
     "permissions_not_granted": {
-        "message": "A Ruffle ikonra kell kattintanod minden olyan webhelyen, ahol a Ruffle-t használni szeretnéd"
+        "message": "A Llflash ikonra kell kattintanod minden olyan webhelyen, ahol a Llflash-t használni szeretnéd"
     },
     "grant_single_site_permission": {
         "message": "Végleges engedélyezés ezen a webhelyen"
     },
     "permissions_explanation": {
-        "message": "A Ruffle bővítmény akkor működik a legjobban, ha az összes weboldal adataihoz hozzá tud férni. Ez lehetővé teszi, hogy bármely weboldalnak már az első betöltésekor fusson, így meggyőzheti a Flash Player meglétét rögtön észelő weboldalakat, hogy futtassák a Flash tartalmat. Ez azt is lehetővé teszi számára, hogy SWF-fájlokat töltsön be a belső lejátszó oldalára más webhelyekről, valamintt hogy a közvetlenül hivatkozott SWF-fájlokat is automatikusan ott játssza le. Ha nem adod meg ezt az engedélyt, akkor a Ruffle-t kézzel kell engedélyezned minden olyan weboldalon, amelyen használni szeretnéd, a bővítmény ikonjára kattintva és az adott weboldalon engedélyezve."
+        "message": "A Llflash bővítmény akkor működik a legjobban, ha az összes weboldal adataihoz hozzá tud férni. Ez lehetővé teszi, hogy bármely weboldalnak már az első betöltésekor fusson, így meggyőzheti a Flash Player meglétét rögtön észelő weboldalakat, hogy futtassák a Flash tartalmat. Ez azt is lehetővé teszi számára, hogy SWF-fájlokat töltsön be a belső lejátszó oldalára más webhelyekről, valamintt hogy a közvetlenül hivatkozott SWF-fájlokat is automatikusan ott játssza le. Ha nem adod meg ezt az engedélyt, akkor a Llflash-t kézzel kell engedélyezned minden olyan weboldalon, amelyen használni szeretnéd, a bővítmény ikonjára kattintva és az adott weboldalon engedélyezve."
     },
     "swf_player_permissions": {
         "message": "Engedélyt kell adnia ennek az URL-eredetnek, hogy SWF-eket tölthessen be róla."

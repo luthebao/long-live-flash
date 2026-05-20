@@ -19,7 +19,7 @@ export const internalSourceApi = {
     /**
      * Start up the polyfills.
      *
-     * Do not run polyfills for more than one Ruffle source at a time.
+     * Do not run polyfills for more than one Llflash source at a time.
      */
     polyfill(): void {
         polyfill();
@@ -35,7 +35,7 @@ export const internalSourceApi = {
     },
 
     /**
-     * Create a Ruffle player element using this particular version of Ruffle.
+     * Create a Llflash player element using this particular version of Llflash.
      *
      * @returns The player element. This is a DOM element that may be inserted
      * into the current page as you wish.

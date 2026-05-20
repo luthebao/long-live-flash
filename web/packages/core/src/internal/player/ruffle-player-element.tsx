@@ -202,7 +202,7 @@ export function copyElement(element: Element, destination: Element): void {
                 } catch (_err) {
                     // The embed may have invalid attributes, so handle these gracefully.
                     console.warn(
-                        `Unable to set attribute ${attribute.name} on Ruffle instance`,
+                        `Unable to set attribute ${attribute.name} on Llflash instance`,
                     );
                 }
             }

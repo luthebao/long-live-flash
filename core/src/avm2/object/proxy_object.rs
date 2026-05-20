@@ -11,8 +11,8 @@ use crate::avm2::string::AvmString;
 use crate::avm2::value::Value;
 use core::fmt;
 use gc_arena::{Collect, Gc, GcWeak};
-use ruffle_common::utils::HasPrefixField;
-use ruffle_macros::istr;
+use llflash_common::utils::HasPrefixField;
+use llflash_macros::istr;
 
 /// A class instance allocator that allocates Proxy objects.
 pub fn proxy_allocator<'gc>(

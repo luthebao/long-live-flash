@@ -10,17 +10,17 @@ export type APIVersions = {
 };
 
 /**
- * A Ruffle player's HTML element.
+ * A Llflash player's HTML element.
  *
  * This is either created through `window.RufflePlayer.newest().createPlayer()`, or polyfilled from a `<embed>`/`<object>` tag.
  *
  * In addition to usual HTML attributes, this player contains methods and properties that belong to both
- * the **Flash JS API** and **legacy Ruffle API**s. You are strongly discouraged from using them, and should instead
+ * the **Flash JS API** and **legacy Llflash API**s. You are strongly discouraged from using them, and should instead
  * use `.ruffle(version)` to access a versioned API interface.
  */
 export interface PlayerElement extends HTMLElement, LegacyRuffleAPI, FlashAPI {
     /**
-     * Access a specific version of the Ruffle API.
+     * Access a specific version of the Llflash API.
      * If the given version is not supported, an error is thrown.
      *
      * @param version Version of the API to access. Defaults to 1.

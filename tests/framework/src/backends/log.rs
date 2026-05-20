@@ -1,4 +1,4 @@
-use ruffle_core::backend::log::LogBackend;
+use llflash_core::backend::log::LogBackend;
 use std::cell::RefCell;
 use std::rc::Rc;
 

@@ -15,9 +15,9 @@ use crate::avm2::{Error, Multiname};
 use core::fmt;
 use gc_arena::barrier::unlock;
 use gc_arena::{Collect, Gc, GcWeak, Mutation, lock::Lock};
-use ruffle_common::utils::HasPrefixField;
-use ruffle_macros::istr;
-use ruffle_wstr::WString;
+use llflash_common::utils::HasPrefixField;
+use llflash_macros::istr;
+use llflash_wstr::WString;
 
 use super::xml_list_object::{E4XOrXml, XmlOrXmlListObject};
 

@@ -9,7 +9,7 @@ use crate::character::Character;
 use crate::context::UpdateContext;
 use core::fmt;
 use gc_arena::{Collect, Gc, GcWeak};
-use ruffle_common::utils::HasPrefixField;
+use llflash_common::utils::HasPrefixField;
 use std::cell::{Ref, RefCell, RefMut};
 
 /// A class instance allocator that allocates ByteArray objects.

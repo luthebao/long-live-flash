@@ -7,7 +7,7 @@ use crate::context::UpdateContext;
 use chrono::{DateTime, Utc};
 use core::fmt;
 use gc_arena::{Collect, Gc, GcWeak};
-use ruffle_common::utils::HasPrefixField;
+use llflash_common::utils::HasPrefixField;
 use std::cell::Cell;
 
 /// A class instance allocator that allocates Date objects.

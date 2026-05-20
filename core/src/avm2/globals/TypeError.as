@@ -1,5 +1,5 @@
 package {
-    [Ruffle(ConstructOnCall)]
+    [Llflash(ConstructOnCall)]
     public dynamic class TypeError extends Error {
         TypeError.prototype.name = "TypeError";
 

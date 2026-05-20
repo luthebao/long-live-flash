@@ -9,7 +9,7 @@ use crate::context::UpdateContext;
 use core::fmt;
 use gc_arena::barrier::unlock;
 use gc_arena::{Collect, Gc, GcWeak, Mutation, lock::Lock};
-use ruffle_common::utils::HasPrefixField;
+use llflash_common::utils::HasPrefixField;
 
 /// A class instance allocator that allocates BitmapData objects.
 pub fn bitmap_data_allocator<'gc>(

@@ -11,7 +11,7 @@ import { ContextMenuOverlay } from "./context-menu-overlay";
 
 /*
  *
- * The shadow template which is used to fill the actual Ruffle player element
+ * The shadow template which is used to fill the actual Llflash player element
  * on the page.
  *
  */

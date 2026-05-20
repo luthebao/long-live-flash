@@ -1,5 +1,5 @@
 package {
-    [Ruffle(ConstructOnCall)]
+    [Llflash(ConstructOnCall)]
     public dynamic class SecurityError extends Error {
         prototype.name = "SecurityError";
 

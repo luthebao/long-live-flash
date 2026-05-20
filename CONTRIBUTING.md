@@ -1,15 +1,15 @@
-# Contributing to Ruffle
+# Contributing to Llflash
 
-🎉 Thanks for your interest in Ruffle! Contributions of all kinds are welcome.
+🎉 Thanks for your interest in Llflash! Contributions of all kinds are welcome.
 
-This document serves as a general guide for contributing to Ruffle. Follow your best judgement in following these guidelines.
+This document serves as a general guide for contributing to Llflash. Follow your best judgement in following these guidelines.
 
 ## Table of Contents
 
 * [Getting Started](#getting-started)
 * [Ways to Contribute](#ways-to-contribute)
     * [Test your favorite Flash content](#test-your-favorite-flash-content)
-    * [Translate Ruffle to your language](#translate-ruffle-to-your-language)
+    * [Translate Llflash to your language](#translate-ruffle-to-your-language)
     * [Improve documentation](#improve-documentation)
     * [Fix interesting issues](#fix-interesting-issues)
     * [Implement missing Flash functionality](#implement-missing-flash-functionality)
@@ -22,31 +22,31 @@ This document serves as a general guide for contributing to Ruffle. Follow your 
 
 ## Getting Started
 
-The [Ruffle wiki](https://github.com/ruffle-rs/ruffle/wiki) is a great way to familiarize yourself with the project. It contains info on how to build Ruffle, using Ruffle, and links to helpful documentation about the Flash format.
+The [Llflash wiki](https://github.com/ruffle-rs/ruffle/wiki) is a great way to familiarize yourself with the project. It contains info on how to build Llflash, using Llflash, and links to helpful documentation about the Flash format.
 
 Feel free to ask questions in our [Discord server](https://discord.gg/ruffle).
 
 ## Reverse Engineering requirements
 
-Ruffle does not use any proprietary knowledge or code, and is built entirely upon either inspecting the output of Flash Player, or by consulting license-compatible libraries such as [avmplus](https://github.com/adobe/avmplus).
+Llflash does not use any proprietary knowledge or code, and is built entirely upon either inspecting the output of Flash Player, or by consulting license-compatible libraries such as [avmplus](https://github.com/adobe/avmplus).
 
-It is strictly forbidden to decompile Flash Player, Flash Professional, Adobe Animate, or any other software that does not explicitly permit doing so. Any contributions to Ruffle must be re-licensable to MIT/Apache and obtained through legitimate methods.
+It is strictly forbidden to decompile Flash Player, Flash Professional, Adobe Animate, or any other software that does not explicitly permit doing so. Any contributions to Llflash must be re-licensable to MIT/Apache and obtained through legitimate methods.
 
 If you're unsure if something is allowed, ask in our [Discord server](https://discord.gg/ruffle)! The rule of thumb though is that if you made it, and you didn't decompile anything to get there, it's probably fine!
 
 ## Ways to Contribute
 
-We love new contributors! You can contribute to Ruffle in several ways:
+We love new contributors! You can contribute to Llflash in several ways:
 
 ### Test your favorite Flash content
 
-Try out your favorite SWF content in Ruffle and see how it works! Follow the instructions on the [Using Ruffle](https://github.com/ruffle-rs/ruffle/wiki/Using-Ruffle) page to get Ruffle for your desired platform. You can run the SWF through the desktop player, the web demo, or try the extension on live websites.
+Try out your favorite SWF content in Llflash and see how it works! Follow the instructions on the [Using Llflash](https://github.com/ruffle-rs/ruffle/wiki/Using-Llflash) page to get Llflash for your desired platform. You can run the SWF through the desktop player, the web demo, or try the extension on live websites.
 
 If you encounter specific issues with content, please follow the guidelines on filing an issue.
 
-### Translate Ruffle to your language
+### Translate Llflash to your language
 
-We use Crowdin to manage the translations of Ruffle into various languages. You can [view the project](https://crowdin.com/project/ruffle/) and help make sure your language is nicely translated.
+We use Crowdin to manage the translations of Llflash into various languages. You can [view the project](https://crowdin.com/project/ruffle/) and help make sure your language is nicely translated.
 
 If your native language isn't listed on there, ask us in Discord and we may be able to add it as a new supported language!
 
@@ -58,20 +58,20 @@ For documentation in the code, we follow the [rustdoc](https://doc.rust-lang.org
 
 ### Fix interesting issues
 
-Try your hand at fixing [issues that are interesting to you](https://github.com/ruffle-rs/ruffle/issues). Follow the instructions on [building Ruffle](https://github.com/ruffle-rs/ruffle/wiki/Building-Ruffle), familiarize yourself with the [project layout](https://github.com/ruffle-rs/ruffle/wiki/Project-Layout), and use [SWF resources and decompilers](https://github.com/ruffle-rs/ruffle/wiki/Helpful-Resources) to help debug the issue.
+Try your hand at fixing [issues that are interesting to you](https://github.com/ruffle-rs/ruffle/issues). Follow the instructions on [building Llflash](https://github.com/ruffle-rs/ruffle/wiki/Building-Llflash), familiarize yourself with the [project layout](https://github.com/ruffle-rs/ruffle/wiki/Project-Layout), and use [SWF resources and decompilers](https://github.com/ruffle-rs/ruffle/wiki/Helpful-Resources) to help debug the issue.
 
 You can also ask for mentoring on our [Discord server](https://discord.gg/ruffle).
 
 ### Implement missing Flash functionality
 
-Ruffle is a young project, and there is still much Flash functionality that is unimplemented. Check for the ["unimplemented"](https://github.com/ruffle-rs/ruffle/issues?q=is%3Aissue+is%3Aopen+label%3Aunimplemented) in issues.
+Llflash is a young project, and there is still much Flash functionality that is unimplemented. Check for the ["unimplemented"](https://github.com/ruffle-rs/ruffle/issues?q=is%3Aissue+is%3Aopen+label%3Aunimplemented) in issues.
 
 ## Debugging ActionScript Content
 
-To enable debug logging, set `RUST_LOG=warn,ruffle=info,ruffle_core=debug,avm_trace=info` and run Ruffle from the command line.
+To enable debug logging, set `RUST_LOG=warn,ruffle=info,llflash_core=debug,avm_trace=info` and run Llflash from the command line.
 This will also enable printing `trace()` statements.
 
-Additionally, if you build Ruffle with `--features avm_debug` then you will activate a few more built-in debugging utilities inside Ruffle, listed below.
+Additionally, if you build Llflash with `--features avm_debug` then you will activate a few more built-in debugging utilities inside Llflash, listed below.
 
 ### Logging caught exceptions
 
@@ -82,7 +82,7 @@ Some SWFs may catch and suppress exceptions, which can hide the fact that the SW
 
 Caught exceptions will be logged as "Caught exception: <exception object>"
 Note that some SWFs throw and catch exceptions as part of their normal control flow, so a caught exception
-does not necessarily indicate a bug in Ruffle.
+does not necessarily indicate a bug in Llflash.
 
 ### Warnings and Errors
 
@@ -93,10 +93,10 @@ ActionScript inside the movie.
 
 The hotkey <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd> toggles verbose AVM debugging output on and off (default off).
 You will be able to follow the flow of ActionScript inside of a SWF movie, as each action is performed.
-Please note that this will likely slow down Ruffle, and it may significantly spam output. Please use sparingly.
+Please note that this will likely slow down Llflash, and it may significantly spam output. Please use sparingly.
 
 When paired with a tool such as [JPEXS](https://github.com/jindrapetrik/jpexs-decompiler), you can compare the ActionScript
-you see being executed in Ruffle with the actual ActionScript inside of a SWF movie, and attempt to find whatever problem
+you see being executed in Llflash with the actual ActionScript inside of a SWF movie, and attempt to find whatever problem
 it is that you're looking for.
 
 ### Complete Variable Dumping
@@ -110,7 +110,7 @@ This currently only works for AVM1. We'd [welcome a PR to change that](https://g
 ### Render Tree Dumping
 
 The hotkey <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd> dumps the DisplayObject render tree at the moment you press it.
-This allows you to see Ruffle's representation of the objects on the Stage.
+This allows you to see Llflash's representation of the objects on the Stage.
 
 ## Reporting Bugs
 
@@ -139,9 +139,9 @@ The project is still in the early stages, so many Flash features are unimplement
 
 ## Code Guidelines
 
-Ruffle is built using the latest stable version of the Rust compiler. Nightly and unstable features should be avoided.
+Llflash is built using the latest stable version of the Rust compiler. Nightly and unstable features should be avoided.
 
-The Rust code in Ruffle strives to be idiomatic. The Rust compiler should emit no warnings when building the project. Additionally, all code should be formatted using [`rustfmt`](https://github.com/rust-lang/rustfmt) and linted using [`clippy`](https://github.com/rust-lang/rust-clippy). You can install these tools using `rustup`:
+The Rust code in Llflash strives to be idiomatic. The Rust compiler should emit no warnings when building the project. Additionally, all code should be formatted using [`rustfmt`](https://github.com/rust-lang/rustfmt) and linted using [`clippy`](https://github.com/rust-lang/rust-clippy). You can install these tools using `rustup`:
 
 ```sh
 rustup component add rustfmt
@@ -188,16 +188,16 @@ Once you have an `.swf`, run it in the debug Flash Player and copy the output of
 
 Finally, add a `test.toml` in the same directory to control how the test is run - such as how many frames it should take or if we should compare the image it generates. See [tests/README.md](tests/README.md) for information on what the test.toml should look like.
 
-Running `cargo test [your test]` from within the `tests` folder will run the `.swf` in Ruffle and compare the `trace()` output against `output.txt`. To run all of the tests in all workspaces, run `cargo test --all`.
+Running `cargo test [your test]` from within the `tests` folder will run the `.swf` in Llflash and compare the `trace()` output against `output.txt`. To run all of the tests in all workspaces, run `cargo test --all`.
 
-Some tests also compare Ruffle's visual output to an expected image. To properly run these tests, add the argument `--features imgtests`.
+Some tests also compare Llflash's visual output to an expected image. To properly run these tests, add the argument `--features imgtests`.
 When adding a new image test, make sure to include the expected visual output by taking a screenshot of Flash Player and cropping it.
 
 Heavily algorithmic code may benefit from unit tests in Rust: create a module `mod tests` conditionally compiled with `#[cfg(test)]`, and add your tests in there.
 
-### Compile from Ruffle
+### Compile from Llflash
 
-We are building up the capabilities to compile actionscript-only tests through Ruffle's test infrastructure. Currently, only AVM1 (ActionScript 1 and 2) is supported, using [Rascal](https://github.com/Dinnerbone/Rascal).
+We are building up the capabilities to compile actionscript-only tests through Llflash's test infrastructure. Currently, only AVM1 (ActionScript 1 and 2) is supported, using [Rascal](https://github.com/Dinnerbone/Rascal).
 
 This is the recommended way to write AVM1-only tests, as the .swf will never desync with the .as source, you don't need to configure any external programs, and we can easily generate multiple versions of the same swf with little effort.
 
@@ -310,7 +310,7 @@ web: Fix incorrect rendering of gradients (close #23)
 
 ## Pull Requests
 
-Pull requests are the primary way to contribute code to Ruffle. Pull requests should be made against the latest `master` branch. Your pull request should not contain merges; you should always rebase when bringing the latest changes into your branch from the `master` branch. If there are merge conflicts, or if your commit history is messy, please rebase onto the latest master. [`git rebase -i`](https://thoughtbot.com/blog/git-interactive-rebase-squash-amend-rewriting-history#interactive-rebase) is a great way to clean up your pull request.
+Pull requests are the primary way to contribute code to Llflash. Pull requests should be made against the latest `master` branch. Your pull request should not contain merges; you should always rebase when bringing the latest changes into your branch from the `master` branch. If there are merge conflicts, or if your commit history is messy, please rebase onto the latest master. [`git rebase -i`](https://thoughtbot.com/blog/git-interactive-rebase-squash-amend-rewriting-history#interactive-rebase) is a great way to clean up your pull request.
 
 When you make a pull request, our [CI](https://github.com/ruffle-rs/ruffle/actions) will build your changes and run them through all tests and style checks. All of these tests should pass before your pull request can be accepted.
 

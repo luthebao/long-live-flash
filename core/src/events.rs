@@ -2,7 +2,7 @@ use crate::display_object::InteractiveObject;
 use crate::input::InputEvent;
 use crate::string::{AvmString, StringContext};
 use enumset::EnumSetType;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::str::FromStr;
 use swf::ClipEventFlag;
 
@@ -502,7 +502,7 @@ impl TextControlCode {
 
 /// Input method allows inputting non-Latin characters on a Latin keyboard.
 ///
-/// When IME is enabled, Ruffle will accept [`ImeEvent`]s instead of key events.
+/// When IME is enabled, Llflash will accept [`ImeEvent`]s instead of key events.
 /// It allows dynamically changing the inputted text and then committing it at
 /// the end.
 #[derive(Debug, Clone, PartialEq, Eq)]

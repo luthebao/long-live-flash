@@ -17,10 +17,10 @@ use bitflags::bitflags;
 use gc_arena::barrier::{Write, unlock};
 use gc_arena::lock::Lock;
 use gc_arena::{Collect, Gc, Mutation};
-use ruffle_macros::{enum_trait_object, istr};
-use ruffle_render::perspective_projection::PerspectiveProjection;
-use ruffle_render::pixel_bender::PixelBenderShaderHandle;
-use ruffle_render::transform::{Transform, TransformStack};
+use llflash_macros::{enum_trait_object, istr};
+use llflash_render::perspective_projection::PerspectiveProjection;
+use llflash_render::pixel_bender::PixelBenderShaderHandle;
+use llflash_render::transform::{Transform, TransformStack};
 use std::cell::{Cell, Ref, RefCell, RefMut};
 use std::fmt::Debug;
 use std::hash::Hash;
@@ -59,11 +59,11 @@ pub use interactive::{Avm2MousePick, InteractiveObject, TInteractiveObject};
 pub use loader_display::LoaderDisplay;
 pub use morph_shape::MorphShape;
 pub use movie_clip::{MovieClip, MovieClipHandle, MovieClipWeak, Scene};
-use ruffle_render::backend::{BitmapCacheEntry, RenderBackend};
-use ruffle_render::bitmap::{BitmapHandle, BitmapInfo, PixelSnapping};
-use ruffle_render::blend::ExtendedBlendMode;
-use ruffle_render::commands::{CommandHandler, CommandList, RenderBlendMode};
-use ruffle_render::filters::Filter;
+use llflash_render::backend::{BitmapCacheEntry, RenderBackend};
+use llflash_render::bitmap::{BitmapHandle, BitmapInfo, PixelSnapping};
+use llflash_render::blend::ExtendedBlendMode;
+use llflash_render::commands::{CommandHandler, CommandList, RenderBlendMode};
+use llflash_render::filters::Filter;
 pub use stage::{Stage, StageAlign, StageDisplayState, StageScaleMode, WindowMode};
 pub use text::{Text, TextSnapshot};
 pub use video::Video;
@@ -1189,7 +1189,7 @@ pub fn apply_standard_mask_and_scroll<'gc, F>(
     }
 
     let mask = this.get_render_mask();
-    let mut mask_transform = ruffle_render::transform::Transform::default();
+    let mut mask_transform = llflash_render::transform::Transform::default();
     if let RenderMask::Stencil(m) | RenderMask::Alpha(m) = mask {
         if options.apply_transform {
             mask_transform.matrix = this.global_to_local_matrix().unwrap_or_default();

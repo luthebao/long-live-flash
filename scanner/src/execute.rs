@@ -3,12 +3,12 @@
 use crate::cli_options::ExecuteReportOpt;
 use crate::file_results::{AvmType, FileResults, Step};
 use crate::logging::{LOCAL_LOGGER, ScanLogBackend, ThreadLocalScanLogger};
-use ruffle_core::FloatDuration;
-use ruffle_core::PlayerBuilder;
-use ruffle_core::backend::navigator::{NullExecutor, NullNavigatorBackend};
-use ruffle_core::limits::ExecutionLimit;
-use ruffle_core::swf::{decompress_swf, parse_swf};
-use ruffle_core::tag_utils::movie_from_path;
+use llflash_core::FloatDuration;
+use llflash_core::PlayerBuilder;
+use llflash_core::backend::navigator::{NullExecutor, NullNavigatorBackend};
+use llflash_core::limits::ExecutionLimit;
+use llflash_core::swf::{decompress_swf, parse_swf};
+use llflash_core::tag_utils::movie_from_path;
 use sha2::{Digest, Sha256};
 use std::io::{Write, stdout};
 use std::panic::catch_unwind;
@@ -147,7 +147,7 @@ pub fn execute_report_main(execute_report_opt: ExecuteReportOpt) -> Result<(), s
     checkpoint(&mut file_result, &start, &mut writer)?;
     file_result.progress = Step::Execute;
 
-    //Run one frame of the movie in Ruffle.
+    //Run one frame of the movie in Llflash.
     if let Err(e) = catch_unwind(|| execute_swf(&file_path)) {
         match e.downcast::<String>() {
             Ok(e) => {

@@ -15,7 +15,7 @@ This project uses the <a href=https://www.rust-lang.org/policies/code-of-conduct
 
 ## Moderation
 
-These are the policies for upholding our community’s standards of conduct. If you feel that a thread needs moderation, please contact the Ruffle moderation team via Discord (https://discord.gg/ruffle).
+These are the policies for upholding our community’s standards of conduct. If you feel that a thread needs moderation, please contact the Llflash moderation team via Discord (https://discord.gg/ruffle).
 
 - Remarks that violate the Rust standards of conduct, including hateful, hurtful, oppressive, or exclusionary remarks, are not allowed. (Cursing is allowed, but never targeting another user, and never in a hateful manner.)
 - Remarks that moderators find inappropriate, whether listed in the code of conduct or not, are also not allowed.
@@ -30,6 +30,6 @@ In the Rust community we strive to go the extra step to look out for each other.
 
 And if someone takes issue with something you said or did, resist the urge to be defensive. Just stop doing what it was they complained about and apologize. Even if you feel you were misinterpreted or unfairly accused, chances are good there was something you could’ve communicated better — remember that it’s your responsibility to make your fellow Rustaceans comfortable. Everyone wants to get along and we are all here first and foremost because we want to talk about cool technology. You will find that people will be eager to assume good intent and forgive as long as you earn their trust.
 
-The enforcement policies listed above apply to all official Ruffle venues; including Discord channels (https://discord.gg/ruffle); and GitHub repositories under ruffle-rs.
+The enforcement policies listed above apply to all official Llflash venues; including Discord channels (https://discord.gg/ruffle); and GitHub repositories under ruffle-rs.
 
 Adapted from the <a href=http://blog.izs.me/post/30036893703/policy-on-trolling> Node.js Policy on Trolling</a> as well as the <a href=https://www.contributor-covenant.org/version/1/3/0> Contributor Covenant v1.3.0</a>.

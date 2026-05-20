@@ -12,7 +12,7 @@ use either::Either;
 use gc_arena::barrier::unlock;
 use gc_arena::lock::Lock;
 use gc_arena::{Collect, Gc, Mutation};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::cell::Cell;
 use std::slice::Iter;
 use swf::{Color, Rectangle, Twips};

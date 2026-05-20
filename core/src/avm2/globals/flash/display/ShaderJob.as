@@ -7,16 +7,16 @@ package flash.display {
 
     [API("662")]
     public class ShaderJob extends EventDispatcher {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _shader:Shader;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _target:Object;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _width:int;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _height:int;
 
         public function ShaderJob(shader:Shader = null, target:Object = null, width:int = 0, height:int = 0) {

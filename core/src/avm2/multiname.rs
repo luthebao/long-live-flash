@@ -9,7 +9,7 @@ use crate::string::{AvmString, StringContext, WStr, WString};
 use bitflags::bitflags;
 use gc_arena::Gc;
 use gc_arena::{Collect, Mutation};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::fmt::Debug;
 use std::ops::Deref;
 use swf::avm2::types::{Index, Multiname as AbcMultiname, NamespaceSet as AbcNamespaceSet};

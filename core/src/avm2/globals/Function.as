@@ -1,6 +1,6 @@
 package {
-    [Ruffle(ConstructOnCall)]
-    [Ruffle(CustomConstructor)]
+    [Llflash(ConstructOnCall)]
+    [Llflash(CustomConstructor)]
     public final dynamic class Function {
         private static native function _initFunctionClass():void;
 
@@ -41,15 +41,15 @@ package {
 
         public native function get length():int;
 
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         public native function get prototype():*;
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         public native function set prototype(proto:*):*;
 
         AS3 native function apply(receiver:* = void 0, args:* = void 0):*;
         AS3 native function call(receiver:* = void 0, ...rest):*;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         private static function createDummyFunction():Function {
             return function() {};
         }

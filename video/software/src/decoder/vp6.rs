@@ -1,13 +1,13 @@
 use crate::decoder::VideoDecoder;
-use ruffle_render::bitmap::BitmapFormat;
-use ruffle_video::error::Error;
+use llflash_render::bitmap::BitmapFormat;
+use llflash_video::error::Error;
 
 use nihav_codec_support::codecs::{NABufferRef, NAVideoBuffer, NAVideoInfo};
 use nihav_codec_support::codecs::{NABufferType::Video, YUV420_FORMAT};
 use nihav_core::codecs::NADecoderSupport;
 use nihav_duck::codecs::vp6::{VP6BR, VP56Decoder, VP56Parser};
 use nihav_duck::codecs::vpcommon::{BoolCoder, VP_YUVA420_FORMAT};
-use ruffle_video::frame::{DecodedFrame, EncodedFrame, FrameDependency};
+use llflash_video::frame::{DecodedFrame, EncodedFrame, FrameDependency};
 
 #[derive(thiserror::Error, Debug)]
 pub enum Vp6Error {

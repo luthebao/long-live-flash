@@ -8,9 +8,9 @@ use std::ops::Range;
 use wgpu::util::DeviceExt;
 
 use crate::buffer_builder::BufferBuilder;
-use ruffle_render::backend::{RenderBackend, ShapeHandle, ShapeHandleImpl};
-use ruffle_render::bitmap::BitmapSource;
-use ruffle_render::tessellator::{Bitmap, Draw as LyonDraw, DrawType as TessDrawType, Gradient};
+use llflash_render::backend::{RenderBackend, ShapeHandle, ShapeHandleImpl};
+use llflash_render::bitmap::BitmapSource;
+use llflash_render::tessellator::{Bitmap, Draw as LyonDraw, DrawType as TessDrawType, Gradient};
 use swf::{CharacterId, GradientInterpolation};
 
 /// How big to make gradient textures. Larger will keep more detail, but be slower and use more memory.

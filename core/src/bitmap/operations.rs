@@ -10,13 +10,13 @@ use crate::bitmap::turbulence::Turbulence;
 use crate::context::{RenderContext, UpdateContext};
 use crate::display_object::{RenderOptions, TDisplayObject};
 use gc_arena::Mutation;
-use ruffle_render::backend::RenderBackend;
-use ruffle_render::bitmap::{PixelRegion, PixelSnapping};
-use ruffle_render::commands::{CommandHandler, CommandList, RenderBlendMode};
-use ruffle_render::filters::Filter;
-use ruffle_render::matrix::Matrix;
-use ruffle_render::quality::StageQuality;
-use ruffle_render::transform::Transform;
+use llflash_render::backend::RenderBackend;
+use llflash_render::bitmap::{PixelRegion, PixelSnapping};
+use llflash_render::commands::{CommandHandler, CommandList, RenderBlendMode};
+use llflash_render::filters::Filter;
+use llflash_render::matrix::Matrix;
+use llflash_render::quality::StageQuality;
+use llflash_render::transform::Transform;
 use std::cell::{Ref, RefMut};
 use swf::{BlendMode, ColorTransform, Fixed8, Rectangle, Twips};
 
@@ -1515,7 +1515,7 @@ pub fn draw<'gc>(
         }
     }
 
-    let mut transform_stack = ruffle_render::transform::TransformStack::new();
+    let mut transform_stack = llflash_render::transform::TransformStack::new();
     transform_stack.push(&transform);
 
     let mut cache_draws = vec![];

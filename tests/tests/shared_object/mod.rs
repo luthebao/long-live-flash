@@ -1,9 +1,9 @@
-use ruffle_core::backend::storage::{MemoryStorageBackend, StorageBackend};
-use ruffle_test_framework::environment::Environment;
-use ruffle_test_framework::options::TestOptions;
-use ruffle_test_framework::runner::TestStatus;
-use ruffle_test_framework::test::Test;
-use ruffle_test_framework::vfs::{PhysicalFS, VfsPath};
+use llflash_core::backend::storage::{MemoryStorageBackend, StorageBackend};
+use llflash_test_framework::environment::Environment;
+use llflash_test_framework::options::TestOptions;
+use llflash_test_framework::runner::TestStatus;
+use llflash_test_framework::test::Test;
+use llflash_test_framework::vfs::{PhysicalFS, VfsPath};
 use std::thread::sleep;
 
 pub fn shared_object_avm1(environment: &impl Environment) -> Result<(), libtest_mimic::Failed> {

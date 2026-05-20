@@ -5,10 +5,10 @@ package flash.events {
 
         private var _phase:String;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _localX:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _localY:Number;
 
         private var _ctrlKey:Boolean;

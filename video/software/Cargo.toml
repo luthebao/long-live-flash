@@ -1,5 +1,5 @@
 [package]
-name = "ruffle_video_software"
+name = "llflash_video_software"
 authors.workspace = true
 edition.workspace = true
 homepage.workspace = true
@@ -11,8 +11,8 @@ version.workspace = true
 workspace = true
 
 [dependencies]
-ruffle_render = { path = "../../render" }
-ruffle_video = { path = ".." }
+llflash_render = { path = "../../render" }
+llflash_video = { path = ".." }
 swf = { path = "../../swf" }
 slotmap = { workspace = true }
 thiserror = { workspace = true }

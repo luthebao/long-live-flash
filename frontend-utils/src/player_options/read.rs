@@ -76,9 +76,9 @@ pub fn read_player_options<'a>(
 mod tests {
     use super::*;
     use crate::parse::{DocumentHolder, ParseDetails, ParseWarning};
-    use ruffle_core::config::Letterbox;
-    use ruffle_core::{LoadBehavior, PlayerRuntime, StageAlign, StageScaleMode};
-    use ruffle_render::quality::StageQuality;
+    use llflash_core::config::Letterbox;
+    use llflash_core::{LoadBehavior, PlayerRuntime, StageAlign, StageScaleMode};
+    use llflash_render::quality::StageQuality;
     use toml_edit::DocumentMut;
     use url::Url;
 

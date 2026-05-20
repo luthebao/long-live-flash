@@ -1,16 +1,16 @@
 package flash.display {
     [API("662")]
     public final class GraphicsTrianglePath implements IGraphicsPath, IGraphicsData {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _culling:String;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var indices:Vector.<int>;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var uvtData:Vector.<Number>;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var vertices:Vector.<Number>;
 
         public function GraphicsTrianglePath(

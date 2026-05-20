@@ -4,7 +4,7 @@ package flash.display3D.textures {
     import flash.utils.ByteArray;
     import flash.utils.setTimeout;
 
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class Texture extends TextureBase {
         [API("674")]
         public native function uploadFromBitmapData(

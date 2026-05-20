@@ -10,9 +10,9 @@ use core::fmt;
 use gc_arena::barrier::unlock;
 use gc_arena::lock::Lock;
 use gc_arena::{Collect, Gc, Mutation};
-use ruffle_common::utils::HasPrefixField;
-use ruffle_render::backend::ShapeHandle;
-use ruffle_render::commands::CommandHandler;
+use llflash_common::utils::HasPrefixField;
+use llflash_render::backend::ShapeHandle;
+use llflash_render::commands::CommandHandler;
 use std::cell::{RefCell, RefMut};
 use std::sync::Arc;
 use swf::{Fixed8, Fixed16};
@@ -146,7 +146,7 @@ impl<'gc> TDisplayObject<'gc> for MorphShape<'gc> {
                 let Some(local_matrix) = self.global_to_local_matrix() else {
                     return false;
                 };
-                return ruffle_render::shape_utils::shape_hit_test(
+                return llflash_render::shape_utils::shape_hit_test(
                     &frame.shape,
                     local_matrix * point,
                     &local_matrix,
@@ -351,7 +351,7 @@ impl MorphShapeShared {
             line_styles,
         };
 
-        let bounds = ruffle_render::shape_utils::calculate_shape_bounds(&shape);
+        let bounds = llflash_render::shape_utils::calculate_shape_bounds(&shape);
         let shape = swf::Shape {
             version: 4,
             id: 0,

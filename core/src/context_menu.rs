@@ -12,7 +12,7 @@ use crate::display_object::{EditText, Stage};
 use crate::events::TextControlCode;
 use crate::i18n::core_text;
 use gc_arena::Collect;
-use ruffle_render::quality::StageQuality;
+use llflash_render::quality::StageQuality;
 
 #[derive(Collect, Default)]
 #[collect(no_drop)]

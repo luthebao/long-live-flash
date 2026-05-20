@@ -11,7 +11,7 @@ pub struct ContentDescriptor {
     pub url: Url,
 
     /// Path representing the root of the content, optional even for local
-    /// files. If not specified, Ruffle can assume the URL points to
+    /// files. If not specified, Llflash can assume the URL points to
     /// a standalone content that does not require neighboring files.
     #[cfg(feature = "fs")]
     pub root_content_path: Option<std::path::PathBuf>,

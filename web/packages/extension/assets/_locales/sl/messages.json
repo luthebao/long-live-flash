@@ -1,9 +1,9 @@
 {
     "settings_ruffle_enable": {
-        "message": "Predvajajte Flash vsebino v Ruffle-u"
+        "message": "Predvajajte Flash vsebino v Llflash-u"
     },
     "settings_ignore_optout": {
-        "message": "Predvajajte Flash vsebino tudi na spletnih straneh, ki ne dovoljujejo Ruffle-a"
+        "message": "Predvajajte Flash vsebino tudi na spletnih straneh, ki ne dovoljujejo Llflash-a"
     },
     "settings_show_swf_download": {
         "message": "Pokaži prenos SWF-ja v kontekstnem meniju"
@@ -57,7 +57,7 @@
         "message": "Ponastavite nastavitve"
     },
     "settings_reset_confirm": {
-        "message": "Ali ste prepričani, da želite obnoviti nastavitve Ruffle na prvotne privzete vrednosti?"
+        "message": "Ali ste prepričani, da želite obnoviti nastavitve Llflash na prvotne privzete vrednosti?"
     },
     "status_init": {
         "message": "Branje trenutnega zavihka…"
@@ -69,25 +69,25 @@
         "message": "Pri iskanju trenutnega zavihka je prišlo do napake."
     },
     "status_message_init": {
-        "message": "Preverjanje stanja Ruffle na trenutnem zavihku…"
+        "message": "Preverjanje stanja Llflash na trenutnem zavihku…"
     },
     "status_result_running": {
-        "message": "Ruffle je pripravljen za izvajanje Flash vsebine v trenutnem zavihku."
+        "message": "Llflash je pripravljen za izvajanje Flash vsebine v trenutnem zavihku."
     },
     "status_result_running_protected": {
-        "message": "Ruffle je pripravljen za izvajanje Flash vsebine, ki jo zahtevate."
+        "message": "Llflash je pripravljen za izvajanje Flash vsebine, ki jo zahtevate."
     },
     "status_result_optout": {
-        "message": "Ruffle se ne more naložiti, ker se je trenutna spletna stran označila kot nezdružljiva."
+        "message": "Llflash se ne more naložiti, ker se je trenutna spletna stran označila kot nezdružljiva."
     },
     "status_result_disabled": {
-        "message": "Ruffle je onemogočen."
+        "message": "Llflash je onemogočen."
     },
     "status_result_error": {
-        "message": "Pri poizvedovanju o primerku Ruffle trenutne strani je prišlo do napake."
+        "message": "Pri poizvedovanju o primerku Llflash trenutne strani je prišlo do napake."
     },
     "status_result_protected": {
-        "message": "Ruffle se ne more naložiti na zaščitenih straneh brskalnika."
+        "message": "Llflash se ne more naložiti na zaščitenih straneh brskalnika."
     },
     "action_reload": {
         "message": "Ponovno naložite zavihek, da se spremembe uveljavijo"
@@ -114,16 +114,16 @@
         "message": "Stran za vključitev"
     },
     "permissions_grant": {
-        "message": "Dovoli Ruffle-u dostop do mojih podatkov na vseh spletnih straneh"
+        "message": "Dovoli Llflash-u dostop do mojih podatkov na vseh spletnih straneh"
     },
     "permissions_not_granted": {
-        "message": "Na vsaki spletni strani, na kateri želite uporabljati Ruffle, boste morali klikniti ikono Ruffle"
+        "message": "Na vsaki spletni strani, na kateri želite uporabljati Llflash, boste morali klikniti ikono Llflash"
     },
     "grant_single_site_permission": {
         "message": "Trajno omogoči za to spletno mesto"
     },
     "permissions_explanation": {
-        "message": "Razširitev Ruffle deluje najbolje, če ima dostop do podatkov na vseh spletnih straneh. Tako se lahko zažene ob prvem nalaganju katere koli spletne strani, s čimer spletne strani, ki takoj zaznavajo Flash Player, prepriča, da omogočijo izvajanje Flash vsebin. Omogoča tudi nalaganje datotek SWF v notranjo stran predvajalnika iz drugih lokacij na spletu in samodejno nalaganje neposrednih povezav SWF na to stran. Če te dovoljenja ne dodelite, boste morali Ruffle ročno omogočiti na vsaki spletni strani, na kateri ga želite uporabljati, tako da kliknete ikono razširitve in jo omogočite za to spletno stran."
+        "message": "Razširitev Llflash deluje najbolje, če ima dostop do podatkov na vseh spletnih straneh. Tako se lahko zažene ob prvem nalaganju katere koli spletne strani, s čimer spletne strani, ki takoj zaznavajo Flash Player, prepriča, da omogočijo izvajanje Flash vsebin. Omogoča tudi nalaganje datotek SWF v notranjo stran predvajalnika iz drugih lokacij na spletu in samodejno nalaganje neposrednih povezav SWF na to stran. Če te dovoljenja ne dodelite, boste morali Llflash ročno omogočiti na vsaki spletni strani, na kateri ga želite uporabljati, tako da kliknete ikono razširitve in jo omogočite za to spletno stran."
     },
     "swf_player_permissions": {
         "message": "Temu izvoru URL-ja morate dodeliti dovoljenje za nalaganje SWF-datotek iz njega."

@@ -1,4 +1,4 @@
-preferences-dialog = Подешавања Ruffle-а
+preferences-dialog = Подешавања Llflash-а
 preference-locked-by-cli = Само за читање (подешава се помоћу командне линије)
 graphics-backend = Графички бекенд систем
 graphics-backend-default = Подразумевано

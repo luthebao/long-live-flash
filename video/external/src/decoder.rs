@@ -14,4 +14,4 @@ pub mod openh264;
 #[cfg(feature = "webcodecs")]
 pub mod webcodecs;
 
-pub use ruffle_video_software::decoder::VideoDecoder;
+pub use llflash_video_software::decoder::VideoDecoder;

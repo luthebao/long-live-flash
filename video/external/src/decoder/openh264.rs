@@ -10,9 +10,9 @@ use std::sync::Arc;
 use crate::decoder::VideoDecoder;
 use crate::decoder::openh264_sys::{self, ISVCDecoder, OpenH264, videoFormatI420};
 
-use ruffle_render::bitmap::BitmapFormat;
-use ruffle_video::error::Error;
-use ruffle_video::frame::{DecodedFrame, EncodedFrame, FrameDependency};
+use llflash_render::bitmap::BitmapFormat;
+use llflash_video::error::Error;
+use llflash_video::frame::{DecodedFrame, EncodedFrame, FrameDependency};
 
 use bzip2::read::BzDecoder;
 use sha2::{Digest, Sha256};

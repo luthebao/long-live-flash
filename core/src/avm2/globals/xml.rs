@@ -1,6 +1,6 @@
 //! XML builtin and prototype
 
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 use crate::avm2::e4x::{E4XNamespace, E4XNode, E4XNodeKind, name_to_multiname};
 use crate::avm2::error::{make_error_1088, make_error_1117};

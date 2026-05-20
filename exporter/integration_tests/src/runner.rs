@@ -4,7 +4,7 @@ use anyhow::{Context, Result, anyhow};
 use clap::Parser;
 use exporter::cli::Opt;
 use libtest_mimic::Trial;
-use ruffle_fs_tests_runner::{FsTestsRunner, TestLoaderParams};
+use llflash_fs_tests_runner::{FsTestsRunner, TestLoaderParams};
 use serde::Deserialize;
 use std::borrow::Cow;
 use std::io::Read;

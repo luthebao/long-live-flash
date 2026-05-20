@@ -1,12 +1,12 @@
 package flash.filters {
     public final class BlurFilter extends BitmapFilter {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var blurX:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var blurY:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var quality:int;
 
         public function BlurFilter(blurX:Number = 4.0, blurY:Number = 4.0, quality:int = 1) {

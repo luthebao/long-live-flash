@@ -11,7 +11,7 @@ use crate::string::WStr;
 use core::fmt;
 use gc_arena::barrier::unlock;
 use gc_arena::{Collect, Gc, GcWeak, Mutation, lock::RefLock};
-use ruffle_common::utils::HasPrefixField;
+use llflash_common::utils::HasPrefixField;
 use std::cell::{Ref, RefMut};
 
 /// A class instance allocator that allocates Vector objects.

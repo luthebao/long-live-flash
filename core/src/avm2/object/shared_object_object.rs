@@ -6,7 +6,7 @@ use crate::avm2::object::{Object, ScriptObject, TObject};
 use crate::context::UpdateContext;
 use gc_arena::barrier::unlock;
 use gc_arena::{Collect, Gc, GcWeak, lock::Lock};
-use ruffle_common::utils::HasPrefixField;
+use llflash_common::utils::HasPrefixField;
 use std::fmt::Debug;
 
 #[derive(Clone, Collect, Copy)]

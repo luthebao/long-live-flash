@@ -1,6 +1,6 @@
 use anyhow::{Error, anyhow};
 use gilrs::Button;
-use ruffle_core::events::{
+use llflash_core::events::{
     GamepadButton, KeyDescriptor, KeyLocation, LogicalKey, NamedKey as RuffleNamedKey, PhysicalKey,
     TextControlCode,
 };
@@ -14,7 +14,7 @@ use winit::keyboard::{
 };
 use winit::window::Window;
 
-/// Converts a winit event to a Ruffle `TextControlCode`.
+/// Converts a winit event to a Llflash `TextControlCode`.
 /// Returns `None` if there is no match.
 pub fn winit_to_ruffle_text_control(
     event: &KeyEvent,
@@ -420,7 +420,7 @@ pub fn plot_stats_in_tracy(instance: &wgpu::Instance) {
 pub fn open_url(url: &Url) {
     // TODO: This opens local files in the browser while flash opens them
     // in the default program for the respective filetype.
-    // This especially includes mailto links. Ruffle opens the browser which opens
+    // This especially includes mailto links. Llflash opens the browser which opens
     // the preferred program while flash opens the preferred program directly.
     match webbrowser::open(url.as_str()) {
         Ok(_output) => {}

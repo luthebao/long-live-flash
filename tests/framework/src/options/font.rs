@@ -1,5 +1,5 @@
-use ruffle_core::Player;
-use ruffle_core::font::{DefaultFont, FontQuery, FontType};
+use llflash_core::Player;
+use llflash_core::font::{DefaultFont, FontQuery, FontType};
 use serde::Deserialize;
 
 #[derive(Deserialize, Default, Clone)]

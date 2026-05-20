@@ -1,10 +1,10 @@
-# Ruffle Bundle (.ruf) format specification
-A Ruffle Bundle is an easy way to package and share Flash games and any assets that are required to make the game work.
+# Llflash Bundle (.ruf) format specification
+A Llflash Bundle is an easy way to package and share Flash games and any assets that are required to make the game work.
 
 A bundle can be a directory or a renamed zip file, and must contain at minimum a `ruffle-bundle.toml` file.
 
 <!-- TOC -->
-* [Ruffle Bundle (.ruf) format specification](#ruffle-bundle-ruf-format-specification)
+* [Llflash Bundle (.ruf) format specification](#ruffle-bundle-ruf-format-specification)
   * [Directory structure](#directory-structure)
     * [`ruffle-bundle.toml` (Bundle information)](#ruffle-bundletoml-bundle-information)
     * [`content/` (Flash content)](#content-flash-content)
@@ -22,7 +22,7 @@ A bundle can be a directory or a renamed zip file, and must contain at minimum a
       * [`scale_mode` - Stage Scale Mode that the content starts with](#scale_mode---stage-scale-mode-that-the-content-starts-with)
       * [`force_scale_mode` - Allow or disallow the content from changing its Stage Alignment](#force_scale_mode---allow-or-disallow-the-content-from-changing-its-stage-alignment)
       * [`upgrade_http_to_https` - Whether to upgrade HTTP urls to HTTPS silently](#upgrade_http_to_https---whether-to-upgrade-http-urls-to-https-silently)
-      * [`load_behavior` - How Ruffle should load movies](#load_behavior---how-ruffle-should-load-movies)
+      * [`load_behavior` - How Llflash should load movies](#load_behavior---how-ruffle-should-load-movies)
       * [`letterbox` - Controls visual letterboxing around the content](#letterbox---controls-visual-letterboxing-around-the-content)
       * [`spoof_url` - URL to pretend the initial SWF is being loaded from](#spoof_url---url-to-pretend-the-initial-swf-is-being-loaded-from)
       * [`version` - Version of the Flash Player to emulate](#version---version-of-the-flash-player-to-emulate)
@@ -39,7 +39,7 @@ A bundle can be a directory or a renamed zip file, and must contain at minimum a
 More files and folders may be added in the future, as this format is expanded upon.
 
 ### `ruffle-bundle.toml` (Bundle information)
-This [toml](https://toml.io/) file is required and contains information that Ruffle needs to run this bundle.
+This [toml](https://toml.io/) file is required and contains information that Llflash needs to run this bundle.
 
 See [the ruffle-bundle.toml file specification](#ruffle-bundletoml-file-specification) for more details.
 
@@ -65,7 +65,7 @@ The same is true if the toml document is malformed or corrupt.
 All other fields are absolutely optional and reasonable defaults will be assumed if they're missing or invalid.
 
 ### `[bundle]`
-This section is required to exist, and contains the two required fields for a bundle to work in Ruffle:
+This section is required to exist, and contains the two required fields for a bundle to work in Llflash:
 
 #### `name` - The name of the bundle
 This can be anything, and is shown to the user in UI.
@@ -81,7 +81,7 @@ Remember - the `content/` directory is accessible through `file:///` - so if you
 
 
 ### `[player]`
-This section contains player options, which change how Ruffle emulates the content in this bundle.
+This section contains player options, which change how Llflash emulates the content in this bundle.
 
 These options may be overridden by users.
 
@@ -124,7 +124,7 @@ The default value generally depends on the users hardware, and it's advisable to
 a specific quality for aesthetics.
 
 Whilst Flash [does technically support many quality modes](https://web.archive.org/web/20240420201659/https://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/display/StageQuality.html);
-Ruffle currently only implements `low`, `medium` and `high`.
+Llflash currently only implements `low`, `medium` and `high`.
 
 Example:
 ```toml
@@ -180,17 +180,17 @@ If set to `true`, content may not change its own Stage Scale Mode value (see `pl
 #### `upgrade_http_to_https` - Whether to upgrade HTTP urls to HTTPS silently
 If `true`, all `http://` URLs will be replaced with `https://`.
 
-#### `load_behavior` - How Ruffle should load movies
+#### `load_behavior` - How Llflash should load movies
 Some movies expect to be streamed, or expect to load instantly. This allows you to work around any potential issues by
 forcing a specific loading behaviour.
 
 This may be one of the following values:
 - `streaming` (Default): Allow movies to execute before they have finished loading.
 - `delayed`: Delay execution of loaded movies until they have finished loading.
-- `blocking`: Block Ruffle until movies have finished loading.
+- `blocking`: Block Llflash until movies have finished loading.
 
 #### `letterbox` - Controls visual letterboxing around the content
-If the contents aspect ratio does not match the players aspect ratio, Ruffle may put up letterboxes for aesthetics and
+If the contents aspect ratio does not match the players aspect ratio, Llflash may put up letterboxes for aesthetics and
 to hide objects that perhaps should not be visible.
 
 This may be one of the following values:
@@ -205,7 +205,7 @@ This is often required for site locks that check if the content is being loaded 
 We do not *actually* load the URL, and all other assets/SWFs are not affected.
 
 #### `version` - Version of the Flash Player to emulate
-Whilst it's not common, some content depends on behaviour from specific Flash Players. You may set this to force Ruffle
+Whilst it's not common, some content depends on behaviour from specific Flash Players. You may set this to force Llflash
 to try and emulate that behaviour.
 
 Default is likely to be `32`, but may be subject to change.
@@ -229,5 +229,5 @@ frame_rate = 30.0
 ```
 
 #### `mock_external_interface` - Provide a mocked ExternalInterface
-Some content used JavaScript calls to query things like the page URL. By setting this value to `true`, Ruffle will provide
+Some content used JavaScript calls to query things like the page URL. By setting this value to `true`, Llflash will provide
 a mocked up ExternalInterface that responds to some of the common JavaScript calls appropriately.

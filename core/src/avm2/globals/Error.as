@@ -1,6 +1,6 @@
 package {
-    [Ruffle(ConstructOnCall)]
-    [Ruffle(InstanceAllocator)]
+    [Llflash(ConstructOnCall)]
+    [Llflash(InstanceAllocator)]
     public dynamic class Error {
         {
             prototype.name = "Error";

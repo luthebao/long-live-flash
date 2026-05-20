@@ -12,7 +12,7 @@ use crate::local_connection::{LocalConnectionHandle, LocalConnections};
 use crate::string::AvmString;
 use flash_lso::types::Value as AmfValue;
 use gc_arena::{Collect, Gc};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::cell::RefCell;
 
 #[derive(Debug, Collect)]

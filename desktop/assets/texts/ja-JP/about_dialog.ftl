@@ -1,4 +1,4 @@
-about-ruffle = Ruffleについて
+about-ruffle = Llflashについて
 about-ruffle-version = バージョン
 about-ruffle-channel = チャンネル
 about-ruffle-build-time = ビルド日時

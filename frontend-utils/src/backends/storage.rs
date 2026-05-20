@@ -1,4 +1,4 @@
-use ruffle_core::backend::storage::StorageBackend;
+use llflash_core::backend::storage::StorageBackend;
 use std::fs;
 use std::fs::File;
 use std::io::Write;
@@ -23,7 +23,7 @@ impl DiskStorageBackend {
         }
     }
 
-    /// Verifies that the path contains no `..` components to prevent accessing files outside of the Ruffle directory.
+    /// Verifies that the path contains no `..` components to prevent accessing files outside of the Llflash directory.
     fn is_path_allowed(path: &Path) -> bool {
         path.components().all(|c| c != Component::ParentDir)
     }

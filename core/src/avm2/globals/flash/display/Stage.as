@@ -13,7 +13,7 @@ package flash.display {
     import flash.text.TextSnapshot;
     import flash.ui.ContextMenu;
 
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public class Stage extends DisplayObjectContainer {
         private var _colorCorrection:String = ColorCorrection.DEFAULT;
         private var _mouseLock:Boolean = false;

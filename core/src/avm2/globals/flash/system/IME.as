@@ -5,7 +5,7 @@ package flash.system {
 
     import flash.events.EventDispatcher;
 
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class IME extends EventDispatcher {
         private static var _conversionMode:String = "ALPHANUMERIC_HALF";
         private static var _enabled:Boolean;

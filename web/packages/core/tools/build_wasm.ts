@@ -118,7 +118,7 @@ function buildWasm(
             rustFlags,
             extensions,
         });
-        originalWasmPath = `../../../target/wasm32-unknown-unknown/${profile}/ruffle_web.wasm`;
+        originalWasmPath = `../../../target/wasm32-unknown-unknown/${profile}/llflash_web.wasm`;
         if (wasmSource === "cargo_and_store") {
             copyFileSync(originalWasmPath, `../../dist/${filename}.wasm`);
         }
@@ -164,11 +164,11 @@ if (wasmSource === "cargo_and_store") {
     rmSync("../../dist", { recursive: true, force: true });
     mkdirSync("../../dist");
 }
-buildWasm("web-wasm-extensions", "ruffle_web", hasWasmOpt, true, wasmSource);
+buildWasm("web-wasm-extensions", "llflash_web", hasWasmOpt, true, wasmSource);
 if (buildWasmMvp) {
     buildWasm(
         "web-wasm-mvp",
-        "ruffle_web-wasm_mvp",
+        "llflash_web-wasm_mvp",
         hasWasmOpt,
         false,
         wasmSource,

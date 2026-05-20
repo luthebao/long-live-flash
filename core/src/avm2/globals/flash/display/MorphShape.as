@@ -1,4 +1,4 @@
 package flash.display {
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class MorphShape extends DisplayObject {}
 }

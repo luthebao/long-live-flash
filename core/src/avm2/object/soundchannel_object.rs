@@ -9,7 +9,7 @@ use crate::context::UpdateContext;
 use crate::display_object::SoundTransform;
 use core::fmt;
 use gc_arena::{Collect, Gc, GcWeak};
-use ruffle_common::utils::HasPrefixField;
+use llflash_common::utils::HasPrefixField;
 use std::cell::{Cell, RefCell};
 
 /// A class instance allocator that allocates SoundChannel objects.

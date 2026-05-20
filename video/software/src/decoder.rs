@@ -1,5 +1,5 @@
-use ruffle_video::error::Error;
-use ruffle_video::frame::{DecodedFrame, EncodedFrame, FrameDependency};
+use llflash_video::error::Error;
+use llflash_video::frame::{DecodedFrame, EncodedFrame, FrameDependency};
 
 #[cfg(feature = "h263")]
 pub mod h263;

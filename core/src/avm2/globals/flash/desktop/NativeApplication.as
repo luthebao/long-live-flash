@@ -210,14 +210,14 @@ package flash.desktop {
             stub_setter("flash.desktop.NativeApplication", "executeInBackground");
         }
 
-        // [API("721")] Ruffle doesn't support this API Version
+        // [API("721")] Llflash doesn't support this API Version
         [API("681")]
         public function get isCompiledAOT():Boolean {
             stub_getter("flash.desktop.NativeApplication", "isCompiledAOT");
             return false;
         }
 
-        // [API("721")] Ruffle doesn't support this API Version
+        // [API("721")] Llflash doesn't support this API Version
         [API("681")]
         public function get isActive():Boolean {
             stub_getter("flash.desktop.NativeApplication", "isActive");

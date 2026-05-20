@@ -9,8 +9,8 @@ use crate::context::UpdateContext;
 use gc_arena::barrier::unlock;
 use gc_arena::lock::Lock;
 use gc_arena::{Collect, Gc, Mutation};
-use ruffle_macros::istr;
-use ruffle_render::filters::DisplacementMapFilterMode;
+use llflash_macros::istr;
+use llflash_render::filters::DisplacementMapFilterMode;
 use std::cell::Cell;
 use std::fmt::Debug;
 use swf::{Color, Point};
@@ -28,9 +28,9 @@ struct DisplacementMapFilterData<'gc> {
     color: Cell<Color>,
 }
 
-impl<'gc> From<ruffle_render::filters::DisplacementMapFilter> for DisplacementMapFilterData<'gc> {
+impl<'gc> From<llflash_render::filters::DisplacementMapFilter> for DisplacementMapFilterData<'gc> {
     fn from(
-        filter: ruffle_render::filters::DisplacementMapFilter,
+        filter: llflash_render::filters::DisplacementMapFilter,
     ) -> DisplacementMapFilterData<'gc> {
         Self {
             map_bitmap: Lock::new(None), // TODO: We can't store this object yet
@@ -67,7 +67,7 @@ impl<'gc> DisplacementMapFilter<'gc> {
 
     pub fn from_filter(
         gc_context: &Mutation<'gc>,
-        filter: ruffle_render::filters::DisplacementMapFilter,
+        filter: llflash_render::filters::DisplacementMapFilter,
     ) -> Self {
         Self(Gc::new(gc_context, filter.into()))
     }
@@ -284,10 +284,10 @@ impl<'gc> DisplacementMapFilter<'gc> {
     pub fn filter(
         self,
         context: &mut UpdateContext<'gc>,
-    ) -> ruffle_render::filters::DisplacementMapFilter {
+    ) -> llflash_render::filters::DisplacementMapFilter {
         let filter = self.0;
         let map_point = filter.map_point.get();
-        ruffle_render::filters::DisplacementMapFilter {
+        llflash_render::filters::DisplacementMapFilter {
             color: filter.color.get(),
             component_x: filter.component_x.get() as u8,
             component_y: filter.component_y.get() as u8,

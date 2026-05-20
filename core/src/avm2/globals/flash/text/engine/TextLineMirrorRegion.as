@@ -1,5 +1,5 @@
 package flash.text.engine {
     [API("662")]
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class TextLineMirrorRegion {}
 }

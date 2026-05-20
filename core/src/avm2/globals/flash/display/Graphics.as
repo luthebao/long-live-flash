@@ -3,7 +3,7 @@ package flash.display {
 
     import flash.geom.Matrix;
 
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class Graphics {
         public function Graphics() {
             throw new Error("You cannot construct Graphics directly.");
@@ -16,7 +16,7 @@ package flash.display {
             smooth:Boolean = false
         ):void;
 
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         public native function beginFill(color:uint, alpha:Number = 1.0):void;
 
         public native function beginGradientFill(
@@ -35,7 +35,7 @@ package flash.display {
             stub_method("flash.display.Graphics", "beginShaderFill");
         }
 
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         public native function clear():void;
 
         public native function curveTo(controlX:Number, controlY:Number, anchorX:Number, anchorY:Number):void;
@@ -55,7 +55,7 @@ package flash.display {
             ellipseHeight:Number = NaN
         ):void;
 
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         public native function endFill():void;
 
         public native function lineStyle(
@@ -69,10 +69,10 @@ package flash.display {
             miterLimit:Number = 3
         ):void;
 
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         public native function lineTo(x:Number, y:Number):void;
 
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         public native function moveTo(x:Number, y:Number):void;
 
         public native function lineGradientStyle(

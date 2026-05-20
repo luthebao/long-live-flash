@@ -6,7 +6,7 @@ package flash.display {
     import flash.display.DisplayObject;
     import flash.media.SoundTransform;
 
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public class SimpleButton extends InteractiveObject {
         public function SimpleButton(
             upState:DisplayObject = null,

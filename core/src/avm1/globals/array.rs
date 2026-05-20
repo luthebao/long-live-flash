@@ -10,7 +10,7 @@ use crate::ecma_conversions::f64_to_wrapping_i32;
 use crate::string::{AvmString, StringContext};
 use bitflags::bitflags;
 use gc_arena::Mutation;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::cmp::Ordering;
 
 bitflags! {

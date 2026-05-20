@@ -1,5 +1,5 @@
 [package]
-name = "ruffle_web_common"
+name = "llflash_web_common"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true

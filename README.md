@@ -1,25 +1,25 @@
 <p align="center">
-  <a href="https://ruffle.rs"><img alt="Ruffle" src="https://ruffle.rs/logo.svg" /></a>
+  <a href="https://ruffle.rs"><img alt="Llflash" src="https://ruffle.rs/logo.svg" /></a>
 </p>
 <p align="center">
   <a href="https://github.com/ruffle-rs/ruffle/actions"><img alt="Rust Build Status" src="https://img.shields.io/github/actions/workflow/status/ruffle-rs/ruffle/test_rust.yml?label=Rust%20Build&logo=github&branch=master" /></a>
   <a href="https://github.com/ruffle-rs/ruffle/actions/workflows/test_web.yml"><img alt="Web Build Status" src="https://img.shields.io/github/actions/workflow/status/ruffle-rs/ruffle/test_web.yml?label=Web%20Build&logo=github&branch=master" /></a>
-  <a href="https://flathub.org/apps/rs.ruffle.Ruffle"><img alt="Ruffle Flathub" src="https://img.shields.io/flathub/v/rs.ruffle.Ruffle?color=007acc&logo=flathub" /></a>
-  <a href="https://www.npmjs.com/package/@ruffle-rs/ruffle"><img alt="Ruffle npm" src="https://img.shields.io/npm/v/@ruffle-rs/ruffle?color=007acc&logo=npm" /></a>
-  <a href="https://aur.archlinux.org/packages/ruffle-nightly-bin"><img alt="Ruffle AUR" src="https://img.shields.io/aur/version/ruffle-nightly-bin?logo=archlinux" /></a>
-  <a href="https://discord.gg/ruffle"><img alt="Ruffle Discord" src="https://img.shields.io/discord/610531541889581066?label=&color=7389d8&labelColor=6a7ec2&logoColor=ffffff&logo=discord" /></a>
-  <a href="https://crowdin.com/project/ruffle"><img alt="Ruffle translations" src="https://badges.crowdin.net/ruffle/localized.svg" /></a>
+  <a href="https://flathub.org/apps/rs.ruffle.Llflash"><img alt="Llflash Flathub" src="https://img.shields.io/flathub/v/rs.ruffle.Llflash?color=007acc&logo=flathub" /></a>
+  <a href="https://www.npmjs.com/package/@ruffle-rs/ruffle"><img alt="Llflash npm" src="https://img.shields.io/npm/v/@ruffle-rs/ruffle?color=007acc&logo=npm" /></a>
+  <a href="https://aur.archlinux.org/packages/ruffle-nightly-bin"><img alt="Llflash AUR" src="https://img.shields.io/aur/version/ruffle-nightly-bin?logo=archlinux" /></a>
+  <a href="https://discord.gg/ruffle"><img alt="Llflash Discord" src="https://img.shields.io/discord/610531541889581066?label=&color=7389d8&labelColor=6a7ec2&logoColor=ffffff&logo=discord" /></a>
+  <a href="https://crowdin.com/project/ruffle"><img alt="Llflash translations" src="https://badges.crowdin.net/ruffle/localized.svg" /></a>
   <br />
   <strong><a href="https://ruffle.rs">website</a> | <a href="https://ruffle.rs/demo">demo</a> | <a href="https://github.com/ruffle-rs/ruffle/releases">nightly builds</a> | <a href="https://github.com/ruffle-rs/ruffle/wiki">wiki</a></strong>
 </p>
 
-# Ruffle
+# Llflash
 
-Ruffle is an Adobe Flash Player emulator written in the Rust programming language. Ruffle targets both the desktop and the web using WebAssembly.
+Llflash is an Adobe Flash Player emulator written in the Rust programming language. Llflash targets both the desktop and the web using WebAssembly.
 
 ## Table of Contents
 * [Project status](#project-status)
-* [Using Ruffle](#using-ruffle)
+* [Using Llflash](#using-ruffle)
 * [Building from source](#building-from-source)
   * [Prerequisites](#prerequisites)
   * [Linux prerequisites](#linux-prerequisites)
@@ -38,15 +38,15 @@ Ruffle is an Adobe Flash Player emulator written in the Rust programming languag
 
 ## Project status
 
-Ruffle supports ActionScript 1, 2 and 3 pretty well, but it's still not finished by any means. Please report any issues in the [Issue Tracker](https://github.com/ruffle-rs/ruffle/issues).
+Llflash supports ActionScript 1, 2 and 3 pretty well, but it's still not finished by any means. Please report any issues in the [Issue Tracker](https://github.com/ruffle-rs/ruffle/issues).
 
-## Using Ruffle
+## Using Llflash
 
-The easiest way to try out Ruffle is to visit the [web demo page](https://ruffle.rs/demo/), then click the "Select File" button to load a SWF file of your choice.
+The easiest way to try out Llflash is to visit the [web demo page](https://ruffle.rs/demo/), then click the "Select File" button to load a SWF file of your choice.
 
-[Nightly builds](https://ruffle.rs/downloads#nightly-releases) of Ruffle are available for desktop and web platforms.
+[Nightly builds](https://ruffle.rs/downloads#nightly-releases) of Llflash are available for desktop and web platforms.
 
-For more detailed instructions, see our [wiki page](https://github.com/ruffle-rs/ruffle/wiki/Using-Ruffle).
+For more detailed instructions, see our [wiki page](https://github.com/ruffle-rs/ruffle/wiki/Using-Llflash).
 
 ## Building from source
 
@@ -75,17 +75,17 @@ The following are typical dependencies for Linux:
 
 Use the following command to build and run the desktop app:
 
-`cargo run --release --package=ruffle_desktop`
+`cargo run --release --package=llflash_desktop`
 
 To run a specific SWF file, pass the SWF path as an argument:
 
-`cargo run --release --package=ruffle_desktop -- test.swf`
+`cargo run --release --package=llflash_desktop -- test.swf`
 
 To build in debug mode, simply omit `--release` from the command.
 
 #### macOS
 
-Ruffle desktop can be built from our [Homebrew Tap](https://github.com/ruffle-rs/homebrew-ruffle/):
+Llflash desktop can be built from our [Homebrew Tap](https://github.com/ruffle-rs/homebrew-ruffle/):
 
 `brew install --HEAD ruffle-rs/ruffle/ruffle`
 
@@ -94,13 +94,13 @@ _Note: because it is HEAD-only, you'll need to run `brew upgrade --fetch-HEAD ru
 ### Web or Extension
 
 Follow [the instructions in the web directory](web/README.md#building-from-source) for building
-either the web or browser extension version of Ruffle.
+either the web or browser extension version of Llflash.
 
 This project is tested with BrowserStack.
 
 ### Android
 
-Follow the [instructions](https://github.com/ruffle-rs/ruffle-android/blob/main/CONTRIBUTING.md#building-from-source) in the `ruffle-android` project for building the Android application of Ruffle.
+Follow the [instructions](https://github.com/ruffle-rs/ruffle-android/blob/main/CONTRIBUTING.md#building-from-source) in the `ruffle-android` project for building the Android application of Llflash.
 
 ### Scanner
 
@@ -108,7 +108,7 @@ If you have a collection of "real world" SWFs to test against, the scanner may b
 ruffle's parsing capabilities. Provided with a folder and an output filename, it will attempt to read
 all of the Flash files and report on the success of such a task.
 
-`cargo run --release --package=ruffle_scanner -- scan folder/with/swfs/ results.csv`
+`cargo run --release --package=llflash_scanner -- scan folder/with/swfs/ results.csv`
 
 ### Exporter
 
@@ -133,9 +133,9 @@ This currently requires hardware acceleration, but can be run headless (with no 
 
 ## Sponsors
 
-You can support the development of Ruffle via [GitHub Sponsors](https://github.com/sponsors/ruffle-rs). Your sponsorship will help to ensure the accessibility of Flash content for the future. Thank you!
+You can support the development of Llflash via [GitHub Sponsors](https://github.com/sponsors/ruffle-rs). Your sponsorship will help to ensure the accessibility of Flash content for the future. Thank you!
 
-Sincere thanks to the diamond level sponsors of Ruffle:
+Sincere thanks to the diamond level sponsors of Llflash:
 
 <p align="center">
   <a href="https://www.newgrounds.com"><img src="https://ruffle.rs/sponsors/newgrounds.png" alt="Newgrounds.com"></a>
@@ -158,21 +158,21 @@ Sincere thanks to the diamond level sponsors of Ruffle:
 
 ## License
 
-Ruffle is licensed under either of
+Llflash is licensed under either of
 
 - Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 - MIT License (http://opensource.org/licenses/MIT)
 
 at your option.
 
-Ruffle depends on third-party libraries under compatible licenses. See [LICENSE.md](LICENSE.md) for full information.
+Llflash depends on third-party libraries under compatible licenses. See [LICENSE.md](LICENSE.md) for full information.
 
 ### Contributing
 
-Ruffle welcomes contribution from everyone. See [CONTRIBUTING.md](CONTRIBUTING.md) for help getting started.
+Llflash welcomes contribution from everyone. See [CONTRIBUTING.md](CONTRIBUTING.md) for help getting started.
 
 Unless you explicitly state otherwise, any contribution intentionally submitted
 for inclusion in the work by you shall be dual licensed as above, without any
 additional terms or conditions.
 
-The entire Ruffle community, including the chat room and GitHub project, is expected to abide by the [Code of Conduct](https://www.rust-lang.org/policies/code-of-conduct) that the Rust project itself follows.
+The entire Llflash community, including the chat room and GitHub project, is expected to abide by the [Code of Conduct](https://www.rust-lang.org/policies/code-of-conduct) that the Rust project itself follows.

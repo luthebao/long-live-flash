@@ -9,7 +9,7 @@ use crate::avm1::object::{ExecutionName, search_prototype};
 use crate::avm1::{NativeObject, Object, Value};
 use crate::string::AvmString;
 use gc_arena::Collect;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 /// Implementation of the `super` object in AS2.
 ///
@@ -26,7 +26,7 @@ pub struct SuperObject<'gc> {
     depth: u8,
 
     /// Adds a niche, so that enums contaning this type can use it for their discriminant.
-    _niche: ruffle_common::utils::ZeroU8,
+    _niche: llflash_common::utils::ZeroU8,
 }
 
 impl fmt::Debug for SuperObject<'_> {

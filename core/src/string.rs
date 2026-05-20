@@ -1,8 +1,8 @@
 use std::borrow::Cow;
 
-pub use ruffle_wstr::*;
+pub use llflash_wstr::*;
 
-pub use ruffle_common::avm_string::*;
+pub use llflash_common::avm_string::*;
 
 pub trait SwfStrExt {
     /// Converts a SWF-encoded string into a `WStr`.

@@ -5,7 +5,7 @@ use crate::display_object::TDisplayObject;
 use crate::socket::SocketHandle;
 use crate::string::AvmString;
 use gc_arena::{Collect, Gc};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::cell::{Cell, RefCell, RefMut};
 use std::collections::VecDeque;
 

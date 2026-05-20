@@ -14,7 +14,7 @@ use flash_lso::types::AMFVersion;
 use flash_lso::types::ObjectId;
 use flash_lso::types::Value as AMFValue;
 use fnv::FnvHashMap;
-use ruffle_wstr::WStr;
+use llflash_wstr::WStr;
 use std::rc::Rc;
 
 pub fn connect<'gc>(

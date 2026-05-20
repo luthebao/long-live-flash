@@ -7,7 +7,7 @@ use std::io::Cursor;
 use gc_arena::barrier::unlock;
 use gc_arena::{Collect, Gc, Mutation, RefLock};
 use id3::Tag;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 use crate::avm1::activation::Activation;
 use crate::avm1::clamp::Clamp;

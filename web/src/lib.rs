@@ -1,6 +1,6 @@
 #![deny(clippy::unwrap_used)]
 
-//! Ruffle web frontend.
+//! Llflash web frontend.
 mod audio;
 mod builder;
 mod external_interface;
@@ -15,12 +15,12 @@ use crate::builder::RuffleInstanceBuilder;
 use external_interface::{external_to_js_value, js_to_external_value};
 use input::{web_input_to_ruffle_key_descriptor, web_to_ruffle_text_control};
 use js_sys::{Error as JsError, Uint8Array};
-use ruffle_core::context::UpdateContext;
-use ruffle_core::context_menu::ContextMenuCallback;
-use ruffle_core::events::{GamepadButton, MouseButton, MouseWheelDelta, TextControlCode};
-use ruffle_core::tag_utils::SwfMovie;
-use ruffle_core::{FloatDuration, Player, PlayerEvent, StaticCallstack, ViewportDimensions};
-use ruffle_web_common::JsResult;
+use llflash_core::context::UpdateContext;
+use llflash_core::context_menu::ContextMenuCallback;
+use llflash_core::events::{GamepadButton, MouseButton, MouseWheelDelta, TextControlCode};
+use llflash_core::tag_utils::SwfMovie;
+use llflash_core::{FloatDuration, Player, PlayerEvent, StaticCallstack, ViewportDimensions};
+use llflash_web_common::JsResult;
 use serde::Serialize;
 use slotmap::{SlotMap, new_key_type};
 use std::any::Any;
@@ -258,7 +258,7 @@ impl RuffleHandle {
             let parameters_to_load = parse_movie_parameters(&parameters);
 
             let ruffle = *self;
-            let on_metadata = move |swf_header: &ruffle_core::swf::HeaderExt| {
+            let on_metadata = move |swf_header: &llflash_core::swf::HeaderExt| {
                 ruffle.on_metadata(swf_header);
             };
 
@@ -984,7 +984,7 @@ impl RuffleHandle {
         Ok(())
     }
 
-    /// Registers a new Ruffle instance and returns the handle to the instance.
+    /// Registers a new Llflash instance and returns the handle to the instance.
     fn add_instance(instance: RuffleInstance) -> Result<Self, RuffleInstanceError> {
         INSTANCES.try_with(|instances| {
             let mut instances = instances.try_borrow_mut()?;
@@ -993,7 +993,7 @@ impl RuffleHandle {
         })?
     }
 
-    /// Unregisters a Ruffle instance, and returns the removed instance.
+    /// Unregisters a Llflash instance, and returns the removed instance.
     fn remove_instance(self) -> Result<RuffleInstance, RuffleInstanceError> {
         INSTANCES.try_with(|instances| {
             let mut instances = instances.try_borrow_mut()?;
@@ -1005,7 +1005,7 @@ impl RuffleHandle {
         })?
     }
 
-    /// Runs the given function on this Ruffle instance.
+    /// Runs the given function on this Llflash instance.
     fn with_instance<F, O>(self, f: F) -> Result<O, RuffleInstanceError>
     where
         F: FnOnce(&RuffleInstance) -> O,
@@ -1030,7 +1030,7 @@ impl RuffleHandle {
         ret
     }
 
-    /// Runs the given function on this Ruffle instance.
+    /// Runs the given function on this Llflash instance.
     fn with_instance_mut<F, O>(self, f: F) -> Result<O, RuffleInstanceError>
     where
         F: FnOnce(&mut RuffleInstance) -> O,
@@ -1058,7 +1058,7 @@ impl RuffleHandle {
     /// Runs the given function on this instance's `Player`.
     fn with_core<F, O>(self, f: F) -> Result<O, RuffleInstanceError>
     where
-        F: FnOnce(&ruffle_core::Player) -> O,
+        F: FnOnce(&llflash_core::Player) -> O,
     {
         let ret = INSTANCES
             .try_with(|instances| {
@@ -1090,7 +1090,7 @@ impl RuffleHandle {
     /// Runs the given function on this instance's `Player`.
     fn with_core_mut<F, O>(self, f: F) -> Result<O, RuffleInstanceError>
     where
-        F: FnOnce(&mut ruffle_core::Player) -> O,
+        F: FnOnce(&mut llflash_core::Player) -> O,
     {
         let ret = INSTANCES
             .try_with(|instances| {
@@ -1224,7 +1224,7 @@ impl RuffleHandle {
             instance.timestamp = Some(timestamp);
         });
 
-        // Tick the Ruffle core.
+        // Tick the Llflash core.
         let _ = self.with_core_mut(|core| {
             for event in gamepad_button_events {
                 core.handle_event(event);
@@ -1252,7 +1252,7 @@ impl RuffleHandle {
         });
     }
 
-    fn on_metadata(self, swf_header: &ruffle_core::swf::HeaderExt) {
+    fn on_metadata(self, swf_header: &llflash_core::swf::HeaderExt) {
         let _ = self.with_instance(|instance| {
             // Convert the background color to an HTML hex color ("#FFFFFF").
             let background_color = swf_header
@@ -1280,7 +1280,7 @@ impl RuffleInstance {
     #[expect(dead_code)]
     fn with_core<F, O>(&self, f: F) -> Result<O, RuffleInstanceError>
     where
-        F: FnOnce(&ruffle_core::Player) -> O,
+        F: FnOnce(&llflash_core::Player) -> O,
     {
         let ret = self
             .core
@@ -1295,7 +1295,7 @@ impl RuffleInstance {
 
     fn with_core_mut<F, O>(&self, f: F) -> Result<O, RuffleInstanceError>
     where
-        F: FnOnce(&mut ruffle_core::Player) -> O,
+        F: FnOnce(&mut llflash_core::Player) -> O,
     {
         let ret = self
             .core
@@ -1332,13 +1332,13 @@ impl Drop for RuffleInstance {
 pub enum RuffleInstanceError {
     #[error("Unable to access INSTANCES threadlocal")]
     ThreadLocalAccessError(#[from] std::thread::AccessError),
-    #[error("Unable to mutably borrow Ruffle instance")]
+    #[error("Unable to mutably borrow Llflash instance")]
     CannotBorrow(#[from] std::cell::BorrowError),
-    #[error("Unable to borrow Ruffle instance")]
+    #[error("Unable to borrow Llflash instance")]
     CannotBorrowMut(#[from] std::cell::BorrowMutError),
-    #[error("Unable to lock Ruffle core")]
+    #[error("Unable to lock Llflash core")]
     TryLockError,
-    #[error("Ruffle Instance ID does not exist")]
+    #[error("Llflash Instance ID does not exist")]
     InstanceNotFound,
 }
 
@@ -1366,7 +1366,7 @@ fn global_init() {
         .init();
 
     // This is the default, global log subscriber.
-    // It should only catch things that aren't attached to a specific Ruffle instance,
+    // It should only catch things that aren't attached to a specific Llflash instance,
     // as they have their own configurable loggers.
     let _ = tracing::subscriber::set_global_default(
         Registry::default().with(WASMLayer::new(
@@ -1413,5 +1413,5 @@ fn global_init() {
         });
     }));
 
-    tracing::info!("Ruffle WASM module has been initialized");
+    tracing::info!("Llflash WASM module has been initialized");
 }

@@ -12,7 +12,7 @@ package flash.net {
     import flash.media.Camera;
     import flash.media.VideoStreamSettings;
 
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public class NetStream extends EventDispatcher {
         public static const CONNECT_TO_FMS:String = "connectToFMS";
         public static const DIRECT_CONNECTIONS:String = "directConnections";

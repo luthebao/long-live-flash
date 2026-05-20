@@ -9,14 +9,14 @@ package flash.text.engine {
         private var _alpha:Number;
         private var _baselineShift:Number;
         private var _breakOpportunity:String;
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _color:uint;
         private var _digitCase:String;
         private var _digitWidth:String;
         private var _dominantBaseline:String;
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _fontDescription:FontDescription;
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _fontSize:Number;
         private var _kerning:String;
         private var _ligatureLevel:String;

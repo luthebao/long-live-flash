@@ -9,7 +9,7 @@ use crate::avm2::value::Value;
 use crate::string::AvmString;
 use core::fmt;
 use gc_arena::{Collect, Gc, GcWeak, Mutation};
-use ruffle_common::utils::HasPrefixField;
+use llflash_common::utils::HasPrefixField;
 
 /// A class instance allocator that allocates Dictionary objects.
 pub fn dictionary_allocator<'gc>(

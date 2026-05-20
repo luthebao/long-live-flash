@@ -1,5 +1,5 @@
 package {
-    [Ruffle(ConstructOnCall)]
+    [Llflash(ConstructOnCall)]
     public dynamic class SyntaxError extends Error {
         prototype.name = "SyntaxError";
 

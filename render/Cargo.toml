@@ -1,5 +1,5 @@
 [package]
-name = "ruffle_render"
+name = "llflash_render"
 authors.workspace = true
 edition.workspace = true
 homepage.workspace = true
@@ -11,7 +11,7 @@ version.workspace = true
 workspace = true
 
 [dependencies]
-ruffle_wstr = { path = "../wstr" }
+llflash_wstr = { path = "../wstr" }
 swf = { path = "../swf"}
 pixel_bender = { path = "pixel_bender"}
 tracing = { workspace = true }

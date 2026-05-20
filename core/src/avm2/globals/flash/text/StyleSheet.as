@@ -1,9 +1,9 @@
 package flash.text {
     import flash.events.EventDispatcher;
 
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public dynamic class StyleSheet extends EventDispatcher {
-        // Shallow copies of the original style objects. Not used by Ruffle itself, just for getStyle()
+        // Shallow copies of the original style objects. Not used by Llflash itself, just for getStyle()
         private var _styles:Object = {};
 
         public function StyleSheet() {}

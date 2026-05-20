@@ -1,4 +1,4 @@
-use ruffle_render::backend::Context3DTextureFormat;
+use llflash_render::backend::Context3DTextureFormat;
 
 use super::atf_jpegxr::do_compressed_upload;
 use crate::avm2::Activation;

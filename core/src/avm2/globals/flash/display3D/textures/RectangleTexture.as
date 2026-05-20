@@ -2,7 +2,7 @@ package flash.display3D.textures {
     import flash.display.BitmapData;
     import flash.utils.ByteArray;
 
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class RectangleTexture extends TextureBase {
         [API("690")]
         public native function uploadFromBitmapData(source:BitmapData):void;

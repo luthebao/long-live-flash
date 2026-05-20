@@ -16,8 +16,8 @@ use crate::character::Character;
 use crate::display_object::DisplayObject;
 use crate::swf::BlendMode;
 use crate::{avm_error, avm1_stub};
-use ruffle_macros::istr;
-use ruffle_render::transform::Transform;
+use llflash_macros::istr;
+use llflash_render::transform::Transform;
 
 const PROTO_DECLS: StaticDeclarations = declare_static_properties! {
     "width" => property(width);

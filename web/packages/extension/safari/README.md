@@ -1,4 +1,4 @@
-This directory builds the native half of Ruffle's Safari Web Extension for
+This directory builds the native half of Llflash's Safari Web Extension for
 macOS.
 
 The binary this crate produces is intended to be bundled into an `.appex`

@@ -7,7 +7,7 @@ use crate::debug_ui::handle::{AVM1ObjectHandle, DisplayObjectHandle};
 use crate::string::AvmString;
 use egui::{Grid, Id, TextBuffer, TextEdit, Ui, Window};
 use gc_arena::Mutation;
-use ruffle_wstr::{WStr, WString};
+use llflash_wstr::{WStr, WString};
 
 use super::common::show_style_sheet;
 

@@ -9,7 +9,7 @@ use crate::avm1::{Object, Value};
 use crate::avm1_stub;
 use crate::display_object::TDisplayObject;
 use crate::string::AvmString;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 const PROTO_DECLS: StaticDeclarations = declare_static_properties! {
     use fn method;

@@ -1,6 +1,6 @@
 use crate::gui::{FilePicker, LocalizableText, text};
 use egui::{TextEdit, Ui};
-use ruffle_frontend_utils::content::ContentDescriptor;
+use llflash_frontend_utils::content::ContentDescriptor;
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex, MutexGuard};
 use unic_langid::LanguageIdentifier;

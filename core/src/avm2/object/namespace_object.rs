@@ -9,8 +9,8 @@ use crate::avm2::value::Value;
 use crate::string::AvmString;
 use core::fmt;
 use gc_arena::{Collect, Gc, GcWeak};
-use ruffle_common::utils::HasPrefixField;
-use ruffle_macros::istr;
+use llflash_common::utils::HasPrefixField;
+use llflash_macros::istr;
 
 /// An Object which represents a boxed namespace name.
 #[derive(Collect, Clone, Copy)]

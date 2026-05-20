@@ -1,5 +1,5 @@
 package flash.net {
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class ObjectEncoding {
         public static const AMF0:uint = 0;
         public static const AMF3:uint = 3;

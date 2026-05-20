@@ -170,7 +170,7 @@ impl From<Size<Twips>> for swf::PointDelta<Twips> {
     }
 }
 
-impl std::ops::Mul<Size<Twips>> for ruffle_render::matrix::Matrix {
+impl std::ops::Mul<Size<Twips>> for llflash_render::matrix::Matrix {
     type Output = Size<Twips>;
 
     fn mul(self, size: Size<Twips>) -> Size<Twips> {
@@ -231,7 +231,7 @@ where
     }
 }
 
-impl std::ops::Mul<BoxBounds<Twips>> for ruffle_render::matrix::Matrix {
+impl std::ops::Mul<BoxBounds<Twips>> for llflash_render::matrix::Matrix {
     type Output = BoxBounds<Twips>;
 
     fn mul(self, bounds: BoxBounds<Twips>) -> BoxBounds<Twips> {

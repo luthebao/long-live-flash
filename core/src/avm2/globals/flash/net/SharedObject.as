@@ -1,7 +1,7 @@
 package flash.net {
     import flash.events.EventDispatcher;
 
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public class SharedObject extends EventDispatcher {
         // NOTE: We currently always use AMF3 serialization.
         // If you implement the `defaultObjectEncoding` or `objectEncoding`,

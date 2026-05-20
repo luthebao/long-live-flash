@@ -12,7 +12,7 @@ package flash.display {
     import flash.geom.Vector3D;
     import flash.events.EventDispatcher;
 
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public class DisplayObject extends EventDispatcher implements IBitmapDrawable {
         private var _accessibilityProperties:AccessibilityProperties;
 

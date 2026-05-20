@@ -6,13 +6,13 @@ use async_channel::{Receiver, Sender, TryRecvError};
 use async_io::Timer;
 use futures_lite::FutureExt;
 use reqwest::{Proxy, cookie, header};
-use ruffle_core::backend::navigator::{
+use llflash_core::backend::navigator::{
     ErrorResponse, NavigationMethod, NavigatorBackend, OwnedFuture, Request, SocketMode,
     SuccessResponse, async_return, create_fetch_error, get_encoding,
 };
-use ruffle_core::indexmap::IndexMap;
-use ruffle_core::loader::Error;
-use ruffle_core::socket::{ConnectionState, SocketAction, SocketHandle};
+use llflash_core::indexmap::IndexMap;
+use llflash_core::loader::Error;
+use llflash_core::socket::{ConnectionState, SocketAction, SocketHandle};
 use std::collections::HashSet;
 use std::fs::File;
 use std::future::Future;
@@ -84,7 +84,7 @@ impl<F: FutureSpawner<Error>, I: NavigatorInterface> ExternalNavigatorBackend<F,
         let mut builder = reqwest::ClientBuilder::new()
             .cookie_store(true)
             .user_agent(concat!(
-                "Ruffle/",
+                "Llflash/",
                 env!("CARGO_PKG_VERSION"),
                 " (https://ruffle.rs)"
             ));
@@ -202,7 +202,7 @@ impl<F: FutureSpawner<Error> + 'static, I: NavigatorInterface> NavigatorBackend
                 let interface = self.interface.clone();
                 Box::pin(async move {
                     // We send the original url (including query parameters)
-                    // back to ruffle_core in the `Response`
+                    // back to llflash_core in the `Response`
                     let response_url = processed_url.clone();
                     // Flash supports query parameters with local urls.
                     // SwfMovie takes care of exposing those to ActionScript -
@@ -487,7 +487,7 @@ where
 #[cfg(test)]
 #[expect(clippy::unwrap_used)]
 mod tests {
-    use ruffle_core::socket::SocketAction::{Close, Connect, Data};
+    use llflash_core::socket::SocketAction::{Close, Connect, Data};
     use std::net::SocketAddr;
     use std::str::FromStr;
     use tokio::net::TcpListener;

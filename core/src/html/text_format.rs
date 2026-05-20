@@ -6,7 +6,7 @@ use crate::string::{Integer, SwfStrExt as _, Units, WStr, WString};
 use crate::tag_utils::SwfMovie;
 use gc_arena::Collect;
 use quick_xml::{Reader, escape::escape, events::Event};
-use ruffle_wstr::utils::swf_is_newline;
+use llflash_wstr::utils::swf_is_newline;
 use std::borrow::Cow;
 use std::cmp::{Ordering, min};
 use std::collections::VecDeque;
@@ -896,7 +896,7 @@ impl FormatSpans {
                                 let hex = hex.trim_start();
                                 let end = hex
                                     .iter()
-                                    .take_while(|c| ruffle_wstr::utils::swf_is_ascii_hexdigit(*c))
+                                    .take_while(|c| llflash_wstr::utils::swf_is_ascii_hexdigit(*c))
                                     .count();
                                 let start = end.saturating_sub(6);
                                 if let Ok(rgb) = u32::from_wstr_radix(&hex[start..end], 16) {
@@ -1114,7 +1114,7 @@ impl FormatSpans {
         let mut result = WString::with_capacity(string.len(), string.is_wide());
         let mut last_white = false;
         for ch in string.iter() {
-            if ruffle_wstr::utils::swf_is_whitespace(ch) {
+            if llflash_wstr::utils::swf_is_whitespace(ch) {
                 if !last_white {
                     result.push(HTML_SPACE);
                     last_white = true;

@@ -1,4 +1,4 @@
-preferences-dialog = Nastavitve Ruffle
+preferences-dialog = Nastavitve Llflash
 preference-locked-by-cli = Samo za branje (nastavljeno s CLI)
 graphics-backend = Grafično zaledje
 graphics-backend-default = Privzeto
@@ -26,8 +26,8 @@ theme-dark = Temna
 # See for context https://github.com/FeralInteractive/gamemode
 gamemode = GameMode
 gamemode-tooltip =
-    GameMode začasno uporabi niz optimizacij za vaš računalnik in/ali Ruffle.
-    Ruffle zahteva GameMode samo, ko se predvaja film.
+    GameMode začasno uporabi niz optimizacij za vaš računalnik in/ali Llflash.
+    Llflash zahteva GameMode samo, ko se predvaja film.
 gamemode-default = Privzeto
 gamemode-default-tooltip = GameMode bo omogočen samo, če je nastavitev porabe energije nastavljena na visoko.
 # See for context https://wiki.archlinux.org/title/Input_method

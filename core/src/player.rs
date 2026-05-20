@@ -61,13 +61,13 @@ use async_channel::Sender;
 use enumset::EnumSet;
 use gc_arena::lock::GcRefLock;
 use gc_arena::{Collect, DynamicRootSet, Mutation, Rootable};
-use ruffle_common::duration::FloatDuration;
-use ruffle_macros::istr;
-use ruffle_render::backend::{RenderBackend, ViewportDimensions, null::NullRenderer};
-use ruffle_render::commands::CommandList;
-use ruffle_render::quality::StageQuality;
-use ruffle_render::transform::TransformStack;
-use ruffle_video::backend::VideoBackend;
+use llflash_common::duration::FloatDuration;
+use llflash_macros::istr;
+use llflash_render::backend::{RenderBackend, ViewportDimensions, null::NullRenderer};
+use llflash_render::commands::CommandList;
+use llflash_render::quality::StageQuality;
+use llflash_render::transform::TransformStack;
+use llflash_video::backend::VideoBackend;
 use std::cell::RefCell;
 use std::collections::{HashMap, VecDeque};
 use std::fmt;
@@ -378,7 +378,7 @@ pub struct Player {
     /// The first frame is frame 1.
     current_frame: Option<u16>,
 
-    /// How Ruffle should load movies.
+    /// How Llflash should load movies.
     load_behavior: LoadBehavior,
 
     /// The root SWF URL provided to ActionScript. If None,
@@ -2565,7 +2565,7 @@ impl Drop for Player {
     }
 }
 
-/// Player factory, which can be used to configure the aspects of a Ruffle player.
+/// Player factory, which can be used to configure the aspects of a Llflash player.
 pub struct PlayerBuilder {
     movie: Option<SwfMovie>,
 
@@ -2958,7 +2958,7 @@ impl PlayerBuilder {
     /// Builds the player, wiring up the backends and configuring the specified settings.
     pub fn build(self) -> Arc<Mutex<Player>> {
         use crate::backend::*;
-        use ruffle_video::null;
+        use llflash_video::null;
         let audio = self
             .audio
             .unwrap_or_else(|| Box::new(audio::NullAudioBackend::new()));

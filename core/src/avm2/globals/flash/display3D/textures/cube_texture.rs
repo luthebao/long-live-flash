@@ -1,4 +1,4 @@
-use ruffle_render::backend::Context3DTextureFormat;
+use llflash_render::backend::Context3DTextureFormat;
 
 use crate::avm2::Activation;
 use crate::avm2::Error;

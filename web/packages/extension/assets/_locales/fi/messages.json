@@ -60,16 +60,16 @@
         "message": "Tarkistetaan Rufflen tilaa nykyisellä välilehdellä…"
     },
     "status_result_running": {
-        "message": "Ruffle on valmis toistamaan Flash-sisältöä nykyisellä välilehdellä."
+        "message": "Llflash on valmis toistamaan Flash-sisältöä nykyisellä välilehdellä."
     },
     "status_result_running_protected": {
-        "message": "Ruffle on valmis toistamaan pyytämääsi Flash-sisältöä."
+        "message": "Llflash on valmis toistamaan pyytämääsi Flash-sisältöä."
     },
     "status_result_optout": {
-        "message": "Ruffle ei voi latautua, koska nykyinen verkkosivu merkitsi itsensä yhteensopimattomaksi."
+        "message": "Llflash ei voi latautua, koska nykyinen verkkosivu merkitsi itsensä yhteensopimattomaksi."
     },
     "status_result_disabled": {
-        "message": "Ruffle on poistettu käytöstä."
+        "message": "Llflash on poistettu käytöstä."
     },
     "action_reload": {
         "message": "Päivitä välilehti ottaaksesi muutokset käyttöön"

@@ -1,9 +1,9 @@
 {
     "settings_ruffle_enable": {
-        "message": "Reprodueix contingut Flash amb Ruffle"
+        "message": "Reprodueix contingut Flash amb Llflash"
     },
     "settings_ignore_optout": {
-        "message": "Reprodueix contingut Flash també a llocs web que prohibeixen Ruffle"
+        "message": "Reprodueix contingut Flash també a llocs web que prohibeixen Llflash"
     },
     "settings_show_swf_download": {
         "message": "Permet la baixada de fitxers SWF des del menú contextual"
@@ -42,7 +42,7 @@
         "message": "Restableix la configuració"
     },
     "settings_reset_confirm": {
-        "message": "Esteu segur que voleu restablir Ruffle a la seva configuració per defecte?"
+        "message": "Esteu segur que voleu restablir Llflash a la seva configuració per defecte?"
     },
     "status_init": {
         "message": "Llegint la pestanya actual…"
@@ -54,25 +54,25 @@
         "message": "S'ha produït un error en accedir a la pestanya actual."
     },
     "status_message_init": {
-        "message": "Comprovant l'estat de Ruffle a la pestanya actual…"
+        "message": "Comprovant l'estat de Llflash a la pestanya actual…"
     },
     "status_result_running": {
-        "message": "Ruffle està carregat i llest per a reproduir contingut Flash a la pestanya actual."
+        "message": "Llflash està carregat i llest per a reproduir contingut Flash a la pestanya actual."
     },
     "status_result_running_protected": {
-        "message": "Ruffle està carregat i reproduint el contingut que heu demanat."
+        "message": "Llflash està carregat i reproduint el contingut que heu demanat."
     },
     "status_result_optout": {
-        "message": "Ruffle no s'ha carregat perquè el lloc ha indicat que no hi és compatible."
+        "message": "Llflash no s'ha carregat perquè el lloc ha indicat que no hi és compatible."
     },
     "status_result_disabled": {
-        "message": "Ruffle no s'ha carregat perquè l'heu desactivat."
+        "message": "Llflash no s'ha carregat perquè l'heu desactivat."
     },
     "status_result_error": {
-        "message": "S'ha produït un error en consultar la instància de Ruffle a la pestanya actual."
+        "message": "S'ha produït un error en consultar la instància de Llflash a la pestanya actual."
     },
     "status_result_protected": {
-        "message": "Ruffle no es pot carregar a llocs protegits del navegador."
+        "message": "Llflash no es pot carregar a llocs protegits del navegador."
     },
     "action_reload": {
         "message": "Recarrega la pestanya per a efectuar els canvis"
@@ -99,7 +99,7 @@
         "message": "Pàgina d'incorporació"
     },
     "permissions_grant": {
-        "message": "Permetre a Ruffle l'accés a les meves dades en totes les pàgines web"
+        "message": "Permetre a Llflash l'accés a les meves dades en totes les pàgines web"
     },
     "grant_single_site_permission": {
         "message": "Permetre permanentment en aquest web"

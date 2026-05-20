@@ -1,4 +1,4 @@
-preferences-dialog = Ruffle voorkeuren
+preferences-dialog = Llflash voorkeuren
 preference-locked-by-cli = Alleen-lezen (via consoleinterface ingesteld)
 graphics-backend = Grafisch systeem
 graphics-backend-default = Standaard
@@ -26,8 +26,8 @@ theme-dark = Donker
 # See for context https://github.com/FeralInteractive/gamemode
 gamemode = GameMode
 gamemode-tooltip =
-    GameMode past tijdelijk verscheidene optimalisaties toe aan jouw computer en/of Ruffle.
-    Ruffle vraagt GameMode enkel aan wanneer een film gespeeld wordt.
+    GameMode past tijdelijk verscheidene optimalisaties toe aan jouw computer en/of Llflash.
+    Llflash vraagt GameMode enkel aan wanneer een film gespeeld wordt.
 gamemode-default = Standaard
 gamemode-default-tooltip = GameMode zal enkel aangezet worden wanneer de stroomverbruiksvoorkeur op hoog staat.
 # See for context https://wiki.archlinux.org/title/Input_method

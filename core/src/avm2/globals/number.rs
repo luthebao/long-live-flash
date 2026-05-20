@@ -5,7 +5,7 @@ use crate::avm2::error::{make_error_1002, make_error_1003};
 use crate::avm2::parameters::ParametersExt;
 use crate::avm2::value::Value;
 use crate::avm2::{AvmString, Error};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 pub fn number_constructor<'gc>(
     activation: &mut Activation<'_, 'gc>,

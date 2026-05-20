@@ -11,8 +11,8 @@ use gc_arena::{
 use quick_xml::encoding::EncodingError;
 use quick_xml::escape::escape;
 use quick_xml::events::BytesStart;
-use ruffle_common::xml::avm1_unescape;
-use ruffle_macros::istr;
+use llflash_common::xml::avm1_unescape;
+use llflash_macros::istr;
 use std::cell::RefMut;
 use std::fmt;
 

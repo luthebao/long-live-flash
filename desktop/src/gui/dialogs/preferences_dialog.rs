@@ -4,8 +4,8 @@ use crate::log::FilenamePattern;
 use crate::preferences::{GlobalPreferences, storage::StorageBackend};
 use cpal::traits::{DeviceTrait, HostTrait};
 use egui::{Align2, Button, Checkbox, ComboBox, DragValue, Grid, Ui, Widget, Window};
-use ruffle_render_wgpu::backend::create_wgpu_instance;
-use ruffle_render_wgpu::clap::{GraphicsBackend, PowerPreference};
+use llflash_render_wgpu::backend::create_wgpu_instance;
+use llflash_render_wgpu::clap::{GraphicsBackend, PowerPreference};
 use std::borrow::Cow;
 use unic_langid::LanguageIdentifier;
 

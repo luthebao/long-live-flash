@@ -1,5 +1,5 @@
-use ruffle_core::context::UpdateContext;
-use ruffle_core::external::{ExternalInterfaceProvider, Value as ExternalValue};
+use llflash_core::context::UpdateContext;
+use llflash_core::external::{ExternalInterfaceProvider, Value as ExternalValue};
 use url::Url;
 
 pub struct DesktopExternalInterfaceProvider {

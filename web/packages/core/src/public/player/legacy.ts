@@ -4,7 +4,7 @@ import { MovieMetadata } from "./movie-metadata";
 import { ReadyState } from "./index";
 
 /**
- * Legacy interface to the Ruffle API.
+ * Legacy interface to the Llflash API.
  *
  * @deprecated Please use {@link PlayerElement.ruffle | ruffle()} to access a versioned API.
  * Any of these methods or properties may be replaced by Flash and are not guaranteed to exist.
@@ -64,7 +64,7 @@ export interface LegacyRuffleAPI {
     /**
      * The metadata of the playing movie (such as movie width and height).
      * These are inherent properties stored in the SWF file and are not affected by runtime changes.
-     * For example, `metadata.width` is the width of the SWF file, and not the width of the Ruffle player.
+     * For example, `metadata.width` is the width of the SWF file, and not the width of the Llflash player.
      *
      * @returns The metadata of the movie, or `null` if the movie metadata has not yet loaded.
      * @deprecated Please use {@link PlayerElement.ruffle | ruffle()} to access a versioned API.

@@ -9,7 +9,7 @@ use crate::avm1::property_decl::{DeclContext, StaticDeclarations};
 use crate::avm1::{Object, Value};
 use crate::display_object::StageDisplayState;
 use crate::string::{AvmString, WStr, WString};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 const OBJECT_DECLS: StaticDeclarations = declare_static_properties! {
     "align" => property(align, set_align);

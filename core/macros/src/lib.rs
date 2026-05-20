@@ -1,4 +1,4 @@
-//! Proc macros used by Ruffle to generate various boilerplate.
+//! Proc macros used by Llflash to generate various boilerplate.
 extern crate proc_macro;
 
 use proc_macro::TokenStream;
@@ -27,7 +27,7 @@ use syn::{
 ///
 /// Usage:
 /// ```
-/// use ruffle_macros::enum_trait_object;
+/// use llflash_macros::enum_trait_object;
 ///
 /// #[enum_trait_object(
 ///     pub enum MyTraitEnum {
@@ -293,7 +293,7 @@ pub fn derive_has_prefix_field(input: TokenStream) -> TokenStream {
         // for a worked-out example), so we add post-mono checks as a latch-ditch guard.
         #[automatically_derived]
         unsafe impl #impl_generics
-                ruffle_common::utils::HasPrefixField<#field_ty>
+                llflash_common::utils::HasPrefixField<#field_ty>
                 for #ty #ty_generics #where_clause {
             const ASSERT_PREFIX_FIELD: () = {
                 ::core::assert!(::core::mem::offset_of!(Self, #field_name) == 0);

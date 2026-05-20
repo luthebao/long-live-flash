@@ -15,8 +15,8 @@ use crate::avm2::object::{ArrayObject, ClassObject, Object, TObject as _};
 use crate::avm2::{Activation, Error, Value};
 
 use gc_arena::{Collect, DynamicRoot, Gc, Rootable};
-use ruffle_macros::istr;
-use ruffle_render::filters::{
+use llflash_macros::istr;
+use llflash_render::filters::{
     DisplacementMapFilter, DisplacementMapFilterMode, Filter, ShaderFilter, ShaderObject,
 };
 use std::any::Any;

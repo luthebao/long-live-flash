@@ -1,10 +1,10 @@
 use cpal::SampleFormat;
 use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
-use ruffle_core::backend::audio::{
+use llflash_core::backend::audio::{
     AudioBackend, AudioMixer, DecodeError, RegisterError, SoundHandle, SoundInstanceHandle,
     SoundStreamInfo, SoundTransform, swf,
 };
-use ruffle_core::impl_audio_mixer_backend;
+use llflash_core::impl_audio_mixer_backend;
 
 #[derive(Debug, thiserror::Error)]
 pub enum CpalError {

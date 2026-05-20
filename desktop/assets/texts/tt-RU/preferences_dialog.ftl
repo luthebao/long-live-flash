@@ -1,4 +1,4 @@
-preferences-dialog = Ruffle көйләүләре
+preferences-dialog = Llflash көйләүләре
 graphics-backend-default = Килешү буенча
 language = Тел
 audio-output-device = Тавыш чыгару җайланмасы
@@ -19,8 +19,8 @@ theme-dark = Караңгы
 # See for context https://github.com/FeralInteractive/gamemode
 gamemode = GameMode
 gamemode-tooltip =
-    GameMode вакытлыча сезнең компьютерны һәм/яки Ruffle’ны оптимальләштерә.
-    Ruffle GameMode'ны тик клип уйнаганда гына активлаштыра.
+    GameMode вакытлыча сезнең компьютерны һәм/яки Llflash’ны оптимальләштерә.
+    Llflash GameMode'ны тик клип уйнаганда гына активлаштыра.
 gamemode-default = Килешү буенча
 # See for context https://wiki.archlinux.org/title/Input_method
 ime-enabled = Кертү ысулы

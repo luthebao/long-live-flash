@@ -1,4 +1,4 @@
-use ruffle_render::bitmap::Bitmap;
+use llflash_render::bitmap::Bitmap;
 use swf::VideoCodec;
 
 /// An encoded video frame of some video codec.

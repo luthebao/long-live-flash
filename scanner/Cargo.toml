@@ -1,5 +1,5 @@
 [package]
-name = "ruffle_scanner"
+name = "llflash_scanner"
 authors = ["Nathan Adams <dinnerbone@dinnerbone.com>"]
 edition.workspace = true
 homepage.workspace = true
@@ -12,7 +12,7 @@ workspace = true
 
 [dependencies]
 clap = { workspace = true }
-ruffle_core = { path = "../core", features = ["deterministic"] }
+llflash_core = { path = "../core", features = ["deterministic"] }
 log = { workspace = true }
 walkdir = { workspace = true }
 serde = { workspace = true, features = ["derive"] }

@@ -1,7 +1,7 @@
-use ruffle_test_framework::environment::{CompileMode, Environment};
+use llflash_test_framework::environment::{CompileMode, Environment};
 
 #[cfg(feature = "imgtests")]
-use ruffle_render_wgpu::descriptors::Descriptors;
+use llflash_render_wgpu::descriptors::Descriptors;
 #[cfg(feature = "imgtests")]
 use std::sync::{Arc, LazyLock};
 
@@ -37,7 +37,7 @@ impl NativeEnvironment {
             // that never touched the renderer don't pay the cost of building
             // wgpu state just to flush it again at shutdown.
             if let Some(Some(descriptors)) = LazyLock::get(&self.descriptors) {
-                use ruffle_render_wgpu::wgpu;
+                use llflash_render_wgpu::wgpu;
 
                 let _ = descriptors.device.poll(wgpu::PollType::Wait {
                     submission_index: None,
@@ -52,7 +52,7 @@ impl Environment for NativeEnvironment {
     #[cfg(feature = "imgtests")]
     fn is_render_supported(
         &self,
-        _requirements: &ruffle_test_framework::options::RenderOptions,
+        _requirements: &llflash_test_framework::options::RenderOptions,
     ) -> bool {
         self.descriptors.is_some()
     }
@@ -63,8 +63,8 @@ impl Environment for NativeEnvironment {
         width: u32,
         height: u32,
     ) -> Option<(
-        Box<dyn ruffle_test_framework::environment::RenderInterface>,
-        Box<dyn ruffle_test_framework::environment::RenderBackend>,
+        Box<dyn llflash_test_framework::environment::RenderInterface>,
+        Box<dyn llflash_test_framework::environment::RenderBackend>,
     )> {
         renderer::create_pair(self, width, height)
     }
@@ -78,13 +78,13 @@ impl Environment for NativeEnvironment {
 mod renderer {
     use super::NativeEnvironment;
     use image::RgbaImage;
-    use ruffle_render_wgpu::backend::{
+    use llflash_render_wgpu::backend::{
         WgpuRenderBackend, create_wgpu_instance, request_adapter_and_device,
     };
-    use ruffle_render_wgpu::descriptors::Descriptors;
-    use ruffle_render_wgpu::target::TextureTarget;
-    use ruffle_render_wgpu::wgpu;
-    use ruffle_test_framework::environment::{RenderBackend, RenderInterface};
+    use llflash_render_wgpu::descriptors::Descriptors;
+    use llflash_render_wgpu::target::TextureTarget;
+    use llflash_render_wgpu::wgpu;
+    use llflash_test_framework::environment::{RenderBackend, RenderInterface};
     use std::any::Any;
     use std::sync::Arc;
 

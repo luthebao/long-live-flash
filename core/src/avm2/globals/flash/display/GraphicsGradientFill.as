@@ -3,28 +3,28 @@ package flash.display {
 
     [API("662")]
     public final class GraphicsGradientFill implements IGraphicsFill, IGraphicsData {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var alphas:Array;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var colors:Array;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var focalPointRatio:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var matrix:Matrix;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var ratios:Array;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _interpolationMethod:String;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _spreadMethod:String;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _type:String;
 
         public function GraphicsGradientFill(

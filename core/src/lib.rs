@@ -63,14 +63,14 @@ pub use events::PlayerEvent;
 pub use indexmap;
 pub use loader::LoadBehavior;
 pub use player::{Player, PlayerBuilder, PlayerMode, PlayerRuntime, StaticCallstack};
-pub use ruffle_common::duration::FloatDuration;
-pub use ruffle_render::backend::ViewportDimensions;
+pub use llflash_common::duration::FloatDuration;
+pub use llflash_render::backend::ViewportDimensions;
 pub use swf;
 pub use swf::Color;
 pub use ttf_parser;
 
-/// The newest Flash Player version known to Ruffle.
+/// The newest Flash Player version known to Llflash.
 pub const NEWEST_PLAYER_VERSION: u8 = 51;
 
-/// The default Flash Player version that Ruffle will emulate.
+/// The default Flash Player version that Llflash will emulate.
 pub const DEFAULT_PLAYER_VERSION: u8 = 32;

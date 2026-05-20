@@ -1,7 +1,7 @@
 {
     "name": "ruffle-extension",
     "version": "0.2.0-nightly.2026.5.15",
-    "description": "Extension packaging for Ruffle Flash emulator",
+    "description": "Extension packaging for Llflash Flash emulator",
     "license": "(MIT OR Apache-2.0)",
     "private": true,
     "type": "module",

@@ -4,7 +4,7 @@ use super::interner::{AvmAtom, AvmStringInterner};
 use super::repr::AvmStringRepr;
 
 use gc_arena::{Gc, Mutation};
-use ruffle_wstr::{WStr, WString};
+use llflash_wstr::{WStr, WString};
 use std::{borrow::Cow, ops::Range};
 
 /// Context for managing `AvmString`s: allocating them, interning them, etc...

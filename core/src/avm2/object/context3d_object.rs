@@ -10,13 +10,13 @@ use crate::bitmap::bitmap_data::BitmapRawData;
 use crate::context::RenderContext;
 use gc_arena::{Collect, Gc, GcWeak};
 use naga_agal::AgalError;
-use ruffle_common::utils::HasPrefixField;
-use ruffle_render::backend::{
+use llflash_common::utils::HasPrefixField;
+use llflash_render::backend::{
     BufferUsage, Context3D, Context3DBlendFactor, Context3DCommand, Context3DCompareMode,
     Context3DStencilAction, Context3DTextureFormat, Context3DTriangleFace,
     Context3DVertexBufferFormat, ProgramType, Texture,
 };
-use ruffle_render::commands::CommandHandler;
+use llflash_render::commands::CommandHandler;
 use std::cell::Cell;
 use std::rc::Rc;
 use swf::{Rectangle, Twips};
@@ -298,7 +298,7 @@ impl<'gc> Context3DObject<'gc> {
         self.with_context_3d(|ctx| ctx.present())
     }
 
-    // Renders our finalized frame to the screen, as part of the Ruffle rendering process.
+    // Renders our finalized frame to the screen, as part of the Llflash rendering process.
     pub fn render(self, context: &mut RenderContext<'_, 'gc>) {
         self.with_context_3d(|context3d| {
             if context3d.should_render() {
@@ -441,8 +441,8 @@ impl<'gc> Context3DObject<'gc> {
     pub(crate) fn set_sampler_state_at(
         self,
         sampler: u32,
-        wrap: ruffle_render::backend::Context3DWrapMode,
-        filter: ruffle_render::backend::Context3DTextureFilter,
+        wrap: llflash_render::backend::Context3DWrapMode,
+        filter: llflash_render::backend::Context3DTextureFilter,
     ) {
         self.with_context_3d(|ctx| {
             ctx.process_command(Context3DCommand::SetSamplerStateAt {

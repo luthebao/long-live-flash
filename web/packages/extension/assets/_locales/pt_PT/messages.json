@@ -1,9 +1,9 @@
 {
     "settings_ruffle_enable": {
-        "message": "Reproduzir conteúdo Flash no Ruffle"
+        "message": "Reproduzir conteúdo Flash no Llflash"
     },
     "settings_ignore_optout": {
-        "message": "Reproduzir conteúdo em Flash até em sites que não permitem o Ruffle"
+        "message": "Reproduzir conteúdo em Flash até em sites que não permitem o Llflash"
     },
     "settings_show_swf_download": {
         "message": "Permitir descarregar SWFs pelo menu de contexto"
@@ -57,7 +57,7 @@
         "message": "Redefinir opções"
     },
     "settings_reset_confirm": {
-        "message": "Tem a certeza de que quer redefinir as opções do Ruffle para os valores originais?"
+        "message": "Tem a certeza de que quer redefinir as opções do Llflash para os valores originais?"
     },
     "status_init": {
         "message": "Lendo o separador atual…"
@@ -69,25 +69,25 @@
         "message": "Ocorreu um erro ao procurar o separador atual."
     },
     "status_message_init": {
-        "message": "Verificando o estado do Ruffle no separador atual…"
+        "message": "Verificando o estado do Llflash no separador atual…"
     },
     "status_result_running": {
-        "message": "O Ruffle está carregado e pronto para executar o conteúdo Flash no separador atual."
+        "message": "O Llflash está carregado e pronto para executar o conteúdo Flash no separador atual."
     },
     "status_result_running_protected": {
-        "message": "O Ruffle está carregado e executando o conteúdo Flash solicitado."
+        "message": "O Llflash está carregado e executando o conteúdo Flash solicitado."
     },
     "status_result_optout": {
-        "message": "O Ruffle não pode carregar porque a página atual marcou-se como incompatível."
+        "message": "O Llflash não pode carregar porque a página atual marcou-se como incompatível."
     },
     "status_result_disabled": {
-        "message": "O Ruffle está desativado."
+        "message": "O Llflash está desativado."
     },
     "status_result_error": {
-        "message": "Ocorreu um erro ao consultar a instância do Ruffle na página atual."
+        "message": "Ocorreu um erro ao consultar a instância do Llflash na página atual."
     },
     "status_result_protected": {
-        "message": "O Ruffle não pode carregar em páginas protegidas do navegador."
+        "message": "O Llflash não pode carregar em páginas protegidas do navegador."
     },
     "action_reload": {
         "message": "Recarregar separador para aplicar"
@@ -114,16 +114,16 @@
         "message": "Página de integração"
     },
     "permissions_grant": {
-        "message": "Permitir ao Ruffle aceder aos meus dados em todos os sites"
+        "message": "Permitir ao Llflash aceder aos meus dados em todos os sites"
     },
     "permissions_not_granted": {
-        "message": "Precisará de clicar no ícone do Ruffle em todos os sites em que pretenda usar o Ruffle"
+        "message": "Precisará de clicar no ícone do Llflash em todos os sites em que pretenda usar o Llflash"
     },
     "grant_single_site_permission": {
         "message": "Ativar neste site para sempre"
     },
     "permissions_explanation": {
-        "message": "A extensão Ruffle funciona melhor se puder aceder aos dados de todos os sites. Isso permite-lhe ser executada quando qualquer site carrega pela primeira vez, permitindo assim convencer sites que fazem deteção do Flash Player a deixar o conteúdo do Flash ser executado imediatamente. Isso permite-lhe ainda carregar ficheiros SWF na sua página interna do leitor a partir de outros locais na web e permite-lhe carregar automaticamente links SWF dirigidos a essa página. Se não conceder esta permissão, precisará de ativar o Ruffle manualmente em cada site em que deseje usá-lo, clicando no ícone da extensão e ativando-o nesse site."
+        "message": "A extensão Llflash funciona melhor se puder aceder aos dados de todos os sites. Isso permite-lhe ser executada quando qualquer site carrega pela primeira vez, permitindo assim convencer sites que fazem deteção do Flash Player a deixar o conteúdo do Flash ser executado imediatamente. Isso permite-lhe ainda carregar ficheiros SWF na sua página interna do leitor a partir de outros locais na web e permite-lhe carregar automaticamente links SWF dirigidos a essa página. Se não conceder esta permissão, precisará de ativar o Llflash manualmente em cada site em que deseje usá-lo, clicando no ícone da extensão e ativando-o nesse site."
     },
     "swf_player_permissions": {
         "message": "Deve permitir esta origem de URL para poder carregar SWFs a partir dela."

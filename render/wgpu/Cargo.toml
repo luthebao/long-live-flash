@@ -1,5 +1,5 @@
 [package]
-name = "ruffle_render_wgpu"
+name = "llflash_render_wgpu"
 authors = ["Nathan Adams <dinnerbone@dinnerbone.com>"]
 edition.workspace = true
 homepage.workspace = true
@@ -13,7 +13,7 @@ workspace = true
 [dependencies]
 wgpu = { workspace = true, features = ["naga-ir"] }
 tracing = { workspace = true }
-ruffle_render = { path = "..", features = ["tessellator", "wgpu"] }
+llflash_render = { path = "..", features = ["tessellator", "wgpu"] }
 bytemuck = { workspace = true, features = ["derive"] }
 clap = { workspace = true, optional = true }
 enum-map = { workspace = true }

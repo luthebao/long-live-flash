@@ -308,7 +308,7 @@ impl<'gc> TranslationUnit<'gc> {
 
         let atom = activation
             .strings()
-            .intern_wstr(ruffle_wstr::from_utf8_bytes(raw));
+            .intern_wstr(llflash_wstr::from_utf8_bytes(raw));
 
         let write = Gc::write(activation.gc(), self.0);
         let strings = field!(write, TranslationUnitData, strings).as_deref();

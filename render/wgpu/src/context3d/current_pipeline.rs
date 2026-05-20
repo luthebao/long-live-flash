@@ -1,6 +1,6 @@
 use naga::valid::{Capabilities, ValidationFlags, Validator};
 use naga_agal::{Filter, SamplerConfig, Wrapping};
-use ruffle_render::backend::{
+use llflash_render::backend::{
     Context3DCompareMode, Context3DStencilAction, Context3DTextureFilter, Context3DTriangleFace,
     Context3DVertexBufferFormat, Context3DWrapMode, Texture,
 };
@@ -598,8 +598,8 @@ impl CurrentPipeline {
     pub(crate) fn update_sampler_state_at(
         &mut self,
         sampler: usize,
-        wrap: ruffle_render::backend::Context3DWrapMode,
-        filter: ruffle_render::backend::Context3DTextureFilter,
+        wrap: llflash_render::backend::Context3DWrapMode,
+        filter: llflash_render::backend::Context3DTextureFilter,
     ) {
         let sampler_config = SamplerConfig {
             wrapping: match wrap {

@@ -1,6 +1,6 @@
 use crate::custom_event::RuffleEvent;
 
-use ruffle_core::external::FsCommandProvider;
+use llflash_core::external::FsCommandProvider;
 use winit::event_loop::EventLoopProxy;
 
 pub struct DesktopFSCommandProvider {

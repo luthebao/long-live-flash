@@ -4,7 +4,7 @@ package flash.display3D {
     import flash.utils.ByteArray;
 
     [API("674")]
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class Program3D {
         public native function upload(vertexProgram:ByteArray, fragmentProgram:ByteArray):void;
 

@@ -1,4 +1,4 @@
-preferences-dialog = Ruffle Preferences
+preferences-dialog = Llflash Preferences
 
 preference-locked-by-cli = Read-Only (Set by CLI)
 
@@ -37,8 +37,8 @@ theme-dark = Dark
 # See for context https://github.com/FeralInteractive/gamemode
 gamemode = GameMode
 gamemode-tooltip =
-    GameMode temporarily applies a set of optimizations to your computer and/or Ruffle.
-    Ruffle requests GameMode only when a movie is being played.
+    GameMode temporarily applies a set of optimizations to your computer and/or Llflash.
+    Llflash requests GameMode only when a movie is being played.
 gamemode-default = Default
 gamemode-default-tooltip = GameMode will be enabled only when power preference is set to high.
 

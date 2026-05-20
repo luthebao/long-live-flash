@@ -1,4 +1,4 @@
-use ruffle_render::{
+use llflash_render::{
     filters::ShaderFilter as ShaderFilterArgs,
     pixel_bender_support::{ImageInputTexture, PixelBenderShaderArgument},
 };

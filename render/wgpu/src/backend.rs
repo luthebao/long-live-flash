@@ -14,21 +14,21 @@ use crate::{
     format_list, get_backend_names,
 };
 use image::imageops::FilterType;
-use ruffle_render::backend::{
+use llflash_render::backend::{
     BitmapCacheEntry, Context3D, Context3DProfile, PixelBenderOutput, PixelBenderTarget,
 };
-use ruffle_render::backend::{RenderBackend, ShapeHandle, ViewportDimensions};
-use ruffle_render::bitmap::{
+use llflash_render::backend::{RenderBackend, ShapeHandle, ViewportDimensions};
+use llflash_render::bitmap::{
     Bitmap, BitmapFormat, BitmapHandle, BitmapSource, PixelRegion, RgbaBufRead, SyncHandle,
 };
-use ruffle_render::commands::CommandList;
-use ruffle_render::error::Error as BitmapError;
-use ruffle_render::filters::Filter;
-use ruffle_render::pixel_bender::{PixelBenderShader, PixelBenderShaderHandle};
-use ruffle_render::pixel_bender_support::PixelBenderShaderArgument;
-use ruffle_render::quality::StageQuality;
-use ruffle_render::shape_utils::DistilledShape;
-use ruffle_render::tessellator::ShapeTessellator;
+use llflash_render::commands::CommandList;
+use llflash_render::error::Error as BitmapError;
+use llflash_render::filters::Filter;
+use llflash_render::pixel_bender::{PixelBenderShader, PixelBenderShaderHandle};
+use llflash_render::pixel_bender_support::PixelBenderShaderArgument;
+use llflash_render::quality::StageQuality;
+use llflash_render::shape_utils::DistilledShape;
+use llflash_render::tessellator::ShapeTessellator;
 use std::any::Any;
 use std::borrow::Cow;
 use std::cell::Cell;
@@ -38,13 +38,13 @@ use swf::Color;
 use tracing::instrument;
 use wgpu::SubmissionIndex;
 
-/// Creates a wgpu instance with Ruffle's required configuration.
+/// Creates a wgpu instance with Llflash's required configuration.
 ///
 /// This disables indirect call validation because wgpu's validation runs a compute
 /// shader that uses `array<u32>`, which requires the `DYNAMIC_ARRAY_SIZE` feature.
 /// However, wgpu runs this shader without first checking if the device supports
 /// that feature, causing device creation to fail on GPUs that lack it.
-/// Since Ruffle doesn't use indirect draws, disabling this validation has no
+/// Since Llflash doesn't use indirect draws, disabling this validation has no
 /// functional impact.
 ///
 /// See <https://github.com/gfx-rs/wgpu/issues/8799>
@@ -1117,7 +1117,7 @@ impl<T: RenderTarget + 'static> RenderBackend for WgpuRenderBackend<T> {
         &mut self,
         handle: Box<dyn SyncHandle>,
         with_rgba: RgbaBufRead,
-    ) -> Result<(), ruffle_render::error::Error> {
+    ) -> Result<(), llflash_render::error::Error> {
         let handle = Box::<dyn Any>::downcast::<QueueSyncHandle>(handle).unwrap();
         handle.capture(with_rgba, &mut self.active_frame);
         Ok(())
@@ -1138,11 +1138,11 @@ pub async fn request_adapter_and_device(
         .map_err(|_e| {
             let names = get_backend_names(backend);
             if names.is_empty() {
-                "Ruffle requires hardware acceleration, but no compatible graphics device was found (no backend provided?)".to_string()
+                "Llflash requires hardware acceleration, but no compatible graphics device was found (no backend provided?)".to_string()
             } else if cfg!(target_vendor = "apple") {
-                "Ruffle does not support OpenGL on macOS/iOS.".to_string()
+                "Llflash does not support OpenGL on macOS/iOS.".to_string()
             } else {
-                format!("Ruffle requires hardware acceleration, but no compatible graphics device was found supporting {}", format_list(&names, "or"))
+                format!("Llflash requires hardware acceleration, but no compatible graphics device was found supporting {}", format_list(&names, "or"))
             }
         })?;
 

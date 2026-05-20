@@ -4,7 +4,7 @@ use crate::avm1::object::NativeObject;
 use crate::avm1::property_decl::{DeclContext, StaticDeclarations, SystemClass};
 use crate::avm1::{Activation, Error, Object, Value};
 use gc_arena::{Collect, Gc, Mutation};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::cell::Cell;
 use swf::{BevelFilterFlags, Color, Fixed8, Fixed16, GradientFilterFlags};
 

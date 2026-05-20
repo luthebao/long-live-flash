@@ -27,12 +27,12 @@ use flv_rs::{
 };
 use gc_arena::barrier::unlock;
 use gc_arena::{Collect, DynamicRoot, Gc, Lock, Mutation, Rootable};
-use ruffle_common::buffer::{Buffer, Slice, Substream, SubstreamError};
-use ruffle_common::duration::FloatDuration;
-use ruffle_macros::istr;
-use ruffle_render::bitmap::BitmapInfo;
-use ruffle_video::VideoStreamHandle;
-use ruffle_video::frame::EncodedFrame;
+use llflash_common::buffer::{Buffer, Slice, Substream, SubstreamError};
+use llflash_common::duration::FloatDuration;
+use llflash_macros::istr;
+use llflash_render::bitmap::BitmapInfo;
+use llflash_video::VideoStreamHandle;
+use llflash_video::frame::EncodedFrame;
 use std::cell::{Cell, RefCell};
 use std::cmp::max;
 use std::io::{Seek, SeekFrom};

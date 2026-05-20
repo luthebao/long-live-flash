@@ -1,6 +1,6 @@
 package flash.filters {
     public final class ColorMatrixFilter extends BitmapFilter {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _matrix:Array;
 
         public function ColorMatrixFilter(matrix:Array = null) {

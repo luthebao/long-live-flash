@@ -22,13 +22,13 @@ use crate::vminterface::Instantiator;
 use bitflags::bitflags;
 use gc_arena::barrier::unlock;
 use gc_arena::{Collect, Gc, Lock, Mutation, RefLock};
-use ruffle_common::utils::HasPrefixField;
-use ruffle_macros::istr;
-use ruffle_render::backend::ViewportDimensions;
-use ruffle_render::commands::CommandHandler;
-use ruffle_render::perspective_projection::PerspectiveProjection;
-use ruffle_render::quality::StageQuality;
-use ruffle_render::transform::Transform;
+use llflash_common::utils::HasPrefixField;
+use llflash_macros::istr;
+use llflash_render::backend::ViewportDimensions;
+use llflash_render::commands::CommandHandler;
+use llflash_render::perspective_projection::PerspectiveProjection;
+use llflash_render::quality::StageQuality;
+use llflash_render::transform::Transform;
 use std::cell::{Cell, Ref, RefCell, RefMut};
 use std::fmt::{self, Display, Formatter};
 use std::str::FromStr;
@@ -138,7 +138,7 @@ pub struct StageData<'gc> {
     ///
     /// This is usually implied by `quality` being `Best` or higher, but the AVM1
     /// `ToggleHighQuality` op can adjust stage quality independently of this flag.
-    /// This setting is currently ignored in Ruffle.
+    /// This setting is currently ignored in Llflash.
     use_bitmap_downsampling: Cell<bool>,
 
     /// The window mode of the viewport.
@@ -263,7 +263,7 @@ impl<'gc> Stage<'gc> {
     /// Returns the quality setting of the stage.
     ///
     /// In the Flash Player, the quality setting affects anti-aliasing and smoothing of bitmaps.
-    /// This setting is currently ignored in Ruffle.
+    /// This setting is currently ignored in Llflash.
     /// Used by AVM1 `stage.quality` and AVM2 `Stage.quality` properties.
     pub fn quality(self) -> StageQuality {
         self.0.quality.get()
@@ -272,7 +272,7 @@ impl<'gc> Stage<'gc> {
     /// Sets the quality setting of the stage.
     ///
     /// In the Flash Player, the quality setting affects anti-aliasing and smoothing of bitmaps.
-    /// This setting is currently ignored in Ruffle.
+    /// This setting is currently ignored in Llflash.
     /// Used by AVM1 `stage.quality` and AVM2 `Stage.quality` properties.
     pub fn set_quality(self, context: &mut UpdateContext<'gc>, quality: StageQuality) {
         self.0.quality.set(quality);
@@ -430,13 +430,13 @@ impl<'gc> Stage<'gc> {
     }
 
     /// Returns whether bitmaps will use high quality downsampling when scaled down.
-    /// This setting is currently ignored in Ruffle.
+    /// This setting is currently ignored in Llflash.
     pub fn use_bitmap_downsampling(self) -> bool {
         self.0.use_bitmap_downsampling.get()
     }
 
     /// Sets whether bitmaps will use high quality downsampling when scaled down.
-    /// This setting is currently ignored in Ruffle.
+    /// This setting is currently ignored in Llflash.
     pub fn set_use_bitmap_downsampling(self, value: bool) {
         self.0.use_bitmap_downsampling.set(value);
     }
@@ -1164,9 +1164,9 @@ impl FromWStr for StageAlign {
     }
 }
 
-/// The window mode of the Ruffle player.
+/// The window mode of the Llflash player.
 ///
-/// This setting controls how the Ruffle container is layered and rendered with other content on
+/// This setting controls how the Llflash container is layered and rendered with other content on
 /// the page. This setting is only used on web.
 ///
 /// [Apply OBJECT and EMBED tag attributes in Adobe Flash Professional](https://helpx.adobe.com/flash/kb/flash-object-embed-tag-attributes.html)
@@ -1175,27 +1175,27 @@ pub enum WindowMode {
     /// The Flash content is rendered in its own window and layering is done with the browser's
     /// default behavior.
     ///
-    /// In Ruffle, this mode functions like `WindowMode::Opaque` and will layer the Flash content
+    /// In Llflash, this mode functions like `WindowMode::Opaque` and will layer the Flash content
     /// together with other HTML elements.
     #[default]
     Window,
 
     /// The Flash content is layered together with other HTML elements, and the stage color is
-    /// opaque. Content can render above or below Ruffle based on CSS rendering order.
+    /// opaque. Content can render above or below Llflash based on CSS rendering order.
     Opaque,
 
     /// The Flash content is layered together with other HTML elements, and the stage color is
-    /// transparent. Content beneath Ruffle will be visible through transparent areas.
+    /// transparent. Content beneath Llflash will be visible through transparent areas.
     Transparent,
 
     /// Request compositing with hardware acceleration when possible.
     ///
-    /// This mode has no effect in Ruffle and will function like `WindowMode::Opaque`.
+    /// This mode has no effect in Llflash and will function like `WindowMode::Opaque`.
     Gpu,
 
     /// Request a direct rendering path, bypassing browser compositing when possible.
     ///
-    /// This mode has no effect in Ruffle and will function like `WindowMode::Opaque`.
+    /// This mode has no effect in Llflash and will function like `WindowMode::Opaque`.
     Direct,
 }
 

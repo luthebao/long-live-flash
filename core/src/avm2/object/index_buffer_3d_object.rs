@@ -4,8 +4,8 @@ use crate::avm2::activation::Activation;
 use crate::avm2::object::script_object::ScriptObjectData;
 use crate::avm2::object::{Object, TObject};
 use gc_arena::{Collect, Gc, GcWeak};
-use ruffle_common::utils::HasPrefixField;
-use ruffle_render::backend::IndexBuffer;
+use llflash_common::utils::HasPrefixField;
+use llflash_render::backend::IndexBuffer;
 use std::cell::{Cell, RefCell, RefMut};
 
 use super::Context3DObject;

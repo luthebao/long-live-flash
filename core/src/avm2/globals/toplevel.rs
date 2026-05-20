@@ -1,13 +1,13 @@
 //! Global scope built-ins
 
-use ruffle_wstr::Units;
+use llflash_wstr::Units;
 
 use crate::avm2::activation::Activation;
 use crate::avm2::error::{Error, make_error_1052};
 use crate::avm2::parameters::ParametersExt;
 use crate::avm2::value::Value;
 use crate::string::{AvmString, WStr, WString};
-use ruffle_wstr::Integer;
+use llflash_wstr::Integer;
 use std::fmt::Write;
 
 pub fn trace<'gc>(

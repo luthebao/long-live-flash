@@ -10,7 +10,7 @@ package flash.display {
     import flash.system.ApplicationDomain;
     import flash.utils.ByteArray;
 
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public class LoaderInfo extends EventDispatcher {
         public native function get actionScriptVersion():uint;
         public native function get applicationDomain():ApplicationDomain;

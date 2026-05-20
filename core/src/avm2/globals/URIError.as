@@ -1,5 +1,5 @@
 package {
-    [Ruffle(ConstructOnCall)]
+    [Llflash(ConstructOnCall)]
     public dynamic class URIError extends Error {
         prototype.name = "URIError";
 

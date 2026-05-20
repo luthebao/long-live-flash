@@ -26,7 +26,7 @@ try {
 /**
  * Sets the current script URL and isExtension boolean manually when using the extension.
  *
- * @param src The location of Ruffle's resources within the extension.
+ * @param src The location of Llflash's resources within the extension.
  */
 export function setCurrentScriptURL(src: URL) {
     currentScriptURL = src;

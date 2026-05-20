@@ -73,7 +73,7 @@ if (browserstack) {
     const bsOptions: BrowserStackCapabilities = {
         buildName,
         buildIdentifier,
-        projectName: "Ruffle Selfhosted",
+        projectName: "Llflash Selfhosted",
         networkLogs: true,
         consoleLogs: "info",
         idleTimeout: 300, // Max time the browser's main thread can be blocked
@@ -83,7 +83,7 @@ if (browserstack) {
         {
             testObservability: true,
             testObservabilityOptions: {
-                projectName: "Ruffle Selfhosted",
+                projectName: "Llflash Selfhosted",
                 buildName,
             },
             browserstackLocal: true,

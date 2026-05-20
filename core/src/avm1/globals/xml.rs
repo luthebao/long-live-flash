@@ -16,8 +16,8 @@ use quick_xml::encoding::EncodingError;
 use quick_xml::errors::IllFormedError;
 use quick_xml::events::attributes::AttrError;
 use quick_xml::{Reader, events::Event};
-use ruffle_common::xml::avm1_unescape;
-use ruffle_macros::istr;
+use llflash_common::xml::avm1_unescape;
+use llflash_macros::istr;
 
 #[derive(Clone, Copy, Collect)]
 #[collect(no_drop)]

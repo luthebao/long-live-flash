@@ -1,9 +1,9 @@
-//! Native Rust RTMP/RTMPE client for the standalone Ruffle desktop build.
+//! Native Rust RTMP/RTMPE client for the standalone Llflash desktop build.
 //!
-//! Ruffle's core delegates RTMP-family URLs to a function-pointer hook in
-//! [`ruffle_core::backend::net_connection`]. The Odin shell installs its own
+//! Llflash's core delegates RTMP-family URLs to a function-pointer hook in
+//! [`llflash_core::backend::net_connection`]. The Odin shell installs its own
 //! hook there; when this crate is used instead (i.e. for the pure-Rust
-//! `ruffle_desktop` binary), it installs equivalent hooks backed by the
+//! `llflash_desktop` binary), it installs equivalent hooks backed by the
 //! Odin protocol port in this crate.
 //!
 //! Architecture (mirrors the Odin worker model):
@@ -13,7 +13,7 @@
 //!   that blocks on the socket and pushes parsed inbound messages onto the
 //!   global event queue.
 //! - The host drains the event queue from its render/tick loop and dispatches
-//!   events via [`ruffle_core::net_connection::NetConnections`].
+//!   events via [`llflash_core::net_connection::NetConnections`].
 //!
 //! Supported schemes today: `rtmp://`, `rtmpe://`. `rtmps://`, `rtmpt://`,
 //! and `rtmpte://` return an error (TLS / HTTP-tunneling not yet ported).
@@ -29,10 +29,10 @@ pub use events::{drain, InboundEvent};
 
 use std::sync::atomic::{AtomicU64, Ordering};
 
-/// Function-pointer types matching `ruffle_core::backend::net_connection`.
+/// Function-pointer types matching `llflash_core::backend::net_connection`.
 /// The host crate is responsible for calling
-/// `ruffle_core::backend::net_connection::set_hooks` with our exported `fn`s
-/// — we keep zero compile-time dependency on `ruffle_core` so this crate is
+/// `llflash_core::backend::net_connection::set_hooks` with our exported `fn`s
+/// — we keep zero compile-time dependency on `llflash_core` so this crate is
 /// independently testable.
 pub type ConnectFn = fn(url: &str, swf_url: &str, page_url: &str, args_amf: &[u8]) -> u64;
 pub type CloseFn = fn(handle: u64);
@@ -52,19 +52,19 @@ pub fn connect(url: &str, swf_url: &str, page_url: &str, args_amf: &[u8]) -> u64
     // Pre-validate URL on the caller's thread so a malformed URL surfaces
     // immediately rather than as an async status event a frame later.
     let Ok(parsed) = url::parse(url) else {
-        tracing::warn!("ruffle_rtmp: rejecting unparseable URL {url:?}");
+        tracing::warn!("llflash_rtmp: rejecting unparseable URL {url:?}");
         return 0;
     };
     match parsed.scheme {
         url::Scheme::Rtmp | url::Scheme::Rtmpe => {}
         s => {
-            tracing::warn!("ruffle_rtmp: {} not yet supported", s.as_str());
+            tracing::warn!("llflash_rtmp: {} not yet supported", s.as_str());
             return 0;
         }
     }
     let handle = next_handle();
     tracing::info!(
-        "ruffle_rtmp::connect url={url:?} swf_url={swf_url:?} page_url={page_url:?} \
+        "llflash_rtmp::connect url={url:?} swf_url={swf_url:?} page_url={page_url:?} \
          handle={handle} extra_args={} bytes: {}",
         args_amf.len(),
         hex_block_full(args_amf),

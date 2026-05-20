@@ -13,7 +13,7 @@ pub use crate::avm2::object::font_allocator;
 use crate::character::Character;
 use crate::font::{Font, FontLike, FontType};
 
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 /// Implements `Font.fontName`
 pub fn get_font_name<'gc>(

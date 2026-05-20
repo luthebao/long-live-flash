@@ -17,7 +17,7 @@ use crate::string::{AvmAtom, AvmString, WStr};
 use gc_arena::Collect;
 use num_bigint::BigInt;
 use num_traits::{ToPrimitive, Zero};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::mem::size_of;
 use swf::avm2::types::DefaultValue as AbcDefaultValue;
 
@@ -523,7 +523,7 @@ impl<'gc> Value<'gc> {
     /// semantics, but has an effect on performance only.
     ///
     /// Flash Player does this normalization on every atom instantiation,
-    /// but for Ruffle it's too inefficient (we aren't doing any allocs).
+    /// but for Llflash it's too inefficient (we aren't doing any allocs).
     /// However, there are some observable behaviors that result from it, and
     /// that's why this method is provided in order to cover such cases.
     ///
@@ -1787,7 +1787,7 @@ impl<'gc> Value<'gc> {
         activation: &mut Activation<'_, 'gc>,
     ) -> Result<bool, Error<'gc>> {
         // ECMA-357 extends the abstract equality algorithm with steps
-        // for XML and XMLList types. Because they are objects in Ruffle we
+        // for XML and XMLList types. Because they are objects in Llflash we
         // have to be a bit more complicated and factor out the code into
         // a separate method.
         if let Value::Object(obj) = self {

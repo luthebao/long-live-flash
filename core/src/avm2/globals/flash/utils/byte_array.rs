@@ -12,8 +12,8 @@ use encoding_rs::{Encoding, UTF_8, UTF_16BE, UTF_16LE};
 use flash_lso::amf0::read::AMF0Decoder;
 use flash_lso::amf3::read::AMF3Decoder;
 use flash_lso::types::{AMFVersion, Element};
-use ruffle_macros::istr;
-use ruffle_wstr::WString;
+use llflash_macros::istr;
+use llflash_wstr::WString;
 
 pub use crate::avm2::object::byte_array_allocator;
 

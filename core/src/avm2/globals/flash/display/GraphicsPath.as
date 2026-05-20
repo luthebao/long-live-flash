@@ -1,13 +1,13 @@
 package flash.display {
     [API("662")]
     public final class GraphicsPath implements IGraphicsPath, IGraphicsData {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var commands:Vector.<int>;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var data:Vector.<Number>;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _winding:String;
 
         public function GraphicsPath(

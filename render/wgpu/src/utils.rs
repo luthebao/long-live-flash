@@ -171,7 +171,7 @@ pub fn buffer_to_image(
 
         // The image copied from the GPU uses premultiplied alpha, so
         // convert to straight alpha if requested by the user.
-        ruffle_render::utils::unmultiply_alpha_rgba(&mut bytes);
+        llflash_render::utils::unmultiply_alpha_rgba(&mut bytes);
 
         image::RgbaImage::from_raw(size.width, size.height, bytes)
             .expect("Retrieved texture buffer must be a valid RgbaImage")

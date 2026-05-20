@@ -1,4 +1,4 @@
-about-ruffle = Giới thiệu về Ruffle
+about-ruffle = Giới thiệu về Llflash
 about-ruffle-version = Phiên bản
 about-ruffle-channel = Kênh hoạt động
 about-ruffle-build-time = Thời gian dựng

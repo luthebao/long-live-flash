@@ -13,7 +13,7 @@ use crate::string::{AvmString, StringContext};
 use crate::avm2_stub_method_context;
 
 use gc_arena::Gc;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 // Implements `avmplus.describeTypeJSON`
 pub fn describe_type_json<'gc>(

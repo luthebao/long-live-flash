@@ -1,6 +1,6 @@
 package {
-    [Ruffle(CustomConstructor)]
-    [Ruffle(CallHandler)]
+    [Llflash(CustomConstructor)]
+    [Llflash(CallHandler)]
     public final class uint {
         public static const MIN_VALUE:uint = 0;
 

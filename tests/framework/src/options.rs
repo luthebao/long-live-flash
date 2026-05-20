@@ -15,7 +15,7 @@ use crate::options::image_comparison::ImageComparison;
 use crate::options::known_failure::KnownFailure;
 use crate::options::player::PlayerOptions;
 use anyhow::{Result, bail};
-use ruffle_render::quality::StageQuality;
+use llflash_render::quality::StageQuality;
 use serde::Deserialize;
 use std::collections::{HashMap, HashSet};
 use toml::Spanned;

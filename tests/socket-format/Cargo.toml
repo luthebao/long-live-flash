@@ -1,5 +1,5 @@
 [package]
-name = "ruffle_socket_format"
+name = "llflash_socket_format"
 authors.workspace = true
 edition.workspace = true
 homepage.workspace = true

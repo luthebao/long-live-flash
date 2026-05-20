@@ -2,21 +2,21 @@
 // Remove this when we start using `Rc` when compiling for wasm
 #![allow(clippy::arc_with_non_send_sync)]
 
-use ruffle_render::backend::{
+use llflash_render::backend::{
     BitmapCacheEntry, Context3D, Context3DProfile, PixelBenderOutput, PixelBenderTarget,
     RenderBackend, ShapeHandle, ShapeHandleImpl, ViewportDimensions,
 };
-use ruffle_render::bitmap::{
+use llflash_render::bitmap::{
     Bitmap, BitmapHandle, BitmapHandleImpl, BitmapSource, PixelRegion, PixelSnapping, RgbaBufRead,
     SyncHandle,
 };
-use ruffle_render::commands::{CommandHandler, CommandList, RenderBlendMode};
-use ruffle_render::error::Error;
-use ruffle_render::matrix::Matrix;
-use ruffle_render::quality::StageQuality;
-use ruffle_render::shape_utils::{DistilledShape, DrawCommand, LineScaleMode, LineScales};
-use ruffle_render::transform::Transform;
-use ruffle_web_common::{JsError, JsResult};
+use llflash_render::commands::{CommandHandler, CommandList, RenderBlendMode};
+use llflash_render::error::Error;
+use llflash_render::matrix::Matrix;
+use llflash_render::quality::StageQuality;
+use llflash_render::shape_utils::{DistilledShape, DrawCommand, LineScaleMode, LineScales};
+use llflash_render::transform::Transform;
+use llflash_web_common::{JsError, JsResult};
 use std::any::Any;
 use std::borrow::Cow;
 use std::num::NonZeroU32;
@@ -568,15 +568,15 @@ impl RenderBackend for WebCanvasRenderBackend {
 
     fn compile_pixelbender_shader(
         &mut self,
-        _shader: ruffle_render::pixel_bender::PixelBenderShader,
-    ) -> Result<ruffle_render::pixel_bender::PixelBenderShaderHandle, Error> {
+        _shader: llflash_render::pixel_bender::PixelBenderShader,
+    ) -> Result<llflash_render::pixel_bender::PixelBenderShaderHandle, Error> {
         Err(Error::Unimplemented("compile_pixelbender_shader".into()))
     }
 
     fn run_pixelbender_shader(
         &mut self,
-        _handle: ruffle_render::pixel_bender::PixelBenderShaderHandle,
-        _arguments: &[ruffle_render::pixel_bender_support::PixelBenderShaderArgument],
+        _handle: llflash_render::pixel_bender::PixelBenderShaderHandle,
+        _arguments: &[llflash_render::pixel_bender_support::PixelBenderShaderArgument],
         _target: &PixelBenderTarget,
     ) -> Result<PixelBenderOutput, Error> {
         Err(Error::Unimplemented("run_pixelbender_shader".into()))
@@ -950,7 +950,7 @@ fn swf_shape_to_canvas_commands(
     bitmap_source: &dyn BitmapSource,
     backend: &mut WebCanvasRenderBackend,
 ) -> Vec<CanvasDrawCommand> {
-    use ruffle_render::shape_utils::DrawPath;
+    use llflash_render::shape_utils::DrawPath;
     use swf::{FillStyle, LineCapStyle, LineJoinStyle};
 
     // Some browsers will vomit if you try to load/draw an image with 0 width/height.
@@ -1349,7 +1349,7 @@ enum MaskState {
     ClearMask,
 }
 
-/// Extension trait for easily converting from Ruffle matrices to `DomMatrix`.
+/// Extension trait for easily converting from Llflash matrices to `DomMatrix`.
 trait MatrixExt {
     fn to_dom_matrix(&self) -> DomMatrix;
 }

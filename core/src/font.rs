@@ -4,12 +4,12 @@ use crate::html::TextSpan;
 use crate::prelude::*;
 use crate::string::WStr;
 use gc_arena::{Collect, Gc, Mutation};
-use ruffle_render::backend::null::NullBitmapSource;
-use ruffle_render::backend::{RenderBackend, ShapeHandle};
-use ruffle_render::bitmap::{Bitmap, BitmapHandle};
-use ruffle_render::error::Error;
-use ruffle_render::shape_utils::{DrawCommand, FillRule};
-use ruffle_render::transform::Transform;
+use llflash_render::backend::null::NullBitmapSource;
+use llflash_render::backend::{RenderBackend, ShapeHandle};
+use llflash_render::bitmap::{Bitmap, BitmapHandle};
+use llflash_render::error::Error;
+use llflash_render::shape_utils::{DrawCommand, FillRule};
+use llflash_render::transform::Transform;
 
 use std::cell::{Cell, OnceCell, Ref, RefCell};
 use std::hash::{Hash, Hasher};
@@ -970,7 +970,7 @@ impl SwfGlyphOrShape {
             && let Self::Glyph(glyph) = core::mem::replace(self, Self::Poisoned)
         {
             *self = Self::Shape {
-                shape: ruffle_render::shape_utils::swf_glyph_to_shape(glyph),
+                shape: llflash_render::shape_utils::swf_glyph_to_shape(glyph),
                 handle: None,
             };
         }
@@ -1016,7 +1016,7 @@ impl GlyphShape {
                 let mut glyph = glyph.borrow_mut();
                 let (shape, _) = glyph.shape();
                 shape.shape_bounds.contains(point)
-                    && ruffle_render::shape_utils::shape_hit_test(shape, point, local_matrix)
+                    && llflash_render::shape_utils::shape_hit_test(shape, point, local_matrix)
             }
             GlyphShape::Drawing(drawing) => drawing.hit_test(point, local_matrix),
             GlyphShape::Bitmap(_) => {
@@ -1162,7 +1162,7 @@ impl Glyph {
     }
 
     pub fn render<'gc>(&self, context: &mut RenderContext<'_, 'gc>) {
-        use ruffle_render::commands::CommandHandler;
+        use llflash_render::commands::CommandHandler;
 
         let Some(render_data) = self.glyph_render_data(context.renderer) else {
             return;
@@ -1184,7 +1184,7 @@ impl Glyph {
                     handle,
                     context.transform_stack.transform(),
                     true,
-                    ruffle_render::bitmap::PixelSnapping::Auto,
+                    llflash_render::bitmap::PixelSnapping::Auto,
                 );
 
                 context.transform_stack.pop();
@@ -1310,7 +1310,7 @@ pub enum TextRenderSettings {
     /// This text should render with the advanced rendering engine.
     /// Set via "Anti-alias for readability" in the Flash IDE.
     /// The parameters are set via the CSMTextSettings SWF tag.
-    /// Ruffle does not support this currently, but this also affects
+    /// Llflash does not support this currently, but this also affects
     /// hit-testing behavior.
     Advanced {
         grid_fit: TextGridFit,

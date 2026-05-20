@@ -1,5 +1,5 @@
 [package]
-name = "ruffle_wstr"
+name = "llflash_wstr"
 authors = ["Arthur Heuillard <arthur.heuillard<orange.fr>"]
 edition.workspace = true
 homepage.workspace = true

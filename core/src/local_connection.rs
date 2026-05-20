@@ -8,8 +8,8 @@ use flash_lso::types::Value as AmfValue;
 use fnv::FnvHashMap;
 use gc_arena::Collect;
 use gc_arena::collect::Trace;
-use ruffle_macros::istr;
-use ruffle_wstr::{WStr, WString};
+use llflash_macros::istr;
+use llflash_wstr::{WStr, WString};
 use std::borrow::Cow;
 
 #[derive(Clone, Collect)]

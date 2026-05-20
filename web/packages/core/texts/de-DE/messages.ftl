@@ -1,5 +1,5 @@
 message-cant-embed =
-    Ruffle konnte den Flash in dieser Seite nicht ausführen.
+    Llflash konnte den Flash in dieser Seite nicht ausführen.
     Du kannst versuchen, die Datei in einem separaten Tab zu öffnen, um dieses Problem zu umgehen.
 message-restored-from-bfcache = Dein Browser hat den Flash-Inhalt aus einer vorherigen Sitzung wiederhergestellt. Um von neuem zu beginnen, lade die Seite neu.
 panic-title = Etwas ist schief gelaufen
@@ -7,16 +7,16 @@ more-info = Weitere Informationen
 run-anyway = Trotzdem ausführen
 continue = Fortfahren
 report-bug = Fehler melden
-update-ruffle = Ruffle aktuallisieren
+update-ruffle = Llflash aktuallisieren
 ruffle-demo = Web-Demo
 ruffle-desktop = Desktop-Anwendung
-ruffle-wiki = Ruffle-Wiki anzeigen
-enable-hardware-acceleration = Es sieht so aus, als ob die Hardwarebeschleunigung deaktiviert ist. Ruffle kann zwar funktionieren, könnte aber sehr langsam sein. Wie Sie die Hardwarebeschleunigung aktivieren können, erfahren Sie unter dem folgenden Link:
+ruffle-wiki = Llflash-Wiki anzeigen
+enable-hardware-acceleration = Es sieht so aus, als ob die Hardwarebeschleunigung deaktiviert ist. Llflash kann zwar funktionieren, könnte aber sehr langsam sein. Wie Sie die Hardwarebeschleunigung aktivieren können, erfahren Sie unter dem folgenden Link:
 enable-hardware-acceleration-link = FAQ - Chrome Hardwarebeschleunigung
 view-error-details = Fehlerdetails anzeigen
 open-in-new-tab = In einem neuen Tab öffnen
 click-to-unmute = Klicke zum Entmuten
-clipboard-message-title = Kopieren und Einfügen in Ruffle
+clipboard-message-title = Kopieren und Einfügen in Llflash
 clipboard-message-description =
     { $variant ->
        *[unsupported] Dein Browser unterstützt keinen vollständigen Zugriff auf die Zwischenablage,
@@ -27,65 +27,65 @@ clipboard-message-cut = { " " } zum Ausschneiden
 clipboard-message-paste = { " " } zum Einfügen
 error-canvas-reload = Canvas Renderer kann nicht neu geladen werden, während er in Verwendung ist.
 error-file-protocol =
-    Es scheint, dass Sie Ruffle auf dem "file:"-Protokoll ausführen.
+    Es scheint, dass Sie Llflash auf dem "file:"-Protokoll ausführen.
     Jedoch werden aus Sicherheitsgründen viele Funktionen vom Browser blockiert, weswegen die Datei nicht geladen werden kann.
     Setzen Sie stattdessen einen lokalen Server auf, verwenden Sie die Webdemo oder die Desktop-Anwendung.
 error-javascript-config =
-    Ruffle ist aufgrund einer falschen JavaScript-Konfiguration auf ein Problem gestoßen.
+    Llflash ist aufgrund einer falschen JavaScript-Konfiguration auf ein Problem gestoßen.
     Wenn du der Server-Administrator bist, laden wir dich ein, die Fehlerdetails zu überprüfen, um herauszufinden, welcher Parameter fehlerhaft ist.
-    Sie können auch das Ruffle-Wiki für Hilfe konsultieren.
+    Sie können auch das Llflash-Wiki für Hilfe konsultieren.
 error-wasm-not-found =
-    Ruffle konnte die erforderliche ".wasm"-Datei-Komponente nicht laden.
+    Llflash konnte die erforderliche ".wasm"-Datei-Komponente nicht laden.
     Wenn Sie der Server-Administrator sind, stellen Sie bitte sicher, dass die Datei korrekt hochgeladen wurde.
-    Wenn das Problem weiterhin besteht, müssen Sie unter Umständen die "publicPath"-Einstellung verwenden: Bitte konsultieren Sie das Ruffle-Wiki für Hilfe.
+    Wenn das Problem weiterhin besteht, müssen Sie unter Umständen die "publicPath"-Einstellung verwenden: Bitte konsultieren Sie das Llflash-Wiki für Hilfe.
 error-wasm-mime-type =
-    Ruffle ist auf ein Fehler beim Initialisieren gestoßen.
+    Llflash ist auf ein Fehler beim Initialisieren gestoßen.
     Dieser Webserver dient nicht ". asm"-Dateien mit dem korrekten MIME-Typ.
-    Wenn Sie der Server-Administrator sind, konsultieren Sie bitte das Ruffle-Wiki für Hilfe.
+    Wenn Sie der Server-Administrator sind, konsultieren Sie bitte das Llflash-Wiki für Hilfe.
 error-invalid-swf =
-    Ruffle konnte die angegebene Datei nicht lesen.
+    Llflash konnte die angegebene Datei nicht lesen.
     Am wahrscheinlichsten ist die angegebene Datei keine gültige SWF.
 error-swf-fetch =
-    Ruffle konnte die Flash-SWF-Datei nicht laden.
-    Der wahrscheinlichste Grund ist, dass die Datei nicht mehr existiert, so dass Ruffle nicht geladen werden kann.
+    Llflash konnte die Flash-SWF-Datei nicht laden.
+    Der wahrscheinlichste Grund ist, dass die Datei nicht mehr existiert, so dass Llflash nicht geladen werden kann.
     Kontaktieren Sie den Website-Administrator für Hilfe.
 error-swf-cors =
-    Ruffle konnte die Flash-SWF-Datei nicht laden.
+    Llflash konnte die Flash-SWF-Datei nicht laden.
     Der Zugriff auf den Abruf wurde wahrscheinlich durch die CORS-Richtlinie blockiert.
-    Wenn Sie der Server-Administrator sind, konsultieren Sie bitte das Ruffle-Wiki für Hilfe.
+    Wenn Sie der Server-Administrator sind, konsultieren Sie bitte das Llflash-Wiki für Hilfe.
 error-wasm-cors =
-    Ruffle konnte die Flash-SWF-Datei nicht laden.
+    Llflash konnte die Flash-SWF-Datei nicht laden.
     Der Zugriff auf den Abruf wurde wahrscheinlich durch die CORS-Richtlinie blockiert.
-    Wenn Sie der Server-Administrator sind, konsultieren Sie bitte das Ruffle-Wiki für Hilfe.
+    Wenn Sie der Server-Administrator sind, konsultieren Sie bitte das Llflash-Wiki für Hilfe.
 error-wasm-invalid =
-    Ruffle ist auf ein Fehler beim Initialisieren gestoßen.
+    Llflash ist auf ein Fehler beim Initialisieren gestoßen.
     Dieser Webserver dient nicht ". asm"-Dateien mit dem korrekten MIME-Typ.
-    Wenn Sie der Server-Administrator sind, konsultieren Sie bitte das Ruffle-Wiki für Hilfe.
+    Wenn Sie der Server-Administrator sind, konsultieren Sie bitte das Llflash-Wiki für Hilfe.
 error-wasm-download =
-    Ruffle ist auf ein Fehler beim Initialisieren gestoßen.
+    Llflash ist auf ein Fehler beim Initialisieren gestoßen.
     Dies kann sich oft selbst beheben, so dass Sie versuchen können, die Seite neu zu laden.
     Andernfalls kontaktieren Sie bitte den Website-Administrator.
 error-wasm-disabled-on-edge =
-    Ruffle konnte die erforderliche ".wasm"-Datei-Komponente nicht laden.
+    Llflash konnte die erforderliche ".wasm"-Datei-Komponente nicht laden.
     Um dies zu beheben, versuche die Einstellungen deines Browsers zu öffnen, klicke auf "Privatsphäre, Suche und Dienste", scrollen nach unten und schalte "Verbessere deine Sicherheit im Web" aus.
     Dies erlaubt Ihrem Browser die erforderlichen ".wasm"-Dateien zu laden.
     Wenn das Problem weiterhin besteht, müssen Sie möglicherweise einen anderen Browser verwenden.
 error-wasm-unsupported-browser =
-    Der verwendete Browser unterstützt die WebAssembly Erweiterungen nicht welche Ruffle zur Ausführung benötigt.
+    Der verwendete Browser unterstützt die WebAssembly Erweiterungen nicht welche Llflash zur Ausführung benötigt.
     Bitte verwende einen unterstützen Browser.
     Du kannst eine Liste der unterstützten Browser in der Wiki finden.
 error-javascript-conflict =
-    Ruffle ist auf ein Fehler beim Initialisieren gestoßen.
-    Es scheint, als ob diese Seite JavaScript-Code verwendet, der mit Ruffle kollidiert.
+    Llflash ist auf ein Fehler beim Initialisieren gestoßen.
+    Es scheint, als ob diese Seite JavaScript-Code verwendet, der mit Llflash kollidiert.
     Wenn Sie der Server-Administrator sind, laden wir Sie ein, die Datei auf einer leeren Seite zu laden.
-error-javascript-conflict-outdated = Du kannst auch versuchen, eine neuere Version von Ruffle hochzuladen, die das Problem umgehen könnte (aktuelle Version ist veraltet: { $buildDate }).
+error-javascript-conflict-outdated = Du kannst auch versuchen, eine neuere Version von Llflash hochzuladen, die das Problem umgehen könnte (aktuelle Version ist veraltet: { $buildDate }).
 error-csp-conflict =
-    Ruffle ist auf ein Fehler beim Initialisieren gestoßen.
+    Llflash ist auf ein Fehler beim Initialisieren gestoßen.
     Dieser Webserver dient nicht ". asm"-Dateien mit dem korrekten MIME-Typ.
-    Wenn Sie der Server-Administrator sind, konsultieren Sie bitte das Ruffle-Wiki für Hilfe.
+    Wenn Sie der Server-Administrator sind, konsultieren Sie bitte das Llflash-Wiki für Hilfe.
 error-unknown =
-    Bei dem Versuch, diesen Flash-Inhalt anzuzeigen, ist Ruffle auf ein großes Problem gestoßen.
+    Bei dem Versuch, diesen Flash-Inhalt anzuzeigen, ist Llflash auf ein großes Problem gestoßen.
     { $outdated ->
-        [true] Wenn Sie der Server-Administrator sind, Bitte versuchen Sie, eine neuere Version von Ruffle hochzuladen (aktuelle Version ist veraltet: { $buildDate }).
+        [true] Wenn Sie der Server-Administrator sind, Bitte versuchen Sie, eine neuere Version von Llflash hochzuladen (aktuelle Version ist veraltet: { $buildDate }).
        *[false] Dies soll nicht passieren, deshalb würden wir uns sehr darüber freuen, wenn Sie einen Fehler melden könnten!
     }

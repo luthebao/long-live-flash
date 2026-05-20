@@ -1,6 +1,6 @@
-use ruffle_core::context::UpdateContext;
-use ruffle_core::external::ExternalInterfaceProvider;
-use ruffle_core::external::{Value as ExternalValue, Value};
+use llflash_core::context::UpdateContext;
+use llflash_core::external::ExternalInterfaceProvider;
+use llflash_core::external::{Value as ExternalValue, Value};
 
 pub mod tests;
 

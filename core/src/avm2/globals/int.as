@@ -1,6 +1,6 @@
 package {
-    [Ruffle(CustomConstructor)]
-    [Ruffle(CallHandler)]
+    [Llflash(CustomConstructor)]
+    [Llflash(CallHandler)]
     public final class int {
         public static const MIN_VALUE:int = -2147483648;
 

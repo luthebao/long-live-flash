@@ -1,5 +1,5 @@
 [package]
-name = "ruffle_test_framework"
+name = "llflash_test_framework"
 authors.workspace = true
 edition.workspace = true
 homepage.workspace = true
@@ -11,12 +11,12 @@ version.workspace = true
 workspace = true
 
 [dependencies]
-ruffle_core = { path = "../../core", features = ["deterministic", "timeline_debug", "avm_debug", "audio", "mp3", "aac", "default_font", "serde"] }
-ruffle_render = { path = "../../render", features = ["serde"] }
-ruffle_input_format = { path = "../input-format" }
-ruffle_socket_format = { path = "../socket-format" }
-ruffle_video_software = { path = "../../video/software", optional = true }
-ruffle_video_external = { path = "../../video/external", features = ["openh264"], optional = true }
+llflash_core = { path = "../../core", features = ["deterministic", "timeline_debug", "avm_debug", "audio", "mp3", "aac", "default_font", "serde"] }
+llflash_render = { path = "../../render", features = ["serde"] }
+llflash_input_format = { path = "../input-format" }
+llflash_socket_format = { path = "../socket-format" }
+llflash_video_software = { path = "../../video/software", optional = true }
+llflash_video_external = { path = "../../video/external", features = ["openh264"], optional = true }
 image = { workspace = true, features = ["png"] }
 regex = { workspace = true }
 url = { workspace = true }
@@ -36,5 +36,5 @@ sha2 = { workspace = true }
 clap = { workspace = true, optional = true }
 
 [features]
-jpegxr = ["ruffle_core/jpegxr"]
-lzma = ["ruffle_core/lzma"]
+jpegxr = ["llflash_core/jpegxr"]
+lzma = ["llflash_core/lzma"]

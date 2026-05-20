@@ -3,16 +3,16 @@ package flash.display {
 
     [API("662")]
     public final class GraphicsBitmapFill implements IGraphicsFill, IGraphicsData {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var bitmapData:BitmapData;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var matrix:Matrix;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var repeat:Boolean;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var smooth:Boolean;
 
         public function GraphicsBitmapFill(

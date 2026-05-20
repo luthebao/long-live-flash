@@ -16,8 +16,8 @@ use core::fmt;
 use gc_arena::barrier::unlock;
 use gc_arena::lock::Lock;
 use gc_arena::{Collect, Gc, GcWeak, Mutation};
-use ruffle_common::utils::HasPrefixField;
-use ruffle_render::bitmap::{BitmapFormat, PixelSnapping};
+use llflash_common::utils::HasPrefixField;
+use llflash_render::bitmap::{BitmapFormat, PixelSnapping};
 use std::cell::Cell;
 use std::sync::Arc;
 
@@ -176,7 +176,7 @@ impl<'gc> Bitmap<'gc> {
     pub fn new(
         mc: &Mutation<'gc>,
         id: CharacterId,
-        bitmap: ruffle_render::bitmap::Bitmap,
+        bitmap: llflash_render::bitmap::Bitmap,
         movie: Arc<SwfMovie>,
     ) -> Self {
         let width = bitmap.width();

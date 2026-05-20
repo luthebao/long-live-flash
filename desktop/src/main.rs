@@ -27,7 +27,7 @@ use app::App;
 use clap::Parser;
 use cli::Opt;
 use rfd::MessageDialogResult;
-use ruffle_core::StaticCallstack;
+use llflash_core::StaticCallstack;
 use std::cell::RefCell;
 use std::env;
 use std::fs::File;
@@ -70,9 +70,9 @@ fn panic_hook(info: &PanicHookInfo) {
 
     if rfd::MessageDialog::new()
         .set_level(rfd::MessageLevel::Error)
-        .set_title("Ruffle")
+        .set_title("Llflash")
         .set_description(format!(
-            "Ruffle has encountered a fatal error, this is a bug.\n\n\
+            "Llflash has encountered a fatal error, this is a bug.\n\n\
             {message}\n\n\
             Please report this to us so that we can fix it. Thank you!\n\
             Pressing Yes will open a browser window."
@@ -164,14 +164,14 @@ fn main() -> Result<(), Error> {
 
     subscriber.init();
 
-    // Install the native Rust RTMP/RTMPE backend as ruffle_core's
+    // Install the native Rust RTMP/RTMPE backend as llflash_core's
     // NetConnection hooks. The Odin shell (capi crate) would install its
     // own here instead; since this is the pure-Rust desktop binary we use
-    // the in-tree client from ruffle_rtmp.
-    ruffle_core::backend::net_connection::set_hooks(
-        Some(ruffle_rtmp::connect),
-        Some(ruffle_rtmp::close),
-        Some(ruffle_rtmp::call),
+    // the in-tree client from llflash_rtmp.
+    llflash_core::backend::net_connection::set_hooks(
+        Some(llflash_rtmp::connect),
+        Some(llflash_rtmp::close),
+        Some(llflash_rtmp::call),
     );
 
     let result = App::new(preferences).and_then(|(mut app, event_loop)| {
@@ -188,7 +188,7 @@ fn main() -> Result<(), Error> {
 
 /// Move logs from config directory into proper log directory.
 ///
-/// This exists because in older versions Ruffle created log files in the config directory.
+/// This exists because in older versions Llflash created log files in the config directory.
 ///
 /// TODO Remove this after some time.
 fn migrate_logs(

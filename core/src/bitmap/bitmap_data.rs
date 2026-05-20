@@ -4,11 +4,11 @@ use crate::display_object::{BoundsMode, DisplayObject, DisplayObjectWeak, TDispl
 use bitflags::bitflags;
 use gc_arena::lock::GcRefLock;
 use gc_arena::{Collect, Gc, Mutation};
-use ruffle_render::backend::RenderBackend;
-use ruffle_render::bitmap::{
+use llflash_render::backend::RenderBackend;
+use llflash_render::bitmap::{
     Bitmap, BitmapFormat, BitmapHandle, PixelRegion, PixelSnapping, SyncHandle,
 };
-use ruffle_wstr::WStr;
+use llflash_wstr::WStr;
 use std::cell::Ref;
 use std::fmt::Debug;
 use std::ops::Range;
@@ -423,9 +423,9 @@ mod wrapper {
     use gc_arena::barrier::Write;
     use gc_arena::lock::GcRefLock;
     use gc_arena::{Collect, Gc, Mutation};
-    use ruffle_render::backend::RenderBackend;
-    use ruffle_render::bitmap::{BitmapHandle, PixelRegion, PixelSnapping};
-    use ruffle_render::commands::CommandHandler;
+    use llflash_render::backend::RenderBackend;
+    use llflash_render::bitmap::{BitmapHandle, PixelRegion, PixelSnapping};
+    use llflash_render::commands::CommandHandler;
     use std::cell::Ref;
 
     use super::{BitmapRawData, DirtyState, copy_pixels_to_bitmapdata};
@@ -785,7 +785,7 @@ impl<'gc> BitmapRawData<'gc> {
     pub fn try_bitmap_handle(
         &mut self,
         renderer: &mut dyn RenderBackend,
-    ) -> Result<BitmapHandle, ruffle_render::error::Error> {
+    ) -> Result<BitmapHandle, llflash_render::error::Error> {
         if let Some(ref handle) = self.bitmap_handle {
             return Ok(handle.clone());
         }

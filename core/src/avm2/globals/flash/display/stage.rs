@@ -410,7 +410,7 @@ pub fn set_quality<'gc>(
     args: &[Value<'gc>],
 ) -> Result<Value<'gc>, Error<'gc>> {
     // Invalid values result in no change.
-    if let Ok(quality) = args.get_string(activation, 0).parse::<ruffle_render::quality::StageQuality>() {
+    if let Ok(quality) = args.get_string(activation, 0).parse::<llflash_render::quality::StageQuality>() {
         // Refuse SWF-initiated downgrades below the current setting. Many
         // older games hard-code `stage.quality = "LOW"` as a perf
         // optimization for circa-2008 hardware — on a modern GPU this just

@@ -8,14 +8,14 @@ use crate::preferences::GlobalPreferences;
 use anyhow::anyhow;
 use egui::{Context, FontData, FontDefinitions, ViewportId};
 use fontdb::{Database, Family, Query, Source};
-use ruffle_core::events::{ImeCursorArea, ImePurpose};
-use ruffle_core::{Player, PlayerEvent};
-use ruffle_frontend_utils::content::ContentDescriptor;
-use ruffle_render_wgpu::backend::{
+use llflash_core::events::{ImeCursorArea, ImePurpose};
+use llflash_core::{Player, PlayerEvent};
+use llflash_frontend_utils::content::ContentDescriptor;
+use llflash_render_wgpu::backend::{
     WgpuRenderBackend, create_wgpu_instance, request_adapter_and_device,
 };
-use ruffle_render_wgpu::descriptors::Descriptors;
-use ruffle_render_wgpu::utils::{format_list, get_backend_names};
+use llflash_render_wgpu::descriptors::Descriptors;
+use llflash_render_wgpu::utils::{format_list, get_backend_names};
 use std::any::Any;
 use std::cell::Cell;
 use std::fs::File;
@@ -456,7 +456,7 @@ impl GuiController {
 
     pub fn show_context_menu(
         &mut self,
-        menu: Vec<ruffle_core::ContextMenuItem>,
+        menu: Vec<llflash_core::ContextMenuItem>,
         close_event: PlayerEvent,
     ) {
         self.gui.show_context_menu(menu, close_event);

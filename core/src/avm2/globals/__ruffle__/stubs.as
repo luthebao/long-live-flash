@@ -13,6 +13,6 @@ package __ruffle__ {
 
     // Note: the following function is not related to stubbing.
 
-    // Produce a regular warning in Ruffle logs.
+    // Produce a regular warning in Llflash logs.
     public native function log_warn(...rest):void;
 }

@@ -1,15 +1,15 @@
 package flash.geom {
     public class Rectangle {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var x:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var y:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var width:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var height:Number;
 
         public function Rectangle(x:Number = 0, y:Number = 0, width:Number = 0, height:Number = 0) {

@@ -1,5 +1,5 @@
 [package]
-name = "ruffle_fs_tests_runner"
+name = "llflash_fs_tests_runner"
 authors.workspace = true
 edition.workspace = true
 homepage.workspace = true

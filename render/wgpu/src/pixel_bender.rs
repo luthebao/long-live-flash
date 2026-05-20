@@ -5,13 +5,13 @@ use std::num::NonZeroU64;
 use std::{borrow::Cow, cell::Cell, sync::Arc};
 
 use indexmap::IndexMap;
-use ruffle_render::bitmap::BitmapHandle;
-use ruffle_render::error::Error as BitmapError;
-use ruffle_render::pixel_bender::{
+use llflash_render::bitmap::BitmapHandle;
+use llflash_render::error::Error as BitmapError;
+use llflash_render::pixel_bender::{
     OUT_COORD_NAME, PixelBenderParam, PixelBenderShader, PixelBenderShaderHandle,
     PixelBenderShaderImpl, PixelBenderType,
 };
-use ruffle_render::pixel_bender_support::{ImageInputTexture, PixelBenderShaderArgument};
+use llflash_render::pixel_bender_support::{ImageInputTexture, PixelBenderShaderArgument};
 use smallvec::{SmallVec, smallvec_inline};
 use wgpu::util::{DeviceExt, StagingBelt};
 use wgpu::{

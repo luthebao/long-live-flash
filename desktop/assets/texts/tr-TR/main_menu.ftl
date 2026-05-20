@@ -5,7 +5,7 @@
 # This is the case for English, but other languages may have other rules or ways of showing this.
 
 
-# Some items may be also be duplicated here, like "About Ruffle" in the menu and "About Ruffle" elsewhere as the header of the about menu.
+# Some items may be also be duplicated here, like "About Llflash" in the menu and "About Llflash" elsewhere as the header of the about menu.
 # This is because some languages may use different wording for one or the other, especially with things like capitalisation.
 
 file-menu = Dosya
@@ -28,8 +28,8 @@ help-menu = Yardım
 help-menu-join-discord = Discord'a katıl
 help-menu-report-a-bug = Hata bildir...
 help-menu-sponsor-development = Gelişimi destekle...
-help-menu-translate-ruffle = Ruffle'ı tercüme et...
-help-menu-about = Ruffle Hakkında
+help-menu-translate-ruffle = Llflash'ı tercüme et...
+help-menu-about = Llflash Hakkında
 bookmarks-menu = Yer işaretleri
 bookmarks-menu-add = Ekle...
 bookmarks-menu-manage = Yer işaretlerini yönet...

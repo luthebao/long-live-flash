@@ -2,8 +2,8 @@ context-menu-download-swf = Lataa SWF
 context-menu-copy-debug-info = Kopioi vianjäljitystiedot
 context-menu-about-ruffle =
     { $flavor ->
-        [extension] Tietoja – Ruffle-laajennus ({ $version })
-       *[other] Tietoja – Ruffle ({ $version })
+        [extension] Tietoja – Llflash-laajennus ({ $version })
+       *[other] Tietoja – Llflash ({ $version })
     }
 context-menu-hide = Piilota tämä valikko
 context-menu-exit-fullscreen = Poistu koko näytön tilasta

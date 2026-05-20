@@ -12,13 +12,13 @@ use crate::string::AvmString;
 
 use crate::avm2_stub_method;
 
-use ruffle_render::backend::{PixelBenderOutput, PixelBenderTarget};
-use ruffle_render::bitmap::PixelRegion;
-use ruffle_render::pixel_bender::{
+use llflash_render::backend::{PixelBenderOutput, PixelBenderTarget};
+use llflash_render::bitmap::PixelRegion;
+use llflash_render::pixel_bender::{
     OUT_COORD_NAME, PixelBenderMetadata, PixelBenderParam, PixelBenderParamQualifier,
     PixelBenderShaderHandle, PixelBenderType, PixelBenderTypeOpcode,
 };
-use ruffle_render::pixel_bender_support::{
+use llflash_render::pixel_bender_support::{
     FloatPixelData, ImageInputTexture, PixelBenderShaderArgument,
 };
 

@@ -1,9 +1,9 @@
 {
     "settings_ruffle_enable": {
-        "message": "Flash-inhoud afspelen in Ruffle"
+        "message": "Flash-inhoud afspelen in Llflash"
     },
     "settings_ignore_optout": {
-        "message": "Toch Flash-inhoud afspelen op sites die Ruffle niet toestaan"
+        "message": "Toch Flash-inhoud afspelen op sites die Llflash niet toestaan"
     },
     "settings_show_swf_download": {
         "message": "SWF download in contextmenu weergeven"
@@ -57,7 +57,7 @@
         "message": "Instellingen herstellen"
     },
     "settings_reset_confirm": {
-        "message": "Weet je zeker dat je alle Ruffle instellingen terug naar hun standaardwaarde wilt zetten?"
+        "message": "Weet je zeker dat je alle Llflash instellingen terug naar hun standaardwaarde wilt zetten?"
     },
     "status_init": {
         "message": "Huidig tabblad lezen…"
@@ -69,25 +69,25 @@
         "message": "Er is een fout opgetreden bij het opzoeken van het huidige tabblad."
     },
     "status_message_init": {
-        "message": "Status van Ruffle op huidig tabblad controleren…"
+        "message": "Status van Llflash op huidig tabblad controleren…"
     },
     "status_result_running": {
-        "message": "Ruffle is geladen en klaar om Flash-inhoud af te spelen op het huidige tabblad."
+        "message": "Llflash is geladen en klaar om Flash-inhoud af te spelen op het huidige tabblad."
     },
     "status_result_running_protected": {
-        "message": "Ruffle is geladen en klaar om de Flash-inhoud waar je om vroeg te draaien."
+        "message": "Llflash is geladen en klaar om de Flash-inhoud waar je om vroeg te draaien."
     },
     "status_result_optout": {
-        "message": "Ruffle is niet geladen omdat de huidige pagina zichzelf als niet compatibel heeft gemarkeerd."
+        "message": "Llflash is niet geladen omdat de huidige pagina zichzelf als niet compatibel heeft gemarkeerd."
     },
     "status_result_disabled": {
-        "message": "Ruffle is uitgeschakeld."
+        "message": "Llflash is uitgeschakeld."
     },
     "status_result_error": {
-        "message": "Er is een fout opgetreden bij het opvragen van de Ruffle-instantie van het huidige tabblad."
+        "message": "Er is een fout opgetreden bij het opvragen van de Llflash-instantie van het huidige tabblad."
     },
     "status_result_protected": {
-        "message": "Ruffle kan niet geladen worden op beschermde browserpagina's."
+        "message": "Llflash kan niet geladen worden op beschermde browserpagina's."
     },
     "action_reload": {
         "message": "Vernieuw het tabblad om wijzigingen toe te passen"
@@ -114,16 +114,16 @@
         "message": "Introductiepagina"
     },
     "permissions_grant": {
-        "message": "Geef Ruffle toegang tot mijn gegevens op alle websites"
+        "message": "Geef Llflash toegang tot mijn gegevens op alle websites"
     },
     "permissions_not_granted": {
-        "message": "Je zal het Ruffle icoon moeten aanklikken op elke website waar je Ruffle wil gebruiken"
+        "message": "Je zal het Llflash icoon moeten aanklikken op elke website waar je Llflash wil gebruiken"
     },
     "grant_single_site_permission": {
         "message": "Permanent inschakelen voor deze website"
     },
     "permissions_explanation": {
-        "message": "De Ruffle extensie werkt het beste met toegang tot data op alle websites. Hierdoor kan deze draaien als de website nog aan het laden is, en websites die Flash Player detecteren overtuigen dat het er is. Het maakt het ook mogelijk om SWF-bestanden van andere plekken op het internet te laten en automatisch SWF links in de pagina te laden. Zonder deze toestemming moet je Ruffle handmatig inschakelen op elke website waar je het wil gebruiken door het icoon aan te klikken en dan in te schakelen."
+        "message": "De Llflash extensie werkt het beste met toegang tot data op alle websites. Hierdoor kan deze draaien als de website nog aan het laden is, en websites die Flash Player detecteren overtuigen dat het er is. Het maakt het ook mogelijk om SWF-bestanden van andere plekken op het internet te laten en automatisch SWF links in de pagina te laden. Zonder deze toestemming moet je Llflash handmatig inschakelen op elke website waar je het wil gebruiken door het icoon aan te klikken en dan in te schakelen."
     },
     "swf_player_permissions": {
         "message": "Je moet toestemming aan deze URL bron geven om er SWF-bestanden vanuit te kunnen laden."

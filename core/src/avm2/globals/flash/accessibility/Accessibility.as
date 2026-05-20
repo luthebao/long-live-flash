@@ -3,7 +3,7 @@ package flash.accessibility {
 
     import flash.display.DisplayObject;
 
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class Accessibility {
         private static var _active:Boolean;
 

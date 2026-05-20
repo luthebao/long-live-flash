@@ -9,11 +9,11 @@ use crate::log::FilenamePattern;
 use crate::preferences::read::read_preferences;
 use crate::preferences::write::PreferencesWriter;
 use anyhow::{Context, Error};
-use ruffle_core::backend::ui::US_ENGLISH;
-use ruffle_frontend_utils::bookmarks::{Bookmarks, BookmarksWriter, read_bookmarks};
-use ruffle_frontend_utils::parse::DocumentHolder;
-use ruffle_frontend_utils::recents::{Recents, RecentsWriter, read_recents};
-use ruffle_render_wgpu::clap::{GraphicsBackend, PowerPreference};
+use llflash_core::backend::ui::US_ENGLISH;
+use llflash_frontend_utils::bookmarks::{Bookmarks, BookmarksWriter, read_bookmarks};
+use llflash_frontend_utils::parse::DocumentHolder;
+use llflash_frontend_utils::recents::{Recents, RecentsWriter, read_recents};
+use llflash_render_wgpu::clap::{GraphicsBackend, PowerPreference};
 use std::sync::{Arc, Mutex};
 use sys_locale::get_locale;
 use tokio::sync::broadcast;
@@ -29,7 +29,7 @@ use unic_langid::LanguageIdentifier;
 /// - Movie-specific settings (if applicable and we implement this, stored on disk)
 /// - CLI (if applicable)
 /// - Persisted preferences (if applicable, saved to toml)
-/// - Ruffle defaults
+/// - Llflash defaults
 #[derive(Clone)]
 pub struct GlobalPreferences {
     /// As the CLI holds properties ranging from initial movie settings (ie url),

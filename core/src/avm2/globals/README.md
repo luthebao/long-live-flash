@@ -5,19 +5,19 @@ This directory contains implementations of global definitions
 
 WARNING: Do *not* implement classes by copying their (decompiled) ActionScript
 from the Adobe Flash `playerglobal.swf`. This would violate copyright by making
-Ruffle re-distribute Adobe's code (and will not even work in general, since
-Adobe's `playerglobal.swf` uses native methods that Ruffle doesn't implement).
+Llflash re-distribute Adobe's code (and will not even work in general, since
+Adobe's `playerglobal.swf` uses native methods that Llflash doesn't implement).
 
 Globals are implemented as ActionScript code like `flash/geom/Point.as`. The
 files included from `globals.as` are compiled into a `playerglobal.swf` file
-at build time, which is included in the final Ruffle binary and loaded during
+at build time, which is included in the final Llflash binary and loaded during
 player initialization.
 
 Flash's `playerglobal.swc` (specifically, its `library.swf`)
 cannot be used as a drop-in replacement for our `playerglobal.swf`.
 In addition to potential copyright issues around redistributing Flash's `playerglobal.swc`,
 many of its classes rely on specific 'native' methods being provided
-by the Flash VM, which Ruffle does not implement.
+by the Flash VM, which Llflash does not implement.
 
 ## Calling AS3 methods
 
@@ -37,14 +37,14 @@ Found getlex of "AS3" in method body. Make sure you have `namespace AS3 = "http:
 
 We support defining native methods (instance methods, class methods, and freestanding functions)
 in ActionScript classes in playerglobal. During the build process, we automatically
-generate a reference to a Rust function at the corresponding path in Ruffle.
+generate a reference to a Rust function at the corresponding path in Llflash.
 
 For example, the native method function `flash.system.Security.allowDomain`
 expects a Rust function to be defined at `crate::avm2::globals::flash::system::security::allow_domain`.
 
 This function is cast to a `NativeMethodImpl` function pointer.
 
-If you're unsure of the path to use, just build Ruffle after marking the
+If you're unsure of the path to use, just build Llflash after marking the
 `ActionScript` method as `native` - the compiler will produce an error
 explaining where the Rust function needs to be defined.
 
@@ -55,7 +55,7 @@ function is called from ActionScript.
 ## Custom instance allocator
 
 You can use a custom instance allocator method by applying the metadata
-`[Ruffle(InstanceAllocator)]`
+`[Llflash(InstanceAllocator)]`
 to your class definition. A reference to a function named `<classname>_allocator`
 will be generated - this should be an `AllocatorFn`. This allocator will
 automatically be registered when the corresponding class is loaded.
@@ -65,19 +65,19 @@ See `flash/events/Event.as` for an example
 ## Accessing fields and calling methods from native code
 
 You can access fields of ActionScript objects from Rust code by annotating the
-field in the class definition with `[Ruffle(NativeAccessible)]`, which will
+field in the class definition with `[Llflash(NativeAccessible)]`, which will
 record the slot id of the field. After doing so, `Object::get_slot` can be used
 to access the slot. See `flash/display/Loader.as` and `flash/display/loader.rs`
 for an example.
 
 Similarly, you can also call methods of ActionScript objects from Rust code by
-annotating methods with `[Ruffle(NativeCallable)]` and using `Value::call_method`.
+annotating methods with `[Llflash(NativeCallable)]` and using `Value::call_method`.
 See `flash/utils/Proxy.as` and `proxy_object.rs` for example usage.
 
-## `[Ruffle(FastCall)]` annotation
+## `[Llflash(FastCall)]` annotation
 
 As an optimization, native methods defined in playerglobals can be annotated with
-`[Ruffle(FastCall)]` to make calling them faster under certain conditions. However,
+`[Llflash(FastCall)]` to make calling them faster under certain conditions. However,
 the following conditions must all be met before declaring a method `FastCall`:
 
 - the method is declared as `static`, or the class the method is declared in is `final`;
@@ -88,12 +88,12 @@ the following conditions must all be met before declaring a method `FastCall`:
 - and the method's Rust function does not access any fields on the provided `activation` except for the `activation.context` field.
 
 Only if all of these conditions are met can the method safely be annotated with
-`[Ruffle(FastCall)]`. In general, methods should not be marked `FastCall` unless
+`[Llflash(FastCall)]`. In general, methods should not be marked `FastCall` unless
 there is a clear performance improvement when doing so.
 
 ## API Versioning
 
-Ruffle supports Flash's API versioning, which hides newer playerglobal definitions
+Llflash supports Flash's API versioning, which hides newer playerglobal definitions
 (including methods/properties) from SWFs compiled with older API versions.
 For example, see `Event.WORKER_STATE`
 

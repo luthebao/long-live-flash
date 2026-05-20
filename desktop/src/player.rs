@@ -9,23 +9,23 @@ use crate::gui::{FilePicker, MovieView};
 use crate::preferences::GlobalPreferences;
 use crate::{CALLSTACK, RENDER_INFO, SWF_INFO};
 use anyhow::anyhow;
-use ruffle_core::backend::navigator::{OwnedFuture, SocketMode};
-use ruffle_core::config::Letterbox;
-use ruffle_core::events::{GamepadButton, KeyCode};
-use ruffle_core::font::DefaultFont;
-use ruffle_core::{LoadBehavior, Player, PlayerBuilder, PlayerEvent};
-use ruffle_frontend_utils::backends::audio::CpalAudioBackend;
-use ruffle_frontend_utils::backends::navigator::{ExternalNavigatorBackend, FutureSpawner};
-use ruffle_frontend_utils::bundle::source::BundleSourceError;
-use ruffle_frontend_utils::bundle::{Bundle, BundleError};
-use ruffle_frontend_utils::content::{ContentDescriptor, PlayingContent};
-use ruffle_frontend_utils::player_options::PlayerOptions;
-use ruffle_frontend_utils::recents::Recent;
-use ruffle_render::backend::RenderBackend;
-use ruffle_render::quality::StageQuality;
-use ruffle_render_wgpu::backend::WgpuRenderBackend;
-use ruffle_render_wgpu::clap::PowerPreference;
-use ruffle_render_wgpu::descriptors::Descriptors;
+use llflash_core::backend::navigator::{OwnedFuture, SocketMode};
+use llflash_core::config::Letterbox;
+use llflash_core::events::{GamepadButton, KeyCode};
+use llflash_core::font::DefaultFont;
+use llflash_core::{LoadBehavior, Player, PlayerBuilder, PlayerEvent};
+use llflash_frontend_utils::backends::audio::CpalAudioBackend;
+use llflash_frontend_utils::backends::navigator::{ExternalNavigatorBackend, FutureSpawner};
+use llflash_frontend_utils::bundle::source::BundleSourceError;
+use llflash_frontend_utils::bundle::{Bundle, BundleError};
+use llflash_frontend_utils::content::{ContentDescriptor, PlayingContent};
+use llflash_frontend_utils::player_options::PlayerOptions;
+use llflash_frontend_utils::recents::Recent;
+use llflash_render::backend::RenderBackend;
+use llflash_render::quality::StageQuality;
+use llflash_render_wgpu::backend::WgpuRenderBackend;
+use llflash_render_wgpu::clap::PowerPreference;
+use llflash_render_wgpu::descriptors::Descriptors;
 use std::borrow::Cow;
 use std::collections::{HashMap, HashSet};
 use std::fmt::Debug;
@@ -234,7 +234,7 @@ impl ActivePlayer {
         if cfg!(feature = "external_video") && preferences.openh264_enabled() {
             #[cfg(feature = "external_video")]
             {
-                use ruffle_video_external::{
+                use llflash_video_external::{
                     backend::ExternalVideoBackend, decoder::openh264::OpenH264Codec,
                 };
                 let openh264 = tokio::task::block_in_place(|| {
@@ -253,7 +253,7 @@ impl ActivePlayer {
             #[cfg(feature = "software_video")]
             {
                 builder =
-                    builder.with_video(ruffle_video_software::backend::SoftwareVideoBackend::new());
+                    builder.with_video(llflash_video_software::backend::SoftwareVideoBackend::new());
             }
         }
 
@@ -339,11 +339,11 @@ impl ActivePlayer {
             .with_avm2_optimizer_enabled(opt.avm2_optimizer_enabled);
         let player = builder.build();
 
-        window.set_title(&format!("Ruffle - {readable_name}"));
+        window.set_title(&format!("Llflash - {readable_name}"));
 
         SWF_INFO.with(|i| *i.borrow_mut() = Some(readable_name));
 
-        let on_metadata = move |swf_header: &ruffle_core::swf::HeaderExt| {
+        let on_metadata = move |swf_header: &llflash_core::swf::HeaderExt| {
             let _ = event_loop.send_event(RuffleEvent::OnMetadata(swf_header.clone()));
         };
 
@@ -423,7 +423,7 @@ impl ActivePlayer {
     }
 }
 
-/// Owner of a Ruffle Player (via ActivePlayer),
+/// Owner of a Llflash Player (via ActivePlayer),
 /// responsible for either creating, destroying or communicating with that player.
 pub struct PlayerController {
     player: Option<ActivePlayer>,

@@ -11,9 +11,9 @@ use crate::avm2::{Activation, Error, Object, TObject as _, Value};
 use crate::display_object::{BoundsMode, TDisplayObject};
 use crate::prelude::{DisplayObject, Matrix, Twips};
 use crate::{avm2_stub_getter, avm2_stub_method, avm2_stub_setter};
-use ruffle_render::matrix3d::Matrix3D;
-use ruffle_render::perspective_projection::PerspectiveProjection;
-use ruffle_render::quality::StageQuality;
+use llflash_render::matrix3d::Matrix3D;
+use llflash_render::perspective_projection::PerspectiveProjection;
+use llflash_render::quality::StageQuality;
 use swf::{ColorTransform, Fixed8, Rectangle};
 
 fn get_display_object(this: Object<'_>) -> DisplayObject<'_> {

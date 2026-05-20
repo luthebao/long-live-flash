@@ -26,8 +26,8 @@ use crate::bitmap::{is_size_valid, operations};
 use crate::character::{Character, CompressedBitmap};
 use crate::ecma_conversions::round_to_even;
 use crate::swf::BlendMode;
-use ruffle_render::filters::Filter;
-use ruffle_render::transform::Transform;
+use llflash_render::filters::Filter;
+use llflash_render::transform::Transform;
 use std::str::FromStr;
 use swf::{Rectangle, Twips};
 
@@ -759,7 +759,7 @@ pub fn lock<'gc>(
     // instances on the stage, based on how the player decides to update its dirty region
     // ("Show Redraw Regions" in Flash Player debugger context menu).
     //
-    // Ruffle has no concept of a player dirty region for now, so this has no effect.
+    // Llflash has no concept of a player dirty region for now, so this has no effect.
     Ok(Value::Undefined)
 }
 

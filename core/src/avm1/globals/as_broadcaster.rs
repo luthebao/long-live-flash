@@ -8,7 +8,7 @@ use crate::avm1::property_decl::{DeclContext, StaticDeclarations, SystemClass};
 use crate::avm1::{Activation, ArrayBuilder, Object, Value};
 use crate::string::{AvmString, StringContext};
 use gc_arena::Collect;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 const OBJECT_DECLS: StaticDeclarations = declare_static_properties! {
     "initialize" => method(initialize; DONT_ENUM | DONT_DELETE);

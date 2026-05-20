@@ -1,10 +1,10 @@
 use js_sys::JSON;
-use ruffle_core::font::FontMetrics;
-use ruffle_core::font::FontRenderer;
-use ruffle_core::font::Glyph;
-use ruffle_core::swf::Twips;
-use ruffle_render::bitmap::Bitmap;
-use ruffle_render::bitmap::BitmapFormat;
+use llflash_core::font::FontMetrics;
+use llflash_core::font::FontRenderer;
+use llflash_core::font::Glyph;
+use llflash_core::swf::Twips;
+use llflash_render::bitmap::Bitmap;
+use llflash_render::bitmap::BitmapFormat;
 use wasm_bindgen::JsCast;
 use wasm_bindgen::JsValue;
 use web_sys::OffscreenCanvas;

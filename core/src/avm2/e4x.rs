@@ -20,8 +20,8 @@ use quick_xml::{
     events::{BytesStart, Event, attributes::AttrError as XmlAttrError},
     name::ResolveResult,
 };
-use ruffle_common::xml::avm2_unescape;
-use ruffle_macros::istr;
+use llflash_common::xml::avm2_unescape;
+use llflash_macros::istr;
 
 use std::cell::{Ref, RefMut};
 use std::fmt::{self, Debug};
@@ -1038,7 +1038,7 @@ impl<'gc> E4XNode<'gc> {
 
             let (ns, local_name) = parser.resolve_attribute(attribute.key);
 
-            let local_name = ruffle_wstr::from_utf8_bytes(local_name.into_inner());
+            let local_name = llflash_wstr::from_utf8_bytes(local_name.into_inner());
             let name = activation.strings().intern_wstr(local_name).into();
 
             let namespace = match ns {
@@ -1087,7 +1087,7 @@ impl<'gc> E4XNode<'gc> {
 
         let (ns, local_name) = parser.resolve_element(bs.name());
 
-        let local_name = ruffle_wstr::from_utf8_bytes(local_name.into_inner());
+        let local_name = llflash_wstr::from_utf8_bytes(local_name.into_inner());
         let name = activation.strings().intern_wstr(local_name).into();
 
         let namespace = match ns {

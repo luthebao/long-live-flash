@@ -1,6 +1,6 @@
 use rfd::{MessageButtons, MessageDialog, MessageDialogResult, MessageLevel};
-use ruffle_frontend_utils::backends::navigator::NavigatorInterface;
-use ruffle_frontend_utils::content::ContentDescriptor;
+use llflash_frontend_utils::backends::navigator::NavigatorInterface;
+use llflash_frontend_utils::content::ContentDescriptor;
 use std::fs::File;
 use std::io;
 use std::io::ErrorKind;

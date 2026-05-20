@@ -5,19 +5,19 @@ use crate::{
     SocketProxy, audio, log_adapter, storage, ui,
 };
 use js_sys::{Promise, RegExp};
-use ruffle_core::backend::audio::{AudioBackend, NullAudioBackend};
-use ruffle_core::backend::storage::{MemoryStorageBackend, StorageBackend};
-use ruffle_core::backend::ui::FontDefinition;
-use ruffle_core::compatibility_rules::CompatibilityRules;
-use ruffle_core::config::{Letterbox, NetworkingAccessMode};
-use ruffle_core::events::{GamepadButton, KeyCode};
-use ruffle_core::font::{DefaultFont, FontFileData};
-use ruffle_core::ttf_parser;
-use ruffle_core::{Color, Player, PlayerBuilder, PlayerRuntime, StageAlign, StageScaleMode, swf};
-use ruffle_render::backend::RenderBackend;
-use ruffle_render::quality::StageQuality;
-use ruffle_video_external::backend::ExternalVideoBackend;
-use ruffle_web_common::JsResult;
+use llflash_core::backend::audio::{AudioBackend, NullAudioBackend};
+use llflash_core::backend::storage::{MemoryStorageBackend, StorageBackend};
+use llflash_core::backend::ui::FontDefinition;
+use llflash_core::compatibility_rules::CompatibilityRules;
+use llflash_core::config::{Letterbox, NetworkingAccessMode};
+use llflash_core::events::{GamepadButton, KeyCode};
+use llflash_core::font::{DefaultFont, FontFileData};
+use llflash_core::ttf_parser;
+use llflash_core::{Color, Player, PlayerBuilder, PlayerRuntime, StageAlign, StageScaleMode, swf};
+use llflash_render::backend::RenderBackend;
+use llflash_render::quality::StageQuality;
+use llflash_video_external::backend::ExternalVideoBackend;
+use llflash_web_common::JsResult;
 use std::any::Any;
 use std::cell::RefCell;
 use std::collections::HashMap;
@@ -366,7 +366,7 @@ impl RuffleInstanceBuilder {
             if RUFFLE_GLOBAL_PANIC.is_completed() {
                 // If an actual panic happened, then we can't trust the state it left us in.
                 // Prevent future players from loading so that they can inform the user about the error.
-                return Err("Ruffle is panicking!".into());
+                return Err("Llflash is panicking!".into());
             }
 
             let ruffle = RuffleHandle::new_internal(parent, js_player, copy)
@@ -409,7 +409,7 @@ impl RuffleInstanceBuilder {
                         match tag {
                             swf::Tag::DefineFont(_font) => {
                                 tracing::warn!(
-                                    "DefineFont1 tag is not yet supported by Ruffle, inside font swf {font_name}"
+                                    "DefineFont1 tag is not yet supported by Llflash, inside font swf {font_name}"
                                 );
                             }
                             swf::Tag::DefineFont2(font) => {
@@ -544,7 +544,7 @@ impl RuffleInstanceBuilder {
                             .dyn_into()
                             .map_err(|_| "Expected HtmlCanvasElement")?;
 
-                        match ruffle_render_wgpu::backend::WgpuRenderBackend::for_canvas(
+                        match llflash_render_wgpu::backend::WgpuRenderBackend::for_canvas(
                             canvas.clone(),
                             true,
                         )
@@ -568,7 +568,7 @@ impl RuffleInstanceBuilder {
                         .dyn_into()
                         .map_err(|_| "Expected HtmlCanvasElement")?;
 
-                    match ruffle_render_wgpu::backend::WgpuRenderBackend::for_canvas(
+                    match llflash_render_wgpu::backend::WgpuRenderBackend::for_canvas(
                         canvas.clone(),
                         false,
                     )
@@ -590,7 +590,7 @@ impl RuffleInstanceBuilder {
                         .into_js_result()?
                         .dyn_into()
                         .map_err(|_| "Expected HtmlCanvasElement")?;
-                    match ruffle_render_webgl::WebGlRenderBackend::new(
+                    match llflash_render_webgl::WebGlRenderBackend::new(
                         &canvas,
                         is_transparent,
                         self.quality,
@@ -611,7 +611,7 @@ impl RuffleInstanceBuilder {
                         .into_js_result()?
                         .dyn_into()
                         .map_err(|_| "Expected HtmlCanvasElement")?;
-                    match ruffle_render_canvas::WebCanvasRenderBackend::new(&canvas, is_transparent)
+                    match llflash_render_canvas::WebCanvasRenderBackend::new(&canvas, is_transparent)
                     {
                         Ok(renderer) => {
                             return Ok((Box::new(renderer), canvas));

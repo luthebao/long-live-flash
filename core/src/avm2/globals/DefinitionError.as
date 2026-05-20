@@ -1,5 +1,5 @@
 package {
-    [Ruffle(ConstructOnCall)]
+    [Llflash(ConstructOnCall)]
     public dynamic class DefinitionError extends Error {
         prototype.name = "DefinitionError";
 

@@ -1,8 +1,8 @@
 //! End-to-end connect probe.
 //!
-//! Usage: `cargo run --release -p ruffle_rtmp --example connect rtmpe://127.0.0.1:1935/master/test`
+//! Usage: `cargo run --release -p llflash_rtmp --example connect rtmpe://127.0.0.1:1935/master/test`
 //!
-//! Drives `ruffle_rtmp::connect()` and prints every inbound event for ~5
+//! Drives `llflash_rtmp::connect()` and prints every inbound event for ~5
 //! seconds. Useful to confirm the handshake reaches a real server without
 //! needing a SWF in the loop.
 
@@ -13,7 +13,7 @@ fn main() {
         .nth(1)
         .unwrap_or_else(|| "rtmp://127.0.0.1:1935/master/test".into());
 
-    let filter = std::env::var("RUST_LOG").unwrap_or_else(|_| "ruffle_rtmp=debug".into());
+    let filter = std::env::var("RUST_LOG").unwrap_or_else(|_| "llflash_rtmp=debug".into());
     tracing_subscriber::fmt()
         .with_env_filter(tracing_subscriber::EnvFilter::new(filter))
         .with_writer(std::io::stderr)
@@ -44,7 +44,7 @@ fn main() {
          (extra_args={} bytes)",
         extra_args.len()
     );
-    let handle = ruffle_rtmp::connect(&url, &swf_url, &page_url, &extra_args);
+    let handle = llflash_rtmp::connect(&url, &swf_url, &page_url, &extra_args);
     if handle == 0 {
         eprintln!("[probe] connect rejected (bad URL or unsupported scheme)");
         std::process::exit(1);
@@ -54,7 +54,7 @@ fn main() {
     let deadline = Instant::now() + Duration::from_secs(5);
     let mut fired_call = false;
     while Instant::now() < deadline {
-        let events = ruffle_rtmp::drain();
+        let events = llflash_rtmp::drain();
         for ev in &events {
             eprintln!("[probe] {ev:?}");
         }
@@ -63,7 +63,7 @@ fn main() {
         if !fired_call
             && events.iter().any(|e| matches!(
                 e,
-                ruffle_rtmp::InboundEvent::Status { code, .. } if code == "NetConnection.Connect.Success"
+                llflash_rtmp::InboundEvent::Status { code, .. } if code == "NetConnection.Connect.Success"
             ))
         {
             fired_call = true;
@@ -76,15 +76,15 @@ fn main() {
             payload.extend_from_slice(&2.0f64.to_be_bytes());
             payload.push(0x05); // Null
             eprintln!("[probe] firing test call('ping', txid=2)");
-            ruffle_rtmp::call(handle, 2, &payload);
+            llflash_rtmp::call(handle, 2, &payload);
         }
         std::thread::sleep(Duration::from_millis(50));
     }
 
-    ruffle_rtmp::close(handle);
+    llflash_rtmp::close(handle);
     // Give the worker a moment to flush a Closed status.
     std::thread::sleep(Duration::from_millis(100));
-    for ev in ruffle_rtmp::drain() {
+    for ev in llflash_rtmp::drain() {
         eprintln!("[probe] {ev:?}");
     }
 }

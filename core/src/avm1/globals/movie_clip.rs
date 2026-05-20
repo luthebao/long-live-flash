@@ -15,8 +15,8 @@ use crate::prelude::*;
 use crate::string::AvmString;
 use crate::vminterface::Instantiator;
 use crate::{avm_error, avm_warn};
-use ruffle_macros::istr;
-use ruffle_render::shape_utils::{DrawCommand, GradientType};
+use llflash_macros::istr;
+use llflash_render::shape_utils::{DrawCommand, GradientType};
 use swf::{
     FillStyle, Fixed8, Gradient, GradientInterpolation, GradientRecord, GradientSpread,
     LineCapStyle, LineJoinStyle, LineStyle,
@@ -573,7 +573,7 @@ fn begin_bitmap_fill<'gc>(
         if let NativeObject::BitmapData(bitmap_data) = bitmap_data.native() {
             // Register the bitmap data with the drawing.
             let handle = bitmap_data.bitmap_handle(activation.gc(), activation.context.renderer);
-            let bitmap = ruffle_render::bitmap::BitmapInfo {
+            let bitmap = llflash_render::bitmap::BitmapInfo {
                 handle,
                 width: bitmap_data.width(),
                 height: bitmap_data.height(),

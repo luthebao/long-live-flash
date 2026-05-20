@@ -3,7 +3,7 @@
 //! `Fixed8` is an 8.8 signed fixed-point number.
 //! `Fixed16` is a 16.16 signed fixed-point number.
 //!
-//! This is not meant to be a fully general fixed-point library, but instead focused on the needs of Ruffle/Flash.
+//! This is not meant to be a fully general fixed-point library, but instead focused on the needs of Llflash/Flash.
 //! No rounding adjustments are done. All calculations are truncated to match Flash's behavior.
 //!
 //! Use the `From` trait to convert losslessly from an integer to fixed-point.

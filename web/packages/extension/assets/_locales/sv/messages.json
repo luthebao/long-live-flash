@@ -1,9 +1,9 @@
 {
     "settings_ruffle_enable": {
-        "message": "Spela upp Flash-innehåll i Ruffle"
+        "message": "Spela upp Flash-innehåll i Llflash"
     },
     "settings_ignore_optout": {
-        "message": "Kör Flashinnehåll även på sidor som inte tillåter Ruffle"
+        "message": "Kör Flashinnehåll även på sidor som inte tillåter Llflash"
     },
     "settings_show_swf_download": {
         "message": "Visa SWF-nedladdning i snabbmenyn"
@@ -51,7 +51,7 @@
         "message": "Nollställ inställningar"
     },
     "settings_reset_confirm": {
-        "message": "Är du säker på att du vill återställa Ruffle-inställningarna till sina ursprungliga värden?"
+        "message": "Är du säker på att du vill återställa Llflash-inställningarna till sina ursprungliga värden?"
     },
     "status_init": {
         "message": "Avläser aktuell flik…"
@@ -63,25 +63,25 @@
         "message": "Ett fel uppstod när den aktuella fliken slogs upp."
     },
     "status_message_init": {
-        "message": "Kontrollerar Ruffle-status på aktuell flik…"
+        "message": "Kontrollerar Llflash-status på aktuell flik…"
     },
     "status_result_running": {
-        "message": "Ruffle är redo att köra Flashinnehåll i fliken."
+        "message": "Llflash är redo att köra Flashinnehåll i fliken."
     },
     "status_result_running_protected": {
-        "message": "Ruffle är redo att köra Flashinnehållen du begär."
+        "message": "Llflash är redo att köra Flashinnehållen du begär."
     },
     "status_result_optout": {
-        "message": "Ruffle kan ej köras för att den nuvarande hemsidan har markerat sig själv som inkompatibel."
+        "message": "Llflash kan ej köras för att den nuvarande hemsidan har markerat sig själv som inkompatibel."
     },
     "status_result_disabled": {
-        "message": "Ruffle är inaktiverad."
+        "message": "Llflash är inaktiverad."
     },
     "status_result_error": {
-        "message": "Ett fel inträffade medan sidans Ruffle-instans efterfrågades."
+        "message": "Ett fel inträffade medan sidans Llflash-instans efterfrågades."
     },
     "status_result_protected": {
-        "message": "Ruffle kan ej köras i skyddade webbläsarsidor."
+        "message": "Llflash kan ej köras i skyddade webbläsarsidor."
     },
     "action_reload": {
         "message": "Ladda om fliken för att applicera ändringar"
@@ -105,15 +105,15 @@
         "message": "Inställningar sparade"
     },
     "permissions_grant": {
-        "message": "Ge Ruffle tillåtelse att få tillgång till min data på alla sidor"
+        "message": "Ge Llflash tillåtelse att få tillgång till min data på alla sidor"
     },
     "permissions_not_granted": {
-        "message": "Du behöver trycka på Ruffle ikonen på varje sida du vill använda Ruffle på"
+        "message": "Du behöver trycka på Llflash ikonen på varje sida du vill använda Llflash på"
     },
     "grant_single_site_permission": {
         "message": "Sätt på permanent på denna sida"
     },
     "permissions_explanation": {
-        "message": "Ruffletillägget fungerar best med tillgång till data för alla webbplatser. Det tillåter tillägget att köra på alla webbplatser när de först laddas in, vilket låter det lura webbplatser som kollar efter Flash Player att köra Flashinnehållet omedelbart. Det gör det också möjligt för webbplatsen att ladda SWF-filer in i dess interna spelar sida från andra webbplatser och gör det möjligt för den att ladda direkt SWF-länkar in i sidan. Om du inte ger den här behörigheten, måste du manuellt sätta på Ruffle på varje webplats som du vill använda den på genom att klicka på ikonen för tillägget och sätta på det för webbplatsen."
+        "message": "Ruffletillägget fungerar best med tillgång till data för alla webbplatser. Det tillåter tillägget att köra på alla webbplatser när de först laddas in, vilket låter det lura webbplatser som kollar efter Flash Player att köra Flashinnehållet omedelbart. Det gör det också möjligt för webbplatsen att ladda SWF-filer in i dess interna spelar sida från andra webbplatser och gör det möjligt för den att ladda direkt SWF-länkar in i sidan. Om du inte ger den här behörigheten, måste du manuellt sätta på Llflash på varje webplats som du vill använda den på genom att klicka på ikonen för tillägget och sätta på det för webbplatsen."
     }
 }

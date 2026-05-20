@@ -6,8 +6,8 @@ use crate::avm2::object::script_object::ScriptObjectData;
 use crate::avm2::object::{ClassObject, Object, TObject};
 use core::fmt;
 use gc_arena::{Collect, Gc, GcWeak};
-use ruffle_common::utils::HasPrefixField;
-use ruffle_render::pixel_bender::PixelBenderShaderHandle;
+use llflash_common::utils::HasPrefixField;
+use llflash_render::pixel_bender::PixelBenderShaderHandle;
 use std::cell::Cell;
 
 /// A class instance allocator that allocates ShaderData objects.

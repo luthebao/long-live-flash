@@ -8,8 +8,8 @@ use crate::{
     string::AvmString,
 };
 use gc_arena::Collect;
-pub use ruffle_common::buffer::Substream;
-use ruffle_common::duration::FloatDuration;
+pub use llflash_common::buffer::Substream;
+use llflash_common::duration::FloatDuration;
 use slotmap::{Key, SlotMap, new_key_type};
 
 #[cfg(feature = "audio")]
@@ -346,7 +346,7 @@ pub struct AudioManager<'gc> {
     /// The number of seconds that a timeline audio stream should buffer before playing.
     ///
     /// This is returned by `_soundbuftime` in AVM1 and `SoundMixer.bufferTime` in AVM2.
-    /// Currently unused by Ruffle.
+    /// Currently unused by Llflash.
     /// [ActionScript 3.0: SoundMixer.bufferTime](https://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/media/SoundMixer.html#bufferTime)
     stream_buffer_time: i32,
 
@@ -726,14 +726,14 @@ impl<'gc> AudioManager<'gc> {
 
     /// Returns the number of seconds that a timeline audio stream should buffer before playing.
     ///
-    /// Currently unused by Ruffle.
+    /// Currently unused by Llflash.
     pub fn stream_buffer_time(&self) -> i32 {
         self.stream_buffer_time
     }
 
     /// Sets the number of seconds that a timeline audio stream should buffer before playing.
     ///
-    /// Currently unused by Ruffle.
+    /// Currently unused by Llflash.
     pub fn set_stream_buffer_time(&mut self, stream_buffer_time: i32) {
         self.stream_buffer_time = stream_buffer_time;
     }

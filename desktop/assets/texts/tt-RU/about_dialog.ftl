@@ -1,4 +1,4 @@
-about-ruffle = Ruffle турында
+about-ruffle = Llflash турында
 about-ruffle-version = Версия
 about-ruffle-channel = Канал
 about-ruffle-build-time = Җыю вакыты

@@ -13,8 +13,8 @@ use crate::events::{KeyCode, MouseButton};
 use crate::string::AvmString;
 use gc_arena::barrier::unlock;
 use gc_arena::{Collect, Gc, GcWeak, Mutation, lock::RefLock};
-use ruffle_common::utils::HasPrefixField;
-use ruffle_macros::istr;
+use llflash_common::utils::HasPrefixField;
+use llflash_macros::istr;
 use std::cell::{Ref, RefMut};
 use std::fmt::Debug;
 

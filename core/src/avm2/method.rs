@@ -20,7 +20,7 @@ use swf::avm2::types::{
     MethodFlags as AbcMethodFlags, MethodParam as AbcMethodParam,
 };
 
-/// Represents a function defined in Ruffle's code.
+/// Represents a function defined in Llflash's code.
 ///
 /// Parameters are as follows:
 ///

@@ -4,7 +4,7 @@
 # In general, if clicking the thing immediately does that thing, no ellipsis. If it asks for more information, ellipsis.
 # This is the case for English, but other languages may have other rules or ways of showing this.
 
-# Some items may be also be duplicated here, like "About Ruffle" in the menu and "About Ruffle" elsewhere as the header of the about menu.
+# Some items may be also be duplicated here, like "About Llflash" in the menu and "About Llflash" elsewhere as the header of the about menu.
 # This is because some languages may use different wording for one or the other, especially with things like capitalisation.
 
 file-menu = File
@@ -29,8 +29,8 @@ help-menu = Help
 help-menu-join-discord = Join Discord
 help-menu-report-a-bug = Report a Bug...
 help-menu-sponsor-development = Sponsor Development...
-help-menu-translate-ruffle = Translate Ruffle...
-help-menu-about = About Ruffle
+help-menu-translate-ruffle = Translate Llflash...
+help-menu-about = About Llflash
 
 bookmarks-menu = Bookmarks
 bookmarks-menu-add = Add...

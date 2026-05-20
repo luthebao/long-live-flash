@@ -1,6 +1,6 @@
 use crate::matrix::Matrix;
 use enum_map::Enum;
-use ruffle_wstr::{FromWStr, WStr};
+use llflash_wstr::{FromWStr, WStr};
 use smallvec::SmallVec;
 use swf::{CharacterId, FillStyle, LineStyle, Rectangle, Shape, ShapeRecord, Twips};
 

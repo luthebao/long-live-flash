@@ -1,4 +1,4 @@
-about-ruffle = Über Ruffle
+about-ruffle = Über Llflash
 about-ruffle-version = Version
 about-ruffle-channel = Kanal
 about-ruffle-build-time = Bauzeit

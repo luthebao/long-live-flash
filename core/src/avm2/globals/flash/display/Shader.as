@@ -5,7 +5,7 @@ package flash.display {
 
     [API("662")]
     public class Shader {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _data:ShaderData;
 
         private var _precisionHint:String = ShaderPrecision.FULL;

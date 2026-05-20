@@ -2,12 +2,12 @@ use crate::RUFFLE_VERSION;
 use crate::preferences::storage::StorageBackend;
 use anyhow::{Error, anyhow};
 use clap::{Parser, ValueEnum};
-use ruffle_core::backend::navigator::SocketMode;
-use ruffle_core::config::Letterbox;
-use ruffle_core::events::{GamepadButton, KeyCode};
-use ruffle_core::{LoadBehavior, PlayerRuntime, StageAlign, StageScaleMode};
-use ruffle_render::quality::StageQuality;
-use ruffle_render_wgpu::clap::{GraphicsBackend, PowerPreference};
+use llflash_core::backend::navigator::SocketMode;
+use llflash_core::config::Letterbox;
+use llflash_core::events::{GamepadButton, KeyCode};
+use llflash_core::{LoadBehavior, PlayerRuntime, StageAlign, StageScaleMode};
+use llflash_render::quality::StageQuality;
+use llflash_render_wgpu::clap::{GraphicsBackend, PowerPreference};
 use std::path::Path;
 use std::str::FromStr;
 use std::time::Duration;
@@ -34,7 +34,7 @@ fn get_default_cache_directory() -> std::path::PathBuf {
 
 #[derive(Parser, Debug, Clone)]
 #[clap(
-    name = "Ruffle",
+    name = "Llflash",
     author,
     version = RUFFLE_VERSION,
 )]
@@ -129,11 +129,11 @@ pub struct Opt {
     #[clap(long, default_value_os_t=get_default_save_directory())]
     pub save_directory: std::path::PathBuf,
 
-    /// Location of a directory to store Ruffle configuration.
+    /// Location of a directory to store Llflash configuration.
     #[clap(long, default_value_os_t=get_default_config_directory())]
     pub config: std::path::PathBuf,
 
-    /// Directory that contains non-essential files created by Ruffle.
+    /// Directory that contains non-essential files created by Llflash.
     ///
     /// This directory can be deleted without affecting functionality.
     #[clap(long, default_value_os_t=get_default_cache_directory())]
@@ -162,7 +162,7 @@ pub struct Opt {
     #[clap(long)]
     pub load_behavior: Option<LoadBehavior>,
 
-    /// Specify how Ruffle should handle areas outside the movie stage.
+    /// Specify how Llflash should handle areas outside the movie stage.
     #[clap(long)]
     pub letterbox: Option<Letterbox>,
 

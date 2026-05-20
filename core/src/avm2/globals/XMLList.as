@@ -1,6 +1,6 @@
 package {
-    [Ruffle(InstanceAllocator)]
-    [Ruffle(CallHandler)]
+    [Llflash(InstanceAllocator)]
+    [Llflash(CallHandler)]
     public final dynamic class XMLList {
 
         public function XMLList(value:* = void 0) {
@@ -14,7 +14,7 @@ package {
             ignoreWhitespace:Boolean
         ):void;
 
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         AS3 native function length():int;
         AS3 native function hasComplexContent():Boolean;
         AS3 native function hasSimpleContent():Boolean;
@@ -26,9 +26,9 @@ package {
         AS3 native function attributes():XMLList;
         AS3 native function descendants(name:* = "*"):XMLList;
         AS3 native function text():XMLList;
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         AS3 native function toXMLString():String;
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         AS3 native function toString():String;
         AS3 native function comments():XMLList;
         AS3 native function parent():*;

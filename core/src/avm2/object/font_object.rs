@@ -4,7 +4,7 @@ use crate::avm2::{Activation, ClassObject, Error};
 use crate::character::Character;
 use crate::font::Font;
 use gc_arena::{Collect, Gc, GcWeak, Mutation};
-use ruffle_common::utils::HasPrefixField;
+use llflash_common::utils::HasPrefixField;
 use std::fmt;
 
 /// A class instance allocator that allocates Font objects.

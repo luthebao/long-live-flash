@@ -18,7 +18,7 @@ use crate::vminterface::Instantiator;
 use crate::{avm_error, avm_warn};
 use gc_arena::{Gc, Mutation};
 use indexmap::IndexMap;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::cell::Cell;
 use std::cmp::min;
 use std::fmt;
@@ -2116,7 +2116,7 @@ impl<'a, 'gc> Activation<'a, 'gc> {
     }
 
     fn action_toggle_quality(&mut self) -> Result<FrameControl<'gc>, Error<'gc>> {
-        use ruffle_render::quality::StageQuality;
+        use llflash_render::quality::StageQuality;
         // Toggle between `Low` and `High`/`Best` quality.
         // This op remembers whether the stage quality was `Best` or higher, so we have to maintain
         // the bitmap downsampling flag to ensure we toggle back to the proper quality.

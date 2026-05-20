@@ -1,5 +1,5 @@
 package flash.ui {
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class Keyboard {
         public static native function get capsLock():Boolean;
         public static native function get hasVirtualKeyboard():Boolean;

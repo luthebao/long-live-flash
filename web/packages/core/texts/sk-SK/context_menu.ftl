@@ -3,8 +3,8 @@ context-menu-copy-debug-info = Skopírovať debug info
 context-menu-open-save-manager = Otvoriť správcu uložení
 context-menu-about-ruffle =
     { $flavor ->
-        [extension] O Ruffle rozšírení ({ $version })
-       *[other] O Ruffle ({ $version })
+        [extension] O Llflash rozšírení ({ $version })
+       *[other] O Llflash ({ $version })
     }
 context-menu-hide = Skryť menu
 context-menu-exit-fullscreen = Ukončiť režim celej obrazovky

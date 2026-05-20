@@ -3,8 +3,8 @@ context-menu-copy-debug-info = Копіювати інформацію про н
 context-menu-open-save-manager = Відкрити менеджер збереження
 context-menu-about-ruffle =
     { $flavor ->
-        [extension] Про розширення Ruffle ({ $version })
-       *[other] Про Ruffle ({ $version })
+        [extension] Про розширення Llflash ({ $version })
+       *[other] Про Llflash ({ $version })
     }
 context-menu-hide = Приховати це меню
 context-menu-exit-fullscreen = Вийти з повноекранного режиму

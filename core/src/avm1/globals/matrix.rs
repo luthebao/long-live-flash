@@ -7,8 +7,8 @@ use crate::avm1::property_decl::{DeclContext, StaticDeclarations, SystemClass};
 use crate::avm1::{Object, Value};
 use crate::string::AvmString;
 
-use ruffle_macros::istr;
-use ruffle_render::matrix::Matrix;
+use llflash_macros::istr;
+use llflash_render::matrix::Matrix;
 use swf::Twips;
 
 const PROTO_DECLS: StaticDeclarations = declare_static_properties! {
@@ -339,7 +339,7 @@ fn invert<'gc>(
     _args: &[Value<'gc>],
 ) -> Result<Value<'gc>, Error<'gc>> {
     // FIXME:
-    // 1) `invert` and other Matrix methods need to operate on `f64`, not with `ruffle_render::Matrix`.
+    // 1) `invert` and other Matrix methods need to operate on `f64`, not with `llflash_render::Matrix`.
     // 2) If non-invertible, we are always setting to an identity matrix. But Flash only return identity
     //    if `c != 0 && b != 0`? Otherwise it results in a matrix with infinities.
     let matrix = object_to_matrix(this, activation)?

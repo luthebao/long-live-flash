@@ -1,6 +1,6 @@
 use enum_map::Enum;
 
-use ruffle_render::{commands::RenderBlendMode, pixel_bender::PixelBenderShaderHandle};
+use llflash_render::{commands::RenderBlendMode, pixel_bender::PixelBenderShaderHandle};
 use swf::BlendMode;
 
 #[derive(Enum, Debug, Copy, Clone)]

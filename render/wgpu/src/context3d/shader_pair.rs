@@ -1,6 +1,6 @@
 use lru::LruCache;
 use naga_agal::{AgalError, ParsedBytecode, SamplerConfig, VertexAttributeFormat};
-use ruffle_render::backend::ShaderModule;
+use llflash_render::backend::ShaderModule;
 use std::{
     borrow::Cow,
     cell::{RefCell, RefMut},

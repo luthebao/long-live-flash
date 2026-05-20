@@ -1,5 +1,5 @@
 package flash.system {
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public class SecurityDomain {
         private static var dummyDomain:SecurityDomain = null;
 

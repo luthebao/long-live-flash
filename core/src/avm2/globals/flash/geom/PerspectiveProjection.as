@@ -4,13 +4,13 @@ package flash.geom {
     import flash.geom.Point;
 
     public class PerspectiveProjection {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var displayObject:DisplayObject = null;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var fov:Number = 55.0;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var center:Point = new Point(250, 250);
 
         public function PerspectiveProjection() {}

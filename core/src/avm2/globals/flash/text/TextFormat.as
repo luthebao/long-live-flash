@@ -1,5 +1,5 @@
 package flash.text {
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public class TextFormat {
         public function TextFormat(
             font:String = null,

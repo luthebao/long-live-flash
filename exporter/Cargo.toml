@@ -13,8 +13,8 @@ workspace = true
 [dependencies]
 clap = { workspace = true }
 futures = { workspace = true }
-ruffle_core = { path = "../core", features = ["deterministic", "default_font"] }
-ruffle_render_wgpu = { path = "../render/wgpu", features = ["clap"] }
+llflash_core = { path = "../core", features = ["deterministic", "default_font"] }
+llflash_render_wgpu = { path = "../render/wgpu", features = ["clap"] }
 image = { workspace = true, features = ["png"] }
 walkdir = { workspace = true }
 indicatif = { workspace = true }
@@ -22,6 +22,6 @@ rayon = { workspace = true }
 anyhow = { workspace = true }
 
 [features]
-avm_debug = ["ruffle_core/avm_debug"]
-render_debug_labels = ["ruffle_render_wgpu/render_debug_labels"]
-lzma = ["ruffle_core/lzma"]
+avm_debug = ["llflash_core/avm_debug"]
+render_debug_labels = ["llflash_render_wgpu/render_debug_labels"]
+lzma = ["llflash_core/lzma"]

@@ -352,7 +352,7 @@ pub fn deserialize_value_impl<'gc>(
 
             // Now let's add each element as a property
             for element in elements {
-                let name = ruffle_wstr::from_utf8(element.name());
+                let name = llflash_wstr::from_utf8(element.name());
                 let value = deserialize_value_impl(activation, element.value(), object_map)?;
 
                 // If the name of the element was a valid array index, we set an

@@ -20,7 +20,7 @@ use crate::filters::glow::GlowFilter;
 use crate::filters::shader::ShaderFilter;
 use crate::surface::target::CommandTarget;
 use bytemuck::{Pod, Zeroable};
-use ruffle_render::filters::Filter;
+use llflash_render::filters::Filter;
 use wgpu::util::StagingBelt;
 use wgpu::vertex_attr_array;
 

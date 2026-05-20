@@ -1,19 +1,19 @@
 package flash.display {
     [API("662")]
     public final dynamic class ShaderInput {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _channels:int;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _height:int;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _index:int;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _input:Object;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _width:int;
 
         public function get channels():int {

@@ -5,14 +5,14 @@ use crate::player::LaunchOptions;
 use egui::{
     Align2, Button, Checkbox, ComboBox, Grid, Layout, Slider, TextEdit, Ui, Widget, Window, emath,
 };
-use ruffle_core::backend::navigator::SocketMode;
-use ruffle_core::config::Letterbox;
-use ruffle_core::{
+use llflash_core::backend::navigator::SocketMode;
+use llflash_core::config::Letterbox;
+use llflash_core::{
     DEFAULT_PLAYER_VERSION, LoadBehavior, NEWEST_PLAYER_VERSION, PlayerRuntime, StageAlign,
     StageScaleMode,
 };
-use ruffle_frontend_utils::content::ContentDescriptor;
-use ruffle_render::quality::StageQuality;
+use llflash_frontend_utils::content::ContentDescriptor;
+use llflash_render::quality::StageQuality;
 use std::borrow::Cow;
 use std::ops::RangeInclusive;
 use std::time::Duration;

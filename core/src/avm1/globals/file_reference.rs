@@ -13,7 +13,7 @@ use crate::string::AvmString;
 use gc_arena::barrier::unlock;
 use gc_arena::lock::Lock;
 use gc_arena::{Collect, Gc};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use url::Url;
 
 #[derive(Clone, Copy, Collect)]

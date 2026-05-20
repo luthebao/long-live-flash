@@ -7,7 +7,7 @@ package flash.text {
     import flash.display.DisplayObject;
     import flash.geom.Rectangle;
 
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public class TextField extends InteractiveObject {
         internal var _useRichTextClipboard:Boolean;
 

@@ -53,7 +53,7 @@ impl FromStr for Letterbox {
     }
 }
 
-/// The networking API access mode of the Ruffle player.
+/// The networking API access mode of the Llflash player.
 /// This setting is only used on web.
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]

@@ -21,7 +21,7 @@
     user-select: none;
     -webkit-tap-highlight-color: transparent;
 
-    /* Ruffle's width/height CSS interferes with Safari's fullscreen CSS. */
+    /* Llflash's width/height CSS interferes with Safari's fullscreen CSS. */
 
     /* Ensure that Safari's fullscreen mode actually fills the screen. */
     & (:-webkit-full-screen) {

@@ -35,13 +35,13 @@ use core::fmt;
 use gc_arena::barrier::unlock;
 use gc_arena::lock::{Lock, RefLock};
 use gc_arena::{Collect, Gc, Mutation};
-use ruffle_common::utils::HasPrefixField;
-use ruffle_macros::istr;
-use ruffle_render::commands::Command as RenderCommand;
-use ruffle_render::commands::CommandHandler;
-use ruffle_render::quality::StageQuality;
-use ruffle_render::transform::Transform;
-use ruffle_wstr::WStrToUtf8;
+use llflash_common::utils::HasPrefixField;
+use llflash_macros::istr;
+use llflash_render::commands::Command as RenderCommand;
+use llflash_render::commands::CommandHandler;
+use llflash_render::quality::StageQuality;
+use llflash_render::transform::Transform;
+use llflash_wstr::WStrToUtf8;
 use std::cell::{Cell, Ref, RefCell, RefMut};
 use std::collections::VecDeque;
 use std::sync::Arc;
@@ -143,11 +143,11 @@ pub struct EditTextData<'gc> {
     border_color: Cell<Color>,
 
     /// The selected portion of the text, or None if the text is not selected.
-    /// Note: Selections work differently in AVM1, AVM2, and Ruffle.
+    /// Note: Selections work differently in AVM1, AVM2, and Llflash.
     ///
     /// In AVM1, there is one global optional selection. If present, it applies to whatever text field is focused.
     /// In AVM2, every text field has its own mandatory selection.
-    /// In Ruffle, every text field has its own optional selection. This hybrid approach means manually maintaining
+    /// In Llflash, every text field has its own optional selection. This hybrid approach means manually maintaining
     /// the invariants that selection is always None for an unfocused AVM1 field, and never None for an AVM2 field.
     selection: Cell<Option<TextSelection>>,
 
@@ -1961,7 +1961,7 @@ impl<'gc> EditText<'gc> {
     /// This algorithm is based on [UAX #29](https://unicode.org/reports/tr29/).
     fn find_prev_word_boundary(self, pos: usize, stop_on_space: bool) -> usize {
         let head = &self.text()[..pos];
-        if stop_on_space && head.ends_with(ruffle_wstr::utils::swf_is_whitespace) {
+        if stop_on_space && head.ends_with(llflash_wstr::utils::swf_is_whitespace) {
             return pos;
         }
         let to_utf8 = WStrToUtf8::new(head);
@@ -1983,7 +1983,7 @@ impl<'gc> EditText<'gc> {
     /// This algorithm is based on [UAX #29](https://unicode.org/reports/tr29/).
     fn find_next_word_boundary(self, pos: usize, stop_on_space: bool) -> usize {
         let tail = &self.text()[pos..];
-        if stop_on_space && tail.starts_with(ruffle_wstr::utils::swf_is_whitespace) {
+        if stop_on_space && tail.starts_with(llflash_wstr::utils::swf_is_whitespace) {
             return pos;
         }
         let to_utf8 = WStrToUtf8::new(tail);
@@ -2693,7 +2693,7 @@ impl<'gc> TDisplayObject<'gc> for EditText<'gc> {
             let Matrix { a, b, c, d, .. } = context.transform_stack.transform().matrix;
             // Flash does allow small shear. The following value is higher than
             // expected due to the fact that the final calculated shear differs
-            // between Flash and Ruffle, and using a precise value would hide
+            // between Flash and Llflash, and using a precise value would hide
             // some objects that should otherwise be shown.
             const ALLOWED_SHEAR: f32 = 0.006;
             b.abs() < ALLOWED_SHEAR && c.abs() < ALLOWED_SHEAR && a > 0.0 && d > 0.0

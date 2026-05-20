@@ -6,8 +6,8 @@ use crate::avm2::globals::flash::display::bitmap_data::fill_bitmap_data_from_sym
 use crate::avm2::globals::flash::display::display_object::initialize_for_allocator;
 use crate::avm2::object::{BitmapDataObject, ClassObject, Object};
 use crate::avm2::value::Value;
-use ruffle_macros::istr;
-use ruffle_render::bitmap::PixelSnapping;
+use llflash_macros::istr;
+use llflash_render::bitmap::PixelSnapping;
 
 use crate::avm2::error::make_error_2008;
 use crate::avm2::parameters::ParametersExt;

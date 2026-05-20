@@ -1,4 +1,4 @@
-import type { RuffleInstanceBuilder } from "../../dist/ruffle_web";
+import type { RuffleInstanceBuilder } from "../../dist/llflash_web";
 import { BaseLoadOptions, Duration, SecsDuration } from "../public/config";
 
 /**

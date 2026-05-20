@@ -1,6 +1,6 @@
 package {
-    [Ruffle(ConstructOnCall)]
-    [Ruffle(InstanceAllocator)]
+    [Llflash(ConstructOnCall)]
+    [Llflash(InstanceAllocator)]
     public dynamic class Array {
         public static const CASEINSENSITIVE:uint = 1;
         public static const DESCENDING:uint = 2;

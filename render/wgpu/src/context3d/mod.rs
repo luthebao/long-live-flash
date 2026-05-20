@@ -1,10 +1,10 @@
 use naga_agal::AgalError;
-use ruffle_render::backend::{
+use llflash_render::backend::{
     Context3D, Context3DBlendFactor, Context3DCommand, Context3DProfile, Context3DTextureFormat,
     Context3DVertexBufferFormat, IndexBuffer, ProgramType, ShaderModule, VertexBuffer,
 };
-use ruffle_render::bitmap::BitmapHandle;
-use ruffle_render::error::Error;
+use llflash_render::bitmap::BitmapHandle;
+use llflash_render::error::Error;
 use std::any::Any;
 use std::cell::{Cell, RefCell};
 use swf::{Rectangle, Twips};
@@ -324,7 +324,7 @@ pub struct TextureWrapper {
 
 impl IndexBuffer for IndexBufferWrapper {}
 impl VertexBuffer for VertexBufferWrapper {}
-impl ruffle_render::backend::Texture for TextureWrapper {
+impl llflash_render::backend::Texture for TextureWrapper {
     fn width(&self) -> u32 {
         self.texture.width()
     }
@@ -358,7 +358,7 @@ impl Context3D for WgpuContext3D {
 
     fn create_index_buffer(
         &mut self,
-        _ruffle_usage: ruffle_render::backend::BufferUsage,
+        _ruffle_usage: llflash_render::backend::BufferUsage,
         num_indices: u32,
     ) -> Box<dyn IndexBuffer> {
         let size = align_copy_buffer_size(num_indices as usize * std::mem::size_of::<u16>()) as u32;
@@ -376,7 +376,7 @@ impl Context3D for WgpuContext3D {
 
     fn create_vertex_buffer(
         &mut self,
-        _usage: ruffle_render::backend::BufferUsage,
+        _usage: llflash_render::backend::BufferUsage,
         num_vertices: u32,
         data_32_per_vertex: u8,
     ) -> Rc<dyn VertexBuffer> {
@@ -405,10 +405,10 @@ impl Context3D for WgpuContext3D {
         &mut self,
         width: u32,
         height: u32,
-        format: ruffle_render::backend::Context3DTextureFormat,
+        format: llflash_render::backend::Context3DTextureFormat,
         _optimize_for_render_to_texture: bool,
         streaming_levels: u32,
-    ) -> Result<Rc<dyn ruffle_render::backend::Texture>, Error> {
+    ) -> Result<Rc<dyn llflash_render::backend::Texture>, Error> {
         let format = convert_texture_format(format);
 
         // Wgpu doesn't support using this as a render attachment. Hopefully no swfs try
@@ -445,10 +445,10 @@ impl Context3D for WgpuContext3D {
     fn create_cube_texture(
         &mut self,
         size: u32,
-        format: ruffle_render::backend::Context3DTextureFormat,
+        format: llflash_render::backend::Context3DTextureFormat,
         _optimize_for_render_to_texture: bool,
         streaming_levels: u32,
-    ) -> Result<Rc<dyn ruffle_render::backend::Texture>, Error> {
+    ) -> Result<Rc<dyn llflash_render::backend::Texture>, Error> {
         let format = convert_texture_format(format);
 
         if streaming_levels != 0 {

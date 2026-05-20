@@ -7,7 +7,7 @@ use crate::avm2::Multiname;
 use crate::avm2::Value;
 use crate::string::{AvmString, StringContext};
 use gc_arena::{Collect, Gc};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 use super::class::Class;
 

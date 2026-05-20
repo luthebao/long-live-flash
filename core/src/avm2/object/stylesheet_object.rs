@@ -5,8 +5,8 @@ use crate::avm2::object::{ClassObject, Object, TObject};
 use crate::html::{StyleSheet, TextFormat};
 use core::fmt;
 use gc_arena::{Collect, Gc, GcWeak};
-use ruffle_common::utils::HasPrefixField;
-use ruffle_wstr::{WStr, WString};
+use llflash_common::utils::HasPrefixField;
+use llflash_wstr::{WStr, WString};
 
 /// A class instance allocator that allocates StyleSheet objects.
 pub fn style_sheet_allocator<'gc>(

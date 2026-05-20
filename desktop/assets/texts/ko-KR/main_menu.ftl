@@ -5,7 +5,7 @@
 # This is the case for English, but other languages may have other rules or ways of showing this.
 
 
-# Some items may be also be duplicated here, like "About Ruffle" in the menu and "About Ruffle" elsewhere as the header of the about menu.
+# Some items may be also be duplicated here, like "About Llflash" in the menu and "About Llflash" elsewhere as the header of the about menu.
 # This is because some languages may use different wording for one or the other, especially with things like capitalisation.
 
 file-menu = 파일
@@ -28,8 +28,8 @@ help-menu = 도움말
 help-menu-join-discord = 디스코드 참여
 help-menu-report-a-bug = 버그 제보...
 help-menu-sponsor-development = 개발자 후원하기...
-help-menu-translate-ruffle = Ruffle 번역...
-help-menu-about = Ruffle 정보
+help-menu-translate-ruffle = Llflash 번역...
+help-menu-about = Llflash 정보
 bookmarks-menu = 북마크
 bookmarks-menu-add = 추가...
 bookmarks-menu-manage = 북마크 관리...

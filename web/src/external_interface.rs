@@ -1,7 +1,7 @@
 use crate::{CURRENT_CONTEXT, JavascriptPlayer};
 use js_sys::{Array, Object};
-use ruffle_core::context::UpdateContext;
-use ruffle_core::external::{
+use llflash_core::context::UpdateContext;
+use llflash_core::external::{
     ExternalInterfaceProvider, FsCommandProvider, Value as ExternalValue, Value,
 };
 use std::collections::BTreeMap;

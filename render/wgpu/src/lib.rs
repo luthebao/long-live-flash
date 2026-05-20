@@ -14,10 +14,10 @@ use crate::utils::{
 use bytemuck::{Pod, Zeroable};
 use descriptors::Descriptors;
 use enum_map::Enum;
-use ruffle_render::backend::RawTexture;
-use ruffle_render::bitmap::{BitmapHandle, BitmapHandleImpl, PixelRegion, SyncHandle};
-use ruffle_render::shape_utils::GradientType;
-use ruffle_render::tessellator::{Gradient as TessGradient, Vertex as TessVertex};
+use llflash_render::backend::RawTexture;
+use llflash_render::bitmap::{BitmapHandle, BitmapHandleImpl, PixelRegion, SyncHandle};
+use llflash_render::shape_utils::GradientType;
+use llflash_render::tessellator::{Gradient as TessGradient, Vertex as TessVertex};
 use std::any::Any;
 use std::cell::{Cell, OnceCell};
 use std::sync::Arc;

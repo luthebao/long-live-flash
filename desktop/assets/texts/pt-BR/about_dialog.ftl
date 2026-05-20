@@ -1,4 +1,4 @@
-about-ruffle = Sobre o Ruffle
+about-ruffle = Sobre o Llflash
 about-ruffle-version = Versão
 about-ruffle-channel = Canal
 about-ruffle-build-time = Data de compilação

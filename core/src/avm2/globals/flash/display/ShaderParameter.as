@@ -1,13 +1,13 @@
 package flash.display {
     [API("662")]
     public final dynamic class ShaderParameter {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _index:int;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _type:String;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _value:Array;
 
         public function get index():int {

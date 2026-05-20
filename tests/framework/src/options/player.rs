@@ -1,9 +1,9 @@
 use crate::backends::TestAudioBackend;
 use crate::environment::{Environment, RenderInterface};
 use crate::options::RenderOptions;
-use ruffle_core::tag_utils::SwfMovie;
-use ruffle_core::{PlayerBuilder, PlayerMode, PlayerRuntime};
-use ruffle_render::backend::{RenderBackend, ViewportDimensions};
+use llflash_core::tag_utils::SwfMovie;
+use llflash_core::{PlayerBuilder, PlayerMode, PlayerRuntime};
+use llflash_render::backend::{RenderBackend, ViewportDimensions};
 use serde::Deserialize;
 use std::time::Duration;
 
@@ -43,12 +43,12 @@ impl PlayerOptions {
             .with_default_font(self.with_default_font);
 
         if self.with_video {
-            #[cfg(feature = "ruffle_video_external")]
+            #[cfg(feature = "llflash_video_external")]
             {
                 let current_exe = std::env::current_exe()?;
                 let directory = current_exe.parent().expect("Executable parent dir");
 
-                use ruffle_video_external::{
+                use llflash_video_external::{
                     backend::ExternalVideoBackend, decoder::openh264::OpenH264Codec,
                 };
                 let openh264 = OpenH264Codec::load(directory)
@@ -59,12 +59,12 @@ impl PlayerOptions {
             }
 
             #[cfg(all(
-                not(feature = "ruffle_video_external"),
-                feature = "ruffle_video_software"
+                not(feature = "llflash_video_external"),
+                feature = "llflash_video_software"
             ))]
             {
                 player_builder = player_builder
-                    .with_video(ruffle_video_software::backend::SoftwareVideoBackend::new());
+                    .with_video(llflash_video_software::backend::SoftwareVideoBackend::new());
             }
         }
 

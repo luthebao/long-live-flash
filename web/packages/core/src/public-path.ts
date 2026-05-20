@@ -2,7 +2,7 @@ import { BaseLoadOptions } from "./public/config";
 import { currentScriptURL, isExtension } from "./current-script";
 
 /**
- * Attempt to discover the public path of the current Ruffle source. This can
+ * Attempt to discover the public path of the current Llflash source. This can
  * be used to configure Webpack.
  *
  * A global public path can be specified for all sources using the RufflePlayer

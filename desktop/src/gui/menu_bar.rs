@@ -4,12 +4,12 @@ use crate::gui::{DebugMessage, text};
 use crate::player::LaunchOptions;
 use crate::preferences::GlobalPreferences;
 use egui::{Button, Key, KeyboardShortcut, Modifiers, Widget};
-use ruffle_core::config::Letterbox;
-use ruffle_core::focus_tracker::DisplayObject;
-use ruffle_core::{Player, StageScaleMode};
-use ruffle_frontend_utils::content::ContentDescriptor;
-use ruffle_frontend_utils::recents::Recent;
-use ruffle_render::quality::StageQuality;
+use llflash_core::config::Letterbox;
+use llflash_core::focus_tracker::DisplayObject;
+use llflash_core::{Player, StageScaleMode};
+use llflash_frontend_utils::content::ContentDescriptor;
+use llflash_frontend_utils::recents::Recent;
+use llflash_render::quality::StageQuality;
 use unic_langid::LanguageIdentifier;
 use winit::event_loop::EventLoopProxy;
 

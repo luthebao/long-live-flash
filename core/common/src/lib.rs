@@ -1,4 +1,4 @@
-//! Methods and types used across Ruffle
+//! Methods and types used across Llflash
 
 pub mod avm_string;
 pub mod buffer;

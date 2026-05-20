@@ -1,7 +1,7 @@
 use crate::Error;
 use crate::buffer_pool::PoolEntry;
 use crate::utils::BufferDimensions;
-use ruffle_render::bitmap::PixelRegion;
+use llflash_render::bitmap::PixelRegion;
 use std::fmt::Debug;
 use std::ops::Deref;
 use tracing::instrument;

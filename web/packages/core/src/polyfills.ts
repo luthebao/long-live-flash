@@ -10,7 +10,7 @@ const globalConfig: DataLoadOptions | URLLoadOptions | object =
 const jsScriptUrl = publicPath(globalConfig) + "ruffle.js";
 
 /**
- * Polyfill native Flash elements with Ruffle equivalents.
+ * Polyfill native Flash elements with Llflash equivalents.
  *
  * This polyfill isn't fool-proof: If there's a chance site JavaScript has
  * access to a pre-polyfill element, then this will break horribly. We can
@@ -26,7 +26,7 @@ let embeds: HTMLCollectionOf<HTMLEmbedElement>;
  * @returns Whether this browser has a plugin indicating pre-existing Flash support.
  */
 function isFlashEnabledBrowser(): boolean {
-    // If the user sets a configuration value not to favor Flash, pretend the browser does not support Flash so Ruffle takes effect.
+    // If the user sets a configuration value not to favor Flash, pretend the browser does not support Flash so Llflash takes effect.
     if ("favorFlash" in globalConfig && globalConfig["favorFlash"] === false) {
         return false;
     }
@@ -69,7 +69,7 @@ function polyfillFlashInstances(): void {
 }
 
 /**
- * Inject Ruffle into <iframe> and <frame> elements.
+ * Inject Llflash into <iframe> and <frame> elements.
  *
  * This polyfill isn't fool-proof either: On self-hosted builds, it may
  * not work due to browsers CORS policy or be loaded too late for some
@@ -99,14 +99,14 @@ function polyfillFrames(): void {
             const elementWindow = element.contentWindow;
 
             // Cross origin requests may reach an exception, so let's prepare for this eventuality.
-            const errorMessage = `Couldn't load Ruffle into ${element.tagName}[${element.src}]: `;
+            const errorMessage = `Couldn't load Llflash into ${element.tagName}[${element.src}]: `;
             try {
                 if (elementWindow!.document!.readyState === "complete") {
                     injectRuffle(elementWindow!, errorMessage);
                 }
             } catch (err) {
                 if (!isExtension) {
-                    // The web extension should be able to load Ruffle into cross origin frames
+                    // The web extension should be able to load Llflash into cross origin frames
                     // because it has "all_frames" set to true in its manifest.json: RufflePlayer
                     // config won't be injected but it's not worth showing an error.
                     console.warn(errorMessage + err);
@@ -127,7 +127,7 @@ function polyfillFrames(): void {
 
 /**
  * @param elementWindow The (i)frame's window object.
- * @param errorMessage The message to log when Ruffle cannot access the (i)frame's document.
+ * @param errorMessage The message to log when Llflash cannot access the (i)frame's document.
  */
 async function injectRuffle(
     elementWindow: Window,

@@ -3,8 +3,8 @@ use std::{
     sync::{Arc, Mutex},
 };
 
-use ruffle_core::Player;
-use ruffle_render_wgpu::{backend::WgpuRenderBackend, target::TextureTarget};
+use llflash_core::Player;
+use llflash_render_wgpu::{backend::WgpuRenderBackend, target::TextureTarget};
 
 pub trait PlayerExporterExt {
     fn capture_frame(&self) -> Option<image::RgbaImage>;

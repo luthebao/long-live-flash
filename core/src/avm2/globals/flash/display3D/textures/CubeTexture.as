@@ -2,7 +2,7 @@ package flash.display3D.textures {
     import flash.display.BitmapData;
     import flash.utils.ByteArray;
 
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class CubeTexture extends TextureBase {
         [API("674")]
         public native function uploadFromBitmapData(

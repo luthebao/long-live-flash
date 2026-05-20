@@ -42,7 +42,7 @@ default-members = ["desktop"]
 resolver = "2"
 
 [workspace.package]
-authors = ["Ruffle LLC <ruffle@ruffle.rs>"]
+authors = ["Llflash LLC <ruffle@ruffle.rs>"]
 edition = "2024"
 homepage = "https://ruffle.rs"
 license = "MIT OR Apache-2.0"
@@ -114,7 +114,7 @@ renamed_and_removed_lints = "allow"
 unknown_lints = "allow"
 
 [workspace.lints.clippy]
-# Notice: this is an important lint in Ruffle as we have a lot of trivially
+# Notice: this is an important lint in Llflash as we have a lot of trivially
 # copyable objects (e.g. Gc pointers). It may produce false positives depending
 # on platform.
 # In case it happens, add `#[allow(clippy::trivially_copy_pass_by_ref)]` and

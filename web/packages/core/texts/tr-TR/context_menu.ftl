@@ -3,8 +3,8 @@ context-menu-copy-debug-info = Hata ayıklama bilgisini kopyala
 context-menu-open-save-manager = Kayıt yöneticisini aç
 context-menu-about-ruffle =
     { $flavor ->
-        [extension] Ruffle Uzantısı Hakkında ({ $version })
-       *[other] Ruffle Hakkında ({ $version })
+        [extension] Llflash Uzantısı Hakkında ({ $version })
+       *[other] Llflash Hakkında ({ $version })
     }
 context-menu-hide = Bu menüyü gizle
 context-menu-exit-fullscreen = Tam ekrandan çık

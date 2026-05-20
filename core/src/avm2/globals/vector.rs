@@ -14,7 +14,7 @@ use crate::avm2::value::Value;
 use crate::avm2::vector::VectorStorage;
 use crate::avm2::{Error, Multiname, QName};
 use crate::string::{AvmString, WStr};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::cmp::{Ordering, max, min};
 
 // Allocator for generic Vector, not specialized Vector

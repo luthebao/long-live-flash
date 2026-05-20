@@ -5,16 +5,16 @@ package flash.text.engine {
 
     [API("662")]
     public final class FontDescription {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _fontName:String;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _fontWeight:String;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _fontPosture:String;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _fontLookup:String;
 
         private var _renderingMode:String;

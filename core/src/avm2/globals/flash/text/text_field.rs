@@ -11,7 +11,7 @@ use crate::display_object::{AutoSizeMode, EditText, TextSelection};
 use crate::html::TextFormat;
 use crate::string::AvmString;
 use crate::{avm2_stub_getter, avm2_stub_setter};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use swf::{Color, Point};
 
 pub fn text_field_allocator<'gc>(

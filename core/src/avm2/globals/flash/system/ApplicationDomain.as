@@ -1,7 +1,7 @@
 package flash.system {
     import flash.utils.ByteArray;
 
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public final class ApplicationDomain {
         public static native function get currentDomain():ApplicationDomain;
 

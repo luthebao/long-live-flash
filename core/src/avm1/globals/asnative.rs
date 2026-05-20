@@ -3,7 +3,7 @@ use crate::avm1::error::Error;
 use crate::avm1::function::{FunctionObject, TableNativeFunction};
 use crate::avm1::parameters::ParametersExt;
 use crate::avm1::{Attribute, Object, Value};
-use ruffle_common::avm_string::AvmString;
+use llflash_common::avm_string::AvmString;
 
 pub fn asnative<'gc>(
     activation: &mut Activation<'_, 'gc>,

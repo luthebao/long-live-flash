@@ -6,7 +6,7 @@ package flash.geom {
     public class Matrix3D {
         // The 4x4 matrix data, stored in column-major order
         // This is never null.
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _rawData:Vector.<Number>;
 
         public function get rawData():Vector.<Number> {
@@ -221,7 +221,7 @@ package flash.geom {
             }
         }
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         public function transpose():void {
             // This makes a copy of this.rawData
             var oRawData:Vector.<Number> = this.rawData;
@@ -406,7 +406,7 @@ package flash.geom {
             }
         }
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         public function clone():Matrix3D {
             // The constructor will make a copy of this._rawData
             return new Matrix3D(this._rawData);
@@ -430,7 +430,7 @@ package flash.geom {
                 // which we need to reproduce. See the 'matrix3d_compose' test
                 stub_method("flash.geom.Matrix3D", "recompose", "Orientation3D.QUATERNION");
             }
-            // RUFFLE - unlike in OpenFL, we continue on even if some of the 'scale' components are 0
+            // LLFLASH - unlike in OpenFL, we continue on even if some of the 'scale' components are 0
             if (components.length < 3) {
                 return false;
             }

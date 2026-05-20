@@ -5,7 +5,7 @@ use crate::{
 };
 use gc_arena::lock::Lock;
 use gc_arena::{Collect, Gc, Mutation};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 #[derive(Clone, Debug, Collect)]
 #[collect(no_drop)]

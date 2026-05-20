@@ -6,17 +6,17 @@ use toml_edit::{ArrayOfTables, DocumentMut, Item, Table, TableLike, TomlError};
 
 /// A holder over values that may be read and potentially written back to disk.
 ///
-/// Two versions of Ruffle may have different preferences, or different values available for each preference.
+/// Two versions of Llflash may have different preferences, or different values available for each preference.
 /// For this reason, we store both the original toml document *and* the parsed values as we understand them.
 /// Whenever we persist values back to the toml, we only edit the values we changed and leave the remaining
 /// values as they originally were.
-/// This way, switching between different versions will *not* wipe your settings or get Ruffle into an
+/// This way, switching between different versions will *not* wipe your settings or get Llflash into an
 /// invalid state.
 pub struct DocumentHolder<T> {
     /// The original toml document
     toml_document: DocumentMut,
 
-    /// The actual values stored within the toml document, as this version of Ruffle understands them.
+    /// The actual values stored within the toml document, as this version of Llflash understands them.
     inner: T,
 }
 

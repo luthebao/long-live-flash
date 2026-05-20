@@ -9,7 +9,7 @@ use crate::avm2::value::Value;
 use crate::string::{AvmString, WString};
 
 use naga_agal::AgalError;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::borrow::Cow;
 use std::fmt::{Debug, Display};
 use std::mem::size_of;
@@ -32,7 +32,7 @@ enum ErrorData<'gc> {
     AvmError(ErrorObject<'gc>),
 
     /// An internal VM error. This cannot be caught by ActionScript code -
-    /// it will either be logged by Ruffle, or cause the player to
+    /// it will either be logged by Llflash, or cause the player to
     /// stop executing.
     RustError(Box<dyn std::error::Error>),
 }
@@ -2095,8 +2095,8 @@ impl<'gc> From<String> for Error<'gc> {
     }
 }
 
-impl<'gc> From<ruffle_render::error::Error> for Error<'gc> {
-    fn from(val: ruffle_render::error::Error) -> Error<'gc> {
+impl<'gc> From<llflash_render::error::Error> for Error<'gc> {
+    fn from(val: llflash_render::error::Error) -> Error<'gc> {
         Error::rust_error(val.into())
     }
 }

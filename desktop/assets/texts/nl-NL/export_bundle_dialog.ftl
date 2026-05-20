@@ -1,4 +1,4 @@
-export-bundle-dialog-title = Exporteer Ruffle Bundel
+export-bundle-dialog-title = Exporteer Llflash Bundel
 export-bundle-dialog-bundle-name = Bundel naam:
 export-bundle-dialog-files-description = Kies bestanden om te bundelen:
 export-bundle-dialog-files-select-all = Alles selecteren
@@ -8,5 +8,5 @@ export-bundle-dialog-exporting-failed = Export gefaald.
 export-bundle-dialog-error-user-canceled = Geannuleerd door gebruiker.
 export-bundle-dialog-error-failed-to-show-picker = Bestandskiezer kan niet getoond worden.
 export-bundle-dialog-error-io-error = Fout bij het schrijven van Bundel.
-export-bundle-dialog-info-title = Wat is een Ruffle bundel?
-export-bundle-dialog-info-description = Een Ruffle Bundel is een universeel pakket dat alle benodigde elementen bevat om een SWF-bestand uit te voeren — alle benodigde objecten en configuraties. Met een Bundel werkt een SWF direct: geen missende bestanden, geen handmatig instellen; zet het aan en het werkt.
+export-bundle-dialog-info-title = Wat is een Llflash bundel?
+export-bundle-dialog-info-description = Een Llflash Bundel is een universeel pakket dat alle benodigde elementen bevat om een SWF-bestand uit te voeren — alle benodigde objecten en configuraties. Met een Bundel werkt een SWF direct: geen missende bestanden, geen handmatig instellen; zet het aan en het werkt.

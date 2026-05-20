@@ -2,7 +2,7 @@ package flash.text {
     import __ruffle__.stub_method;
     import __ruffle__.stub_getter;
 
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public class TextSnapshot {
         public function get charCount():int {
             stub_getter("flash.text.TextSnapshot", "charCount");

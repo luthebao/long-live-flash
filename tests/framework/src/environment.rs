@@ -1,6 +1,6 @@
 use crate::options::RenderOptions;
 
-pub use ruffle_render::backend::RenderBackend;
+pub use llflash_render::backend::RenderBackend;
 
 /// How tests should be compiled, if at all
 #[derive(Debug, Clone, Copy, PartialEq)]

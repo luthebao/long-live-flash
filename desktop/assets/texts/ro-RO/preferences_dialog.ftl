@@ -1,4 +1,4 @@
-preferences-dialog = Preferințe Ruffle
+preferences-dialog = Preferințe Llflash
 preference-locked-by-cli = Numai citire (setat de CLI)
 graphics-backend = Grafică backend
 graphics-backend-default = Prestabilit
@@ -26,8 +26,8 @@ theme-dark = Întuneric
 # See for context https://github.com/FeralInteractive/gamemode
 gamemode = GameMode
 gamemode-tooltip =
-    GameMode aplică temporar un set de optimizări computerului și/sau aplicației Ruffle.
-    Ruffle solicită GameMode atunci când se redă un film.
+    GameMode aplică temporar un set de optimizări computerului și/sau aplicației Llflash.
+    Llflash solicită GameMode atunci când se redă un film.
 gamemode-default = Prestabilit
 gamemode-default-tooltip = GameMode va fi activat numai când preferința de alimentare este setată la maxim.
 # See for context https://wiki.archlinux.org/title/Input_method

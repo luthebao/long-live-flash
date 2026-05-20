@@ -10,7 +10,7 @@ use crate::string::AvmString;
 
 use async_channel::{Receiver, Sender, unbounded};
 use gc_arena::Collect;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use slotmap::{SlotMap, new_key_type};
 use std::{
     cell::{Cell, RefCell},

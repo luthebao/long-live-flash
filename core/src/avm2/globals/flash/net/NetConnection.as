@@ -2,7 +2,7 @@ package flash.net {
     import flash.events.EventDispatcher;
     import flash.errors.IOError;
 
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public class NetConnection extends EventDispatcher {
         public static var defaultObjectEncoding:uint = 3;
 

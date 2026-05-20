@@ -1,4 +1,4 @@
-//! Tests running SWFs in a headless Ruffle instance.
+//! Tests running SWFs in a headless Llflash instance.
 //!
 //! Trace output can be compared with correct output from the official Flash Player.
 
@@ -8,12 +8,12 @@ use crate::shared_object::{shared_object_avm1, shared_object_avm2, shared_object
 use anyhow::Context;
 use clap::Parser;
 use libtest_mimic::{Arguments, Trial};
-use ruffle_fs_tests_runner::FsTestsRunner;
-use ruffle_test_framework::environment::CompileMode;
-use ruffle_test_framework::options::TestOptions;
-use ruffle_test_framework::runner::TestStatus;
-use ruffle_test_framework::test::Test;
-use ruffle_test_framework::vfs::VfsPath;
+use llflash_fs_tests_runner::FsTestsRunner;
+use llflash_test_framework::environment::CompileMode;
+use llflash_test_framework::options::TestOptions;
+use llflash_test_framework::runner::TestStatus;
+use llflash_test_framework::test::Test;
+use llflash_test_framework::vfs::VfsPath;
 use std::borrow::Cow;
 use std::path::PathBuf;
 use std::sync::Arc;
@@ -25,7 +25,7 @@ mod shared_object;
 
 const TEST_TOML_NAME: &str = "test.toml";
 
-/// CLI options for running Ruffle tests, separate from cargo test's interface.
+/// CLI options for running Llflash tests, separate from cargo test's interface.
 #[derive(Parser, Debug, Clone)]
 struct RuffleTestOpts {
     /// Ignore tests that are known to be failing

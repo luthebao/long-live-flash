@@ -15,9 +15,9 @@ use core::fmt;
 use gc_arena::barrier::unlock;
 use gc_arena::lock::Lock;
 use gc_arena::{Collect, Gc, Mutation};
-use ruffle_common::utils::HasPrefixField;
-use ruffle_render::backend::ShapeHandle;
-use ruffle_render::commands::CommandHandler;
+use llflash_common::utils::HasPrefixField;
+use llflash_render::backend::ShapeHandle;
+use llflash_render::commands::CommandHandler;
 use std::cell::{OnceCell, RefCell, RefMut};
 use std::sync::Arc;
 
@@ -285,7 +285,7 @@ impl<'gc> TDisplayObject<'gc> for Graphic<'gc> {
                 }
             } else {
                 let shape = &self.0.shared.get().shape;
-                return ruffle_render::shape_utils::shape_hit_test(shape, point, &local_matrix);
+                return llflash_render::shape_utils::shape_hit_test(shape, point, &local_matrix);
             }
         }
 

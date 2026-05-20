@@ -1,9 +1,9 @@
 package flash.net {
     public final class URLRequestHeader {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var name:String;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var value:String;
 
         public function URLRequestHeader(name:String = "", value:String = "") {

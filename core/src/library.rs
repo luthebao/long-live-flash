@@ -10,9 +10,9 @@ use crate::string::AvmString;
 use crate::tag_utils::SwfMovie;
 use gc_arena::collect::Trace;
 use gc_arena::{Collect, Mutation};
-use ruffle_render::backend::RenderBackend;
-use ruffle_render::bitmap::BitmapHandle;
-use ruffle_render::utils::remove_invalid_jpeg_data;
+use llflash_render::backend::RenderBackend;
+use llflash_render::bitmap::BitmapHandle;
+use llflash_render::utils::remove_invalid_jpeg_data;
 
 use crate::backend::ui::{FontDefinition, UiBackend};
 use crate::font::DefaultFont;
@@ -368,8 +368,8 @@ pub struct MovieLibrarySource<'a, 'gc> {
     pub library: &'a MovieLibrary<'gc>,
 }
 
-impl ruffle_render::bitmap::BitmapSource for MovieLibrarySource<'_, '_> {
-    fn bitmap_size(&self, id: u16) -> Option<ruffle_render::bitmap::BitmapSize> {
+impl llflash_render::bitmap::BitmapSource for MovieLibrarySource<'_, '_> {
+    fn bitmap_size(&self, id: u16) -> Option<llflash_render::bitmap::BitmapSize> {
         if let Some(Character::Bitmap(bitmap)) = self.library.characters.get(&id) {
             Some(bitmap.compressed().size())
         } else {

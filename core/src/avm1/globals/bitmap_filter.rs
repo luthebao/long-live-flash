@@ -14,8 +14,8 @@ use crate::avm1::object::NativeObject;
 use crate::avm1::property_decl::{DeclContext, StaticDeclarations, SystemClass};
 use crate::avm1::{Object, Value};
 use crate::context::UpdateContext;
-use ruffle_macros::istr;
-use ruffle_render::filters::Filter;
+use llflash_macros::istr;
+use llflash_render::filters::Filter;
 
 const PROTO_DECLS: StaticDeclarations = declare_static_properties! {
     "clone" => method(clone);

@@ -1,4 +1,4 @@
-about-ruffle = Про Ruffle
+about-ruffle = Про Llflash
 about-ruffle-version = Версія
 about-ruffle-channel = Канал
 about-ruffle-build-time = Час збірки

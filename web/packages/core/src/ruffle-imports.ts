@@ -1,5 +1,5 @@
 /**
- * Functions imported from JS into Ruffle.
+ * Functions imported from JS into Llflash.
  *
  * @ignore
  * @internal

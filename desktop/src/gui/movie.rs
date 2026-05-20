@@ -1,6 +1,6 @@
 use crate::gui::MENU_HEIGHT;
-use ruffle_render_wgpu::descriptors::Descriptors;
-use ruffle_render_wgpu::target::{RenderTarget, RenderTargetFrame};
+use llflash_render_wgpu::descriptors::Descriptors;
+use llflash_render_wgpu::target::{RenderTarget, RenderTargetFrame};
 use std::borrow::Cow;
 use std::sync::Arc;
 use wgpu::util::DeviceExt;

@@ -1,4 +1,4 @@
-preferences-dialog = Ruffle偏好設定
+preferences-dialog = Llflash偏好設定
 preference-locked-by-cli = 唯讀 (CLI設定)
 graphics-backend = 圖形顯示後端
 graphics-backend-default = 預設
@@ -26,8 +26,8 @@ theme-dark = 黑暗
 # See for context https://github.com/FeralInteractive/gamemode
 gamemode = GameMode
 gamemode-tooltip =
-    GameMode 會暫時為您的電腦和/或 Ruffle 套用一套最佳化功能。
-    只有在播放動畫時，Ruffle 才會要求 GameMode。
+    GameMode 會暫時為您的電腦和/或 Llflash 套用一套最佳化功能。
+    只有在播放動畫時，Llflash 才會要求 GameMode。
 gamemode-default = 預設
 gamemode-default-tooltip = 僅當電源偏好設定為高電源時，才會啟用 GameMode。
 # See for context https://wiki.archlinux.org/title/Input_method

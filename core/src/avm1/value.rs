@@ -10,7 +10,7 @@ use crate::ecma_conversions::{
 };
 use crate::string::{AvmAtom, AvmString, Integer, WStr};
 use gc_arena::Collect;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::{io::Write, mem::size_of, num::Wrapping};
 
 use super::object_reference::MovieClipReference;
@@ -975,7 +975,7 @@ mod test {
     use crate::avm1::property::Attribute;
     use crate::avm1::test_utils::with_avm;
     use crate::string::AvmString;
-    use ruffle_macros::istr;
+    use llflash_macros::istr;
 
     #[test]
     fn to_primitive_num() {

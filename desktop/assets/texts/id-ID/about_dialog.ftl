@@ -1,4 +1,4 @@
-about-ruffle = Tentang Ruffle
+about-ruffle = Tentang Llflash
 about-ruffle-version = Versi
 about-ruffle-channel = Saluran
 about-ruffle-build-time = Waktu Pembuatan

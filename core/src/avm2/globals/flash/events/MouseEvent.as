@@ -32,10 +32,10 @@ package flash.events {
         private var _isRelatedObjectInaccessible:Boolean;
         private var _relatedObject:InteractiveObject;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _localX:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _localY:Number;
 
         private var _delta:int;

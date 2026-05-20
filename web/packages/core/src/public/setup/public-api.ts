@@ -16,7 +16,7 @@ declare global {
 }
 
 /**
- * Represents a potential installation of a Ruffle public API.
+ * Represents a potential installation of a Llflash public API.
  *
  * Unlike {@link PublicAPI}, this may come from any source, past or future.
  * It needs to be forwards compatible and convertible into a modern day {@link PublicAPI}.
@@ -31,11 +31,11 @@ export interface PublicAPILike {
 }
 
 /**
- * Represents the Ruffle public API.
+ * Represents the Llflash public API.
  *
- * The public API exists primarily to allow multiple installations of Ruffle on a
+ * The public API exists primarily to allow multiple installations of Llflash on a
  * page (e.g. an extension install and a local one) to cooperate. In an ideal
- * situation, all Ruffle sources on the page install themselves into a single
+ * situation, all Llflash sources on the page install themselves into a single
  * public API, and then the public API picks the newest version by default.
  *
  * This API *is* versioned, in case we need to upgrade it. However, it must be
@@ -43,7 +43,7 @@ export interface PublicAPILike {
  */
 export class PublicAPI implements PublicAPILike {
     /**
-     * The configuration object used when Ruffle is instantiated.
+     * The configuration object used when Llflash is instantiated.
      */
     config: DataLoadOptions | URLLoadOptions | object;
     sources: Record<string, SourceAPI>;
@@ -51,13 +51,13 @@ export class PublicAPI implements PublicAPILike {
     newestName: string | null;
 
     /**
-     * Construct the Ruffle public API.
+     * Construct the Llflash public API.
      *
      * Do not use this function to negotiate a public API. Instead, use
-     * `public_api` to register your Ruffle source with an existing public API
+     * `public_api` to register your Llflash source with an existing public API
      * if it exists.
      *
-     * Constructing a Public API will also trigger it to initialize Ruffle once
+     * Constructing a Public API will also trigger it to initialize Llflash once
      * the page loads, if the API has not already been superseded.
      *
      * @param prev What used to be in the public API slot.
@@ -85,12 +85,12 @@ export class PublicAPI implements PublicAPILike {
     /**
      * The version of the public API.
      *
-     * This is *not* the version of Ruffle itself.
+     * This is *not* the version of Llflash itself.
      *
      * This allows a page with an old version of the Public API to be upgraded
      * to a new version of the API. The public API is intended to be changed
      * very infrequently, if at all, but this provides an escape mechanism for
-     * newer Ruffle sources to upgrade older installations.
+     * newer Llflash sources to upgrade older installations.
      *
      * @returns The version of this public API.
      */
@@ -122,7 +122,7 @@ export class PublicAPI implements PublicAPILike {
     }
 
     /**
-     * Negotiate and start Ruffle.
+     * Negotiate and start Llflash.
      *
      * This function reads the config parameter to determine which polyfills
      * should be enabled. If the configuration parameter is missing, then we
@@ -135,7 +135,7 @@ export class PublicAPI implements PublicAPILike {
             this.newestName = this.newestSourceName();
 
             if (this.newestName === null) {
-                throw new Error("No registered Ruffle source!");
+                throw new Error("No registered Llflash source!");
             }
 
             const polyfills =
@@ -147,7 +147,7 @@ export class PublicAPI implements PublicAPILike {
     }
 
     /**
-     * Look up the newest Ruffle source and return it's API.
+     * Look up the newest Llflash source and return it's API.
      *
      * @returns An instance of the Source API.
      */
@@ -157,7 +157,7 @@ export class PublicAPI implements PublicAPILike {
     }
 
     /**
-     * Look up a specific Ruffle version (or any version satisfying a given set
+     * Look up a specific Llflash version (or any version satisfying a given set
      * of requirements) and return it's API.
      *
      * @param requirementString A set of semantic version requirement
@@ -184,7 +184,7 @@ export class PublicAPI implements PublicAPILike {
     }
 
     /**
-     * Look up the newest Ruffle version compatible with the `local` source, if
+     * Look up the newest Llflash version compatible with the `local` source, if
      * it's installed. Otherwise, use the latest version.
      *
      * @returns An instance of the Source API
@@ -198,7 +198,7 @@ export class PublicAPI implements PublicAPILike {
     }
 
     /**
-     * Look up the newest Ruffle version with the exact same version as the
+     * Look up the newest Llflash version with the exact same version as the
      * `local` source, if it's installed. Otherwise, use the latest version.
      *
      * @returns An instance of the Source API

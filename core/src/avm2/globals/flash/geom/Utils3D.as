@@ -1,5 +1,5 @@
 package flash.geom {
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public class Utils3D {
         public static function projectVector(m:Matrix3D, v:Vector3D):Vector3D {
             var projected = m.transformVector(v);

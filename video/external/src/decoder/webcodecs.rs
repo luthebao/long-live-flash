@@ -4,9 +4,9 @@ use std::sync::Arc;
 
 use crate::decoder::VideoDecoder;
 
-use ruffle_render::bitmap::BitmapFormat;
-use ruffle_video::error::Error;
-use ruffle_video::frame::{DecodedFrame, EncodedFrame, FrameDependency};
+use llflash_render::bitmap::BitmapFormat;
+use llflash_video::error::Error;
+use llflash_video::frame::{DecodedFrame, EncodedFrame, FrameDependency};
 
 use js_sys::Uint8Array;
 use tracing::{debug, error, trace, warn};

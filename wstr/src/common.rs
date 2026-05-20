@@ -12,7 +12,7 @@ pub struct WStr {
 
 #[cold]
 pub fn panic_on_invalid_length(len: usize) -> ! {
-    panic!("Too many code units in Ruffle string (len = {})", len)
+    panic!("Too many code units in Llflash string (len = {})", len)
 }
 
 /// A raw string buffer containing `u8` or `u16` code units.

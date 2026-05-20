@@ -1,5 +1,5 @@
 [package]
-name = "ruffle_core"
+name = "llflash_core"
 authors.workspace = true
 edition.workspace = true
 homepage.workspace = true
@@ -20,12 +20,12 @@ gc-arena = { workspace = true }
 slotmap = { workspace = true }
 indexmap = { workspace = true }
 tracing = { workspace = true }
-ruffle_common = { path = "common" }
-ruffle_macros = { path = "macros" }
+llflash_common = { path = "common" }
+llflash_macros = { path = "macros" }
 naga-agal = { path = "../render/naga-agal" }
-ruffle_render = { path = "../render", features = ["tessellator"] }
-ruffle_video = { path = "../video" }
-ruffle_wstr = { path = "../wstr" }
+llflash_render = { path = "../render", features = ["tessellator"] }
+llflash_video = { path = "../video" }
+llflash_wstr = { path = "../wstr" }
 swf = { path = "../swf" }
 bitflags = { workspace = true }
 smallvec = { workspace = true }

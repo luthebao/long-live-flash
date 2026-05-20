@@ -6,7 +6,7 @@ use crate::avm1::object::NativeObject;
 use crate::avm1::property_decl::{DeclContext, StaticDeclarations, SystemClass};
 use crate::avm1::{Activation, ArrayBuilder, Error, Object, Value};
 use gc_arena::{Collect, Gc, Mutation};
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use std::cell::{Cell, RefCell};
 use swf::{Color, Fixed8, Fixed16, GradientFilterFlags, GradientRecord};
 

@@ -6,7 +6,7 @@ use core::fmt;
 use gc_arena::collect::Trace;
 use gc_arena::{Collect, Gc, GcWeak, Mutation};
 use hashbrown::HashTable;
-use ruffle_wstr::WStr;
+use llflash_wstr::WStr;
 use std::borrow::Borrow;
 use std::cell::RefCell;
 use std::hash::{BuildHasher, Hash, Hasher};

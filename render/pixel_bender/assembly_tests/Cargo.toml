@@ -12,7 +12,7 @@ workspace = true
 
 [dev-dependencies]
 pixel_bender = { path = "..", features = ["assembly"]}
-ruffle_fs_tests_runner = { path = "../../../tests/fs-tests-runner" }
+llflash_fs_tests_runner = { path = "../../../tests/fs-tests-runner" }
 libtest-mimic = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 toml = { workspace = true }

@@ -1,5 +1,5 @@
 package flash.net.drm {
     [API("667")]
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     public final class DRMManager {}
 }

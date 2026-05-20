@@ -5,31 +5,31 @@ package flash.filters {
     public final class DisplacementMapFilter extends BitmapFilter {
         // FIXME these should all be getters/setters to match Flash
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var alpha:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var color:uint;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var componentX:uint;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var componentY:uint;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var mapBitmap:BitmapData;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var mapPoint:Point;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var mode:String;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var scaleX:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var scaleY:Number;
 
         public function DisplacementMapFilter(

@@ -8,12 +8,12 @@ use crate::util::{
 };
 use anyhow::Error;
 use gilrs::{Event, EventType, Gilrs};
-use ruffle_core::FloatDuration;
-use ruffle_core::PlayerEvent;
-use ruffle_core::events::{ImeEvent, ImeNotification, PlayerNotification};
-use ruffle_core::swf::HeaderExt;
-use ruffle_frontend_utils::content::ContentDescriptor;
-use ruffle_render::backend::ViewportDimensions;
+use llflash_core::FloatDuration;
+use llflash_core::PlayerEvent;
+use llflash_core::events::{ImeEvent, ImeNotification, PlayerNotification};
+use llflash_core::swf::HeaderExt;
+use llflash_frontend_utils::content::ContentDescriptor;
+use llflash_render::backend::ViewportDimensions;
 use std::sync::Arc;
 use std::time::Instant;
 use winit::application::ApplicationHandler;
@@ -125,7 +125,7 @@ impl MainWindow {
                     return;
                 }
 
-                use ruffle_core::events::MouseButton as RuffleMouseButton;
+                use llflash_core::events::MouseButton as RuffleMouseButton;
                 use winit::event::MouseButton;
                 let (x, y) = self.gui.window_to_movie_position(self.mouse_pos);
                 let button = match button {
@@ -169,7 +169,7 @@ impl MainWindow {
                     return;
                 }
 
-                use ruffle_core::events::MouseWheelDelta;
+                use llflash_core::events::MouseWheelDelta;
                 use winit::event::MouseScrollDelta;
                 let delta = match delta {
                     MouseScrollDelta::LineDelta(_, dy) => MouseWheelDelta::Lines(dy.into()),
@@ -379,27 +379,27 @@ impl MainWindow {
                 self.time = new_time;
                 self.next_frame_time = self.player.get().map(|mut player| {
                     // Drain any inbound RTMP events posted by the
-                    // ruffle_rtmp worker/reader threads and dispatch them
+                    // llflash_rtmp worker/reader threads and dispatch them
                     // into AS3 *before* the tick — so Connect.Success,
                     // call responses, and server invokes are visible on
                     // this frame, mirroring the capi tick pattern.
-                    let rtmp_events = ruffle_rtmp::drain();
+                    let rtmp_events = llflash_rtmp::drain();
                     if !rtmp_events.is_empty() {
                         player.update(|context| {
                             for ev in rtmp_events {
                                 match ev {
-                                    ruffle_rtmp::InboundEvent::Status { handle, code, level } => {
-                                        ruffle_core::net_connection::NetConnections::dispatch_rtmp_status(
+                                    llflash_rtmp::InboundEvent::Status { handle, code, level } => {
+                                        llflash_core::net_connection::NetConnections::dispatch_rtmp_status(
                                             context, handle, &code, &level,
                                         );
                                     }
-                                    ruffle_rtmp::InboundEvent::CallResult { handle, txid, is_error, body_amf } => {
-                                        ruffle_core::net_connection::NetConnections::dispatch_rtmp_call_result(
+                                    llflash_rtmp::InboundEvent::CallResult { handle, txid, is_error, body_amf } => {
+                                        llflash_core::net_connection::NetConnections::dispatch_rtmp_call_result(
                                             context, handle, txid, is_error, &body_amf,
                                         );
                                     }
-                                    ruffle_rtmp::InboundEvent::ServerCall { handle, method, args_amf } => {
-                                        ruffle_core::net_connection::NetConnections::dispatch_rtmp_server_call(
+                                    llflash_rtmp::InboundEvent::ServerCall { handle, method, args_amf } => {
+                                        llflash_core::net_connection::NetConnections::dispatch_rtmp_server_call(
                                             context, handle, &method, &args_amf,
                                         );
                                     }
@@ -493,7 +493,7 @@ impl ApplicationHandler<RuffleEvent> for App {
             #[cfg_attr(not(target_os = "linux"), allow(unused_mut))]
             let mut window_attributes = WindowAttributes::default()
                 .with_visible(false)
-                .with_title("Ruffle")
+                .with_title("Llflash")
                 .with_window_icon(Some(icon))
                 .with_min_inner_size(min_window_size);
 
@@ -503,7 +503,7 @@ impl ApplicationHandler<RuffleEvent> for App {
                     self, EventLoopExtStartupNotify, WindowAttributesExtStartupNotify,
                 };
                 use winit::platform::wayland::WindowAttributesExtWayland;
-                window_attributes = window_attributes.with_name("rs.ruffle.Ruffle", "main");
+                window_attributes = window_attributes.with_name("rs.ruffle.Llflash", "main");
                 if let Some(token) = event_loop.read_token_from_env() {
                     startup_notify::reset_activation_token_env();
                     window_attributes = window_attributes.with_activation_token(token);
@@ -632,7 +632,7 @@ impl ApplicationHandler<RuffleEvent> for App {
             }
 
             (Some(main_window), RuffleEvent::CloseFile) => {
-                main_window.gui.window().set_title("Ruffle"); // Reset title since file has been closed.
+                main_window.gui.window().set_title("Llflash"); // Reset title since file has been closed.
                 main_window.gui.close_movie(&mut main_window.player);
             }
 

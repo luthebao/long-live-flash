@@ -1,7 +1,7 @@
 {
     "name": "ruffle-core",
     "version": "0.2.0-nightly.2026.5.15",
-    "description": "Core bindings for Ruffle",
+    "description": "Core bindings for Llflash",
     "license": "(MIT OR Apache-2.0)",
     "private": true,
     "main": "dist/index.js",

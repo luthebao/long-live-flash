@@ -13,7 +13,7 @@ pub enum Error {
     VideoStreamIsNotRegistered,
 
     #[error("Couldn't create bitmap for video frame")]
-    BitmapError(#[from] ruffle_render::error::Error),
+    BitmapError(#[from] llflash_render::error::Error),
 
     #[error("Video decoding isn't supported")]
     DecodingNotSupported,

@@ -2,8 +2,8 @@ use crate::VideoStreamHandle;
 use crate::backend::VideoBackend;
 use crate::error::Error;
 use crate::frame::{EncodedFrame, FrameDependency};
-use ruffle_render::backend::RenderBackend;
-use ruffle_render::bitmap::BitmapInfo;
+use llflash_render::backend::RenderBackend;
+use llflash_render::bitmap::BitmapInfo;
 use slotmap::SlotMap;
 use swf::{VideoCodec, VideoDeblocking};
 

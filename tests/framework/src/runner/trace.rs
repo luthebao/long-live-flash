@@ -61,7 +61,7 @@ pub fn compare_trace_output(
                     .create_file()?
                     .write_all(actual_trace.as_bytes())?;
                 return Err(anyhow!(
-                    "No trace to compare to! Saved actual trace as Ruffle-expected."
+                    "No trace to compare to! Saved actual trace as Llflash-expected."
                 ));
             };
 

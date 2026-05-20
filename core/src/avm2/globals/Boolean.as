@@ -1,6 +1,6 @@
 package {
-    [Ruffle(CustomConstructor)]
-    [Ruffle(CallHandler)]
+    [Llflash(CustomConstructor)]
+    [Llflash(CallHandler)]
     public final class Boolean {
         public function Boolean(value:* = void 0) {
             // The Boolean constructor is implemented natively:

@@ -2,7 +2,7 @@ use crate::avm2::globals::methods::flash_events_event_dispatcher as event_dispat
 use crate::avm2::object::{Context3DObject, EventObject};
 use crate::avm2::parameters::ParametersExt;
 use crate::avm2::{Activation, Error, Value};
-use ruffle_render::backend::Context3DProfile;
+use llflash_render::backend::Context3DProfile;
 
 const PROFILES_HIGH_TO_LOW: &[(&[u8], Context3DProfile)] = [
     (

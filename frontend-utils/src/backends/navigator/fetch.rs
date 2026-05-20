@@ -1,7 +1,7 @@
 use reqwest::Response as ReqwestResponse;
-use ruffle_core::backend::navigator::{OwnedFuture, SuccessResponse};
-use ruffle_core::loader::Error;
-use ruffle_core::swf::Encoding;
+use llflash_core::backend::navigator::{OwnedFuture, SuccessResponse};
+use llflash_core::loader::Error;
+use llflash_core::swf::Encoding;
 use std::sync::{Arc, Mutex};
 
 pub enum ResponseBody {

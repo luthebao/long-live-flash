@@ -10,7 +10,7 @@ use crate::string::{AvmString, WStr};
 
 pub use crate::avm2::object::textformat_allocator as text_format_allocator;
 
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 pub fn get_align<'gc>(
     activation: &mut Activation<'_, 'gc>,

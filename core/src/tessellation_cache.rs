@@ -1,4 +1,4 @@
-use ruffle_render::backend::ShapeHandle;
+use llflash_render::backend::ShapeHandle;
 
 /// The scale ratio threshold beyond which a graphic or a drawing will be retessellated.
 const RETESSELLATION_SCALE_THRESHOLD: f32 = 2.0;

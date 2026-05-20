@@ -45,7 +45,7 @@ impl<'gc> CallStack<'gc> {
 
                 // NOTE: We intentionally diverge from Flash Player's output
                 // here - everything with the [] brackets is extra information
-                // added by Ruffle
+                // added by Llflash
                 output.push_utf8(&format!("global$init() [TU={name}]"));
             } else {
                 display_function(output, *method);

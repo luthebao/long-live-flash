@@ -3,7 +3,7 @@ use crate::avm2::parameters::ParametersExt;
 use crate::avm2::{Activation, Error, Value};
 use crate::html::{CssStream, transform_dashes_to_camel_case};
 use crate::string::AvmString;
-use ruffle_wstr::WStr;
+use llflash_wstr::WStr;
 
 pub use crate::avm2::object::style_sheet_allocator;
 

@@ -22,7 +22,7 @@ use crate::html::TextFormat;
 use crate::streams::NetStream;
 use crate::string::AvmString;
 use gc_arena::{Collect, Gc, GcWeak, Mutation};
-use ruffle_macros::enum_trait_object;
+use llflash_macros::enum_trait_object;
 use std::cell::{Ref, RefMut};
 use std::fmt::Debug;
 use std::hash::{Hash, Hasher};

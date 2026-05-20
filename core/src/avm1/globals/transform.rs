@@ -9,7 +9,7 @@ use crate::avm1::{Activation, Error, Object, Value};
 use crate::display_object::{BoundsMode, DisplayObject, TDisplayObject};
 use crate::string::AvmString;
 use gc_arena::Collect;
-use ruffle_macros::istr;
+use llflash_macros::istr;
 use swf::{Rectangle, Twips};
 
 #[derive(Copy, Clone, Debug, Collect)]

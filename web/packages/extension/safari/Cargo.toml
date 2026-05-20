@@ -1,5 +1,5 @@
 [package]
-name = "ruffle_web_safari"
+name = "llflash_web_safari"
 description = "Native binary for the Safari Web Extension"
 authors.workspace = true
 edition.workspace = true

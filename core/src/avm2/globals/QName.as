@@ -1,6 +1,6 @@
 package {
-    [Ruffle(CustomConstructor)]
-    [Ruffle(CallHandler)]
+    [Llflash(CustomConstructor)]
+    [Llflash(CallHandler)]
     public final class QName {
         public static const length:* = 2;
 
@@ -9,13 +9,13 @@ package {
             // this AS-defined method does nothing
         }
 
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         public native function get localName():String;
 
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         public native function get uri():*;
 
-        [Ruffle(FastCall)]
+        [Llflash(FastCall)]
         AS3 native function toString():String;
 
         AS3 function valueOf():QName {

@@ -1,27 +1,27 @@
 package flash.ui {
     public final class ContextMenuBuiltInItems {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _forwardAndBack:Boolean = true;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _loop:Boolean = true;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _play:Boolean = true;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _print:Boolean = true;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _quality:Boolean = true;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _rewind:Boolean = true;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _save:Boolean = true;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _zoom:Boolean = true;
 
         public function get forwardAndBack():Boolean {

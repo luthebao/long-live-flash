@@ -16,7 +16,7 @@ use crate::string::AvmString;
 use gc_arena::barrier::unlock;
 use gc_arena::lock::{Lock, OnceLock, RefLock};
 use gc_arena::{Collect, Gc, GcWeak, Mutation};
-use ruffle_wstr::WStr;
+use llflash_wstr::WStr;
 
 /// Represents a set of scripts and movies that share traits across different
 /// script-global scopes.

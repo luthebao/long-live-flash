@@ -2,11 +2,11 @@
 // written by Kostya Shishkov, with permission.
 
 use crate::decoder::VideoDecoder;
-use ruffle_render::bitmap::BitmapFormat;
-use ruffle_video::error::Error;
+use llflash_render::bitmap::BitmapFormat;
+use llflash_video::error::Error;
 
 use flate2::Decompress;
-use ruffle_video::frame::{DecodedFrame, EncodedFrame, FrameDependency};
+use llflash_video::frame::{DecodedFrame, EncodedFrame, FrameDependency};
 
 #[derive(thiserror::Error, Debug)]
 pub enum ScreenError {

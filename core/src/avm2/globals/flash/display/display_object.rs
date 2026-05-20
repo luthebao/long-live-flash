@@ -23,8 +23,8 @@ use crate::string::AvmString;
 use crate::types::{Degrees, Percent};
 use crate::vminterface::Instantiator;
 use crate::{avm2_stub_getter, avm2_stub_setter};
-use ruffle_render::blend::ExtendedBlendMode;
-use ruffle_render::filters::Filter;
+use llflash_render::blend::ExtendedBlendMode;
+use llflash_render::filters::Filter;
 use std::str::FromStr;
 
 /// Initializes a DisplayObject created from ActionScript.

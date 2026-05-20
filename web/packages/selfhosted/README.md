@@ -1,32 +1,32 @@
 # ruffle-selfhosted
 
-ruffle-selfhosted is the intended way to get Ruffle onto your website.
+ruffle-selfhosted is the intended way to get Llflash onto your website.
 
 You may either include it and forget about it, and we will polyfill existing Flash content,
-or use our APIs for custom configurations or more advanced usages of the Ruffle player.
+or use our APIs for custom configurations or more advanced usages of the Llflash player.
 
 ## Using ruffle-selfhosted
 
-For more examples and in-depth documentation on how to use Ruffle on your website, please
-[check out our wiki](https://github.com/ruffle-rs/ruffle/wiki/Using-Ruffle#web).
+For more examples and in-depth documentation on how to use Llflash on your website, please
+[check out our wiki](https://github.com/ruffle-rs/ruffle/wiki/Using-Llflash#web).
 
-### Host Ruffle
+### Host Llflash
 
 The `selfhosted` package is configured for websites that do not use bundlers or npm and just want
-to get up and running. If you'd prefer to use Ruffle through npm and a bundler, please
+to get up and running. If you'd prefer to use Llflash through npm and a bundler, please
 [refer to ruffle core](https://github.com/ruffle-rs/ruffle/tree/master/web/packages/core).
 
-Before you can get started with using Ruffle on your website, you must host its files yourself.
+Before you can get started with using Llflash on your website, you must host its files yourself.
 Either take the [latest build](https://github.com/ruffle-rs/ruffle/releases)
 or [build it yourself](https://github.com/ruffle-rs/ruffle/blob/master/web/README.md), and make these files accessible by your web server.
 
 Please note that the `.wasm` file must be served properly, and some web servers may not do that
-correctly out of the box. Please see [our wiki](https://github.com/ruffle-rs/ruffle/wiki/Using-Ruffle#configure-wasm-mime-type)
+correctly out of the box. Please see [our wiki](https://github.com/ruffle-rs/ruffle/wiki/Using-Llflash#configure-wasm-mime-type)
 for instructions on how to configure this, if you encounter a `Incorrect response MIME type` error.
 
 ### "Plug and Play"
 
-If you have an existing website with flash content, you can simply include Ruffle as a script and
+If you have an existing website with flash content, you can simply include Llflash as a script and
 our polyfill magic will replace everything for you. No fuss, no mess.
 
 ```html
@@ -35,7 +35,7 @@ our polyfill magic will replace everything for you. No fuss, no mess.
 
 ### Javascript API
 
-If you want to control the Ruffle player, you may use our Javascript API.
+If you want to control the Llflash player, you may use our Javascript API.
 
 ```html
 <script>

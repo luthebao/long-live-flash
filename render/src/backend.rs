@@ -8,7 +8,7 @@ use crate::pixel_bender::{PixelBenderShader, PixelBenderShaderHandle};
 use crate::pixel_bender_support::PixelBenderShaderArgument;
 use crate::quality::StageQuality;
 use crate::shape_utils::DistilledShape;
-use ruffle_wstr::{FromWStr, WStr};
+use llflash_wstr::{FromWStr, WStr};
 use std::any::Any;
 use std::borrow::Cow;
 use std::cell::RefCell;

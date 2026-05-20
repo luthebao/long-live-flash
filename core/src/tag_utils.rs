@@ -3,7 +3,7 @@
 use swf::{CharacterId, TagCode};
 use thiserror::Error;
 
-pub use ruffle_common::tag_utils::{SwfMovie, SwfSlice, SwfStream};
+pub use llflash_common::tag_utils::{SwfMovie, SwfSlice, SwfStream};
 
 #[derive(Error, Debug)]
 pub enum Error {
@@ -11,7 +11,7 @@ pub enum Error {
     InvalidSwf(#[from] swf::error::Error),
 
     #[error("Couldn't register bitmap: {0}")]
-    InvalidBitmap(#[from] ruffle_render::error::Error),
+    InvalidBitmap(#[from] llflash_render::error::Error),
 
     #[error("Couldn't register font: {0}")]
     InvalidFont(#[from] ttf_parser::FaceParsingError),

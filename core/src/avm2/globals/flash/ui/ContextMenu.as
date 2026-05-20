@@ -4,12 +4,12 @@ package flash.ui {
     import flash.display.NativeMenu;
 
     public final class ContextMenu extends NativeMenu {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _customItems:Array;
 
         private var _clipboardMenu:Boolean;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _builtInItems:ContextMenuBuiltInItems = new ContextMenuBuiltInItems();
 
         private var _clipboardItems:ContextMenuClipboardItems = new ContextMenuClipboardItems();

@@ -1,7 +1,7 @@
 package flash.utils {
     import __ruffle__.stub_setter;
 
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public class ByteArray implements IDataInput2, IDataOutput2 {
         private var _shareable:Boolean = false;
 

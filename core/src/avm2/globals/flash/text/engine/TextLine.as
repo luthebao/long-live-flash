@@ -10,19 +10,19 @@ package flash.text.engine {
     import flash.ui.ContextMenu;
 
     // FIXME: None of the DisplayObjectContainer methods actually work on
-    // the TextLine class in Ruffle, despite the methods working fine in FP-
+    // the TextLine class in Llflash, despite the methods working fine in FP-
     // however, it's unlikely that SWFs will actually attempt to add children
     // to a TextLine.
-    [Ruffle(Abstract)]
+    [Llflash(Abstract)]
     [API("662")]
     public final class TextLine extends DisplayObjectContainer {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _specifiedWidth:Number = 0.0;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         internal var _textBlock:TextBlock = null;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _rawTextLength:int = 0;
 
         internal var _validity:String = "valid";

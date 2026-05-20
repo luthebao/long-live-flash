@@ -2,7 +2,7 @@
 //!
 //! The RTMP worker/reader threads push events here; the host (desktop main
 //! or capi) calls `drain()` to pull them out and translate into
-//! `ruffle_core::net_connection::NetConnections::dispatch_rtmp_*` calls.
+//! `llflash_core::net_connection::NetConnections::dispatch_rtmp_*` calls.
 
 use std::sync::Mutex;
 

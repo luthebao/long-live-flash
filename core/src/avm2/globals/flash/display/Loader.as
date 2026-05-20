@@ -9,10 +9,10 @@ package flash.display {
     import flash.net.URLRequest;
     import flash.events.UncaughtErrorEvents;
 
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public class Loader extends DisplayObjectContainer {
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         private var _contentLoaderInfo:LoaderInfo;
 
         public function get contentLoaderInfo():LoaderInfo {

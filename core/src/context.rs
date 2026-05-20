@@ -42,16 +42,16 @@ use crate::vminterface::Instantiator;
 use async_channel::Sender;
 use core::fmt;
 use gc_arena::{Collect, Mutation};
-use ruffle_render::backend::{BitmapCacheEntry, RenderBackend};
-use ruffle_render::commands::{CommandHandler, CommandList};
-use ruffle_render::transform::TransformStack;
-use ruffle_video::backend::VideoBackend;
+use llflash_render::backend::{BitmapCacheEntry, RenderBackend};
+use llflash_render::commands::{CommandHandler, CommandList};
+use llflash_render::transform::TransformStack;
+use llflash_video::backend::VideoBackend;
 use std::collections::{HashMap, VecDeque};
 use std::sync::{Arc, Mutex, Weak};
 use std::time::Duration;
 use web_time::Instant;
 
-/// `UpdateContext` holds shared data that is used by the various subsystems of Ruffle.
+/// `UpdateContext` holds shared data that is used by the various subsystems of Llflash.
 /// `Player` creates this when it begins a tick and passes it through the call stack to
 /// children and the VM.
 pub struct UpdateContext<'gc> {
@@ -562,7 +562,7 @@ pub struct RenderContext<'a, 'gc> {
     /// The transform stack controls the matrix and color transform as we traverse the display hierarchy.
     pub transform_stack: &'a mut TransformStack,
 
-    /// Whether we're rendering offscreen. This can disable some logic like Ruffle-side render culling
+    /// Whether we're rendering offscreen. This can disable some logic like Llflash-side render culling
     pub is_offscreen: bool,
 
     /// Whether to use cacheAsBitmap, vs drawing everything explicitly

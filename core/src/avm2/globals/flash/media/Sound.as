@@ -3,7 +3,7 @@ package flash.media {
     import flash.utils.ByteArray;
     import flash.net.URLRequest;
 
-    [Ruffle(InstanceAllocator)]
+    [Llflash(InstanceAllocator)]
     public class Sound extends EventDispatcher {
         public function Sound(stream:URLRequest = null, context:SoundLoaderContext = null) {
             this.init(stream, context)
@@ -22,7 +22,7 @@ package flash.media {
         public native function extract(target:ByteArray, length:Number, startPosition:Number = -1):Number;
         public native function close():void;
 
-        [Ruffle(NativeCallable)]
+        [Llflash(NativeCallable)]
         public native function load(stream:URLRequest, context:SoundLoaderContext = null):void;
 
         [API("674")]

@@ -18,7 +18,7 @@ use gc_arena::{
     lock::{Lock, RefLock},
 };
 use id3::{Tag, TagLike};
-use ruffle_common::utils::HasPrefixField;
+use llflash_common::utils::HasPrefixField;
 use std::cell::Cell;
 use std::io::Cursor;
 use swf::SoundInfo;

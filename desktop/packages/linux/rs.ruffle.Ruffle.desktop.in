@@ -1,10 +1,10 @@
 [Desktop Entry]
 Type=Application
-Name=Ruffle
+Name=Llflash
 GenericName=Flash Player
 Comment=Play Flash games & movies
-Icon=rs.ruffle.Ruffle
-StartupWMClass=rs.ruffle.Ruffle
+Icon=rs.ruffle.Llflash
+StartupWMClass=rs.ruffle.Llflash
 Exec=ruffle %u
 MimeType=application/x-shockwave-flash;application/vnd.adobe.flash.movie
 Categories=AudioVideo;Player;Graphics;Viewer;VectorGraphics;Emulator;Game

@@ -1,9 +1,9 @@
 package flash.geom {
     public class Point {
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var x:Number;
 
-        [Ruffle(NativeAccessible)]
+        [Llflash(NativeAccessible)]
         public var y:Number;
 
         public function Point(x:Number = 0, y:Number = 0) {

@@ -16,9 +16,9 @@ use gc_arena::{
     Collect, Gc, GcWeak, Mutation,
     lock::{Lock, RefLock},
 };
-use ruffle_common::utils::HasPrefixField;
-use ruffle_macros::istr;
-use ruffle_wstr::WString;
+use llflash_common::utils::HasPrefixField;
+use llflash_macros::istr;
+use llflash_wstr::WString;
 use std::cell::{Cell, Ref, RefMut};
 use std::fmt::{self, Debug};
 

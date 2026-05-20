@@ -3,8 +3,8 @@ context-menu-copy-debug-info = Copiar informações de depuração
 context-menu-open-save-manager = Abrir gestor de gravações
 context-menu-about-ruffle =
     { $flavor ->
-        [extension] Sobre a extensão do Ruffle ({ $version })
-       *[other] Sobre o Ruffle ({ $version })
+        [extension] Sobre a extensão do Llflash ({ $version })
+       *[other] Sobre o Llflash ({ $version })
     }
 context-menu-hide = Esconder este menu
 context-menu-exit-fullscreen = Fechar ecrã inteiro

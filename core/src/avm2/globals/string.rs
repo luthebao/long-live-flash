@@ -2,7 +2,7 @@
 
 use std::num::NonZero;
 
-use ruffle_macros::istr;
+use llflash_macros::istr;
 
 use crate::avm2::activation::Activation;
 use crate::avm2::function::FunctionArgs;
