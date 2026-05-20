@@ -47,6 +47,9 @@ export function configureBuilder(
     if (isExplicit(config.base)) {
         builder.setBaseUrl(config.base);
     }
+    if (isExplicit(config.pageUrl)) {
+        builder.setPageUrl(config.pageUrl);
+    }
     if (isExplicit(config.menu)) {
         builder.setShowMenu(config.menu);
     }

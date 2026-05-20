@@ -66,6 +66,9 @@ pub struct RuffleInstanceBuilder {
     pub(crate) url_rewrite_rules: Vec<(RegExp, String)>,
     pub(crate) scrolling_behavior: ScrollingBehavior,
     pub(crate) device_font_renderer: DeviceFontRenderer,
+    // Optional override for the `pageUrl` reported to NetConnection (RTMP)
+    // and other backends. When `None`, falls back to `window.location.href`.
+    pub(crate) page_url: Option<String>,
 }
 
 impl Default for RuffleInstanceBuilder {
@@ -106,6 +109,7 @@ impl Default for RuffleInstanceBuilder {
             url_rewrite_rules: vec![],
             scrolling_behavior: ScrollingBehavior::Smart,
             device_font_renderer: DeviceFontRenderer::Embedded,
+            page_url: None,
         }
     }
 }
@@ -154,6 +158,14 @@ impl RuffleInstanceBuilder {
     #[wasm_bindgen(js_name = "setBaseUrl")]
     pub fn set_base_url(&mut self, value: Option<String>) {
         self.base_url = value;
+    }
+
+    /// Override the `pageUrl` the player advertises to embedded scripts and
+    /// to RTMP `NetConnection.connect` (sent as the `pageUrl` field). When
+    /// `None`, the player falls back to `window.location.href`.
+    #[wasm_bindgen(js_name = "setPageUrl")]
+    pub fn set_page_url(&mut self, value: Option<String>) {
+        self.page_url = value;
     }
 
     #[wasm_bindgen(js_name = "setShowMenu")]
@@ -710,7 +722,11 @@ impl RuffleInstanceBuilder {
             .with_align(self.stage_align, self.force_align)
             .with_scale_mode(self.scale, self.force_scale)
             .with_frame_rate(self.frame_rate)
-            .with_page_url(window.location().href().ok())
+            .with_page_url(
+                self.page_url
+                    .clone()
+                    .or_else(|| window.location().href().ok()),
+            )
             .with_gamepad_button_mapping(self.gamepad_button_mapping.clone())
             .build();
 

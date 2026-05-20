@@ -34,11 +34,18 @@ const grant = document.getElementById("grant")! as HTMLButtonElement;
 
 // This is the base config always used by the extension player.
 // It has the highest priority and its options cannot be overwritten.
+//
+// Canvas device-font rendering is used so that text drawn through Flash
+// "device fonts" can render any glyph the host browser has (CJK, full
+// Vietnamese, etc.). The embedded subset bundled with the wasm only
+// covers Latin/Greek/Cyrillic — anything else logs "UTF-8 character is
+// missing" and renders as tofu.
 const baseExtensionConfig = {
     letterbox: "on" as Config.Letterbox,
     forceScale: true,
     forceAlign: true,
     showSwfDownload: true,
+    deviceFontRenderer: "canvas" as Config.DeviceFontRenderer,
 };
 
 const swfToFlashVersion: { [key: number]: string } = {
@@ -297,6 +304,22 @@ window.addEventListener("load", () => {
     overlay.removeAttribute("hidden");
 });
 
+// Derive the value to advertise as `pageUrl` for a SWF opened in the
+// standalone player tab. `window.location.href` would otherwise be
+// `chrome-extension://EXT/player.html#...`, which RTMP servers reject on
+// hotlink checks.
+//
+// TODO(learning): decide the policy. Three reasonable options:
+//   1. Return `swfUrl` as-is — the SWF *is* the page in this tab.
+//   2. Return the SWF's origin + "/" — pretend the SWF was embedded at
+//      the host root. Matches what some hotlink checks expect.
+//   3. Return the SWF's directory (everything up to the last "/") —
+//      matches a typical embed page at the same depth as the SWF.
+// Pick one and replace the body below.
+function derivePageUrlForSwf(swfUrl: string): string {
+    return swfUrl;
+}
+
 async function loadSwf(swfUrl: string) {
     try {
         const pathname = new URL(swfUrl).pathname;
@@ -312,6 +335,7 @@ async function loadSwf(swfUrl: string) {
         ...options,
         url: swfUrl,
         base: swfUrl.substring(0, swfUrl.lastIndexOf("/") + 1),
+        pageUrl: derivePageUrlForSwf(swfUrl),
         ...baseExtensionConfig,
     });
 }

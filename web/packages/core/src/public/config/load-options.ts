@@ -557,6 +557,19 @@ export interface BaseLoadOptions {
     base?: string | null;
 
     /**
+     * Override the value reported as `pageUrl` to embedded scripts and to RTMP
+     * `NetConnection.connect` (sent as `pageUrl` to the server). When omitted,
+     * the player uses `window.location.href`.
+     *
+     * Useful in the browser extension's standalone player tab, where
+     * `window.location.href` would otherwise be a `chrome-extension://` URL
+     * and cause RTMP servers to reject the connection on hotlink checks.
+     *
+     * @default null
+     */
+    pageUrl?: string | null;
+
+    /**
      * If set to true, the built-in context menu items are visible
      *
      * This is equivalent to Stage.showMenu.

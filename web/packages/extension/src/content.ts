@@ -191,6 +191,11 @@ function isXMLDocument(): boolean {
     await sendMessageToPage({
         type: "load",
         config: {
+            // Canvas device-font rendering lets text use whichever OS font
+            // the host browser picks (CJK, Vietnamese, etc.), instead of
+            // the Latin-only embedded subset bundled in the wasm. Listed
+            // before explicitOptions so a user override still wins.
+            deviceFontRenderer: "canvas",
             ...explicitOptions,
             autoplay: options.autostart ? "on" : "auto",
             unmuteOverlay: options.autostart ? "hidden" : "visible",

@@ -33,6 +33,7 @@ export const DEFAULT_CONFIG: Required<BaseLoadOptions> = {
     splashScreen: true,
     maxExecutionDuration: 15,
     base: null,
+    pageUrl: null,
     menu: true,
     allowFullscreen: false,
     salign: "",
