@@ -21,19 +21,27 @@ set -euo pipefail
 HOST_NAME="com.longliveflash.rtmp_host"
 BROWSER="${1:-chrome}"
 
-# Locate the built binary. Prefer release if present (smaller, no debug
-# overhead), then debug; either is functionally correct.
+# Locate the built binary. Two layouts are supported:
+#   1. Packaged release tarball: binary is a sibling of this script.
+#   2. Dev workspace: binary lives in <repo>/target/{release,debug}/.
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 WORKSPACE_ROOT="$(cd -- "$SCRIPT_DIR/.." &> /dev/null && pwd)"
+BUNDLED_BIN="$SCRIPT_DIR/llflash-rtmp-host"
 RELEASE_BIN="$WORKSPACE_ROOT/target/release/llflash-rtmp-host"
 DEBUG_BIN="$WORKSPACE_ROOT/target/debug/llflash-rtmp-host"
 
-if [[ -x "$RELEASE_BIN" ]]; then
+if [[ -x "$BUNDLED_BIN" ]]; then
+    BINARY="$BUNDLED_BIN"
+elif [[ -x "$RELEASE_BIN" ]]; then
     BINARY="$RELEASE_BIN"
 elif [[ -x "$DEBUG_BIN" ]]; then
     BINARY="$DEBUG_BIN"
 else
     echo "ERROR: llflash-rtmp-host binary not found." >&2
+    echo "       Looked for:" >&2
+    echo "         $BUNDLED_BIN" >&2
+    echo "         $RELEASE_BIN" >&2
+    echo "         $DEBUG_BIN" >&2
     echo "       Build it first: cargo build --release -p llflash_rtmp_host" >&2
     exit 1
 fi

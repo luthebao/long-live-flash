@@ -24,16 +24,21 @@ $HostName    = "com.longliveflash.rtmp_host"
 $ScriptDir   = Split-Path -Parent $MyInvocation.MyCommand.Path
 $WorkspaceRoot = Split-Path -Parent $ScriptDir
 
-# Prefer release build; fall back to debug.
+# Two supported layouts:
+#   1. Packaged release zip: llflash-rtmp-host.exe is a sibling of this script.
+#   2. Dev workspace: binary lives in <repo>\target\{release,debug}\.
+$BundledBin = Join-Path $ScriptDir "llflash-rtmp-host.exe"
 $ReleaseBin = Join-Path $WorkspaceRoot "target\release\llflash-rtmp-host.exe"
 $DebugBin   = Join-Path $WorkspaceRoot "target\debug\llflash-rtmp-host.exe"
 
-if (Test-Path $ReleaseBin) {
+if (Test-Path $BundledBin) {
+    $Binary = $BundledBin
+} elseif (Test-Path $ReleaseBin) {
     $Binary = $ReleaseBin
 } elseif (Test-Path $DebugBin) {
     $Binary = $DebugBin
 } else {
-    Write-Error "llflash-rtmp-host.exe not found. Build it first:`n  cargo build --release -p llflash_rtmp_host --target x86_64-pc-windows-msvc"
+    Write-Error "llflash-rtmp-host.exe not found. Looked for:`n  $BundledBin`n  $ReleaseBin`n  $DebugBin`nBuild it first:`n  cargo build --release -p llflash_rtmp_host --target x86_64-pc-windows-msvc"
     exit 1
 }
 
