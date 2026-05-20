@@ -221,16 +221,30 @@ jobs:
                       echo "Release $TARGET_TAG does not exist yet on $TARGET_REPO — nothing to clear."
                       exit 0
                   fi
-                  gh release view "$TARGET_TAG" \
+                  # Delete by asset ID, not by name: `gh release delete-asset`
+                  # resolves the name to an ID on each call and occasionally
+                  # 404s on a stale lookup, which `set -e` then turns into a
+                  # whole-step failure. Going through `gh api` with the ID
+                  # we already pulled from the listing avoids that round-trip
+                  # entirely, and tolerating per-asset failures means one
+                  # already-gone asset can't block cleanup of the rest.
+                  fail_count=0
+                  while IFS=$'\t' read -r asset_id asset_name; do
+                      [ -z "$asset_id" ] && continue
+                      echo "Deleting old asset: $asset_name (id=$asset_id)"
+                      if ! gh api --silent --method DELETE \
+                          "/repos/$TARGET_REPO/releases/assets/$asset_id"
+                      then
+                          echo "  WARN: failed to delete $asset_name (id=$asset_id) — continuing"
+                          fail_count=$((fail_count + 1))
+                      fi
+                  done < <(gh release view "$TARGET_TAG" \
                       --repo "$TARGET_REPO" \
                       --json assets \
-                      --jq '.assets[].name' \
-                      | while IFS= read -r asset; do
-                          [ -z "$asset" ] && continue
-                          echo "Deleting old asset: $asset"
-                          gh release delete-asset "$TARGET_TAG" "$asset" \
-                              --repo "$TARGET_REPO" --yes
-                      done
+                      --jq '.assets[] | "\(.id)\t\(.name)"')
+                  if [ "$fail_count" -gt 0 ]; then
+                      echo "Note: $fail_count asset(s) could not be deleted — they may be stale references that GitHub will reconcile on next API call."
+                  fi
 
             - name: Publish to target repo release
               uses: softprops/action-gh-release@v2
