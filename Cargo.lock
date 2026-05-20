@@ -455,7 +455,7 @@ dependencies = [
 
 [[package]]
 name = "build_playerglobal"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "clap",
  "convert_case",
@@ -1681,7 +1681,7 @@ dependencies = [
 
 [[package]]
 name = "exporter"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "anyhow",
  "clap",
@@ -1696,7 +1696,7 @@ dependencies = [
 
 [[package]]
 name = "exporter_integration_tests"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "anyhow",
  "clap",
@@ -1860,7 +1860,7 @@ dependencies = [
 
 [[package]]
 name = "flv-rs"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "bitflags 2.11.1",
  "thiserror 2.0.18",
@@ -3138,7 +3138,7 @@ checksum = "11d3d7f243d5c5a8b9bb5d6dd2b1602c0cb0b9db1621bafc7ed66e35ff9fe092"
 
 [[package]]
 name = "llflash_common"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "fnv",
  "gc-arena",
@@ -3155,7 +3155,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_core"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "async-channel",
  "bitflags 2.11.1",
@@ -3224,7 +3224,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_desktop"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "anyhow",
  "ashpd",
@@ -3279,7 +3279,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_frontend_utils"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "async-channel",
  "async-io",
@@ -3302,7 +3302,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_fs_tests_runner"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "anyhow",
  "libtest-mimic",
@@ -3313,7 +3313,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_input_format"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "bitflags 2.11.1",
  "serde",
@@ -3322,7 +3322,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_macros"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -3331,7 +3331,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_render"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "approx",
  "byteorder",
@@ -3362,7 +3362,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_render_canvas"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "js-sys",
  "llflash_render",
@@ -3375,7 +3375,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_render_webgl"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "bytemuck",
  "js-sys",
@@ -3390,7 +3390,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_render_wgpu"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "bytemuck",
  "clap",
@@ -3414,7 +3414,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_rtmp"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "hmac",
  "num-bigint",
@@ -3428,7 +3428,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_rtmp_host"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "base64",
  "llflash_rtmp",
@@ -3440,7 +3440,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_scanner"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "clap",
  "crossbeam-channel",
@@ -3458,7 +3458,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_socket_format"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "serde",
  "serde_json",
@@ -3466,7 +3466,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_test_framework"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "anyhow",
  "approx",
@@ -3495,7 +3495,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_video"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "llflash_render",
  "slotmap",
@@ -3505,7 +3505,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_video_external"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "bzip2",
  "hex",
@@ -3529,7 +3529,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_video_software"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "flate2",
  "h263-rs",
@@ -3547,7 +3547,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_web"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "async-channel",
  "base64",
@@ -3584,7 +3584,7 @@ dependencies = [
 
 [[package]]
 name = "llflash_web_common"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "tracing",
  "wasm-bindgen",
@@ -3592,14 +3592,14 @@ dependencies = [
 
 [[package]]
 name = "llflash_web_safari"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "objc2 0.6.4",
 ]
 
 [[package]]
 name = "llflash_wstr"
-version = "1.0.0"
+version = "1.0.1"
 
 [[package]]
 name = "lock_api"
@@ -3823,7 +3823,7 @@ dependencies = [
 
 [[package]]
 name = "mocket"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "anyhow",
  "clap",
@@ -3870,7 +3870,7 @@ dependencies = [
 
 [[package]]
 name = "naga-agal"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "bitflags 2.11.1",
  "insta",
@@ -3881,7 +3881,7 @@ dependencies = [
 
 [[package]]
 name = "naga-pixelbender"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "anyhow",
  "llflash_render",
@@ -4741,7 +4741,7 @@ checksum = "a89322df9ebe1c1578d689c92318e070967d1042b512afbe49518723f4e6d5cd"
 
 [[package]]
 name = "pixel_bender"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "byteorder",
  "num-derive",
@@ -4754,7 +4754,7 @@ dependencies = [
 
 [[package]]
 name = "pixel_bender_assembly_tests"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "anyhow",
  "clap",
@@ -5881,7 +5881,7 @@ checksum = "7da8b5736845d9f2fcb837ea5d9e2628564b3b043a70948a3f0b778838c5fb4f"
 
 [[package]]
 name = "stub-report"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "anyhow",
  "clap",
@@ -6098,7 +6098,7 @@ dependencies = [
 
 [[package]]
 name = "tests"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "anyhow",
  "clap",

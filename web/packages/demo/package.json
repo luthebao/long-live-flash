@@ -1,6 +1,6 @@
 {
     "name": "llflash-demo",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Demo of Llflash Flash emulator",
     "license": "(MIT OR Apache-2.0)",
     "private": true,
