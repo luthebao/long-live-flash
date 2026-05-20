@@ -160,7 +160,7 @@ importers:
   packages/demo:
     dependencies:
       llflash-core:
-        specifier: ^0.2.0-nightly.2026.5.15
+        specifier: ^1.0.0
         version: link:../core
       react:
         specifier: ^19.2.5
@@ -188,7 +188,7 @@ importers:
   packages/extension:
     dependencies:
       llflash-core:
-        specifier: ^0.2.0-nightly.2026.5.15
+        specifier: ^1.0.0
         version: link:../core
     devDependencies:
       '@tsconfig/strictest':
@@ -240,7 +240,7 @@ importers:
   packages/selfhosted:
     dependencies:
       llflash-core:
-        specifier: ^0.2.0-nightly.2026.5.15
+        specifier: ^1.0.0
         version: link:../core
     devDependencies:
       '@types/chai':

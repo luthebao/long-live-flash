@@ -1,6 +1,6 @@
 {
     "name": "llflash-selfhosted",
-    "version": "0.2.0-nightly.2026.5.15",
+    "version": "1.0.0",
     "description": "Putting Flash back on the web. Llflash will polyfill all Flash content and replace it with the Llflash flash player.",
     "license": "(MIT OR Apache-2.0)",
     "private": true,
@@ -22,7 +22,7 @@
         "checkTypes": "tsc --noemit"
     },
     "dependencies": {
-        "llflash-core": "^0.2.0-nightly.2026.5.15"
+        "llflash-core": "^1.0.0"
     },
     "devDependencies": {
         "@types/chai": "^5.2.3",
