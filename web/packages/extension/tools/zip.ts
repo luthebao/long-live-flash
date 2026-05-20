@@ -3,7 +3,12 @@ import path from "path";
 import url from "url";
 import archiver from "archiver";
 
-async function zip(source: string, destination: string) {
+// `--strip-key`: drop the top-level `key` from manifest.json on the way
+// into the zip. Required for Chrome Web Store uploads — CWS assigns the
+// extension ID at publish time and rejects any manifest that pre-sets it.
+// The key stays on disk in assets/manifest.json so "Load unpacked" still
+// produces the stable dev ID (mcahcaahgbcmapfdcekcjpdopagoncec).
+async function zip(source: string, destination: string, stripKey: boolean) {
     await fs.mkdir(path.dirname(destination), { recursive: true });
     const output = (await fs.open(destination, "w")).createWriteStream();
     const archive = archiver("zip");
@@ -28,9 +33,19 @@ async function zip(source: string, destination: string) {
 
     archive.pipe(output);
 
-    archive.directory(source, "");
+    if (stripKey) {
+        const manifestPath = path.join(source, "manifest.json");
+        const manifest = JSON.parse(await fs.readFile(manifestPath, "utf8"));
+        delete manifest.key;
+        archive.append(JSON.stringify(manifest), { name: "manifest.json" });
+        archive.glob("**/*", { cwd: source, ignore: ["manifest.json"] });
+    } else {
+        archive.directory(source, "");
+    }
 
     await archive.finalize();
 }
 const assets = url.fileURLToPath(new URL("../assets/", import.meta.url));
-zip(assets, process.argv[2] ?? "").catch(console.error);
+const positional = process.argv.slice(2).filter((a) => !a.startsWith("--"));
+const stripKey = process.argv.includes("--strip-key");
+zip(assets, positional[0] ?? "", stripKey).catch(console.error);
