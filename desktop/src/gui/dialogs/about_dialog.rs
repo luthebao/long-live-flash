@@ -47,7 +47,7 @@ pub fn show_about_dialog(locale: &LanguageIdentifier, egui_ctx: &egui::Context) 
                             ui.label(text(locale, "about-ruffle-commit-ref"));
                             ui.hyperlink_to(
                                 sha,
-                                format!("}"),
+                                format!("https://github.com/luthebao/long-live-flash/commit/{sha}"),
                             );
                             ui.end_row();
                         }
@@ -77,7 +77,7 @@ pub fn show_about_dialog(locale: &LanguageIdentifier, egui_ctx: &egui::Context) 
                     );
                     ui.hyperlink_to(
                         text(locale, "about-ruffle-visit-github"),
-                        "",
+                        "https://github.com/luthebao/long-live-flash/",
                     );
                     ui.hyperlink_to(
                         text(locale, "about-ruffle-visit-discord"),
