@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://ruffle.rs"><img alt="Llflash" src="https://ruffle.rs/logo.svg" /></a>
+  <a href="https://ruffle.rs"><img alt="Llflash" src="assets/logo.svg" /></a>
 </p>
 <p align="center">
   <a href=""><img alt="Rust Build Status" src="https://img.shields.io/github/actions/workflow/status/ruffle-rs/ruffle/test_rust.yml?label=Rust%20Build&logo=github&branch=master" /></a>
