@@ -39,6 +39,11 @@ function handleMessage(message: Message) {
                 // so inbound events can find this player.
                 rtmpBridge: bridgeOut,
                 rtmpRegister: registerPlayer,
+                // Advertise the real embedding page as `pageUrl` in
+                // RTMP connect commands. RTMP servers that hotlink-check
+                // reject empty values; the host falls back to swfUrl in
+                // that case, which is also wrong for most game servers.
+                pageUrl: window.location.href,
             };
             setCurrentScriptURL(publicPath);
             Setup.installRuffle("extension");

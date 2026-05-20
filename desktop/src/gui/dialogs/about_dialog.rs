@@ -73,7 +73,7 @@ pub fn show_about_dialog(locale: &LanguageIdentifier, egui_ctx: &egui::Context) 
                 ui.horizontal(|ui| {
                     ui.hyperlink_to(
                         text(locale, "about-ruffle-visit-website"),
-                        "https://ruffle.rs",
+                        "https://beyonderluu.com",
                     );
                     ui.hyperlink_to(
                         text(locale, "about-ruffle-visit-github"),

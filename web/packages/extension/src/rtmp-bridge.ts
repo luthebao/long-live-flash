@@ -73,9 +73,50 @@ const players: RtmpPlayer[] = [];
  * Outbound callback. Builders register this via `setRtmpBridge`; wasm
  * invokes it inside the AVM `NetConnection.connect/call/close` hook.
  * The payload is already the shape the native messaging host expects.
+ *
+ * Two transport modes depending on where we're running:
+ *   - Regular web page (llflash.js MAIN-world content script): postMessage
+ *     to the ISOLATED-world content.ts, which owns the `chrome.runtime`
+ *     port to the background service worker. MAIN-world content scripts
+ *     don't have `chrome.runtime` access, so the relay is required.
+ *   - Extension page (player.html in the SWF-takeover tab): open the
+ *     `llflash-rtmp` port directly from this world — extension pages have
+ *     `chrome.runtime` and there's no content script injected here.
  */
 export function bridgeOut(msg: object): void {
-    window.postMessage({ to: "llflash_rtmp_out", data: msg }, "*");
+    const port = ensureExtensionPort();
+    if (port) {
+        try {
+            port.postMessage(msg);
+        } catch (e) {
+            console.warn("rtmp-bridge: extension-page port post failed", e);
+        }
+    } else {
+        window.postMessage({ to: "llflash_rtmp_out", data: msg }, "*");
+    }
+}
+
+// Cached port for the extension-page transport. Lazily opened on the first
+// outbound message so we don't spawn a native host process for SWFs that
+// never touch RTMP.
+let extensionPort: chrome.runtime.Port | null = null;
+function ensureExtensionPort(): chrome.runtime.Port | null {
+    if (extensionPort) return extensionPort;
+    // MAIN-world scripts on regular pages don't have `chrome.runtime`.
+    // Only extension pages (player.html, options.html, etc.) reach here.
+    if (typeof chrome === "undefined" || !chrome.runtime?.id) return null;
+    try {
+        const port = chrome.runtime.connect({ name: "llflash-rtmp" });
+        port.onMessage.addListener((ev) => dispatch(ev as Inbound));
+        port.onDisconnect.addListener(() => {
+            if (extensionPort === port) extensionPort = null;
+        });
+        extensionPort = port;
+        return port;
+    } catch (e) {
+        console.warn("rtmp-bridge: failed to open extension-page port", e);
+        return null;
+    }
 }
 
 /**

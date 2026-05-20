@@ -86,7 +86,7 @@ impl<F: FutureSpawner<Error>, I: NavigatorInterface> ExternalNavigatorBackend<F,
             .user_agent(concat!(
                 "Llflash/",
                 env!("CARGO_PKG_VERSION"),
-                " (https://ruffle.rs)"
+                " (https://beyonderluu.com)"
             ));
 
         if let Some(referer) = referer {

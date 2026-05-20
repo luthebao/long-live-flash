@@ -106,7 +106,7 @@ export function Navbar({
 
     return (
         <div id="nav">
-            <a id="logo-container" href="https://ruffle.rs/" target="_blank">
+            <a id="logo-container" href="https://beyonderluu.com/" target="_blank">
                 <img className="logo" src={ruffleLogo} alt="Llflash" />
             </a>
             <div className="select-container">

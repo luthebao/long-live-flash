@@ -7,7 +7,7 @@ It also serves as a nice local test to run Llflash in the web locally, for devel
 
 ### Hosted demo
 
-To view this demo online right now, [check out the hosted demo](https://ruffle.rs/demo).
+To view this demo online right now, [check out the hosted demo](https://beyonderluu.com/demo).
 
 It's exactly the same code as this directory, updated nightly.
 
@@ -34,7 +34,7 @@ To use this, add a new file `swfs.json` in this directory. The contents should l
       "location": "logo-anim.swf",
       "title": "Llflash Logo",
       "author": "Llflash contributors",
-      "authorLink": "https://ruffle.rs",
+      "authorLink": "https://beyonderluu.com",
       "config": {
         "autoplay": "on",
         "backgroundColor": "#31497D",

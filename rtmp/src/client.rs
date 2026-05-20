@@ -253,13 +253,14 @@ fn dial_and_connect(
     conn.send_set_chunk_size(4096)?;
 
     let connect_payload = build_connect_payload(&url, swf_url, page_url, extra_args_amf);
-    tracing::debug!(
+    let effective_page_url = if page_url.is_empty() { swf_url } else { page_url };
+    tracing::info!(
         "rtmp sending connect(app={:?}, tcUrl={:?}, swfUrl={:?}, pageUrl={:?}, \
          flashver={:?}, payload={} bytes, extra_args={} bytes)",
         url.app,
         url.tc_url,
         swf_url,
-        page_url,
+        effective_page_url,
         host_flashver(),
         connect_payload.len(),
         extra_args_amf.len()
@@ -284,6 +285,7 @@ fn dial_and_connect(
     } else {
         "error".into()
     };
+    tracing::info!("rtmp connect result: code={code:?} level={level:?}");
     Ok((conn, code, level))
 }
 

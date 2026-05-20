@@ -1,5 +1,6 @@
 import * as utils from "./utils";
 import { Setup } from "llflash-core";
+import { bridgeOut, registerPlayer } from "./rtmp-bridge";
 
 import type { Config, Player } from "llflash-core";
 
@@ -46,6 +47,12 @@ const baseExtensionConfig = {
     forceAlign: true,
     showSwfDownload: true,
     deviceFontRenderer: "canvas" as Config.DeviceFontRenderer,
+    // RTMP plumbing for the standalone player tab. `bridgeOut` detects
+    // it's running on an extension page (no content script injected
+    // here) and opens the native-messaging port directly instead of
+    // posting through the relay used on regular pages.
+    rtmpBridge: bridgeOut,
+    rtmpRegister: registerPlayer,
 };
 
 const swfToFlashVersion: { [key: number]: string } = {
@@ -307,17 +314,20 @@ window.addEventListener("load", () => {
 // Derive the value to advertise as `pageUrl` for a SWF opened in the
 // standalone player tab. `window.location.href` would otherwise be
 // `chrome-extension://EXT/player.html#...`, which RTMP servers reject on
-// hotlink checks.
-//
-// TODO(learning): decide the policy. Three reasonable options:
-//   1. Return `swfUrl` as-is — the SWF *is* the page in this tab.
-//   2. Return the SWF's origin + "/" — pretend the SWF was embedded at
-//      the host root. Matches what some hotlink checks expect.
-//   3. Return the SWF's directory (everything up to the last "/") —
-//      matches a typical embed page at the same depth as the SWF.
-// Pick one and replace the body below.
+// hotlink checks. Prefer `document.referrer` — the page that linked to
+// the SWF is the closest analogue to what Flash Player would have
+// reported. Fall back to the SWF's origin when the referrer is empty
+// (direct address-bar navigation, hash-only updates) so the server still
+// sees something on its allowlist instead of an empty string.
 function derivePageUrlForSwf(swfUrl: string): string {
-    return swfUrl;
+    if (document.referrer) {
+        return document.referrer;
+    }
+    try {
+        return new URL(swfUrl).origin + "/";
+    } catch {
+        return swfUrl;
+    }
 }
 
 async function loadSwf(swfUrl: string) {

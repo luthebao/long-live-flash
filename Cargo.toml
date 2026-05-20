@@ -45,7 +45,7 @@ resolver = "2"
 [workspace.package]
 authors = ["Llflash LLC <ruffle@ruffle.rs>"]
 edition = "2024"
-homepage = "https://ruffle.rs"
+homepage = "https://beyonderluu.com"
 license = "MIT OR Apache-2.0"
 repository = ""
 version = "1.0.1"

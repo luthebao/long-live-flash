@@ -1,1 +1,1 @@
-export const RUFFLE_ORIGIN = "https://ruffle.rs";
+export const RUFFLE_ORIGIN = "https://beyonderluu.com";
