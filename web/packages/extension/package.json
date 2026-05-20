@@ -6,9 +6,9 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "tsc -p jsconfig.json && npm run build:generic && npm run build:firefox",
+        "build": "tsc -p jsconfig.json && pnpm run build:generic && pnpm run build:firefox",
         "build:generic": "webpack --env generic && tsx tools/inject_plugin_polyfill.ts && tsx tools/zip.ts dist/llflash_extension.zip",
-        "build:firefox": "webpack --env firefox && tsx tools/inject_plugin_polyfill.ts && tsx tools/zip.ts dist/firefox_unsigned.xpi && npm run sign-firefox",
+        "build:firefox": "webpack --env firefox && tsx tools/inject_plugin_polyfill.ts && tsx tools/zip.ts dist/firefox_unsigned.xpi && pnpm run sign-firefox",
         "sign-firefox": "tsx tools/submit_xpi.ts dist/firefox_unsigned.xpi ../../../reproducible-source.zip",
         "checkTypes": "tsc --noemit && tsc --noemit -p tools"
     },

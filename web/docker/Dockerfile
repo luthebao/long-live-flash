@@ -22,5 +22,6 @@ COPY . ruffle
 WORKDIR ruffle/web
 ENV CARGO_FEATURES=jpegxr
 ENV WASM_SOURCE=existing
-RUN npm ci
-RUN npm run build:dual-wasm-repro
+RUN corepack enable && corepack prepare --activate
+RUN pnpm install --frozen-lockfile
+RUN pnpm build:dual-wasm-repro

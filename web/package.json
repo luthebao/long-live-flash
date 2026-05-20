@@ -5,15 +5,10 @@
     "license": "(MIT OR Apache-2.0)",
     "private": true,
     "type": "module",
+    "packageManager": "pnpm@10.33.0",
     "config": {
         "detect_chromedriver_version": true
     },
-    "workspaces": [
-        "./packages/core",
-        "./packages/demo",
-        "./packages/extension",
-        "./packages/selfhosted"
-    ],
     "devDependencies": {
         "@eslint/js": "^9.39.2",
         "@wdio/browserstack-service": "^9.27.1",
@@ -49,16 +44,16 @@
         "workspace-version": "^0.1.4"
     },
     "scripts": {
-        "build": "npm run build --workspace=llflash-core && npm run build --workspace=llflash-demo --workspace=llflash-extension --workspace=llflash-selfhosted",
-        "build:debug": "cross-env NODE_ENV=development CARGO_FEATURES=avm_debug npm run build",
-        "build:dual-wasm": "cross-env BUILD_WASM_MVP=true npm run build",
-        "build:repro": "cross-env ENABLE_VERSION_SEAL=true npm run build",
-        "build:dual-wasm-repro": "cross-env BUILD_WASM_MVP=true ENABLE_VERSION_SEAL=true npm run build",
-        "demo": "npm run preview --workspace llflash-demo",
-        "test": "npm test --workspaces --if-present",
-        "wdio": "npm run wdio --workspaces --if-present --",
-        "docs": "npm run docs --workspaces --if-present",
-        "lint": "npm run checkTypes --workspaces --if-present && eslint . && stylelint **.css",
+        "build": "pnpm --filter llflash-core build && pnpm --filter llflash-demo --filter llflash-extension --filter llflash-selfhosted build",
+        "build:debug": "cross-env NODE_ENV=development CARGO_FEATURES=avm_debug pnpm build",
+        "build:dual-wasm": "cross-env BUILD_WASM_MVP=true pnpm build",
+        "build:repro": "cross-env ENABLE_VERSION_SEAL=true pnpm build",
+        "build:dual-wasm-repro": "cross-env BUILD_WASM_MVP=true ENABLE_VERSION_SEAL=true pnpm build",
+        "demo": "pnpm --filter llflash-demo preview",
+        "test": "pnpm -r --if-present test",
+        "wdio": "pnpm -r --if-present wdio",
+        "docs": "pnpm -r --if-present docs",
+        "lint": "pnpm -r --if-present checkTypes && eslint . && stylelint **.css",
         "format": "eslint . --fix && stylelint --fix **.css",
         "version-seal": "cross-env ENABLE_VERSION_SEAL=true tsx packages/core/tools/set_version.ts"
     }

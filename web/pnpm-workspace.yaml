@@ -1,0 +1,11 @@
+packages:
+  - 'packages/core'
+  - 'packages/demo'
+  - 'packages/extension'
+  - 'packages/selfhosted'
+
+onlyBuiltDependencies:
+  - edgedriver
+  - esbuild
+  - geckodriver
+  - protobufjs

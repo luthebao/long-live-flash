@@ -15,12 +15,12 @@ CARGO          := $(CARGO_BIN)/cargo
 RUSTUP         := $(CARGO_BIN)/rustup
 WASM_BINDGEN   := $(CARGO_BIN)/wasm-bindgen
 WASM_BINDGEN_VERSION := 0.2.120
-NPM            := npm
+PNPM           := pnpm
 WEB_DIR        := web
 DESKTOP_PKG    := llflash_desktop
 
 # Make sure rustup's cargo (with wasm32-unknown-unknown) and wasm-bindgen
-# are on PATH for every recipe — npm build scripts spawn cargo themselves.
+# are on PATH for every recipe — pnpm build scripts spawn cargo themselves.
 export PATH    := $(CARGO_BIN):$(PATH)
 
 .PHONY: help all build build-desktop build-extension run-desktop \
@@ -45,7 +45,7 @@ build-desktop: check-deps-desktop
 	$(CARGO) build --release -p $(DESKTOP_PKG)
 
 build-extension: check-deps-extension
-	cd $(WEB_DIR) && $(NPM) run build
+	cd $(WEB_DIR) && $(PNPM) build
 
 run-desktop: check-deps-desktop
 	$(CARGO) run -p $(DESKTOP_PKG)
@@ -70,9 +70,9 @@ check-deps-extension: check-deps-desktop
 	if ! command -v node >/dev/null 2>&1; then \
 		printf "MISSING  node (install Node.js >= 24 from https://nodejs.org)\n"; missing=1; \
 	else printf "OK       node ($$(node --version))\n"; fi; \
-	if ! command -v $(NPM) >/dev/null 2>&1; then \
-		printf "MISSING  npm\n"; missing=1; \
-	else printf "OK       npm ($$($(NPM) --version))\n"; fi; \
+	if ! command -v $(PNPM) >/dev/null 2>&1; then \
+		printf "MISSING  pnpm (install via 'corepack enable' or 'npm install -g pnpm')\n"; missing=1; \
+	else printf "OK       pnpm ($$($(PNPM) --version))\n"; fi; \
 	if ! command -v java >/dev/null 2>&1; then \
 		printf "MISSING  java (install JDK 17+)\n"; missing=1; \
 	else printf "OK       java\n"; fi; \
@@ -89,7 +89,7 @@ check-deps-extension: check-deps-desktop
 	if [ -d "$(WEB_DIR)/node_modules" ]; then \
 		printf "OK       web/node_modules\n"; \
 	else \
-		printf "MISSING  web/node_modules (npm install in $(WEB_DIR)/)\n"; missing=1; \
+		printf "MISSING  web/node_modules (pnpm install in $(WEB_DIR)/)\n"; missing=1; \
 	fi; \
 	[ $$missing -eq 0 ] || { printf "\nRun 'make install-deps' to install missing tools.\n"; exit 1; }
 
@@ -119,9 +119,18 @@ install-deps:
 		printf "ERROR: Java is required — install JDK 17+ (e.g. brew install openjdk@17)\n"; \
 		exit 1; \
 	fi
+	@if ! command -v $(PNPM) >/dev/null 2>&1; then \
+		if command -v corepack >/dev/null 2>&1; then \
+			printf "Enabling pnpm via corepack...\n"; \
+			corepack enable; \
+		else \
+			printf "ERROR: pnpm is required — install via 'corepack enable' (bundled with Node 16.13+) or 'npm install -g pnpm'\n"; \
+			exit 1; \
+		fi; \
+	else printf "pnpm already installed\n"; fi
 	@if ! [ -d "$(WEB_DIR)/node_modules" ]; then \
-		printf "Running npm install in $(WEB_DIR)/...\n"; \
-		cd $(WEB_DIR) && $(NPM) install; \
+		printf "Running pnpm install in $(WEB_DIR)/...\n"; \
+		cd $(WEB_DIR) && $(PNPM) install; \
 	else printf "web/node_modules already present\n"; fi
 	@printf "\nAll prerequisites installed.\n"
 

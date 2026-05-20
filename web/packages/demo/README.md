@@ -14,7 +14,7 @@ It's exactly the same code as this directory, updated nightly.
 ### Run your own demo
 
 After building ruffle-web,
-you can run `npm run demo` in the `web` folder to launch the demo.
+you can run `pnpm demo` in the `web` folder to launch the demo.
 
 It will start a local web server and print the address in the console.
 Navigate to that website (usually [http://localhost:4173](http://localhost:4173)) in your browser.

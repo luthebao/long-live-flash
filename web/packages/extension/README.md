@@ -44,4 +44,4 @@ Alternatively, loading unpacked can save time during development:
 
 ## Building, testing or contributing
 
-Please see the [ruffle-web README](../../README.md).
+Please see the [llflash-web README](../../README.md).

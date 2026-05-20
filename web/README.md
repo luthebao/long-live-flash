@@ -7,7 +7,7 @@ using the `llflash-selfhosted` or `llflash-extension` NPM packages.
 
 This project is split into two parts: The actual Flash player written in Rust,
 and a javascript interface to it. Most of the time, you will be building the
-actual rust part through the npm build scripts.
+actual rust part through the pnpm build scripts.
 
 ## Using ruffle-web
 
@@ -59,7 +59,9 @@ Follow the instructions to [install Node.js](https://nodejs.org/) on your machin
 
 We recommend using the currently active LTS 24, but we do also run tests with current Node.js 25.
 
-Note that npm 7 or newer is required. It should come bundled with Node.js 15 or newer, but can be upgraded with older Node.js versions using `npm install -g npm` as root/Administrator.
+#### pnpm
+
+This project uses [pnpm](https://pnpm.io/) as its package manager (the exact version is pinned via the `packageManager` field in `web/package.json`). The simplest way to set it up is via [Corepack](https://nodejs.org/api/corepack.html), which ships with Node.js: run `corepack enable` once and pnpm will be available. Alternatively, install it globally with `npm install -g pnpm`.
 
 #### wasm-bindgen
 
@@ -96,32 +98,32 @@ Windows dependencies:
 
 In this project, you may run the following commands to build all packages:
 
--   `npm install`
+-   `pnpm install`
     -   This will install every dependency for every package.
     -   Run this every time you pull in new changes, otherwise you may be missing a package and the build will fail.
--   `npm run build`
+-   `pnpm build`
     -   This will build the wasm binary and every node package (notably selfhosted and extension).
     -   Output will be available in the `dist/` folder of each package (for example, `./packages/selfhosted/dist`).
-    -   You may also use `npm run build:debug` to disable Webpack optimizations and activate the (extremely verbose) ActionScript debugging output.
-    -   There is `npm run build:dual-wasm` as well, to build a second WebAssembly module that disables all supported WebAssembly extensions,
+    -   You may also use `pnpm build:debug` to disable Webpack optimizations and activate the (extremely verbose) ActionScript debugging output.
+    -   There is `pnpm build:dual-wasm` as well, to build a second WebAssembly module that disables all supported WebAssembly extensions,
         potentially resulting in support for more browsers, at the expense of longer build time.
-    -   `npm run build:repro` enables reproducible builds with the default WASM module. Note that this also requires a `version_seal.json`, which is not provided in the normal Git repository - only specially-marked reproducible source archives. Running this without a version seal will generate one based on the current state of your environment.
-    -   `npm run build:dual-wasm-repro` enables reproducible builds with both WASM modules. Note that this also requires a `version_seal.json`, which is not provided in the normal Git repository - only specially-marked reproducible source archives. Running this without a version seal will generate one based on the current state of your environment.
+    -   `pnpm build:repro` enables reproducible builds with the default WASM module. Note that this also requires a `version_seal.json`, which is not provided in the normal Git repository - only specially-marked reproducible source archives. Running this without a version seal will generate one based on the current state of your environment.
+    -   `pnpm build:dual-wasm-repro` enables reproducible builds with both WASM modules. Note that this also requires a `version_seal.json`, which is not provided in the normal Git repository - only specially-marked reproducible source archives. Running this without a version seal will generate one based on the current state of your environment.
     -   You will also need to run `rustup component add rust-src` with either of the dual-wasm commands since we rebuild std for the vanilla WASM module.
 
 From here, you may follow the instructions to [use Llflash on your website](packages/selfhosted/README.md),
-run a demo locally with `npm run demo`, or install the extension in your browser.
+run a demo locally with `pnpm demo`, or install the extension in your browser.
 
 ### Testing
 
 There are two parts of tests to this project:
-- Regular node tests, ran through `npm run test`. You must have built everything first as above. These have no special requirements.
-- Browser based tests, ran through `npm run wdio` with extra arguments as below. These take longer to run and require some setup.
+- Regular node tests, ran through `pnpm test`. You must have built everything first as above. These have no special requirements.
+- Browser based tests, ran through `pnpm wdio` with extra arguments as below. These take longer to run and require some setup.
 
 ## Browser Based Tests
 There are full integration tests that require a browser to run. We don't make any assumptions about your environment, and so you must specify it yourself.
 
-To run these tests, first build the project as above, then use `npm run wdio -- --arg1 --arg2` etc.
+To run these tests, first build the project as above, then use `pnpm wdio --arg1 --arg2` etc.
 
 ### Local Browsers
 These are additive - you can specify multiple at the same time. You must have the given browsers installed locally though, or it will fail.
@@ -159,8 +161,8 @@ That way you can actually see what's happening, and manually get involved to deb
 
 Please follow the [general contribution guidelines for Llflash](../CONTRIBUTING.md).
 
-In addition to those, we ask that you ensure that you pass all tests with `npm run test`, and check the automatic code
-linting & styler by running `npm run format` before you commit.
+In addition to those, we ask that you ensure that you pass all tests with `pnpm test`, and check the automatic code
+linting & styler by running `pnpm format` before you commit.
 
 Where possible, please add tests to all new functionality or bug fixes that you contribute.
 
