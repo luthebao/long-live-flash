@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "mac-cli": {
+      "source": "luthebao/mac-cli",
+      "sourceType": "github",
+      "skillPath": "skills/mac-cli/SKILL.md",
+      "computedHash": "33ae0eee714ae2fec3b34ce363321eae545049d2c8be2059289c9d6a2caeadca"
+    }
+  }
+}
