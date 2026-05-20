@@ -1,11 +1,10 @@
 name: Build & publish to target release
 
-# Manual trigger. Builds the desktop app (macOS/Windows/Linux), the
-# llflash-rtmp-host native messaging binary (same three OSes), and the
-# generic web extension zip. Resolves APP_VERSION from
-# [workspace.package].version in Cargo.toml, then publishes every artifact
-# to a release tag on a *different* repo — all targeting is via secrets so
-# this file stays repo-portable.
+# Manual trigger. Builds the llflash-rtmp-host native messaging binary
+# for macOS/Windows/Linux and the generic web extension zip. Resolves
+# APP_VERSION from [workspace.package].version in Cargo.toml, then
+# publishes every artifact to a release tag on a *different* repo — all
+# targeting is via secrets so this file stays repo-portable.
 #
 # Required secrets:
 #   TARGET_REPO         — destination repo in `owner/repo` form
@@ -54,7 +53,7 @@ jobs:
                   echo "Resolved version: $VERSION"
 
     macos:
-        name: macOS arm64 (.dmg + rtmp host)
+        name: macOS arm64 (rtmp host)
         needs: preflight
         runs-on: macos-14
         env:
@@ -68,41 +67,13 @@ jobs:
             - name: Cache cargo
               uses: Swatinem/rust-cache@v2
 
-            - name: Build llflash_desktop + llflash_rtmp_host (release)
-              run: cargo build --release -p llflash_desktop -p llflash_rtmp_host
-
-            # Info.plist in desktop/packages/macOS hard-codes
-            # CFBundleExecutable=ruffle and CFBundleIconName=RuffleMacIcon,
-            # so the binary lands as MacOS/ruffle and the icon as
-            # Resources/RuffleMacIcon.icns to match.
-            - name: Assemble Llflash.app bundle
-              run: |
-                  APP_DIR="bin/Llflash.app"
-                  rm -rf bin
-                  mkdir -p "$APP_DIR/Contents/MacOS" "$APP_DIR/Contents/Resources"
-                  cp desktop/packages/macOS/Contents/Info.plist "$APP_DIR/Contents/Info.plist"
-                  cp target/release/llflash_desktop "$APP_DIR/Contents/MacOS/ruffle"
-                  cp assets/AppIcon.icns "$APP_DIR/Contents/Resources/RuffleMacIcon.icns"
-                  chmod +x "$APP_DIR/Contents/MacOS/ruffle"
-
-            - name: Build .dmg image
-              run: |
-                  STAGING="bin/dmg-staging"
-                  rm -rf "$STAGING"
-                  mkdir -p "$STAGING"
-                  cp -R bin/Llflash.app "$STAGING/"
-                  ln -s /Applications "$STAGING/Applications"
-                  hdiutil create \
-                      -volname "Llflash" \
-                      -srcfolder "$STAGING" \
-                      -ov -format UDZO \
-                      "bin/LongLiveFlash-${APP_VERSION}-macOS-arm64.dmg"
-                  rm -rf "$STAGING"
+            - name: Build llflash_rtmp_host (release)
+              run: cargo build --release -p llflash_rtmp_host
 
             - name: Package llflash-rtmp-host (.tar.gz)
               run: |
                   STAGE="bin/llflash-rtmp-host"
-                  rm -rf "$STAGE"
+                  rm -rf bin
                   mkdir -p "$STAGE"
                   cp target/release/llflash-rtmp-host "$STAGE/"
                   cp -R native-host/manifest "$STAGE/manifest"
@@ -111,17 +82,15 @@ jobs:
                       "bin/llflash-rtmp-host-${APP_VERSION}-macOS-arm64.tar.gz" \
                       llflash-rtmp-host
 
-            - name: Upload artifacts
+            - name: Upload artifact
               uses: actions/upload-artifact@v4
               with:
                   name: macOS
                   if-no-files-found: error
-                  path: |
-                      bin/LongLiveFlash-${{ needs.preflight.outputs.version }}-macOS-arm64.dmg
-                      bin/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-macOS-arm64.tar.gz
+                  path: bin/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-macOS-arm64.tar.gz
 
     windows:
-        name: Windows x64 (.zip + rtmp host)
+        name: Windows x64 (rtmp host)
         needs: preflight
         # Pin to Server 2022 (NT 10.0.20348 — same kernel branch as Windows
         # 10 21H2) so the produced binary's min-supported OS stays
@@ -139,25 +108,9 @@ jobs:
             - name: Cache cargo
               uses: Swatinem/rust-cache@v2
 
-            - name: Build llflash_desktop + llflash_rtmp_host (release)
+            - name: Build llflash_rtmp_host (release)
               shell: pwsh
-              run: cargo build --release -p llflash_desktop -p llflash_rtmp_host
-
-            - name: Assemble desktop dist folder
-              shell: pwsh
-              run: |
-                  New-Item -ItemType Directory -Force -Path dist/LongLiveFlash | Out-Null
-                  Copy-Item target/release/llflash_desktop.exe dist/LongLiveFlash/
-                  if (Test-Path assets/icon.ico) {
-                      Copy-Item assets/icon.ico dist/LongLiveFlash/
-                  }
-
-            - name: Zip desktop
-              shell: pwsh
-              run: |
-                  Compress-Archive `
-                      -Path dist/LongLiveFlash `
-                      -DestinationPath "dist/LongLiveFlash-$env:APP_VERSION-Windows-x64.zip"
+              run: cargo build --release -p llflash_rtmp_host
 
             - name: Assemble rtmp host dist folder
               shell: pwsh
@@ -174,17 +127,15 @@ jobs:
                       -Path dist/llflash-rtmp-host `
                       -DestinationPath "dist/llflash-rtmp-host-$env:APP_VERSION-Windows-x64.zip"
 
-            - name: Upload artifacts
+            - name: Upload artifact
               uses: actions/upload-artifact@v4
               with:
                   name: Windows
                   if-no-files-found: error
-                  path: |
-                      dist/LongLiveFlash-${{ needs.preflight.outputs.version }}-Windows-x64.zip
-                      dist/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-Windows-x64.zip
+                  path: dist/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-Windows-x64.zip
 
     linux:
-        name: Linux x64 (.tar.gz + rtmp host)
+        name: Linux x64 (rtmp host)
         needs: preflight
         # Pinned to 22.04 (glibc 2.35) so the resulting binary runs on most
         # current desktop distros without "GLIBC_2.38 not found" errors.
@@ -194,39 +145,19 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
-            # Audio (cpal → alsa), input (udev), and keyboard layout (xkb).
-            # wgpu loads vulkan/gl drivers via dlopen at runtime so no
-            # additional -dev packages are required for compilation.
-            - name: Install Linux build deps
-              run: |
-                  sudo apt-get update
-                  sudo apt-get install -y --no-install-recommends \
-                      libasound2-dev libudev-dev libxkbcommon-dev pkg-config
-
             - name: Install stable Rust
               uses: dtolnay/rust-toolchain@stable
 
             - name: Cache cargo
               uses: Swatinem/rust-cache@v2
 
-            - name: Build llflash_desktop + llflash_rtmp_host (release)
-              run: cargo build --release -p llflash_desktop -p llflash_rtmp_host
-
-            - name: Package desktop (.tar.gz)
-              run: |
-                  STAGE="dist/LongLiveFlash"
-                  rm -rf dist
-                  mkdir -p "$STAGE"
-                  cp target/release/llflash_desktop "$STAGE/"
-                  cp desktop/packages/linux/rs.ruffle.Ruffle.svg "$STAGE/" || true
-                  tar -C dist -czf \
-                      "dist/LongLiveFlash-${APP_VERSION}-Linux-x64.tar.gz" \
-                      LongLiveFlash
+            - name: Build llflash_rtmp_host (release)
+              run: cargo build --release -p llflash_rtmp_host
 
             - name: Package llflash-rtmp-host (.tar.gz)
               run: |
                   STAGE="dist/llflash-rtmp-host"
-                  rm -rf "$STAGE"
+                  rm -rf dist
                   mkdir -p "$STAGE"
                   cp target/release/llflash-rtmp-host "$STAGE/"
                   cp -R native-host/manifest "$STAGE/manifest"
@@ -235,14 +166,12 @@ jobs:
                       "dist/llflash-rtmp-host-${APP_VERSION}-Linux-x64.tar.gz" \
                       llflash-rtmp-host
 
-            - name: Upload artifacts
+            - name: Upload artifact
               uses: actions/upload-artifact@v4
               with:
                   name: Linux
                   if-no-files-found: error
-                  path: |
-                      dist/LongLiveFlash-${{ needs.preflight.outputs.version }}-Linux-x64.tar.gz
-                      dist/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-Linux-x64.tar.gz
+                  path: dist/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-Linux-x64.tar.gz
 
     extension:
         name: Web extension (generic .zip)
@@ -368,16 +297,13 @@ jobs:
                   tag_name: ${{ secrets.TARGET_RELEASE_TAG }}
                   name: ${{ secrets.TARGET_RELEASE_TAG }}
                   body: |
-                      Long Live Flash `${{ needs.preflight.outputs.version }}` — desktop, web extension, and RTMP native messaging host.
+                      Long Live Flash `${{ needs.preflight.outputs.version }}` — web extension and RTMP native messaging host.
                       Source commit: `${{ github.sha }}` on `${{ github.ref_name }}`.
                   prerelease: false
                   # Don't promote this tag over whatever the target repo
                   # already flags as latest.
                   make_latest: "false"
                   files: |
-                      release/LongLiveFlash-${{ needs.preflight.outputs.version }}-macOS-arm64.dmg
-                      release/LongLiveFlash-${{ needs.preflight.outputs.version }}-Windows-x64.zip
-                      release/LongLiveFlash-${{ needs.preflight.outputs.version }}-Linux-x64.tar.gz
                       release/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-macOS-arm64.tar.gz
                       release/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-Windows-x64.zip
                       release/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-Linux-x64.tar.gz
