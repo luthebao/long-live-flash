@@ -1490,7 +1490,7 @@ mod tests {
         }
 
         // Test data taken from a real-world case:
-        // https://github.com/ruffle-rs/ruffle/issues/11077
+        // 
         // Overflow bugs can make this test case fail.
         test(
             swf::Point::new(Twips::new(0), Twips::new(-665)),

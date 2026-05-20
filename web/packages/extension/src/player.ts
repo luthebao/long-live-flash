@@ -1,7 +1,7 @@
 import * as utils from "./utils";
-import { Setup } from "ruffle-core";
+import { Setup } from "llflash-core";
 
-import type { Config, Player } from "ruffle-core";
+import type { Config, Player } from "llflash-core";
 
 declare global {
     interface Navigator {

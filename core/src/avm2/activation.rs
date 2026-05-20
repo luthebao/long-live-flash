@@ -96,7 +96,7 @@ pub struct Activation<'a, 'gc: 'a> {
     /// of MethodFrames/MethodEnvs/scopes, and closures capture the dxns value from
     /// the scope at the time they are created (see `MethodFrame::findDxns`).
     /// Our per-Activation approach doesn't handle that closure-capture behavior.
-    /// See <https://github.com/ruffle-rs/ruffle/pull/21014> for details.
+    /// See <> for details.
     default_xml_namespace: Option<AvmString<'gc>>,
 
     pub context: &'a mut UpdateContext<'gc>,

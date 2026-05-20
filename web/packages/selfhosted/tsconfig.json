@@ -7,7 +7,7 @@
         "target": "es2021",
         "rootDir": ".",
         "outDir": "dist",
-        "types": ["node", "@wdio/globals/types", "@wdio/mocha-framework", "ruffle-core"]
+        "types": ["node", "@wdio/globals/types", "@wdio/mocha-framework", "llflash-core"]
     },
     "include": ["test/**/*", "wdio.conf.ts"],
 }

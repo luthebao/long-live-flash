@@ -1,9 +1,9 @@
 # ruffle-web
 
-![Test Web](https://github.com/ruffle-rs/ruffle/workflows/Test%20Web/badge.svg)
+
 
 ruffle-web is a Wasm version of Llflash, intended for use by either
-using the `ruffle-selfhosted` or `ruffle-extension` NPM packages.
+using the `llflash-selfhosted` or `llflash-extension` NPM packages.
 
 This project is split into two parts: The actual Flash player written in Rust,
 and a javascript interface to it. Most of the time, you will be building the
@@ -12,8 +12,8 @@ actual rust part through the npm build scripts.
 ## Using ruffle-web
 
 Please refer to our wiki for instructions on how to use Llflash either
-[on your own website](https://github.com/ruffle-rs/ruffle/wiki/Using-Llflash#web),
-or as a [browser extension](https://github.com/ruffle-rs/ruffle/wiki/Using-Llflash#browser-extension).
+on your own website,
+or as a browser extension.
 
 ## How it works
 
@@ -110,7 +110,7 @@ In this project, you may run the following commands to build all packages:
     -   You will also need to run `rustup component add rust-src` with either of the dual-wasm commands since we rebuild std for the vanilla WASM module.
 
 From here, you may follow the instructions to [use Llflash on your website](packages/selfhosted/README.md),
-run a demo locally with `npm run demo`, or [install the extension in your browser](https://github.com/ruffle-rs/ruffle/wiki/Using-Llflash#browser-extension).
+run a demo locally with `npm run demo`, or install the extension in your browser.
 
 ### Testing
 

@@ -2,15 +2,15 @@
   <a href="https://ruffle.rs"><img alt="Llflash" src="https://ruffle.rs/logo.svg" /></a>
 </p>
 <p align="center">
-  <a href="https://github.com/ruffle-rs/ruffle/actions"><img alt="Rust Build Status" src="https://img.shields.io/github/actions/workflow/status/ruffle-rs/ruffle/test_rust.yml?label=Rust%20Build&logo=github&branch=master" /></a>
-  <a href="https://github.com/ruffle-rs/ruffle/actions/workflows/test_web.yml"><img alt="Web Build Status" src="https://img.shields.io/github/actions/workflow/status/ruffle-rs/ruffle/test_web.yml?label=Web%20Build&logo=github&branch=master" /></a>
+  <a href=""><img alt="Rust Build Status" src="https://img.shields.io/github/actions/workflow/status/ruffle-rs/ruffle/test_rust.yml?label=Rust%20Build&logo=github&branch=master" /></a>
+  <a href=""><img alt="Web Build Status" src="https://img.shields.io/github/actions/workflow/status/ruffle-rs/ruffle/test_web.yml?label=Web%20Build&logo=github&branch=master" /></a>
   <a href="https://flathub.org/apps/rs.ruffle.Llflash"><img alt="Llflash Flathub" src="https://img.shields.io/flathub/v/rs.ruffle.Llflash?color=007acc&logo=flathub" /></a>
-  <a href="https://www.npmjs.com/package/@ruffle-rs/ruffle"><img alt="Llflash npm" src="https://img.shields.io/npm/v/@ruffle-rs/ruffle?color=007acc&logo=npm" /></a>
+  <a href="https://www.npmjs.com/package/@llflash/llflash"><img alt="Llflash npm" src="https://img.shields.io/npm/v/@llflash/llflash?color=007acc&logo=npm" /></a>
   <a href="https://aur.archlinux.org/packages/ruffle-nightly-bin"><img alt="Llflash AUR" src="https://img.shields.io/aur/version/ruffle-nightly-bin?logo=archlinux" /></a>
   <a href="https://discord.gg/ruffle"><img alt="Llflash Discord" src="https://img.shields.io/discord/610531541889581066?label=&color=7389d8&labelColor=6a7ec2&logoColor=ffffff&logo=discord" /></a>
   <a href="https://crowdin.com/project/ruffle"><img alt="Llflash translations" src="https://badges.crowdin.net/ruffle/localized.svg" /></a>
   <br />
-  <strong><a href="https://ruffle.rs">website</a> | <a href="https://ruffle.rs/demo">demo</a> | <a href="https://github.com/ruffle-rs/ruffle/releases">nightly builds</a> | <a href="https://github.com/ruffle-rs/ruffle/wiki">wiki</a></strong>
+  <strong><a href="https://ruffle.rs">website</a> | <a href="https://ruffle.rs/demo">demo</a> | <a href="">nightly builds</a> | <a href="">wiki</a></strong>
 </p>
 
 # Llflash
@@ -38,7 +38,7 @@ Llflash is an Adobe Flash Player emulator written in the Rust programming langua
 
 ## Project status
 
-Llflash supports ActionScript 1, 2 and 3 pretty well, but it's still not finished by any means. Please report any issues in the [Issue Tracker](https://github.com/ruffle-rs/ruffle/issues).
+Llflash supports ActionScript 1, 2 and 3 pretty well, but it's still not finished by any means. Please report any issues in the Issue Tracker.
 
 ## Using Llflash
 
@@ -46,7 +46,7 @@ The easiest way to try out Llflash is to visit the [web demo page](https://ruffl
 
 [Nightly builds](https://ruffle.rs/downloads#nightly-releases) of Llflash are available for desktop and web platforms.
 
-For more detailed instructions, see our [wiki page](https://github.com/ruffle-rs/ruffle/wiki/Using-Llflash).
+For more detailed instructions, see our wiki page.
 
 ## Building from source
 
@@ -100,7 +100,7 @@ This project is tested with BrowserStack.
 
 ### Android
 
-Follow the [instructions](https://github.com/ruffle-rs/ruffle-android/blob/main/CONTRIBUTING.md#building-from-source) in the `ruffle-android` project for building the Android application of Llflash.
+Follow the instructions in the `ruffle-android` project for building the Android application of Llflash.
 
 ### Scanner
 
@@ -133,7 +133,7 @@ This currently requires hardware acceleration, but can be run headless (with no 
 
 ## Sponsors
 
-You can support the development of Llflash via [GitHub Sponsors](https://github.com/sponsors/ruffle-rs). Your sponsorship will help to ensure the accessibility of Flash content for the future. Thank you!
+You can support the development of Llflash via GitHub Sponsors. Your sponsorship will help to ensure the accessibility of Flash content for the future. Thank you!
 
 Sincere thanks to the diamond level sponsors of Llflash:
 

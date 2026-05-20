@@ -30,11 +30,11 @@ describe("Programmatic Events", () => {
     it("load the test", async () => {
         await openTest(browser, "integration_tests/programmatic_events");
         await injectRuffleAndWait(browser);
-        const player = await browser.$("<ruffle-object>").getElement();
+        const player = await browser.$("<llflash-object>").getElement();
         await playAndMonitor(browser, player, ["Loaded!"]);
     });
 
-    // See https://github.com/ruffle-rs/ruffle/issues/6952#issuecomment-1133990189
+    // See 
     it("scenario: programmatic pointerdown on the player", async () => {
         const player = await browser.$("#objectElement").getElement();
 
@@ -67,7 +67,7 @@ describe("Programmatic Events", () => {
         ]);
     });
 
-    // That has been possible since https://github.com/ruffle-rs/ruffle/pull/17158,
+    // That has been possible since 
     // so ideally we want to preserve this behavior.
     it("scenario: programmatic focus on the container", async () => {
         const player = await browser.$("#objectElement").getElement();

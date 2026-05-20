@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 /* global __webpack_public_path__:writable */
 
-import { Setup } from "ruffle-core";
+import { Setup } from "llflash-core";
 
 let currentScriptURL = null;
 

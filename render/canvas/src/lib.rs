@@ -190,7 +190,7 @@ impl BitmapData {
             .dyn_into()
             .expect("get_context method returned something other than a CanvasRenderingContext2d");
         context
-            .put_image_data(&image_data, 0.0, 0.0)
+            .put_image_data(&image_data, 0, 0)
             .into_js_result()?;
         Ok(BitmapData {
             image_data,
@@ -207,7 +207,7 @@ impl BitmapData {
         self.canvas.set_width(bitmap.width());
         self.canvas.set_height(bitmap.height());
         self.context
-            .put_image_data(&image_data, 0.0, 0.0)
+            .put_image_data(&image_data, 0, 0)
             .into_js_result()?;
         Ok(())
     }

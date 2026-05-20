@@ -12,7 +12,7 @@ echo "3. Subsetting NotoSans-Regular.ttf"
 pyftsubset --unicodes-file=unicodes-file.txt NotoSans-Regular.ttf
 
 echo "4. Removing MATH layout from NotoSansMath-Regular.ttf"
-# See https://github.com/ruffle-rs/ruffle/issues/20337#issuecomment-3039836137
+# See 
 # Remove OpenType math layout
 pyftsubset NotoSansMath-Regular.ttf "*" --drop-tables+=MATH --output-file=NotoSansMath-Regular-NoTable.ttf
 

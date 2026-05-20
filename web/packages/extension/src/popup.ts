@@ -1,7 +1,7 @@
 import * as utils from "./utils";
 import type { Options } from "./common";
 import { bindOptions } from "./common";
-import { buildInfo } from "ruffle-core";
+import { buildInfo } from "llflash-core";
 
 let activeTab: chrome.tabs.Tab | browser.tabs.Tab;
 let savedOptions: Options;

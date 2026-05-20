@@ -5,14 +5,14 @@ import fs from "fs";
 
 use(chaiHtml);
 
-describe("Object with ruffle-embed tag", () => {
+describe("Object with llflash-embed tag", () => {
     it("loads the test", async () => {
-        await openTest(browser, `polyfill/object_with_ruffle_embed`);
+        await openTest(browser, `polyfill/object_with_llflash_embed`);
     });
 
     it("already polyfilled with ruffle", async () => {
         await injectRuffleAndWait(browser);
-        await browser.$("<ruffle-embed />").waitForExist();
+        await browser.$("<llflash-embed />").waitForExist();
         const actual = await browser
             .$("#test-container")
             .getHTML({ includeSelectorTag: false, pierceShadowRoot: false });

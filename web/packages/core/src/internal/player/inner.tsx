@@ -25,7 +25,7 @@ import {
     LoadSwfError,
 } from "../errors";
 import { showPanicScreen } from "../ui/panic";
-import { createRuffleBuilder } from "../../load-ruffle";
+import { createRuffleBuilder } from "../../load-llflash";
 import { lookupElement } from "../register-element";
 import { configureBuilder } from "../builder";
 
@@ -649,7 +649,7 @@ export class InnerPlayer {
      * @private
      */
     private isUnusedFallbackObject(): boolean {
-        const element = lookupElement("ruffle-object");
+        const element = lookupElement("llflash-object");
 
         if (element !== null) {
             let parent = this.element.parentNode;
@@ -2001,7 +2001,7 @@ export class InnerPlayer {
     }
 
     /**
-     * Get data included in any panic of this ruffle-player
+     * Get data included in any panic of this llflash-player
      *
      * @returns A string containing all the data included in the panic.
      */

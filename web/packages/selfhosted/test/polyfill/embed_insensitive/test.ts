@@ -12,7 +12,7 @@ describe("Embed with case-insensitive MIME type", () => {
 
     it("Polyfills", async () => {
         await injectRuffleAndWait(browser);
-        await browser.$("<ruffle-embed />").waitForExist();
+        await browser.$("<llflash-embed />").waitForExist();
 
         const actual = await browser
             .$("#test-container")
@@ -29,7 +29,7 @@ describe("Embed with case-insensitive MIME type", () => {
             browser,
             await browser
                 .$("#test-container")
-                .$("<ruffle-embed />")
+                .$("<llflash-embed />")
                 .getElement(),
         );
     });

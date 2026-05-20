@@ -6,7 +6,7 @@ import {
     useEffect,
     useState,
 } from "react";
-import type { Config } from "ruffle-core";
+import type { Config } from "llflash-core";
 
 type SampleCategory = "Animation" | "Game";
 

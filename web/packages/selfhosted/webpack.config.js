@@ -18,12 +18,12 @@ export default function (_env, _argv) {
 
     return {
         mode,
-        entry: "./js/ruffle.js",
+        entry: "./js/llflash.js",
         output: {
             path: url.fileURLToPath(new URL("dist", import.meta.url)),
-            filename: "ruffle.js",
+            filename: "llflash.js",
             publicPath: "",
-            chunkFilename: "core.ruffle.[contenthash].js",
+            chunkFilename: "core.llflash.[contenthash].js",
             clean: true,
         },
         performance: {

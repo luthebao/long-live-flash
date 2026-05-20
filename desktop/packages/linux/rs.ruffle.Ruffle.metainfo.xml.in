@@ -46,13 +46,13 @@
         <keyword>emulator</keyword>
     </keywords>
     <url type="homepage">https://ruffle.rs</url>
-    <url type="bugtracker">https://github.com/ruffle-rs/ruffle/issues</url>
-    <url type="faq">https://github.com/ruffle-rs/ruffle/wiki/Frequently-Asked-Questions-For-Users</url>
+    <url type="bugtracker"></url>
+    <url type="faq"></url>
     <url type="translate">https://crowdin.com/project/ruffle</url>
     <url type="donation">https://opencollective.com/ruffle</url>
     <url type="contact">https://discord.gg/ruffle</url>
-    <url type="vcs-browser">https://github.com/ruffle-rs/ruffle</url>
-    <url type="contribute">https://github.com/ruffle-rs/ruffle/blob/master/CONTRIBUTING.md</url>
+    <url type="vcs-browser"></url>
+    <url type="contribute"></url>
     <screenshots>
         <screenshot environment="gnome:dark" type="default">
             <image>https://raw.githubusercontent.com/ruffle-rs/ruffle/efe754cdcc57f0e1f2820e66983f6a5a91e5d2c8/desktop/packages/linux/screenshots/dark-launcher.png</image>
@@ -83,7 +83,7 @@
     </branding>
     <releases>
         <release version="0.2.0-nightly.2026.5.15" date="2026-05-15">
-            <url>https://github.com/ruffle-rs/ruffle/releases/tag/nightly-2026-05-15</url>
+            <url></url>
         </release>
     </releases>
 </component>

@@ -12,7 +12,7 @@ describe("Object with another object tag", () => {
 
     it("polyfills only the first tag with ruffle", async () => {
         await injectRuffleAndWait(browser);
-        await browser.$("<ruffle-object />").waitForExist();
+        await browser.$("<llflash-object />").waitForExist();
         const actual = await browser
             .$("#test-container")
             .getHTML({ includeSelectorTag: false, pierceShadowRoot: false });
@@ -28,7 +28,7 @@ describe("Object with another object tag", () => {
             browser,
             await browser
                 .$("#test-container")
-                .$("<ruffle-object />")
+                .$("<llflash-object />")
                 .getElement(),
         );
     });

@@ -1,12 +1,12 @@
-# ruffle-core
+# llflash-core
 
-ruffle-core is the core javascript bindings to the Wasm ruffle-web binary,
+llflash-core is the core javascript bindings to the Wasm ruffle-web binary,
 and contains the actual public API.
 
-## Using ruffle-core
+## Using llflash-core
 
 For more examples and in-depth documentation on how to use Llflash on your website, please
-[check out our wiki](https://github.com/ruffle-rs/ruffle/wiki/Using-Llflash#web).
+check out our wiki.
 
 ### Host Llflash
 
@@ -15,10 +15,10 @@ Simply add `ruffle` to an npm package, and use something like Webpack to actuall
 the files.
 
 If you wish to use Llflash on a website that doesn't use npm, we have a pre-bundled version which
-we call 'selfhosted'. Please [refer to its documentation](https://github.com/ruffle-rs/ruffle/tree/master/web/packages/selfhosted).
+we call 'selfhosted'. Please refer to its documentation.
 
 Please note that the `.wasm` file must be served properly, and some web servers may not do that
-correctly out of the box. Please see [our wiki](https://github.com/ruffle-rs/ruffle/wiki/Using-Llflash#configure-wasm-mime-type)
+correctly out of the box. Please see our wiki
 for instructions on how to configure this, if you encounter a `Incorrect response MIME type` error.
 
 ### "Plug and Play"
@@ -27,7 +27,7 @@ If you have an existing website with flash content, you can simply include Llfla
 our polyfill magic will replace everything for you. No fuss, no mess.
 
 ```html
-<script src="path/to/ruffle/ruffle.js"></script>
+<script src="path/to/ruffle/llflash.js"></script>
 ```
 
 ### Javascript API
@@ -46,7 +46,7 @@ If you want to control the Llflash player, you may use our Javascript API.
         player.ruffle().load("movie.swf");
     });
 </script>
-<script src="path/to/ruffle/ruffle.js"></script>
+<script src="path/to/ruffle/llflash.js"></script>
 ```
 
 ## Building, testing or contributing

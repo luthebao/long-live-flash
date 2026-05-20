@@ -46,7 +46,7 @@ authors = ["Llflash LLC <ruffle@ruffle.rs>"]
 edition = "2024"
 homepage = "https://ruffle.rs"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/ruffle-rs/ruffle"
+repository = ""
 version = "0.2.0-nightly.2026.5.15"
 
 [workspace.dependencies]

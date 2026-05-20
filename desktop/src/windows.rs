@@ -18,7 +18,7 @@ impl Console {
     //
     // However, if stdout/stderr are already redirected (e.g., `ruffle.exe > file.txt`),
     // we should NOT attach to the console as that would bypass the redirection.
-    // See: https://github.com/ruffle-rs/ruffle/issues/9145
+    // See: 
     pub(super) fn attach() -> Self {
         // Check if stdout is already redirected to a file or pipe
         // SAFETY: STD_OUTPUT_HANDLE is a valid standard device constant.

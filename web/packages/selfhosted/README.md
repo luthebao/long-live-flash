@@ -1,27 +1,27 @@
-# ruffle-selfhosted
+# llflash-selfhosted
 
-ruffle-selfhosted is the intended way to get Llflash onto your website.
+llflash-selfhosted is the intended way to get Llflash onto your website.
 
 You may either include it and forget about it, and we will polyfill existing Flash content,
 or use our APIs for custom configurations or more advanced usages of the Llflash player.
 
-## Using ruffle-selfhosted
+## Using llflash-selfhosted
 
 For more examples and in-depth documentation on how to use Llflash on your website, please
-[check out our wiki](https://github.com/ruffle-rs/ruffle/wiki/Using-Llflash#web).
+check out our wiki.
 
 ### Host Llflash
 
 The `selfhosted` package is configured for websites that do not use bundlers or npm and just want
 to get up and running. If you'd prefer to use Llflash through npm and a bundler, please
-[refer to ruffle core](https://github.com/ruffle-rs/ruffle/tree/master/web/packages/core).
+refer to ruffle core.
 
 Before you can get started with using Llflash on your website, you must host its files yourself.
-Either take the [latest build](https://github.com/ruffle-rs/ruffle/releases)
-or [build it yourself](https://github.com/ruffle-rs/ruffle/blob/master/web/README.md), and make these files accessible by your web server.
+Either take the latest build
+or build it yourself, and make these files accessible by your web server.
 
 Please note that the `.wasm` file must be served properly, and some web servers may not do that
-correctly out of the box. Please see [our wiki](https://github.com/ruffle-rs/ruffle/wiki/Using-Llflash#configure-wasm-mime-type)
+correctly out of the box. Please see our wiki
 for instructions on how to configure this, if you encounter a `Incorrect response MIME type` error.
 
 ### "Plug and Play"
@@ -30,7 +30,7 @@ If you have an existing website with flash content, you can simply include Llfla
 our polyfill magic will replace everything for you. No fuss, no mess.
 
 ```html
-<script src="path/to/ruffle/ruffle.js"></script>
+<script src="path/to/ruffle/llflash.js"></script>
 ```
 
 ### Javascript API
@@ -49,9 +49,9 @@ If you want to control the Llflash player, you may use our Javascript API.
         player.ruffle().load("movie.swf");
     });
 </script>
-<script src="path/to/ruffle/ruffle.js"></script>
+<script src="path/to/ruffle/llflash.js"></script>
 ```
 
 ## Building, testing or contributing
 
-Please see [the ruffle-web README](https://github.com/ruffle-rs/ruffle/blob/master/web/README.md).
+Please see the ruffle-web README.

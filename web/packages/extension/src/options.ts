@@ -1,6 +1,6 @@
 import * as utils from "./utils";
 import { bindOptions, resetOptions } from "./common";
-import { buildInfo } from "ruffle-core";
+import { buildInfo } from "llflash-core";
 
 window.addEventListener("DOMContentLoaded", async () => {
     const data = await utils.storage.sync.get({

@@ -1796,7 +1796,7 @@ pub fn pixel_dissolve<'gc>(
         feistel_block_size: u32,
     ) -> u32 {
         // Discussion on Feistel networks:
-        // https://github.com/ruffle-rs/ruffle/issues/10962
+        // 
 
         // For the simple balanced variant of a Feistel network, an even number of
         // bits for the block size is required (unbalanced Feistel networks

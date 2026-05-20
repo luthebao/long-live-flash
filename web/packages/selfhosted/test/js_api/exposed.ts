@@ -8,7 +8,7 @@ describe("Exposed RufflePlayer methods/properties", () => {
     loadJsAPI();
 
     it("exposed API has not changed", async () => {
-        const player = await browser.$("<ruffle-player>");
+        const player = await browser.$("<llflash-player>");
         const keys = await browser.execute(async (player) => {
             return Reflect.ownKeys(Object.getPrototypeOf(player));
         }, player);

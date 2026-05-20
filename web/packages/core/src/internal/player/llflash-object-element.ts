@@ -1,4 +1,4 @@
-import { copyElement, RufflePlayerElement } from "./ruffle-player-element";
+import { copyElement, RufflePlayerElement } from "./llflash-player-element";
 import {
     getPolyfillOptions,
     isFallbackElement,
@@ -7,7 +7,7 @@ import {
 } from "./inner";
 import { FLASH_ACTIVEX_CLASSID } from "../../flash-identifiers";
 import { registerElement } from "../register-element";
-import { RuffleEmbedElement } from "./ruffle-embed-element";
+import { RuffleEmbedElement } from "./llflash-embed-element";
 import { isSwf } from "../../swf-utils";
 
 /**
@@ -177,10 +177,10 @@ export class RuffleObjectElement extends RufflePlayerElement {
             return false;
         }
 
-        // Don't polyfill if there's already a <ruffle-object> or a <ruffle-embed> inside the <object>.
+        // Don't polyfill if there's already a <llflash-object> or a <llflash-embed> inside the <object>.
         if (
-            elem.getElementsByTagName("ruffle-object").length > 0 ||
-            elem.getElementsByTagName("ruffle-embed").length > 0
+            elem.getElementsByTagName("llflash-object").length > 0 ||
+            elem.getElementsByTagName("llflash-embed").length > 0
         ) {
             return false;
         }
@@ -254,7 +254,7 @@ export class RuffleObjectElement extends RufflePlayerElement {
      */
     static fromNativeObjectElement(elem: Element): RuffleObjectElement {
         const externalName = registerElement(
-            "ruffle-object",
+            "llflash-object",
             RuffleObjectElement,
         );
         const ruffleObj: RuffleObjectElement = document.createElement(

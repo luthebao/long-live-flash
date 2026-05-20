@@ -29,7 +29,7 @@ describe("Context Menu", () => {
     it("load the test", async () => {
         await openTest(browser, "integration_tests/context_menu_position");
         await injectRuffleAndWait(browser);
-        const player = await browser.$("<ruffle-object>").getElement();
+        const player = await browser.$("<llflash-object>").getElement();
         await playAndMonitor(browser, player, ["Loaded!"]);
 
         // Dismiss hardware acceleration modal in Chrome

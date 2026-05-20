@@ -74,7 +74,7 @@ interface TestParams {
                 "index_" + testParams.name + ".html",
             );
             await injectRuffleAndWait(browser);
-            const player = await browser.$("<ruffle-object>").getElement();
+            const player = await browser.$("<llflash-object>").getElement();
             await playAndMonitor(browser, player, ["Loaded!"]);
             await hideHardwareAccelerationModal(browser, player);
             // await new Promise(f => setTimeout(f, 10000000));

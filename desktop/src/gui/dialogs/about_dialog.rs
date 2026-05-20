@@ -47,7 +47,7 @@ pub fn show_about_dialog(locale: &LanguageIdentifier, egui_ctx: &egui::Context) 
                             ui.label(text(locale, "about-ruffle-commit-ref"));
                             ui.hyperlink_to(
                                 sha,
-                                format!("https://github.com/ruffle-rs/ruffle/commit/{sha}"),
+                                format!("}"),
                             );
                             ui.end_row();
                         }
@@ -77,7 +77,7 @@ pub fn show_about_dialog(locale: &LanguageIdentifier, egui_ctx: &egui::Context) 
                     );
                     ui.hyperlink_to(
                         text(locale, "about-ruffle-visit-github"),
-                        "https://github.com/ruffle-rs/ruffle/",
+                        "",
                     );
                     ui.hyperlink_to(
                         text(locale, "about-ruffle-visit-discord"),

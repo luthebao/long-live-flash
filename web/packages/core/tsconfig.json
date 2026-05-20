@@ -9,7 +9,12 @@
         "outDir": "dist",
         "jsx": "react-jsx",
         "jsxImportSource": "tsx-dom",
-        "types": ["node", "tsx-dom"]
+        "types": [
+            "node",
+            "tsx-dom"
+        ]
     },
-    "include": ["src/**/*"],
+    "include": [
+        "src/**/*"
+    ],
 }

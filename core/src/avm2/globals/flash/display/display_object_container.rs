@@ -342,7 +342,7 @@ pub fn remove_children<'gc>(
 
         // Flash special-cases `to==i32::MAX` to not throw an error,
         // even if `from` is not in range
-        // https://github.com/ruffle-rs/ruffle/issues/11382
+        // 
 
         if (from >= ctr.num_children() as i32 || from < 0) && to != i32::MAX {
             return Err(make_error_2006(activation));

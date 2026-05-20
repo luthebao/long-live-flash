@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { Player, Setup } from "ruffle-core";
+import { Player, Setup } from "llflash-core";
 
 declare global {
     interface Window {
@@ -7,7 +7,7 @@ declare global {
     }
 }
 
-declare module "ruffle-core/dist/public/player" {
+declare module "llflash-core/dist/public/player" {
     interface PlayerElement {
         __ruffle_log__: string[];
     }
@@ -77,7 +77,7 @@ export async function injectRuffle(browser: WebdriverIO.Browser) {
         };
         const script = document.createElement("script");
         script.type = "text/javascript";
-        script.src = "/dist/ruffle.js";
+        script.src = "/dist/llflash.js";
         document.head.appendChild(script);
     });
     await throwIfError(browser);
@@ -210,16 +210,16 @@ export function loadJsAPI(swf?: string) {
         await browser.execute(() => {
             const ruffle = (window.RufflePlayer as Setup.PublicAPI).newest();
             const player = ruffle!.createPlayer();
-            player.id = "ruffle-player";
+            player.id = "llflash-player";
             const container = document.getElementById("test-container");
             container!.appendChild(player);
         });
 
-        const player = await $("#ruffle-player").getElement();
+        const player = await $("#llflash-player").getElement();
 
         if (swf) {
             await browser.execute(async (swf) => {
-                const player = document.getElementById("ruffle-player");
+                const player = document.getElementById("llflash-player");
                 await (player as Player.PlayerElement).ruffle().load(swf);
             }, swf);
             await playAndMonitor(browser, player);

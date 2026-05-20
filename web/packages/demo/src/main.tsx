@@ -4,7 +4,7 @@ import "./common.css";
 import "./lato.css";
 import "./index.css";
 import { App } from "./App.tsx";
-import { Config, Setup } from "ruffle-core";
+import { Config, Setup } from "llflash-core";
 
 Setup.installRuffle("local");
 

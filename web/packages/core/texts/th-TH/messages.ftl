@@ -1,2 +1,2 @@
-ruffle-demo = เว็บตัวอย่าง
-ruffle-wiki = ดูวิกิ Llflash
+llflash-demo = เว็บตัวอย่าง
+llflash-wiki = ดูวิกิ Llflash

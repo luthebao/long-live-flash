@@ -12,7 +12,7 @@ describe("Flash inside iframe with provided ruffle", () => {
 
     it("polyfills inside an iframe", async () => {
         await browser.switchFrame(await browser.$("#test-frame"));
-        await browser.$("<ruffle-object />").waitForExist();
+        await browser.$("<llflash-object />").waitForExist();
 
         const actual = await browser
             .$("#test-container")
@@ -37,7 +37,7 @@ describe("Flash inside iframe with provided ruffle", () => {
         // And finally, check
         await browser.switchFrame(null);
         await browser.switchFrame(await browser.$("#test-frame"));
-        await browser.$("<ruffle-object />").waitForExist();
+        await browser.$("<llflash-object />").waitForExist();
 
         const actual = await browser
             .$("#test-container")

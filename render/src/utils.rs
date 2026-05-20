@@ -93,7 +93,7 @@ pub fn remove_invalid_jpeg_data(data: &[u8]) -> Cow<'_, [u8]> {
     // When DefineBitsJPEG2 etc. were introduced, the Flash encoders/decoders weren't properly adjusted, resulting in
     // this sequence persisting. Also, despite what the spec says, this doesn't appear to be version checked (e.g., a
     // v9 SWF can contain one of these malformed JPEGs and display correctly).
-    // See https://github.com/ruffle-rs/ruffle/issues/8775 for various examples.
+    // See  for various examples.
 
     // JPEG markers
     const SOF0: u8 = 0xC0; // Start of frame

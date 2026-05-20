@@ -1,4 +1,4 @@
-import { Player } from "ruffle-core";
+import { Player } from "llflash-core";
 
 interface MetadataProps {
     visible: boolean;

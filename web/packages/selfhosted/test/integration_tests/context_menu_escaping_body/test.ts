@@ -19,7 +19,7 @@ describe("Context Menu", () => {
             "index_quirks.html",
         );
         await injectRuffleAndWait(browser);
-        const player = await browser.$("<ruffle-object>").getElement();
+        const player = await browser.$("<llflash-object>").getElement();
         await playAndMonitor(browser, player, ["Loaded!"]);
 
         // Dismiss hardware acceleration modal in Chrome
@@ -48,7 +48,7 @@ describe("Context Menu", () => {
             "index_no_quirks.html",
         );
         await injectRuffleAndWait(browser);
-        const player = await browser.$("<ruffle-object>").getElement();
+        const player = await browser.$("<llflash-object>").getElement();
         await playAndMonitor(browser, player, ["Loaded!"]);
 
         // Dismiss hardware acceleration modal in Chrome

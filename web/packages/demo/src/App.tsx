@@ -1,6 +1,6 @@
 import { Player } from "./player.tsx";
 import { useRef, useState, DragEvent, useCallback } from "react";
-import type { Config, Player as RufflePlayer } from "ruffle-core";
+import type { Config, Player as RufflePlayer } from "llflash-core";
 import { Navbar } from "./navbar.tsx";
 import { MetadataPanel } from "./metadata.tsx";
 

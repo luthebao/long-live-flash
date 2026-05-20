@@ -1,15 +1,15 @@
-# ruffle-extension
+# llflash-extension
 
-ruffle-extension is all of the power of Llflash, in your browser.
+llflash-extension is all of the power of Llflash, in your browser.
 
 Without needing websites to do anything, the browser extension automatically replaces any Flash content on websites with the Llflash player.
 
 It automatically negotiates with websites that do have Llflash installed, to ensure that there is no conflict between the versions. Newer version of ruffle, either from the website or extension, will always take precedence and disable the other.
 
-## Using ruffle-extension
+## Using llflash-extension
 
 The browser extension works in Chrome, Firefox, and Safari 14+. It can be installed directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/ruffle-flash-emulator/donbcfbmhbcapadipfkeojnmajbakjdc) or [Firefox Add-ons site](https://addons.mozilla.org/firefox/addon/ruffle_rs).
-Or to install it manually, you can either download the [latest release](https://github.com/ruffle-rs/ruffle/releases) or [build it yourself](../../README.md), then follow the instructions below.
+Or to install it manually, you can either download the latest release or [build it yourself](../../README.md), then follow the instructions below.
 
 ### Chrome
 

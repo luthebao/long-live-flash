@@ -1,4 +1,4 @@
-import type { Config } from "ruffle-core";
+import type { Config } from "llflash-core";
 
 export interface LoadMessage {
     type: "load";

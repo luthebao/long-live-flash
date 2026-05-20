@@ -1,5 +1,5 @@
 import * as utils from "./utils";
-import { buildInfo } from "ruffle-core";
+import { buildInfo } from "llflash-core";
 
 window.addEventListener("DOMContentLoaded", () => {
     utils.setPageLanguage();

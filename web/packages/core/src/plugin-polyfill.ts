@@ -222,7 +222,7 @@ class RufflePluginArray implements PluginArray {
 export const FLASH_PLUGIN = new RufflePlugin(
     "Shockwave Flash",
     "Shockwave Flash 32.0 r0",
-    "ruffle.js",
+    "llflash.js",
 );
 
 FLASH_PLUGIN.install({

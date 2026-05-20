@@ -1,5 +1,5 @@
-import { RuffleObjectElement } from "./internal/player/ruffle-object-element";
-import { RuffleEmbedElement } from "./internal/player/ruffle-embed-element";
+import { RuffleObjectElement } from "./internal/player/llflash-object-element";
+import { RuffleEmbedElement } from "./internal/player/llflash-embed-element";
 import { installPlugin, FLASH_PLUGIN } from "./plugin-polyfill";
 import { publicPath } from "./public-path";
 import type { DataLoadOptions, URLLoadOptions } from "./public/config";
@@ -7,7 +7,7 @@ import { isExtension } from "./current-script";
 
 const globalConfig: DataLoadOptions | URLLoadOptions | object =
     window.RufflePlayer?.config ?? {};
-const jsScriptUrl = publicPath(globalConfig) + "ruffle.js";
+const jsScriptUrl = publicPath(globalConfig) + "llflash.js";
 
 /**
  * Polyfill native Flash elements with Llflash equivalents.
@@ -33,7 +33,7 @@ function isFlashEnabledBrowser(): boolean {
     // Otherwise, check for pre-existing Flash support.
     return (
         (navigator.plugins.namedItem("Shockwave Flash")?.filename ??
-            "ruffle.js") !== "ruffle.js"
+            "llflash.js") !== "llflash.js"
     );
 }
 
@@ -90,11 +90,11 @@ function polyfillFrames(): void {
 
     [iframes, frames].forEach((elements) => {
         for (const element of elements) {
-            if (element.dataset["rufflePolyfilled"] !== undefined) {
-                // Don't re-polyfill elements with the "data-ruffle-polyfilled" attribute.
+            if (element.dataset["llflashPolyfilled"] !== undefined) {
+                // Don't re-polyfill elements with the "data-llflash-polyfilled" attribute.
                 continue;
             }
-            element.dataset["rufflePolyfilled"] = "";
+            element.dataset["llflashPolyfilled"] = "";
 
             const elementWindow = element.contentWindow;
 
@@ -157,9 +157,9 @@ async function injectRuffle(
 
     if (
         !isExtension &&
-        elementDocument.documentElement.dataset["ruffleOptout"] !== undefined
+        elementDocument.documentElement.dataset["llflashOptout"] !== undefined
     ) {
-        // Don't polyfill elements with the "data-ruffle-optout" attribute.
+        // Don't polyfill elements with the "data-llflash-optout" attribute.
         return;
     }
 

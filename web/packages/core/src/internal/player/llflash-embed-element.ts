@@ -1,4 +1,4 @@
-import { copyElement, RufflePlayerElement } from "./ruffle-player-element";
+import { copyElement, RufflePlayerElement } from "./llflash-player-element";
 import {
     getPolyfillOptions,
     isFallbackElement,
@@ -138,7 +138,7 @@ export class RuffleEmbedElement extends RufflePlayerElement {
      */
     static fromNativeEmbedElement(elem: Element): RuffleEmbedElement {
         const externalName = registerElement(
-            "ruffle-embed",
+            "llflash-embed",
             RuffleEmbedElement,
         );
         const ruffleObj = document.createElement(

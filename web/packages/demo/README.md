@@ -1,9 +1,9 @@
-# ruffle-demo
+# llflash-demo
 
-ruffle-demo is an example of how to include Llflash in your website.
+llflash-demo is an example of how to include Llflash in your website.
 It also serves as a nice local test to run Llflash in the web locally, for developers.
 
-## Using ruffle-demo
+## Using llflash-demo
 
 ### Hosted demo
 
@@ -13,7 +13,7 @@ It's exactly the same code as this directory, updated nightly.
 
 ### Run your own demo
 
-After [building ruffle-web](https://github.com/ruffle-rs/ruffle/blob/master/web/README.md#building-from-source),
+After building ruffle-web,
 you can run `npm run demo` in the `web` folder to launch the demo.
 
 It will start a local web server and print the address in the console.
@@ -105,4 +105,4 @@ To use this, add a new file `swfs.json` in this directory. The contents should l
 
 ## Building, testing or contributing
 
-Please see [the ruffle-web README](https://github.com/ruffle-rs/ruffle/blob/master/web/README.md).
+Please see the ruffle-web README.

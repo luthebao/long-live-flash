@@ -1,7 +1,7 @@
 import { loadJsAPI } from "../utils.js";
 import { expect, use } from "chai";
 import chaiHtml from "chai-html";
-import { Player } from "ruffle-core";
+import { Player } from "llflash-core";
 
 use(chaiHtml);
 
@@ -9,7 +9,7 @@ describe("RufflePlayer.metadata", () => {
     loadJsAPI("/test_assets/example.swf");
 
     it("has metadata after load", async () => {
-        const player = await browser.$("<ruffle-player>");
+        const player = await browser.$("<llflash-player>");
         const metadata = await browser.execute(
             (player) => (player as Player.PlayerElement).ruffle().metadata,
             player,

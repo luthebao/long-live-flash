@@ -100,7 +100,7 @@ For example, see `Event.WORKER_STATE`
 To add versioning to an API:
 
 1. Determine the first version where it was added. This can be seen in the Flash Documentation (e.g. "Runtime Versions: Flash Player 11.4, AIR 3.4" for `Event.WORKER_STATE`)
-2. Convert the Flash Player version to an API version number using the numbers on the far right of [this chart](https://github.com/ruffle-rs/ruffle/wiki/SWF-version-chart). For `Event.WORKER_STATE`, Flash Player 11.4 maps to API version "682".
+2. Convert the Flash Player version to an API version number using the numbers on the far right of this chart. For `Event.WORKER_STATE`, Flash Player 11.4 maps to API version "682".
 3. Add an `[API("VersionCode")]` metadata to the definition. In the `Event.WORKER_STATE` example,
    this looks like:
 

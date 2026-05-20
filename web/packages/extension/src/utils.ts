@@ -1,5 +1,5 @@
 import type { Options } from "./common";
-import { Config } from "ruffle-core";
+import { Config } from "llflash-core";
 
 const DEFAULT_OPTIONS: Required<Options> = {
     ...Config.DEFAULT_CONFIG,

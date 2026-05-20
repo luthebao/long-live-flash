@@ -1,5 +1,5 @@
 import React, { ReactNode, DragEvent } from "react";
-import { Setup, Player as RufflePlayer, Config } from "ruffle-core";
+import { Setup, Player as RufflePlayer, Config } from "llflash-core";
 
 export interface PlayerAttributes {
     id?: string | undefined;

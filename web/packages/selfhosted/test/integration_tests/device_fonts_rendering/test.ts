@@ -23,7 +23,7 @@ describe("Device Fonts: Rendering", () => {
                 `index.html?deviceFontRenderer=${deviceFontRenderer}`,
             );
             await injectRuffleAndWait(browser);
-            const player = await browser.$("<ruffle-object>").getElement();
+            const player = await browser.$("<llflash-object>").getElement();
             await playAndMonitor(browser, player, ["Loaded test!"]);
             await hideHardwareAccelerationModal(browser, player);
         });

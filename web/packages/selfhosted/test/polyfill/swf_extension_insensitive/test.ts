@@ -12,7 +12,7 @@ describe("SWF extension insensitive", () => {
 
     it("Polyfills", async () => {
         await injectRuffleAndWait(browser);
-        await browser.$("<ruffle-object />").waitForExist();
+        await browser.$("<llflash-object />").waitForExist();
 
         const actual = await browser
             .$("#test-container")
@@ -29,7 +29,7 @@ describe("SWF extension insensitive", () => {
             browser,
             await browser
                 .$("#test-container")
-                .$("<ruffle-object />")
+                .$("<llflash-object />")
                 .getElement(),
         );
     });

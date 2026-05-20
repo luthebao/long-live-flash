@@ -285,7 +285,7 @@ impl<'gc> RegExp<'gc> {
         let (is_global, mut m) = {
             // we only hold onto a mutable lock on the regular expression
             // for a small window, because f might refer to the RegExp
-            // (See https://github.com/ruffle-rs/ruffle/issues/17899)
+            // (See )
             let mut re = regexp.regexp_mut(activation.gc());
             let global_flag = re.flags().contains(RegExpFlags::GLOBAL);
 

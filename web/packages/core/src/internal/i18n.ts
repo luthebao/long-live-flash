@@ -80,7 +80,7 @@ export function text(
     id: string,
     args?: Record<string, FluentVariable> | null,
 ): string {
-    // A Map override, as in https://github.com/ruffle-rs/ruffle/discussions/19758, may happen after some translations and before others.
+    // A Map override, as in  may happen after some translations and before others.
     // As such, the reset may not be needed after one call to this function, but then be needed on the next call to it.
     const customMap = resetCustomMap();
     const locales = negotiateLanguages(

@@ -225,7 +225,7 @@ pub trait TDisplayObjectContainer<'gc>:
             // It's theoretically impossible for an AVM2 child to end up here(?),
             // and doing so for AVM1 can e.g. break the logic of the audio
             // manager's `stop_sounds_on_parent_and_children` method.
-            // (See https://github.com/ruffle-rs/ruffle/issues/21500)
+            // (See )
             removed_child.avm1_unload(context);
         }
 

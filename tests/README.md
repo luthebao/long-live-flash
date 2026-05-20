@@ -246,7 +246,7 @@ classes = ["foo.Bar", "SomeClass"]
 # A list of pcode files to compile.
 pcode = ["test.pcode"]
 
-# The SWF version to compile for (see https://github.com/ruffle-rs/ruffle/wiki/SWF-version-chart).
+# The SWF version to compile for (see ).
 # This is required!
 swf_version = 15
 

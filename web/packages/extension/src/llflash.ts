@@ -1,4 +1,4 @@
-import { Setup, setCurrentScriptURL } from "ruffle-core";
+import { Setup, setCurrentScriptURL } from "llflash-core";
 import { Message } from "./messages";
 
 /**
@@ -47,7 +47,7 @@ function handleMessage(message: Message) {
 
 function openInNewTab(swf: URL): void {
     const message = {
-        to: "ruffle_content",
+        to: "llflash_content",
         index: null,
         id: currentMessageId,
         data: {
@@ -70,7 +70,7 @@ window.addEventListener("message", (event) => {
         const response = handleMessage(data);
         if (response) {
             const message = {
-                to: "ruffle_content",
+                to: "llflash_content",
                 index,
                 id,
                 data: response,

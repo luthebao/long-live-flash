@@ -181,7 +181,7 @@ async function enable() {
         await utils.scripting.registerContentScripts([
             {
                 id: "ruffle",
-                js: ["dist/ruffle.js"],
+                js: ["dist/llflash.js"],
                 persistAcrossSessions: true,
                 matches: ["<all_urls>"],
                 excludeMatches,

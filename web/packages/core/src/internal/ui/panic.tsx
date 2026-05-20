@@ -38,9 +38,6 @@ type PanicAction = PanicLink | PanicDetails | PanicCreateReport;
 function createPanicAction({
     action,
     showDetails,
-    errorArray,
-    errorText,
-    swfUrl,
 }: {
     action: PanicAction;
     showDetails: () => void;
@@ -69,41 +66,7 @@ function createPanicAction({
             </li>
         );
     } else {
-        let url;
-        if (document.location.protocol.includes("extension") && swfUrl) {
-            url = swfUrl.href;
-        } else {
-            url = document.location.href;
-        }
-
-        // Remove query params for the issue title.
-        url = url.split(/[?#]/, 1)[0]!;
-
-        const issueTitle = `Error on ${url}`;
-        let issueLink = `https://github.com/ruffle-rs/ruffle/issues/new?title=${encodeURIComponent(
-            issueTitle,
-        )}&template=error_report.md&labels=error-report&body=`;
-        let issueBody = encodeURIComponent(errorText);
-        if (
-            errorArray.stackIndex > -1 &&
-            String(issueLink + issueBody).length > 8195
-        ) {
-            // Strip the stack error from the array when the produced URL is way too long.
-            // This should prevent "414 Request-URI Too Large" errors on GitHub.
-            errorArray[errorArray.stackIndex] = null;
-            if (errorArray.avmStackIndex > -1) {
-                errorArray[errorArray.avmStackIndex] = null;
-            }
-            issueBody = encodeURIComponent(errorArray.join(""));
-        }
-        issueLink += issueBody;
-        return (
-            <li>
-                <a href={issueLink} target="_top">
-                    {text("report-bug")}
-                </a>
-            </li>
-        );
+        return null;
     }
 }
 
@@ -126,13 +89,13 @@ export const CommonActions = {
     OpenDemo: {
         type: "open_link",
         url: RUFFLE_ORIGIN + "/demo",
-        label: text("ruffle-demo"),
+        label: text("llflash-demo"),
     } as PanicAction,
 
     DownloadDesktop: {
         type: "open_link",
         url: RUFFLE_ORIGIN + "/downloads#desktop-app",
-        label: text("ruffle-desktop"),
+        label: text("llflash-desktop"),
     } as PanicAction,
 
     UpdateRuffle: {
@@ -153,11 +116,11 @@ export const CommonActions = {
         return isBuildOutdated() ? this.UpdateRuffle : this.CreateReport;
     },
 
-    openWiki(page: string, label?: string): PanicAction {
+    openWiki(_page: string, label?: string): PanicAction {
         return {
             type: "open_link",
-            url: `https://github.com/ruffle-rs/ruffle/wiki/${page}`,
-            label: label ?? text("ruffle-wiki"),
+            url: "",
+            label: label ?? text("llflash-wiki"),
         };
     },
 };

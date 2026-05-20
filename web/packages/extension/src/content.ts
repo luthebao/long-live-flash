@@ -78,7 +78,7 @@ function injectScriptURL(url: string): Promise<void> {
  * @returns {boolean} Whether the current page opts-out or not.
  */
 function checkPageOptout(): boolean {
-    if (document.documentElement.hasAttribute("data-ruffle-optout")) {
+    if (document.documentElement.hasAttribute("data-llflash-optout")) {
         return true;
     }
     try {
@@ -87,7 +87,7 @@ function checkPageOptout(): boolean {
             window.top.document &&
             window.top.document.documentElement &&
             window.top.document.documentElement.hasAttribute(
-                "data-ruffle-optout",
+                "data-llflash-optout",
             )
         ) {
             // In case the opting-out page uses iframes.
@@ -155,10 +155,10 @@ function isXMLDocument(): boolean {
     if (
         navigator.wrappedJSObject &&
         navigator.wrappedJSObject.plugins.namedItem("Shockwave Flash")
-            ?.filename !== "ruffle.js"
+            ?.filename !== "llflash.js"
     ) {
         injectScriptRaw("%PLUGIN_POLYFILL_SOURCE%");
-        await injectScriptURL(utils.runtime.getURL("dist/ruffle.js"));
+        await injectScriptURL(utils.runtime.getURL("dist/llflash.js"));
     }
 
     window.addEventListener("message", (event) => {
@@ -168,7 +168,7 @@ function isXMLDocument(): boolean {
         }
 
         const { to, index, data, id } = event.data;
-        if (to === "ruffle_content" && id === ID) {
+        if (to === "llflash_content" && id === ID) {
             const request = index !== null ? pendingMessages[index] : null;
             if (request) {
                 pendingMessages[index] = null;

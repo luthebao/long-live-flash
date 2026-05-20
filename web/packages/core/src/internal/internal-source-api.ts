@@ -2,7 +2,7 @@ import { buildInfo } from "../build-info";
 import { pluginPolyfill, polyfill } from "../polyfills";
 import { PlayerElement } from "../public/player";
 import { registerElement } from "./register-element";
-import { RufflePlayerElement } from "./player/ruffle-player-element";
+import { RufflePlayerElement } from "./player/llflash-player-element";
 import { InstallationOptions } from "../public/setup";
 
 /**
@@ -41,7 +41,7 @@ export const internalSourceApi = {
      * into the current page as you wish.
      */
     createPlayer(): PlayerElement {
-        const name = registerElement("ruffle-player", RufflePlayerElement);
+        const name = registerElement("llflash-player", RufflePlayerElement);
         return document.createElement(name) as RufflePlayerElement;
     },
 

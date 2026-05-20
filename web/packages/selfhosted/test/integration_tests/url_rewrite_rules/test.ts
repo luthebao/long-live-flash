@@ -15,7 +15,7 @@ describe("URL Rewrite Rules", () => {
     it("load the test", async () => {
         await openTest(browser, "integration_tests/url_rewrite_rules");
         await injectRuffleAndWait(browser);
-        const player = await browser.$("<ruffle-object>").getElement();
+        const player = await browser.$("<llflash-object>").getElement();
         await playAndMonitor(browser, player, ["Loaded test!"]);
         await hideHardwareAccelerationModal(browser, player);
     });

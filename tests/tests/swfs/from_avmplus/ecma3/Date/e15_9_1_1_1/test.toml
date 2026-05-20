@@ -1,4 +1,4 @@
 num_ticks = 1
 
-# See https://github.com/ruffle-rs/ruffle/issues/21219
+# See 
 known_failure = true

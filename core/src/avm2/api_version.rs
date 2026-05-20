@@ -145,7 +145,7 @@ impl ApiVersion {
     }
 
     pub fn from_swf_version(val: u8, runtime: PlayerRuntime) -> ApiVersion {
-        // Based on this table: https://github.com/ruffle-rs/ruffle/wiki/SWF-version-chart
+        // Based on this table: 
         match (val, runtime) {
             // There's no specific entry for SWF 9 in avmplus,
             // so map it to the lowest entry.

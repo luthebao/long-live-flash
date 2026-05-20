@@ -13,7 +13,7 @@ describe("Flash inside frame with injected ruffle", () => {
     it("polyfills inside a frame", async () => {
         await injectRuffleAndWait(browser);
         await browser.switchFrame(await browser.$("#test-frame"));
-        await browser.$("<ruffle-object />").waitForExist();
+        await browser.$("<llflash-object />").waitForExist();
 
         const actual = await browser
             .$("#test-container")
@@ -39,7 +39,7 @@ describe("Flash inside frame with injected ruffle", () => {
         // And finally, check
         await browser.switchFrame(null);
         await browser.switchFrame(await browser.$("#test-frame"));
-        await browser.$("<ruffle-object />").waitForExist();
+        await browser.$("<llflash-object />").waitForExist();
 
         const actual = await browser
             .$("#test-container")

@@ -1,6 +1,6 @@
 import ruffleLogo from "/logo.svg";
 import { ChangeEvent, FormEvent, useRef, useState, DragEvent } from "react";
-import type { Config } from "ruffle-core";
+import type { Config } from "llflash-core";
 import { DemoSwf, SampleSelection } from "./navbar/samples.tsx";
 
 declare global {

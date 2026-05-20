@@ -147,7 +147,7 @@ export function resetCustomMap(): typeof Map | undefined {
 }
 
 /**
- * Restores a custom map object to the global namespace if one was defined, as in https://github.com/ruffle-rs/ruffle/discussions/19758.
+ * Restores a custom map object to the global namespace if one was defined, as in 
  *
  * @param customMap The custom `Map` object that existed on the page, or undefined if the page used the standard `Map`.
  */

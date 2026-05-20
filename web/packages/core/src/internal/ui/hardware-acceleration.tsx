@@ -12,7 +12,7 @@ export function HardwareAcceleration() {
                     {text("enable-hardware-acceleration")}
                 </span>
                 <a
-                    href="https://github.com/ruffle-rs/ruffle/wiki/Frequently-Asked-Questions-For-Users#chrome-hardware-acceleration"
+                    href=""
                     target="_blank"
                     class="modal-button"
                 >

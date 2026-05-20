@@ -1,5 +1,5 @@
 {
-    "name": "@ruffle-rs/ruffle",
+    "name": "@llflash/llflash",
     "version": null, // Filled by Webpack.
     "description": "Putting Flash back on the web. Ruffle will polyfill all Flash content and replace it with the Ruffle flash player.",
     "license": "(MIT OR Apache-2.0)",
@@ -13,5 +13,5 @@
         "type": "git",
         "url": "git+https://github.com/ruffle-rs/ruffle.git"
     },
-    "main": "ruffle.js",
+    "main": "llflash.js",
 }

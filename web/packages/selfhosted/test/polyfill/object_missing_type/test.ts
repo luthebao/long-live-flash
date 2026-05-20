@@ -12,7 +12,7 @@ describe("Object without type attribute", () => {
 
     it("polyfills with ruffle", async () => {
         await injectRuffleAndWait(browser);
-        await browser.$("<ruffle-embed />").waitForExist();
+        await browser.$("<llflash-embed />").waitForExist();
         const actual = await browser
             .$("#test-container")
             .getHTML({ includeSelectorTag: false, pierceShadowRoot: false });
@@ -28,7 +28,7 @@ describe("Object without type attribute", () => {
             browser,
             await browser
                 .$("#test-container")
-                .$("<ruffle-embed />")
+                .$("<llflash-embed />")
                 .getElement(),
         );
     });

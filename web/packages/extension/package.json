@@ -1,5 +1,5 @@
 {
-    "name": "ruffle-extension",
+    "name": "llflash-extension",
     "version": "0.2.0-nightly.2026.5.15",
     "description": "Extension packaging for Llflash Flash emulator",
     "license": "(MIT OR Apache-2.0)",
@@ -7,13 +7,13 @@
     "type": "module",
     "scripts": {
         "build": "tsc -p jsconfig.json && npm run build:generic && npm run build:firefox",
-        "build:generic": "webpack --env generic && tsx tools/inject_plugin_polyfill.ts && tsx tools/zip.ts dist/ruffle_extension.zip",
+        "build:generic": "webpack --env generic && tsx tools/inject_plugin_polyfill.ts && tsx tools/zip.ts dist/llflash_extension.zip",
         "build:firefox": "webpack --env firefox && tsx tools/inject_plugin_polyfill.ts && tsx tools/zip.ts dist/firefox_unsigned.xpi && npm run sign-firefox",
         "sign-firefox": "tsx tools/submit_xpi.ts dist/firefox_unsigned.xpi ../../../reproducible-source.zip",
         "checkTypes": "tsc --noemit && tsc --noemit -p tools"
     },
     "dependencies": {
-        "ruffle-core": "^0.2.0-nightly.2026.5.15"
+        "llflash-core": "^0.2.0-nightly.2026.5.15"
     },
     "devDependencies": {
         "@tsconfig/strictest": "^2.0.8",
