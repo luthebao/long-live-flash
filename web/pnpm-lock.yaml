@@ -212,6 +212,9 @@ importers:
       '@types/jsonwebtoken':
         specifier: ^9.0.10
         version: 9.0.10
+      '@types/node':
+        specifier: ^22.10.0
+        version: 22.19.19
       archiver:
         specifier: ^7.0.1
         version: 7.0.1
@@ -227,6 +230,9 @@ importers:
       jsonwebtoken:
         specifier: ^9.0.3
         version: 9.0.3
+      replace-in-file:
+        specifier: ^8.4.0
+        version: 8.4.0
       ts-loader:
         specifier: ^9.5.7
         version: 9.5.7(typescript@5.9.3)(webpack@5.107.0)
