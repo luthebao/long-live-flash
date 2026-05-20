@@ -1,0 +1,23 @@
+[package]
+name = "llflash_rtmp_host"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Chrome Native Messaging host that gives the Llflash web extension a real TCP-backed RTMP/RTMPE client."
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "llflash-rtmp-host"
+path = "src/main.rs"
+
+[dependencies]
+llflash_rtmp = { path = "../rtmp" }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+base64 = "0.22"
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }

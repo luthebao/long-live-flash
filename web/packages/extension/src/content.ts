@@ -108,6 +108,32 @@ function isXMLDocument(): boolean {
     return document.createElement("foo").tagName !== "FOO";
 }
 
+/**
+ * Lazy long-lived port to the background service worker for RTMP
+ * traffic. We only open it once the page actually tries to use RTMP —
+ * keeps the SW from being kept alive on pages that never hit a
+ * NetConnection. While the port is open it acts as a keepalive, which
+ * is what we want: the native messaging host living behind background.ts
+ * must stay around for the life of the connection.
+ */
+let rtmpPort: chrome.runtime.Port | null = null;
+function ensureRtmpPort(): chrome.runtime.Port {
+    if (rtmpPort) {
+        return rtmpPort;
+    }
+    const port = chrome.runtime.connect({ name: "llflash-rtmp" });
+    port.onMessage.addListener((ev) => {
+        window.postMessage({ to: "llflash_rtmp_in", data: ev }, "*");
+    });
+    port.onDisconnect.addListener(() => {
+        if (rtmpPort === port) {
+            rtmpPort = null;
+        }
+    });
+    rtmpPort = port;
+    return port;
+}
+
 (async () => {
     await utils.storage.sync.set({
         ["showReloadButton"]: false,
@@ -164,6 +190,18 @@ function isXMLDocument(): boolean {
     window.addEventListener("message", (event) => {
         // We only accept messages from ourselves.
         if (event.source !== window || !event.data) {
+            return;
+        }
+
+        // RTMP outbound: forward to the background SW over the lazy
+        // long-lived port. Opening the port the first time also
+        // ensures the native messaging host gets spawned.
+        if (event.data.to === "llflash_rtmp_out" && event.data.data) {
+            try {
+                ensureRtmpPort().postMessage(event.data.data);
+            } catch (e) {
+                console.warn("llflash-rtmp: failed to post to background", e);
+            }
             return;
         }
 

@@ -168,6 +168,52 @@ impl RuffleInstanceBuilder {
         self.page_url = value;
     }
 
+    /// Register a JS bridge function for routing RTMP `NetConnection`
+    /// traffic out to the extension's native messaging host. The
+    /// extension calls this once per content-script world with a single
+    /// dispatch function; SWFs running there then get a working
+    /// `NetConnection.connect("rtmp[se]?://…")`.
+    ///
+    /// The bridge receives a JS object `{ op, handle, ...payload }` per
+    /// AVM call:
+    ///   - `op: "connect"`, `{ url, swfUrl, pageUrl, argsAmf }` (argsAmf base64)
+    ///   - `op: "call"`,    `{ txid, payloadAmf }` (payloadAmf base64)
+    ///   - `op: "close"`
+    /// Inbound events arrive by JS calling
+    /// `dispatchRtmpStatus` / `dispatchRtmpCallResult` /
+    /// `dispatchRtmpServerCall` on a `RuffleHandle`.
+    ///
+    /// Pass `null` (or call without arguments) to clear the bridge. Once
+    /// any bridge has been registered the core net_connection hooks stay
+    /// installed for the rest of the wasm module's lifetime — clearing
+    /// just causes new connect attempts to return a synthetic Failed
+    /// status.
+    #[wasm_bindgen(js_name = "setRtmpBridge")]
+    pub fn set_rtmp_bridge(&mut self, value: JsValue) {
+        use js_sys::Function;
+        if value.is_null() || value.is_undefined() {
+            crate::native_rtmp::set_bridge(None);
+            return;
+        }
+        match value.dyn_into::<Function>() {
+            Ok(f) => {
+                crate::native_rtmp::set_bridge(Some(f));
+                // Install the core hooks unconditionally — they no-op
+                // when the bridge slot is empty, so a later
+                // `setRtmpBridge(null)` followed by another non-null
+                // bridge still works without re-installing.
+                llflash_core::backend::net_connection::set_hooks(
+                    Some(crate::native_rtmp::web_connect),
+                    Some(crate::native_rtmp::web_close),
+                    Some(crate::native_rtmp::web_call),
+                );
+            }
+            Err(_) => {
+                tracing::warn!("setRtmpBridge: value is not a function, ignoring");
+            }
+        }
+    }
+
     #[wasm_bindgen(js_name = "setShowMenu")]
     pub fn set_show_menu(&mut self, value: bool) {
         self.show_menu = value;

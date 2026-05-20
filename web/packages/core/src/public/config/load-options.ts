@@ -570,6 +570,37 @@ export interface BaseLoadOptions {
     pageUrl?: string | null;
 
     /**
+     * RTMP outbound bridge. When set, the player routes
+     * `NetConnection.connect("rtmp[se]?://…")` traffic through this
+     * callback instead of trying to dial a TCP socket itself (the wasm
+     * sandbox can't). Used by the browser extension to forward RTMP
+     * commands to a Native Messaging host.
+     *
+     * The bridge is called with a JSON-shaped object per AVM op:
+     *   - `{ op: "connect", handle, url, swfUrl, pageUrl, argsAmf }` (argsAmf base64)
+     *   - `{ op: "call",    handle, txid, payloadAmf }` (payloadAmf base64)
+     *   - `{ op: "close",   handle }`
+     *
+     * Inbound events (status, callResult, serverCall) flow back through
+     * {@link rtmpRegister} — the player exposes wasm-side dispatch
+     * methods on the `RuffleHandle`, and `rtmpRegister` lets the host
+     * (extension content script) capture that handle.
+     *
+     * @default undefined
+     */
+    rtmpBridge?: (msg: object) => void;
+
+    /**
+     * Companion to {@link rtmpBridge}. Called once with the
+     * `RuffleHandle` for this player right after it's built, so the
+     * extension's main-world script can dispatch RTMP events arriving
+     * from the native host back into the right player.
+     *
+     * @default undefined
+     */
+    rtmpRegister?: (player: object) => void;
+
+    /**
      * If set to true, the built-in context menu items are visible
      *
      * This is equivalent to Stage.showMenu.

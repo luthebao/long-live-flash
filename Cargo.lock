@@ -3427,6 +3427,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "llflash_rtmp_host"
+version = "1.0.0"
+dependencies = [
+ "base64",
+ "llflash_rtmp",
+ "serde",
+ "serde_json",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "llflash_scanner"
 version = "1.0.0"
 dependencies = [

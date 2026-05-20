@@ -1,5 +1,6 @@
 {
     "manifest_version": 3,
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAseyaxW+zwV7xOGiJStttggrK1ofDfE8zRNQ+ZKYFbKXOm8Kh0gH+omukje61NNY97vUe1vSGZ3XqFRhBV++NLt5IxOfyTBpNxV37F4ZxISJsqplnDH5amkBJzCy1I0UjjpdPYinJezT6a3XSQX3a5d/LKYOZ4IoaXrcFrGv1HoJ0T/TAUX1qd8uHAl5J/7/Dpu/vBWAsgpX1ZTYTfsmM8doCAxa6i5QvbIXM5Hlf5eg8J6yd//PyyE/hOn692dAz16A6upOCqisK7KkML4KFObsFdNBuG/uUARdaihKH3JImhBONiHojKPhGF4/wEpyzSJHVWRS/DeD3588Yxjv4dQIDAQAB",
     "name": "Long Live Flash - Flash Emulator",
     "short_name": "LLFlash",
     "version": null, // Filled by Webpack.
@@ -68,6 +69,7 @@
         "storage",
         "scripting",
         "declarativeNetRequestWithHostAccess",
+        "nativeMessaging",
     ],
     "web_accessible_resources": [{
         "resources": ["*"],

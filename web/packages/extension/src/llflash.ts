@@ -1,5 +1,6 @@
 import { Setup, setCurrentScriptURL } from "llflash-core";
 import { Message } from "./messages";
+import { bridgeOut, registerPlayer } from "./rtmp-bridge";
 
 /**
  *
@@ -31,6 +32,13 @@ function handleMessage(message: Message) {
                 ...message.config,
                 ...window.RufflePlayer.config,
                 openInNewTab,
+                // RTMP plumbing — let the wasm player offload RTMP
+                // sockets to our native messaging host via the content
+                // script relay. Both halves must be set together: the
+                // bridge for outbound commands, the register callback
+                // so inbound events can find this player.
+                rtmpBridge: bridgeOut,
+                rtmpRegister: registerPlayer,
             };
             setCurrentScriptURL(publicPath);
             Setup.installRuffle("extension");

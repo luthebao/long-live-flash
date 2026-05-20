@@ -23,19 +23,23 @@ DESKTOP_PKG    := llflash_desktop
 # are on PATH for every recipe — pnpm build scripts spawn cargo themselves.
 export PATH    := $(CARGO_BIN):$(PATH)
 
-.PHONY: help all build build-desktop build-extension run-desktop \
+.PHONY: help all build build-desktop build-extension build-rtmp-host \
+        run-desktop install-rtmp-host \
         check-deps check-deps-desktop check-deps-extension \
         install-deps clean
 
 help:
 	@printf "Targets:\n"
-	@printf "  build             Build desktop app and web extension\n"
-	@printf "  build-desktop     Build desktop app (release)\n"
-	@printf "  build-extension   Build web extension (and selfhosted bundle)\n"
-	@printf "  run-desktop       Run desktop app in debug mode\n"
-	@printf "  check-deps        Print prerequisite status\n"
-	@printf "  install-deps      Install any missing prerequisites\n"
-	@printf "  clean             Remove build artifacts\n"
+	@printf "  build              Build desktop app and web extension\n"
+	@printf "  build-desktop      Build desktop app (release)\n"
+	@printf "  build-extension    Build web extension (and selfhosted bundle)\n"
+	@printf "  build-rtmp-host    Build the MV3 native messaging host for RTMP (release)\n"
+	@printf "  install-rtmp-host  Install the native host manifest [BROWSER=chrome] (macOS/Linux)\n"
+	@printf "                     Windows: PowerShell -ExecutionPolicy Bypass -File native-host/install.ps1\n"
+	@printf "  run-desktop        Run desktop app in debug mode\n"
+	@printf "  check-deps         Print prerequisite status\n"
+	@printf "  install-deps       Install any missing prerequisites\n"
+	@printf "  clean              Remove build artifacts\n"
 
 all: build
 
@@ -49,6 +53,13 @@ build-extension: check-deps-extension
 
 run-desktop: check-deps-desktop
 	$(CARGO) run -p $(DESKTOP_PKG)
+
+build-rtmp-host: check-deps-desktop
+	$(CARGO) build --release -p llflash_rtmp_host
+
+BROWSER ?= chrome
+install-rtmp-host: build-rtmp-host
+	bash native-host/install.sh "$(BROWSER)"
 
 # ---------------------------------------------------------------------------
 # Dependency checks

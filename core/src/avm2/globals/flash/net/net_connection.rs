@@ -42,48 +42,64 @@ pub fn connect<'gc>(
                 connection,
                 url.to_string(),
             );
-        } else if is_rtmp_scheme(&url_lower)
-            && net_connection_backend::has_connect_hook()
-        {
-            tracing::info!(target: "avm_warning", "NetConnection.connect routed to RTMP backend: {}", url);
-            // Route rtmp/rtmps/rtmpe/rtmpt/rtmpte to the host backend (Odin).
-            // Extra `connect()` arguments past the URL get AMF0-serialised
-            // and appended to the protocol-level connect command. Most
-            // Flash MMO clients ship credentials this way:
-            //   nc.connect("rtmpe://host/app", connectType, user, pass, …)
-            let url_str = url.to_string();
-            let mut args_buf: Vec<u8> = Vec::new();
-            let mut object_table = FnvHashMap::default();
-            for arg in &args[1..] {
-                if let Some(v) =
-                    serialize_value(activation, *arg, AMFVersion::AMF0, &mut object_table)
-                {
-                    crate::net_connection::amf0_write_value(&mut args_buf, &v);
-                }
-            }
-            let swf_url = activation.context.root_swf.url().to_string();
-            let page_url = activation
-                .context
-                .page_url
-                .as_deref()
-                .unwrap_or("")
-                .to_string();
-            let odin_handle =
-                net_connection_backend::connect(&url_str, &swf_url, &page_url, &args_buf);
-            if odin_handle == 0 {
+        } else if is_rtmp_scheme(&url_lower) {
+            if !net_connection_backend::has_connect_hook() {
+                // No backend installed (web target ships without one — wasm
+                // can't open raw TCP, and the in-tree llflash_rtmp crate uses
+                // std::net::TcpStream). Log at error level so the attempt is
+                // visible in the browser console at default filtering.
+                tracing::error!(
+                    target: "avm_warning",
+                    "NetConnection.connect (rtmp) ignored — no RTMP backend installed: {}",
+                    url
+                );
                 avm2_stub_method!(
                     activation,
                     "flash.net.NetConnection",
                     "connect",
-                    "RTMP host backend returned a zero handle"
+                    "RTMP host backend not installed (web target has no native RTMP client)"
                 );
             } else {
-                NetConnections::connect_to_rtmp(
-                    activation.context,
-                    connection,
-                    url_str,
-                    odin_handle,
-                );
+                tracing::info!(target: "avm_warning", "NetConnection.connect (rtmp): {}", url);
+                // Route rtmp/rtmps/rtmpe/rtmpt/rtmpte to the host backend (Odin).
+                // Extra `connect()` arguments past the URL get AMF0-serialised
+                // and appended to the protocol-level connect command. Most
+                // Flash MMO clients ship credentials this way:
+                //   nc.connect("rtmpe://host/app", connectType, user, pass, …)
+                let url_str = url.to_string();
+                let mut args_buf: Vec<u8> = Vec::new();
+                let mut object_table = FnvHashMap::default();
+                for arg in &args[1..] {
+                    if let Some(v) =
+                        serialize_value(activation, *arg, AMFVersion::AMF0, &mut object_table)
+                    {
+                        crate::net_connection::amf0_write_value(&mut args_buf, &v);
+                    }
+                }
+                let swf_url = activation.context.root_swf.url().to_string();
+                let page_url = activation
+                    .context
+                    .page_url
+                    .as_deref()
+                    .unwrap_or("")
+                    .to_string();
+                let odin_handle =
+                    net_connection_backend::connect(&url_str, &swf_url, &page_url, &args_buf);
+                if odin_handle == 0 {
+                    avm2_stub_method!(
+                        activation,
+                        "flash.net.NetConnection",
+                        "connect",
+                        "RTMP host backend returned a zero handle"
+                    );
+                } else {
+                    NetConnections::connect_to_rtmp(
+                        activation.context,
+                        connection,
+                        url_str,
+                        odin_handle,
+                    );
+                }
             }
         } else {
             avm2_stub_method!(

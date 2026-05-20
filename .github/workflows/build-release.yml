@@ -1,0 +1,384 @@
+name: Build & publish to target release
+
+# Manual trigger. Builds the desktop app (macOS/Windows/Linux), the
+# llflash-rtmp-host native messaging binary (same three OSes), and the
+# generic web extension zip. Resolves APP_VERSION from
+# [workspace.package].version in Cargo.toml, then publishes every artifact
+# to a release tag on a *different* repo — all targeting is via secrets so
+# this file stays repo-portable.
+#
+# Required secrets:
+#   TARGET_REPO         — destination repo in `owner/repo` form
+#   TARGET_RELEASE_TAG  — release tag on the destination repo
+#   RELEASE_PAT         — PAT (or fine-grained token) with `contents: write`
+#                         on TARGET_REPO
+
+on:
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+jobs:
+    preflight:
+        name: Preflight (verify secrets + resolve version)
+        runs-on: ubuntu-latest
+        outputs:
+            version: ${{ steps.version.outputs.version }}
+        env:
+            TARGET_REPO: ${{ secrets.TARGET_REPO }}
+            TARGET_RELEASE_TAG: ${{ secrets.TARGET_RELEASE_TAG }}
+            RELEASE_PAT: ${{ secrets.RELEASE_PAT }}
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Ensure all required secrets are configured
+              run: |
+                  : "${TARGET_REPO:?TARGET_REPO secret is empty (expect owner/repo)}"
+                  : "${TARGET_RELEASE_TAG:?TARGET_RELEASE_TAG secret is empty}"
+                  : "${RELEASE_PAT:?RELEASE_PAT secret is empty}"
+                  echo "All required secrets present."
+
+            # Parse [workspace.package].version directly to avoid pulling in
+            # the Rust toolchain just to run `cargo metadata`.
+            - name: Resolve version from Cargo.toml
+              id: version
+              run: |
+                  VERSION=$(awk -F'"' '
+                      /^\[workspace.package\]/ { flag=1; next }
+                      /^\[/                    { flag=0 }
+                      flag && /^version *=/    { print $2; exit }
+                  ' Cargo.toml)
+                  : "${VERSION:?Could not parse [workspace.package].version from Cargo.toml}"
+                  echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+                  echo "Resolved version: $VERSION"
+
+    macos:
+        name: macOS arm64 (.dmg + rtmp host)
+        needs: preflight
+        runs-on: macos-14
+        env:
+            APP_VERSION: ${{ needs.preflight.outputs.version }}
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Install stable Rust
+              uses: dtolnay/rust-toolchain@stable
+
+            - name: Cache cargo
+              uses: Swatinem/rust-cache@v2
+
+            - name: Build llflash_desktop + llflash_rtmp_host (release)
+              run: cargo build --release -p llflash_desktop -p llflash_rtmp_host
+
+            # Info.plist in desktop/packages/macOS hard-codes
+            # CFBundleExecutable=ruffle and CFBundleIconName=RuffleMacIcon,
+            # so the binary lands as MacOS/ruffle and the icon as
+            # Resources/RuffleMacIcon.icns to match.
+            - name: Assemble Llflash.app bundle
+              run: |
+                  APP_DIR="bin/Llflash.app"
+                  rm -rf bin
+                  mkdir -p "$APP_DIR/Contents/MacOS" "$APP_DIR/Contents/Resources"
+                  cp desktop/packages/macOS/Contents/Info.plist "$APP_DIR/Contents/Info.plist"
+                  cp target/release/llflash_desktop "$APP_DIR/Contents/MacOS/ruffle"
+                  cp assets/AppIcon.icns "$APP_DIR/Contents/Resources/RuffleMacIcon.icns"
+                  chmod +x "$APP_DIR/Contents/MacOS/ruffle"
+
+            - name: Build .dmg image
+              run: |
+                  STAGING="bin/dmg-staging"
+                  rm -rf "$STAGING"
+                  mkdir -p "$STAGING"
+                  cp -R bin/Llflash.app "$STAGING/"
+                  ln -s /Applications "$STAGING/Applications"
+                  hdiutil create \
+                      -volname "Llflash" \
+                      -srcfolder "$STAGING" \
+                      -ov -format UDZO \
+                      "bin/LongLiveFlash-${APP_VERSION}-macOS-arm64.dmg"
+                  rm -rf "$STAGING"
+
+            - name: Package llflash-rtmp-host (.tar.gz)
+              run: |
+                  STAGE="bin/llflash-rtmp-host"
+                  rm -rf "$STAGE"
+                  mkdir -p "$STAGE"
+                  cp target/release/llflash-rtmp-host "$STAGE/"
+                  cp -R native-host/manifest "$STAGE/manifest"
+                  cp native-host/install.sh "$STAGE/install.sh"
+                  tar -C bin -czf \
+                      "bin/llflash-rtmp-host-${APP_VERSION}-macOS-arm64.tar.gz" \
+                      llflash-rtmp-host
+
+            - name: Upload artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                  name: macOS
+                  if-no-files-found: error
+                  path: |
+                      bin/LongLiveFlash-${{ needs.preflight.outputs.version }}-macOS-arm64.dmg
+                      bin/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-macOS-arm64.tar.gz
+
+    windows:
+        name: Windows x64 (.zip + rtmp host)
+        needs: preflight
+        # Pin to Server 2022 (NT 10.0.20348 — same kernel branch as Windows
+        # 10 21H2) so the produced binary's min-supported OS stays
+        # compatible with Windows 10. `windows-latest` will eventually roll
+        # forward to Server 2025; this pin prevents drift.
+        runs-on: windows-2022
+        env:
+            APP_VERSION: ${{ needs.preflight.outputs.version }}
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Install stable Rust
+              uses: dtolnay/rust-toolchain@stable
+
+            - name: Cache cargo
+              uses: Swatinem/rust-cache@v2
+
+            - name: Build llflash_desktop + llflash_rtmp_host (release)
+              shell: pwsh
+              run: cargo build --release -p llflash_desktop -p llflash_rtmp_host
+
+            - name: Assemble desktop dist folder
+              shell: pwsh
+              run: |
+                  New-Item -ItemType Directory -Force -Path dist/LongLiveFlash | Out-Null
+                  Copy-Item target/release/llflash_desktop.exe dist/LongLiveFlash/
+                  if (Test-Path assets/icon.ico) {
+                      Copy-Item assets/icon.ico dist/LongLiveFlash/
+                  }
+
+            - name: Zip desktop
+              shell: pwsh
+              run: |
+                  Compress-Archive `
+                      -Path dist/LongLiveFlash `
+                      -DestinationPath "dist/LongLiveFlash-$env:APP_VERSION-Windows-x64.zip"
+
+            - name: Assemble rtmp host dist folder
+              shell: pwsh
+              run: |
+                  New-Item -ItemType Directory -Force -Path dist/llflash-rtmp-host | Out-Null
+                  Copy-Item target/release/llflash-rtmp-host.exe dist/llflash-rtmp-host/
+                  Copy-Item -Recurse native-host/manifest dist/llflash-rtmp-host/manifest
+                  Copy-Item native-host/install.ps1 dist/llflash-rtmp-host/install.ps1
+
+            - name: Zip rtmp host
+              shell: pwsh
+              run: |
+                  Compress-Archive `
+                      -Path dist/llflash-rtmp-host `
+                      -DestinationPath "dist/llflash-rtmp-host-$env:APP_VERSION-Windows-x64.zip"
+
+            - name: Upload artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                  name: Windows
+                  if-no-files-found: error
+                  path: |
+                      dist/LongLiveFlash-${{ needs.preflight.outputs.version }}-Windows-x64.zip
+                      dist/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-Windows-x64.zip
+
+    linux:
+        name: Linux x64 (.tar.gz + rtmp host)
+        needs: preflight
+        # Pinned to 22.04 (glibc 2.35) so the resulting binary runs on most
+        # current desktop distros without "GLIBC_2.38 not found" errors.
+        runs-on: ubuntu-22.04
+        env:
+            APP_VERSION: ${{ needs.preflight.outputs.version }}
+        steps:
+            - uses: actions/checkout@v4
+
+            # Audio (cpal → alsa), input (udev), and keyboard layout (xkb).
+            # wgpu loads vulkan/gl drivers via dlopen at runtime so no
+            # additional -dev packages are required for compilation.
+            - name: Install Linux build deps
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y --no-install-recommends \
+                      libasound2-dev libudev-dev libxkbcommon-dev pkg-config
+
+            - name: Install stable Rust
+              uses: dtolnay/rust-toolchain@stable
+
+            - name: Cache cargo
+              uses: Swatinem/rust-cache@v2
+
+            - name: Build llflash_desktop + llflash_rtmp_host (release)
+              run: cargo build --release -p llflash_desktop -p llflash_rtmp_host
+
+            - name: Package desktop (.tar.gz)
+              run: |
+                  STAGE="dist/LongLiveFlash"
+                  rm -rf dist
+                  mkdir -p "$STAGE"
+                  cp target/release/llflash_desktop "$STAGE/"
+                  cp desktop/packages/linux/rs.ruffle.Ruffle.svg "$STAGE/" || true
+                  tar -C dist -czf \
+                      "dist/LongLiveFlash-${APP_VERSION}-Linux-x64.tar.gz" \
+                      LongLiveFlash
+
+            - name: Package llflash-rtmp-host (.tar.gz)
+              run: |
+                  STAGE="dist/llflash-rtmp-host"
+                  rm -rf "$STAGE"
+                  mkdir -p "$STAGE"
+                  cp target/release/llflash-rtmp-host "$STAGE/"
+                  cp -R native-host/manifest "$STAGE/manifest"
+                  cp native-host/install.sh "$STAGE/install.sh"
+                  tar -C dist -czf \
+                      "dist/llflash-rtmp-host-${APP_VERSION}-Linux-x64.tar.gz" \
+                      llflash-rtmp-host
+
+            - name: Upload artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                  name: Linux
+                  if-no-files-found: error
+                  path: |
+                      dist/LongLiveFlash-${{ needs.preflight.outputs.version }}-Linux-x64.tar.gz
+                      dist/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-Linux-x64.tar.gz
+
+    extension:
+        name: Web extension (generic .zip)
+        needs: preflight
+        runs-on: ubuntu-22.04
+        env:
+            APP_VERSION: ${{ needs.preflight.outputs.version }}
+        steps:
+            - uses: actions/checkout@v4
+
+            # Pin wasm32 target — llflash-core's build pipeline shells out
+            # to cargo for the .wasm modules.
+            - name: Install stable Rust + wasm32 target
+              uses: dtolnay/rust-toolchain@stable
+              with:
+                  targets: wasm32-unknown-unknown
+
+            - name: Cache cargo
+              uses: Swatinem/rust-cache@v2
+
+            # Must match `wasm-bindgen = "=0.2.120"` in Cargo.toml — version
+            # mismatch produces a runtime error in the .wasm glue.
+            - name: Install wasm-bindgen-cli 0.2.120
+              uses: taiki-e/install-action@v2
+              with:
+                  tool: wasm-bindgen-cli@0.2.120
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 10.33.0
+
+            - name: Setup Node.js 24
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+                  cache: pnpm
+                  cache-dependency-path: web/pnpm-lock.yaml
+
+            # llflash-core's build pipeline drives `wit2java` / other JVM
+            # tooling for the .wasm modules.
+            - name: Setup Java 17
+              uses: actions/setup-java@v4
+              with:
+                  distribution: temurin
+                  java-version: 17
+
+            - name: Install JS deps
+              working-directory: web
+              run: pnpm install --frozen-lockfile
+
+            # Build llflash-core first (extension depends on it), then run
+            # only the *generic* extension target. We skip the firefox
+            # target because `build:firefox` chains into `sign-firefox`
+            # which requires Mozilla AMO API credentials we don't have.
+            - name: Build llflash-core
+              working-directory: web
+              run: pnpm --filter llflash-core build
+
+            - name: Build extension (generic only)
+              working-directory: web
+              run: |
+                  pnpm --filter llflash-extension exec tsc -p jsconfig.json
+                  pnpm --filter llflash-extension run build:generic
+
+            - name: Stamp version into artifact name
+              run: |
+                  cp web/packages/extension/dist/llflash_extension.zip \
+                     "llflash_extension-${APP_VERSION}.zip"
+
+            - name: Upload artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: extension
+                  if-no-files-found: error
+                  path: llflash_extension-${{ needs.preflight.outputs.version }}.zip
+
+    release:
+        name: Publish to target repo release
+        needs: [preflight, macos, windows, linux, extension]
+        runs-on: ubuntu-latest
+        steps:
+            # `merge-multiple: true` flattens all artifact dirs into one
+            # `release/` folder so the file globs below stay simple.
+            - name: Download all artifacts
+              uses: actions/download-artifact@v4
+              with:
+                  path: release
+                  merge-multiple: true
+
+            # Wipe every asset currently attached to the target release
+            # before uploading the new ones. Without this, files from prior
+            # versions (e.g. `LongLiveFlash-0.9.0-*`) stay on the release
+            # forever because `softprops/action-gh-release@v2` only
+            # overwrites assets whose filenames match. Scoped to this one
+            # tag — other releases on TARGET_REPO are untouched.
+            - name: Clear old assets from target release
+              env:
+                  GH_TOKEN: ${{ secrets.RELEASE_PAT }}
+                  TARGET_REPO: ${{ secrets.TARGET_REPO }}
+                  TARGET_TAG: ${{ secrets.TARGET_RELEASE_TAG }}
+              run: |
+                  if ! gh release view "$TARGET_TAG" --repo "$TARGET_REPO" >/dev/null 2>&1; then
+                      echo "Release $TARGET_TAG does not exist yet on $TARGET_REPO — nothing to clear."
+                      exit 0
+                  fi
+                  gh release view "$TARGET_TAG" \
+                      --repo "$TARGET_REPO" \
+                      --json assets \
+                      --jq '.assets[].name' \
+                      | while IFS= read -r asset; do
+                          [ -z "$asset" ] && continue
+                          echo "Deleting old asset: $asset"
+                          gh release delete-asset "$TARGET_TAG" "$asset" \
+                              --repo "$TARGET_REPO" --yes
+                      done
+
+            - name: Publish to target repo release
+              uses: softprops/action-gh-release@v2
+              with:
+                  repository: ${{ secrets.TARGET_REPO }}
+                  token: ${{ secrets.RELEASE_PAT }}
+                  tag_name: ${{ secrets.TARGET_RELEASE_TAG }}
+                  name: ${{ secrets.TARGET_RELEASE_TAG }}
+                  body: |
+                      Long Live Flash `${{ needs.preflight.outputs.version }}` — desktop, web extension, and RTMP native messaging host.
+                      Source commit: `${{ github.sha }}` on `${{ github.ref_name }}`.
+                  prerelease: false
+                  # Don't promote this tag over whatever the target repo
+                  # already flags as latest.
+                  make_latest: "false"
+                  files: |
+                      release/LongLiveFlash-${{ needs.preflight.outputs.version }}-macOS-arm64.dmg
+                      release/LongLiveFlash-${{ needs.preflight.outputs.version }}-Windows-x64.zip
+                      release/LongLiveFlash-${{ needs.preflight.outputs.version }}-Linux-x64.tar.gz
+                      release/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-macOS-arm64.tar.gz
+                      release/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-Windows-x64.zip
+                      release/llflash-rtmp-host-${{ needs.preflight.outputs.version }}-Linux-x64.tar.gz
+                      release/llflash_extension-${{ needs.preflight.outputs.version }}.zip

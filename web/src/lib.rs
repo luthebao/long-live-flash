@@ -6,6 +6,7 @@ mod builder;
 mod external_interface;
 mod input;
 mod log_adapter;
+mod native_rtmp;
 mod navigator;
 mod storage;
 mod ui;
@@ -494,6 +495,55 @@ impl RuffleHandle {
     pub fn set_trace_observer(&self, observer: JsValue) {
         let _ = self.with_instance(|instance| {
             *instance.trace_observer.borrow_mut() = observer;
+        });
+    }
+
+    /// Dispatch a NetStatus event for an open RTMP connection. Called by
+    /// the JS extension bridge as `status` events arrive from the native
+    /// messaging host. Runs synchronously on the current task, so the
+    /// AS3 event handler sees it on the same JS-side message tick.
+    #[wasm_bindgen(js_name = "dispatchRtmpStatus")]
+    pub fn dispatch_rtmp_status(&self, handle: u64, code: &str, level: &str) {
+        let _ = self.with_core_mut(|core| {
+            core.mutate_with_update_context(|context| {
+                llflash_core::net_connection::NetConnections::dispatch_rtmp_status(
+                    context, handle, code, level,
+                );
+            });
+        });
+    }
+
+    /// Dispatch a `NetConnection.call(...)` response. `body_amf` is the
+    /// AMF0-encoded reply body (single top-level value); empty means
+    /// undefined.
+    #[wasm_bindgen(js_name = "dispatchRtmpCallResult")]
+    pub fn dispatch_rtmp_call_result(
+        &self,
+        handle: u64,
+        txid: u32,
+        is_error: bool,
+        body_amf: &[u8],
+    ) {
+        let _ = self.with_core_mut(|core| {
+            core.mutate_with_update_context(|context| {
+                llflash_core::net_connection::NetConnections::dispatch_rtmp_call_result(
+                    context, handle, txid, is_error, body_amf,
+                );
+            });
+        });
+    }
+
+    /// Dispatch a server-initiated callback (`onBWDone`, `onMetaData`,
+    /// app-specific RPCs) on the AS3 NetConnection's `client` object.
+    /// `args_amf` is a concatenation of AMF0-encoded top-level values.
+    #[wasm_bindgen(js_name = "dispatchRtmpServerCall")]
+    pub fn dispatch_rtmp_server_call(&self, handle: u64, method: &str, args_amf: &[u8]) {
+        let _ = self.with_core_mut(|core| {
+            core.mutate_with_update_context(|context| {
+                llflash_core::net_connection::NetConnections::dispatch_rtmp_server_call(
+                    context, handle, method, args_amf,
+                );
+            });
         });
     }
 

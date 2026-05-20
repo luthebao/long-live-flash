@@ -7,6 +7,7 @@ members = [
     "swf",
     "flv",
     "rtmp",
+    "native-host",
     "web",
     "web/packages/extension/safari",
     "wstr",

@@ -754,6 +754,18 @@ export class InnerPlayer {
             throw e;
         });
 
+        // RTMP bridge: hand the just-built RuffleHandle to the host
+        // (extension or selfhosted page) so it can dispatch inbound
+        // status/result/server-call events into this specific player.
+        // No-op when the host hasn't supplied an rtmpRegister callback.
+        if (this.loadedConfig?.rtmpRegister && this.instance) {
+            try {
+                this.loadedConfig.rtmpRegister(this.instance);
+            } catch (e) {
+                console.warn("rtmpRegister threw, ignoring:", e);
+            }
+        }
+
         this.rendererDebugInfo = this.instance!.renderer_debug_info();
 
         if (this.rendererDebugInfo.includes("Adapter Device Type: Cpu")) {

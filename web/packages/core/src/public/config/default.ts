@@ -61,4 +61,10 @@ export const DEFAULT_CONFIG: Required<BaseLoadOptions> = {
     scrollingBehavior: ScrollingBehavior.Smart,
     deviceFontRenderer: DeviceFontRenderer.Embedded,
     backgroundExecutionMode: BackgroundExecutionMode.MainThread,
+    // No-op default — only the browser extension supplies RTMP plumbing
+    // (the wasm sandbox has no way to dial a TCP socket itself). Hosts
+    // that opt in (e.g. selfhosted with their own native messaging
+    // bridge) replace these.
+    rtmpBridge: () => undefined,
+    rtmpRegister: () => undefined,
 };

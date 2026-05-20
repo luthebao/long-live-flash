@@ -1,0 +1,9 @@
+{
+  "name": "com.longliveflash.rtmp_host",
+  "description": "Long Live Flash RTMP bridge",
+  "path": "__BINARY_PATH__",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://mcahcaahgbcmapfdcekcjpdopagoncec/"
+  ]
+}

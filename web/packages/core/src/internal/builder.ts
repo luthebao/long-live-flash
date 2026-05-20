@@ -50,6 +50,9 @@ export function configureBuilder(
     if (isExplicit(config.pageUrl)) {
         builder.setPageUrl(config.pageUrl);
     }
+    if (isExplicit(config.rtmpBridge)) {
+        builder.setRtmpBridge(config.rtmpBridge);
+    }
     if (isExplicit(config.menu)) {
         builder.setShowMenu(config.menu);
     }

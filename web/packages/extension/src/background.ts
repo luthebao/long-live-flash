@@ -1,6 +1,88 @@
 import * as utils from "./utils";
 import { isMessage } from "./messages";
 
+/**
+ * RTMP native-messaging bridge.
+ *
+ * Each content-script port opened with name `"llflash-rtmp"` triggers
+ * `connectNative` to the per-machine host, paired with that port for
+ * the rest of its lifetime. One native host process per content frame
+ * keeps handle namespaces from colliding across tabs / iframes —
+ * native shutdown happens automatically when either side disconnects.
+ *
+ * The native host name is hard-coded; it must match what
+ * `native-host/install.sh` writes into the browser's
+ * NativeMessagingHosts manifest directory.
+ */
+const RTMP_HOST = "com.longliveflash.rtmp_host";
+
+chrome.runtime.onConnect.addListener((port) => {
+    if (port.name !== "llflash-rtmp") {
+        return;
+    }
+    let native: chrome.runtime.Port | null = null;
+    try {
+        native = chrome.runtime.connectNative(RTMP_HOST);
+    } catch (e) {
+        console.warn(
+            `llflash-rtmp: failed to spawn native host '${RTMP_HOST}'`,
+            e,
+        );
+        port.postMessage({
+            ev: "log",
+            level: "error",
+            msg: `failed to spawn native host '${RTMP_HOST}': ${e instanceof Error ? e.message : String(e)}`,
+        });
+        port.disconnect();
+        return;
+    }
+
+    native.onMessage.addListener((msg) => {
+        try {
+            port.postMessage(msg);
+        } catch {
+            // Content port already torn down.
+        }
+    });
+
+    native.onDisconnect.addListener(() => {
+        const err = chrome.runtime.lastError;
+        if (err) {
+            try {
+                port.postMessage({
+                    ev: "log",
+                    level: "error",
+                    msg: `native host disconnected: ${err.message ?? "unknown error"}`,
+                });
+            } catch {
+                // ignore
+            }
+        }
+        try {
+            port.disconnect();
+        } catch {
+            // ignore
+        }
+    });
+
+    port.onMessage.addListener((cmd) => {
+        try {
+            native?.postMessage(cmd);
+        } catch (e) {
+            console.warn("llflash-rtmp: failed to forward to native", e);
+        }
+    });
+
+    port.onDisconnect.addListener(() => {
+        try {
+            native?.disconnect();
+        } catch {
+            // ignore
+        }
+        native = null;
+    });
+});
+
 async function contentScriptRegistered() {
     const matchingScripts = await utils.scripting.getRegisteredContentScripts({
         ids: ["plugin-polyfill"],
