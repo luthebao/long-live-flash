@@ -385,6 +385,9 @@ impl MainWindow {
                     // this frame, mirroring the capi tick pattern.
                     let rtmp_events = llflash_rtmp::drain();
                     if !rtmp_events.is_empty() {
+                        for ev in &rtmp_events {
+                            crate::rtmp_log::log_inbound(ev);
+                        }
                         player.update(|context| {
                             for ev in rtmp_events {
                                 match ev {

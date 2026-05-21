@@ -15,6 +15,7 @@ mod gui;
 mod log;
 mod player;
 mod preferences;
+mod rtmp_log;
 #[cfg(feature = "tracy")]
 mod tracy;
 mod util;
@@ -169,9 +170,9 @@ fn main() -> Result<(), Error> {
     // own here instead; since this is the pure-Rust desktop binary we use
     // the in-tree client from llflash_rtmp.
     llflash_core::backend::net_connection::set_hooks(
-        Some(llflash_rtmp::connect),
-        Some(llflash_rtmp::close),
-        Some(llflash_rtmp::call),
+        Some(rtmp_log::connect),
+        Some(rtmp_log::close),
+        Some(rtmp_log::call),
     );
 
     let result = App::new(preferences).and_then(|(mut app, event_loop)| {
