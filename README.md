@@ -9,14 +9,14 @@ Llflash is an Adobe Flash Player emulator written in the Rust programming langua
 ## Table of Contents
 
 * [Project status](#project-status)
-* [Using Llflash](#using-ruffle)
+* [Using Llflash](#using-llflash)
 * [Building from source](#building-from-source)
   * [Prerequisites](#prerequisites)
   * [Linux prerequisites](#linux-prerequisites)
   * [Desktop](#desktop)
-    * [Build](#build)
-    * [macOS](#macos)
   * [Web or Extension](#web-or-extension)
+  * [RTMP native messaging host](#rtmp-native-messaging-host)
+  * [Build everything](#build-everything)
   * [Android](#android)
   * [Scanner](#scanner)
   * [Exporter](#exporter)
@@ -39,14 +39,27 @@ For more detailed instructions, see our wiki page.
 
 ## Building from source
 
+This repo ships a `Makefile` that wraps all source builds. Primary target is macOS; Linux works
+with the same recipes (a recent `zsh` is required, since the Makefile uses `SHELL := /bin/zsh`).
+Run every command below from the repo root.
+
 ### Prerequisites
 
-* Latest stable channel of [Rust](https://www.rust-lang.org/tools/install)
-* Java, available on your PATH as `java` (required for building the library containing the builtin Flash classes for ActionScript 3)
+Check what's installed, then auto-install whatever is missing:
+
+```shell
+make check-deps     # report status of cargo, node, pnpm, java, wasm32 target, wasm-bindgen
+make install-deps   # idempotent — installs rustup, wasm32 target, wasm-bindgen-cli, enables pnpm
+```
+
+The tools `make install-deps` cannot install for you:
+
+* Java (JDK 17+) — required for building the ActionScript 3 builtins library
+* Node.js (>= 24) — required for the web extension build
 
 ### Linux prerequisites
 
-The following are typical dependencies for Linux:
+Linux users need the following system packages before `make install-deps`:
 
 * Ubuntu/Debian:
 
@@ -62,49 +75,71 @@ The following are typical dependencies for Linux:
 
 ### Desktop
 
-#### Build
+Build the desktop app (release):
 
-Use the following command to build and run the desktop app:
+```shell
+make build-desktop
+```
 
-`cargo run --release --package=llflash_desktop`
+Run the desktop app in debug mode:
 
-To run a specific SWF file, pass the SWF path as an argument:
-
-`cargo run --release --package=llflash_desktop -- test.swf`
-
-To build in debug mode, simply omit `--release` from the command.
-
-#### macOS
-
-Llflash desktop can be built from our [Homebrew Tap](https://github.com/ruffle-rs/homebrew-ruffle/):
-
-`brew install --HEAD ruffle-rs/ruffle/ruffle`
-
-_Note: because it is HEAD-only, you'll need to run `brew upgrade --fetch-HEAD ruffle` each time you want to update._
+```shell
+make run-desktop
+```
 
 ### Web or Extension
 
-Follow [the instructions in the web directory](web/README.md#building-from-source) for building
-either the web or browser extension version of Llflash.
+Build the web extension and the selfhosted bundle:
+
+```shell
+make build-extension
+```
+
+See [`web/README.md`](web/README.md) for details on individual web packages.
 
 This project is tested with BrowserStack.
 
+### RTMP native messaging host
+
+Build the MV3 native messaging host used by the browser extension for RTMP streaming, then
+install its manifest:
+
+```shell
+make build-rtmp-host
+make install-rtmp-host BROWSER=chrome   # macOS/Linux; BROWSER defaults to chrome
+```
+
+On Windows, run the PowerShell installer instead:
+
+```powershell
+PowerShell -ExecutionPolicy Bypass -File native-host/install.ps1
+```
+
+### Build everything
+
+```shell
+make build   # build-desktop + build-extension
+make clean   # remove all build artifacts
+```
+
 ### Android
 
-Follow the instructions in the `ruffle-android` project for building the Android application of Llflash.
+Follow the instructions in the `llflash-android` project for building the Android application of Llflash.
 
 ### Scanner
 
 If you have a collection of "real world" SWFs to test against, the scanner may be used to benchmark
-ruffle's parsing capabilities. Provided with a folder and an output filename, it will attempt to read
-all of the Flash files and report on the success of such a task.
+Llflash's parsing capabilities. Provided with a folder and an output filename, it will attempt to read
+all of the Flash files and report on the success of such a task. The scanner has no Makefile target —
+invoke it directly with cargo:
 
 `cargo run --release --package=llflash_scanner -- scan folder/with/swfs/ results.csv`
 
 ### Exporter
 
 If you have a SWF file and would like to capture an image of it, you may use the exporter tool.
-This currently requires hardware acceleration, but can be run headless (with no window).
+This currently requires hardware acceleration, but can be run headless (with no window). The
+exporter has no Makefile target — invoke it directly with cargo:
 
 * `cargo run --release --package=exporter -- path/to/file.swf`
 * `cargo run --release --package=exporter -- path/to/file.swf path/to/screenshots --frames 5`
