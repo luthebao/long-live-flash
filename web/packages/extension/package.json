@@ -1,14 +1,14 @@
 {
     "name": "llflash-extension",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Extension packaging for Llflash Flash emulator",
     "license": "(MIT OR Apache-2.0)",
     "private": true,
     "type": "module",
     "scripts": {
         "build": "tsc -p jsconfig.json && pnpm run build:generic && pnpm run build:firefox",
-        "build:generic": "webpack --env generic && tsx tools/inject_plugin_polyfill.ts && tsx tools/zip.ts dist/llflash_extension.zip",
-        "build:webstore": "pnpm run build:generic && tsx tools/zip.ts dist/llflash_extension_webstore.zip --strip-key",
+        "build:generic": "webpack --env generic && tsx tools/inject_plugin_polyfill.ts && tsx tools/zip.ts dist/llflash_extension.zip --unpacked=dist/llflash_extension",
+        "build:webstore": "pnpm run build:generic && tsx tools/zip.ts dist/llflash_extension_webstore.zip --strip-key --unpacked=dist/llflash_extension_webstore",
         "build:firefox": "webpack --env firefox && tsx tools/inject_plugin_polyfill.ts && tsx tools/zip.ts dist/firefox_unsigned.xpi && pnpm run sign-firefox",
         "sign-firefox": "tsx tools/submit_xpi.ts dist/firefox_unsigned.xpi ../../../reproducible-source.zip",
         "checkTypes": "tsc --noemit && tsc --noemit -p tools"

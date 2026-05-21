@@ -1,6 +1,6 @@
 {
     "name": "llflash-core",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Core bindings for Llflash",
     "license": "(MIT OR Apache-2.0)",
     "private": true,

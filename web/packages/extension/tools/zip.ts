@@ -10,6 +10,7 @@ import archiver from "archiver";
 // produces the stable dev ID (mcahcaahgbcmapfdcekcjpdopagoncec).
 async function zip(source: string, destination: string, stripKey: boolean) {
     await fs.mkdir(path.dirname(destination), { recursive: true });
+    await fs.rm(destination, { force: true });
     const output = (await fs.open(destination, "w")).createWriteStream();
     const archive = archiver("zip");
 
@@ -45,7 +46,32 @@ async function zip(source: string, destination: string, stripKey: boolean) {
 
     await archive.finalize();
 }
+
+// `--unpacked=<dir>`: also write the same effective contents to <dir> so
+// Chrome's "Load unpacked" picks up the latest build on reload. The dir
+// is wiped first so stale files from a prior version don't survive.
+async function unpack(source: string, destination: string, stripKey: boolean) {
+    await fs.rm(destination, { recursive: true, force: true });
+    await fs.cp(source, destination, { recursive: true });
+    if (stripKey) {
+        const manifestPath = path.join(destination, "manifest.json");
+        const manifest = JSON.parse(await fs.readFile(manifestPath, "utf8"));
+        delete manifest.key;
+        await fs.writeFile(manifestPath, JSON.stringify(manifest));
+    }
+}
+
 const assets = url.fileURLToPath(new URL("../assets/", import.meta.url));
 const positional = process.argv.slice(2).filter((a) => !a.startsWith("--"));
 const stripKey = process.argv.includes("--strip-key");
-zip(assets, positional[0] ?? "", stripKey).catch(console.error);
+const unpackedFlag = process.argv.find((a) => a.startsWith("--unpacked="));
+const unpackedDir = unpackedFlag?.split("=", 2)[1];
+
+async function run() {
+    await zip(assets, positional[0] ?? "", stripKey);
+    if (unpackedDir) {
+        await unpack(assets, unpackedDir, stripKey);
+    }
+}
+
+run().catch(console.error);
