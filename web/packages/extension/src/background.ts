@@ -20,83 +20,29 @@ chrome.runtime.onConnect.addListener((port) => {
     if (port.name !== "llflash-rtmp") {
         return;
     }
-    void handleRtmpConnect(port);
-});
 
-async function handleRtmpConnect(port: chrome.runtime.Port) {
-    const { rtmpEnable } = await utils.getOptions();
-    if (!rtmpEnable) {
-        try {
-            port.postMessage({
-                ev: "log",
-                level: "info",
-                msg: "RTMP host is off. Enable it in the Llflash popup to allow native RTMP connections.",
-            });
-        } catch {
-            // ignore
-        }
-        try {
-            port.disconnect();
-        } catch {
-            // ignore
-        }
-        return;
-    }
-
+    // Chrome port IPC does NOT reliably queue messages whose `onMessage`
+    // listener is registered asynchronously — the first user `connect`
+    // arrives here before the toggle read + `connectNative` complete, and
+    // would be dropped. So attach port listeners SYNCHRONOUSLY, buffer
+    // commands until the native pipe is live, then drain in order.
+    const buffered: unknown[] = [];
     let native: chrome.runtime.Port | null = null;
-    try {
-        native = chrome.runtime.connectNative(RTMP_HOST);
-    } catch (e) {
-        console.warn(
-            `llflash-rtmp: failed to spawn native host '${RTMP_HOST}'`,
-            e,
-        );
-        port.postMessage({
-            ev: "log",
-            level: "error",
-            msg: `failed to spawn native host '${RTMP_HOST}': ${e instanceof Error ? e.message : String(e)}`,
-        });
-        port.disconnect();
-        return;
-    }
-
-    native.onMessage.addListener((msg) => {
-        try {
-            port.postMessage(msg);
-        } catch {
-            // Content port already torn down.
-        }
-    });
-
-    native.onDisconnect.addListener(() => {
-        const err = chrome.runtime.lastError;
-        if (err) {
-            try {
-                port.postMessage({
-                    ev: "log",
-                    level: "error",
-                    msg: `native host disconnected: ${err.message ?? "unknown error"}`,
-                });
-            } catch {
-                // ignore
-            }
-        }
-        try {
-            port.disconnect();
-        } catch {
-            // ignore
-        }
-    });
+    let portClosed = false;
 
     port.onMessage.addListener((cmd) => {
-        try {
-            native?.postMessage(cmd);
-        } catch (e) {
-            console.warn("llflash-rtmp: failed to forward to native", e);
+        if (native) {
+            try {
+                native.postMessage(cmd);
+            } catch (e) {
+                console.warn("llflash-rtmp: failed to forward to native", e);
+            }
+        } else {
+            buffered.push(cmd);
         }
     });
-
     port.onDisconnect.addListener(() => {
+        portClosed = true;
         try {
             native?.disconnect();
         } catch {
@@ -104,7 +50,107 @@ async function handleRtmpConnect(port: chrome.runtime.Port) {
         }
         native = null;
     });
-}
+
+    void (async () => {
+        const { rtmpEnable } = await utils.getOptions();
+        if (portClosed) {
+            return;
+        }
+        if (!rtmpEnable) {
+            try {
+                port.postMessage({
+                    ev: "log",
+                    level: "info",
+                    msg: "RTMP host is off. Enable it in the Llflash popup to allow native RTMP connections.",
+                });
+            } catch {
+                // ignore
+            }
+            try {
+                port.disconnect();
+            } catch {
+                // ignore
+            }
+            return;
+        }
+
+        let n: chrome.runtime.Port;
+        try {
+            n = chrome.runtime.connectNative(RTMP_HOST);
+        } catch (e) {
+            console.warn(
+                `llflash-rtmp: failed to spawn native host '${RTMP_HOST}'`,
+                e,
+            );
+            try {
+                port.postMessage({
+                    ev: "log",
+                    level: "error",
+                    msg: `failed to spawn native host '${RTMP_HOST}': ${e instanceof Error ? e.message : String(e)}`,
+                });
+            } catch {
+                // ignore
+            }
+            try {
+                port.disconnect();
+            } catch {
+                // ignore
+            }
+            return;
+        }
+
+        if (portClosed) {
+            try {
+                n.disconnect();
+            } catch {
+                // ignore
+            }
+            return;
+        }
+
+        n.onMessage.addListener((msg) => {
+            try {
+                port.postMessage(msg);
+            } catch {
+                // Content port already torn down.
+            }
+        });
+        n.onDisconnect.addListener(() => {
+            const err = chrome.runtime.lastError;
+            if (err) {
+                try {
+                    port.postMessage({
+                        ev: "log",
+                        level: "error",
+                        msg: `native host disconnected: ${err.message ?? "unknown error"}`,
+                    });
+                } catch {
+                    // ignore
+                }
+            }
+            try {
+                port.disconnect();
+            } catch {
+                // ignore
+            }
+        });
+
+        native = n;
+
+        // Drain anything that arrived during the async setup gap.
+        for (const cmd of buffered) {
+            try {
+                n.postMessage(cmd);
+            } catch (e) {
+                console.warn(
+                    "llflash-rtmp: failed to forward buffered cmd",
+                    e,
+                );
+            }
+        }
+        buffered.length = 0;
+    })();
+});
 
 async function contentScriptRegistered() {
     const matchingScripts = await utils.scripting.getRegisteredContentScripts({

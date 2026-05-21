@@ -406,6 +406,14 @@ impl<'gc> NetConnections<'gc> {
             return;
         };
 
+        // If this NetConnection was routed through the native RTMP bridge,
+        // tell the bridge to tear down its session. Without this, the
+        // native host keeps the TCP socket open and a reconnect on the
+        // same user is typically rejected server-side ("session in use").
+        if let NetConnectionProtocol::Rtmp(ref rtmp) = connection.protocol {
+            crate::backend::net_connection::close(rtmp.odin_handle);
+        }
+
         match connection.object {
             NetConnectionObject::Avm2(object) => {
                 let mut activation = Avm2Activation::from_nothing(context);
