@@ -877,6 +877,17 @@ export class InnerPlayer {
     destroy(): void {
         if (this.instance) {
             this.stopBackgroundTick();
+            // Drop the host's reference (e.g. rtmp-bridge's players[])
+            // BEFORE `instance.destroy()` removes the wasm-side slot —
+            // otherwise the bridge holds a now-invalid RuffleHandle and
+            // fan-out RTMP events would log `Instance ID does not exist`.
+            if (this.loadedConfig?.rtmpUnregister) {
+                try {
+                    this.loadedConfig.rtmpUnregister(this.instance);
+                } catch (e) {
+                    console.warn("rtmpUnregister threw, ignoring:", e);
+                }
+            }
             this.instance.destroy();
             this.instance = null;
             this.metadata = null;

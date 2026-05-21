@@ -601,6 +601,20 @@ export interface BaseLoadOptions {
     rtmpRegister?: (player: object) => void;
 
     /**
+     * Companion to {@link rtmpRegister}. Called once with the
+     * `RuffleHandle` for this player right before it's destroyed, so
+     * the host can drop its reference and stop dispatching RTMP events
+     * into a dead handle. Without this, inbound events fan out to
+     * destroyed players and log `Llflash Instance ID does not exist`.
+     *
+     * The handle is still valid when this is invoked — the caller may
+     * use it (e.g. to enumerate open NetConnections) before returning.
+     *
+     * @default undefined
+     */
+    rtmpUnregister?: (player: object) => void;
+
+    /**
      * If set to true, the built-in context menu items are visible
      *
      * This is equivalent to Stage.showMenu.

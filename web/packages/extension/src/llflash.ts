@@ -1,6 +1,6 @@
 import { Setup, setCurrentScriptURL } from "llflash-core";
 import { Message } from "./messages";
-import { bridgeOut, registerPlayer } from "./rtmp-bridge";
+import { bridgeOut, registerPlayer, unregisterPlayer } from "./rtmp-bridge";
 
 /**
  *
@@ -39,6 +39,7 @@ function handleMessage(message: Message) {
                 // so inbound events can find this player.
                 rtmpBridge: bridgeOut,
                 rtmpRegister: registerPlayer,
+                rtmpUnregister: unregisterPlayer,
                 // Advertise the real embedding page as `pageUrl` in
                 // RTMP connect commands. RTMP servers that hotlink-check
                 // reject empty values; the host falls back to swfUrl in

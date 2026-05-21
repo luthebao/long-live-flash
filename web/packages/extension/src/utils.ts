@@ -8,6 +8,7 @@ const DEFAULT_OPTIONS: Required<Options> = {
     autostart: false,
     showReloadButton: false,
     swfTakeover: true,
+    rtmpEnable: false,
 };
 
 // TODO: Once https://crbug.com/798169 is addressed, just use browser.

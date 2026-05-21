@@ -67,4 +67,5 @@ export const DEFAULT_CONFIG: Required<BaseLoadOptions> = {
     // bridge) replace these.
     rtmpBridge: () => undefined,
     rtmpRegister: () => undefined,
+    rtmpUnregister: () => undefined,
 };

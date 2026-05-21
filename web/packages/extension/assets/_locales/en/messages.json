@@ -14,6 +14,9 @@
     "settings_swf_takeover": {
         "message": "Play SWF files in browser instead of downloading"
     },
+    "settings_rtmp_enable": {
+        "message": "Enable RTMP native host (manual)"
+    },
     "settings_log_level": {
         "message": "Log level"
     },

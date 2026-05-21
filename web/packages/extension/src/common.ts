@@ -7,6 +7,7 @@ export interface Options extends Config.BaseLoadOptions {
     autostart: boolean;
     showReloadButton: boolean;
     swfTakeover: boolean;
+    rtmpEnable: boolean;
 }
 
 interface OptionElement<T> {

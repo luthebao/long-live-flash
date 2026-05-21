@@ -128,6 +128,20 @@ export function registerPlayer(player: object): void {
     players.push(player as RtmpPlayer);
 }
 
+/**
+ * Called from `inner.tsx destroy()` right before the wasm-side
+ * `INSTANCES.remove()`. Splices this player out of the dispatch list
+ * so inbound RTMP events from still-open native connections don't
+ * fan out to a dead handle. Identity comparison: the caller passes
+ * the same `RuffleHandle` JS object that was registered.
+ */
+export function unregisterPlayer(player: object): void {
+    const idx = players.indexOf(player as RtmpPlayer);
+    if (idx !== -1) {
+        players.splice(idx, 1);
+    }
+}
+
 function atobToBytes(s: string): Uint8Array {
     // atob throws on non-base64 input. Tolerate empty / bad strings
     // gracefully — a malformed payload from the native side shouldn't

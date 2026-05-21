@@ -20,6 +20,29 @@ chrome.runtime.onConnect.addListener((port) => {
     if (port.name !== "llflash-rtmp") {
         return;
     }
+    void handleRtmpConnect(port);
+});
+
+async function handleRtmpConnect(port: chrome.runtime.Port) {
+    const { rtmpEnable } = await utils.getOptions();
+    if (!rtmpEnable) {
+        try {
+            port.postMessage({
+                ev: "log",
+                level: "info",
+                msg: "RTMP host is off. Enable it in the Llflash popup to allow native RTMP connections.",
+            });
+        } catch {
+            // ignore
+        }
+        try {
+            port.disconnect();
+        } catch {
+            // ignore
+        }
+        return;
+    }
+
     let native: chrome.runtime.Port | null = null;
     try {
         native = chrome.runtime.connectNative(RTMP_HOST);
@@ -81,7 +104,7 @@ chrome.runtime.onConnect.addListener((port) => {
         }
         native = null;
     });
-});
+}
 
 async function contentScriptRegistered() {
     const matchingScripts = await utils.scripting.getRegisteredContentScripts({

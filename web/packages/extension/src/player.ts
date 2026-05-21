@@ -1,6 +1,6 @@
 import * as utils from "./utils";
 import { Setup } from "llflash-core";
-import { bridgeOut, registerPlayer } from "./rtmp-bridge";
+import { bridgeOut, registerPlayer, unregisterPlayer } from "./rtmp-bridge";
 
 import type { Config, Player } from "llflash-core";
 
@@ -53,6 +53,7 @@ const baseExtensionConfig = {
     // posting through the relay used on regular pages.
     rtmpBridge: bridgeOut,
     rtmpRegister: registerPlayer,
+    rtmpUnregister: unregisterPlayer,
 };
 
 const swfToFlashVersion: { [key: number]: string } = {
