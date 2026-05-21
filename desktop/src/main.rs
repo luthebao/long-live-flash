@@ -146,11 +146,19 @@ fn main() -> Result<(), Error> {
     let (non_blocking_file, _file_guard) = tracing_appender::non_blocking(File::create(log_path)?);
     let (non_blocking_stdout, _stdout_guard) = tracing_appender::non_blocking(std::io::stdout());
 
-    let env_filter = tracing_subscriber::EnvFilter::builder().parse_lossy(
-        env::var("RUST_LOG")
-            .as_deref()
-            .unwrap_or("warn,ruffle=info,avm_trace=info"),
-    );
+    // RTMP audit lines are logged at INFO on target `rtmp_audit`. When the
+    // user sets RUST_LOG explicitly (e.g. RUST_LOG=error) we transparently
+    // inject `rtmp_audit=info` so the transcript surfaces alongside their
+    // chosen level — without making the lines themselves ERROR severity.
+    // If they already mentioned `rtmp_audit` (e.g. `rtmp_audit=off`),
+    // their override wins.
+    let user_log = env::var("RUST_LOG").ok();
+    let filter_directive = match user_log.as_deref() {
+        None => "warn,ruffle=info,avm_trace=info".to_string(),
+        Some(s) if s.contains("rtmp_audit") => s.to_string(),
+        Some(s) => format!("{s},rtmp_audit=info"),
+    };
+    let env_filter = tracing_subscriber::EnvFilter::builder().parse_lossy(&filter_directive);
 
     let subscriber = tracing_subscriber::registry()
         .with(env_filter)

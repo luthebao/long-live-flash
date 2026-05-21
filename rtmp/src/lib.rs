@@ -18,7 +18,7 @@
 //! Supported schemes today: `rtmp://`, `rtmpe://`. `rtmps://`, `rtmpt://`,
 //! and `rtmpte://` return an error (TLS / HTTP-tunneling not yet ported).
 
-mod amf0;
+pub mod amf0;
 mod chunks;
 mod client;
 mod events;
