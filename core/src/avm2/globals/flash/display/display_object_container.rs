@@ -524,6 +524,16 @@ pub fn get_objects_under_point<'gc>(
         HitTestOptions::SKIP_MASK | HitTestOptions::SKIP_INVISIBLE | HitTestOptions::SKIP_CHILDREN;
 
     while let Some(child) = children.pop() {
+        // Flash Player's getObjectsUnderPoint skips the entire subtree of
+        // an invisible container. `hit_test_shape` only checks the node's
+        // own `visible` flag, so without this prune a `visible=true`
+        // leaf inside a hidden parent (e.g. Flex tooltip "border" Sprites
+        // that stay visible between hovers while the tooltip container
+        // itself is invisible) would leak into the result.
+        if !child.visible() {
+            continue;
+        }
+
         let obj = child.object2();
         if let Some(obj) = obj {
             let obj = Object::StageObject(obj);
