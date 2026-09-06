@@ -2139,6 +2139,7 @@ impl<'gc> MovieLoader<'gc> {
             }
         }
 
+        let perf_phase = Instant::now();
         match vm_data {
             MovieLoaderVMData::Avm1 {
                 broadcaster,
@@ -2174,9 +2175,10 @@ impl<'gc> MovieLoader<'gc> {
             }
         }
 
+        perf_events_us += perf_phase.elapsed().as_micros();
         let loader = uc.load_manager.get_loader_mut(handle).unwrap();
         loader.loader_status = LoaderStatus::Succeeded;
-        tracing::info!(target: "llflash_perf", "[RUNTIME_PERF] loaderComplete us={} url={}", perf_start.elapsed().as_micros(), perf_url);
+        tracing::info!(target: "llflash_perf", "[RUNTIME_PERF] loaderComplete us={} stream={} postInst={} enter={} construct={} flashvars={} insert={} events={} url={}", perf_start.elapsed().as_micros(), perf_stream_us, perf_post_inst_us, perf_enter_us, perf_construct_us, perf_flashvars_us, perf_insert_us, perf_events_us, perf_url);
 
         Ok(())
     }
