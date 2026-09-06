@@ -1,0 +1,185 @@
+﻿name: Build Desktop Release
+
+# Build llflash_desktop (the desktop Flash player) for
+# Windows x64, macOS arm64, and Linux x64.
+# Triggered on:
+#   - push tag matching `desktop-v*` (auto release)
+#   - workflow_dispatch (manual run)
+#
+# Produces per-platform archives and a GitHub Release
+# with all artifacts attached.
+
+on:
+  push:
+    tags:
+      - "desktop-v*"
+  workflow_dispatch:
+    inputs:
+      create_release:
+        description: "Create a GitHub Release after build"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+permissions:
+  contents: write
+
+jobs:
+  preflight:
+    name: Preflight (resolve version)
+    runs-on: ubuntu-latest
+    outputs:
+      version: "${{ steps.version.outputs.version }}"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve version from Cargo.toml
+        id: version
+        run: |
+          VERSION=$(grep -m1 '^version = "' Cargo.toml | sed 's/version = "\(.*\)"/\1/')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Resolved version: $VERSION"
+
+  build-windows:
+    name: Windows x64
+    needs: preflight
+    runs-on: windows-2022
+    env:
+      APP_VERSION: "${{ needs.preflight.outputs.version }}"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build llflash_desktop (release)
+        shell: pwsh
+        run: cargo build --release -p llflash_desktop
+
+      - name: Package (.zip)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Copy-Item target/release/llflash_desktop.exe dist/
+          Compress-Archive -Path dist/llflash_desktop.exe -DestinationPath "llflash-desktop-${env:APP_VERSION}-Windows-x64.zip"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-x64
+          if-no-files-found: error
+          path: "llflash-desktop-${{ needs.preflight.outputs.version }}-Windows-x64.zip"
+
+  build-macos:
+    name: macOS arm64
+    needs: preflight
+    runs-on: macos-14
+    env:
+      APP_VERSION: "${{ needs.preflight.outputs.version }}"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build llflash_desktop (release)
+        run: cargo build --release -p llflash_desktop
+
+      - name: Package (.tar.gz)
+        run: |
+          mkdir -p dist
+          cp target/release/llflash_desktop dist/
+          tar -C dist -czf "llflash-desktop-${APP_VERSION}-macOS-arm64.tar.gz" llflash_desktop
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-arm64
+          if-no-files-found: error
+          path: "llflash-desktop-${{ needs.preflight.outputs.version }}-macOS-arm64.tar.gz"
+
+  build-linux:
+    name: Linux x64
+    needs: preflight
+    runs-on: ubuntu-22.04
+    env:
+      APP_VERSION: "${{ needs.preflight.outputs.version }}"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxcb-xfixes0-dev libxcb-icccm4-dev libxcb-image0-dev \
+            libxcb-keysyms1-dev libxcb-randr0-dev libxcb-render-util0-dev \
+            libxcb-shape0-dev libxcb-xkb-dev libxcb-cursor-dev libxkbcommon-dev \
+            libasound2-dev
+
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build llflash_desktop (release)
+        run: cargo build --release -p llflash_desktop
+
+      - name: Package (.tar.gz)
+        run: |
+          mkdir -p dist
+          cp target/release/llflash_desktop dist/
+          tar -C dist -czf "llflash-desktop-${APP_VERSION}-Linux-x64.tar.gz" llflash_desktop
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-x64
+          if-no-files-found: error
+          path: "llflash-desktop-${{ needs.preflight.outputs.version }}-Linux-x64.tar.gz"
+
+  release:
+    name: Create GitHub Release
+    needs: [preflight, build-windows, build-macos, build-linux]
+    if: >
+      github.event_name == 'push' ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.create_release == 'true')
+    runs-on: ubuntu-latest
+    env:
+      APP_VERSION: "${{ needs.preflight.outputs.version }}"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release
+          merge-multiple: true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "desktop-v${{ needs.preflight.outputs.version }}"
+          name: "Long Live Flash Desktop v${{ needs.preflight.outputs.version }}"
+          body: |
+            Desktop Flash Player build `${{ needs.preflight.outputs.version }}`
+
+            Source commit: `${{ github.sha }}` on `${{ github.ref_name }}`
+
+            **Downloads:**
+            - `llflash-desktop-${{ needs.preflight.outputs.version }}-Windows-x64.zip` — Windows 64-bit executable
+            - `llflash-desktop-${{ needs.preflight.outputs.version }}-macOS-arm64.tar.gz` — macOS Apple Silicon
+            - `llflash-desktop-${{ needs.preflight.outputs.version }}-Linux-x64.tar.gz` — Linux 64-bit
+          prerelease: false
+          files: |
+            release/llflash-desktop-${{ needs.preflight.outputs.version }}-Windows-x64.zip
+            release/llflash-desktop-${{ needs.preflight.outputs.version }}-macOS-arm64.tar.gz
+            release/llflash-desktop-${{ needs.preflight.outputs.version }}-Linux-x64.tar.gz

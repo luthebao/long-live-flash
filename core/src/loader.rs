@@ -47,6 +47,7 @@ use std::fmt;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex, MutexGuard};
 use std::time::Duration;
+use web_time::Instant;
 use swf::read::{extract_swz, read_compression_type};
 use thiserror::Error;
 use url::{ParseError, Url, form_urlencoded};
@@ -1997,6 +1998,14 @@ impl<'gc> MovieLoader<'gc> {
         status: u16,
         redirected: bool,
     ) -> Result<(), Error> {
+        let perf_start = Instant::now();
+        let mut perf_stream_us = 0u128;
+        let mut perf_post_inst_us = 0u128;
+        let mut perf_enter_us = 0u128;
+        let mut perf_construct_us = 0u128;
+        let mut perf_flashvars_us = 0u128;
+        let mut perf_insert_us = 0u128;
+        let mut perf_events_us = 0u128;
         let (target_clip, vm_data, movie) = match uc.load_manager.get_loader(handle) {
             Some(Self {
                 target_clip,
@@ -2006,6 +2015,10 @@ impl<'gc> MovieLoader<'gc> {
             }) => (*target_clip, *vm_data, movie.clone()),
             None => return Err(Error::Cancelled),
         };
+        let perf_url = movie
+            .as_ref()
+            .map(|movie| movie.url().to_string())
+            .unwrap_or_else(|| "<no-movie>".to_string());
 
         let loader_info = if let MovieLoaderVMData::Avm2 { loader_info, .. } = vm_data {
             Some(loader_info)
@@ -2014,6 +2027,7 @@ impl<'gc> MovieLoader<'gc> {
         };
 
         if let Some(loader_info) = loader_info {
+            let perf_phase = Instant::now();
             // Store the real movie into the `LoaderStream`, so that
             // 'bytesTotal' starts returning the correct value
             // (we previously had a fake empty SwfMovie).
@@ -2024,17 +2038,25 @@ impl<'gc> MovieLoader<'gc> {
                 LoaderStream::NotYetLoaded(movie.clone().unwrap(), Some(dobj.unwrap()), false),
                 uc.gc(),
             );
+            perf_stream_us += perf_phase.elapsed().as_micros();
         }
 
         if let Some(mc) = dobj.and_then(|dobj| dobj.as_movie_clip()) {
             // We call these methods after we initialize the `LoaderInfo`, but before
             // we add the loaded clip as a child. The frame constructor should see
             // 'this.parent == null' and 'this.stage == null'
+            let perf_phase = Instant::now();
             mc.post_instantiation(uc, None, Instantiator::Movie, false);
+            perf_post_inst_us += perf_phase.elapsed().as_micros();
 
             if mc.movie().is_action_script_3() {
+                let perf_phase = Instant::now();
                 mc.enter_frame(uc);
+                perf_enter_us += perf_phase.elapsed().as_micros();
+
+                let perf_phase = Instant::now();
                 mc.construct_frame(uc);
+                perf_construct_us += perf_phase.elapsed().as_micros();
             }
 
             // Movie clips created from ActionScript (including from a Loader) skip the next enterFrame,
@@ -2043,6 +2065,7 @@ impl<'gc> MovieLoader<'gc> {
             // both placed in the same frame to begin with).
             mc.base().set_skip_next_enter_frame(true);
 
+            let perf_phase = Instant::now();
             let flashvars = movie.as_ref().unwrap().parameters();
             if let Some(object) = mc.object1() {
                 for (key, value) in flashvars {
@@ -2054,6 +2077,7 @@ impl<'gc> MovieLoader<'gc> {
                     );
                 }
             }
+            perf_flashvars_us += perf_phase.elapsed().as_micros();
         }
 
         if let MovieLoaderVMData::Avm2 { loader_info, .. } = vm_data {
@@ -2085,6 +2109,7 @@ impl<'gc> MovieLoader<'gc> {
                     "addChild at the correct time"
                 );
 
+                let perf_phase = Instant::now();
                 loader_info.set_expose_content();
 
                 // Note that we do *not* use the 'addChild' method here:
@@ -2096,9 +2121,10 @@ impl<'gc> MovieLoader<'gc> {
                 // when we add the movie as a child of the loader.
                 loader.insert_at_index(uc, dobj, 0);
 
-                if !movie.unwrap().is_action_script_3() {
+                if !movie.as_ref().unwrap().is_action_script_3() {
                     loader.insert_child_into_depth_list(uc, LOADER_INSERTED_AVM1_DEPTH, dobj);
                 }
+                perf_insert_us += perf_phase.elapsed().as_micros();
             }
         } else if let Some(dobj) = dobj {
             // This is a load of an image into AVM1 - add it as a child of the target clip.
@@ -2150,6 +2176,7 @@ impl<'gc> MovieLoader<'gc> {
 
         let loader = uc.load_manager.get_loader_mut(handle).unwrap();
         loader.loader_status = LoaderStatus::Succeeded;
+        tracing::info!(target: "llflash_perf", "[RUNTIME_PERF] loaderComplete us={} url={}", perf_start.elapsed().as_micros(), perf_url);
 
         Ok(())
     }

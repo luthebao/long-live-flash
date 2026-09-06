@@ -1997,6 +1997,7 @@ impl Player {
 
     #[instrument(level = "debug", skip_all)]
     pub fn run_frame(&mut self) {
+        let perf_total = Instant::now();
         let frame_time = self.frame_time(750_000_000.0);
         let frame_time = Duration::from_nanos(frame_time as u64);
         let (mut execution_limit, may_execute_while_streaming) = match self.load_behavior {
@@ -2010,31 +2011,51 @@ impl Player {
             ),
             LoadBehavior::Blocking => (ExecutionLimit::none(), false),
         };
+        let perf_preload = Instant::now();
         let preload_finished = self.preload(&mut execution_limit);
+        let preload_us = perf_preload.elapsed().as_micros();
 
         if !preload_finished && !may_execute_while_streaming {
+            tracing::info!(target: "llflash_perf", "[RUNTIME_PERF] frame preload_us={} avm2_us=0 avm1_us=0 audio_us=0 local_us=0 callbacks_us=0 total_us={}", preload_us, perf_total.elapsed().as_micros());
             return;
         }
 
+        let mut avm2_us = 0;
+        let mut avm1_us = 0;
+        let mut audio_us = 0;
+        let mut local_us = 0;
+        let mut callbacks_us = 0;
         self.update(|context| {
-            // TODO: Is this order correct?
+            let timer = Instant::now();
             run_all_phases_avm2(context);
-            Avm1::run_frame(context);
-            AudioManager::update_sounds(context);
-            LocalConnections::update_connections(context);
+            avm2_us = timer.elapsed().as_micros();
 
-            // Only run the current list of callbacks - any callbacks added during callback execution
-            // will be run at the end of the *next* frame.
+            let timer = Instant::now();
+            Avm1::run_frame(context);
+            avm1_us = timer.elapsed().as_micros();
+
+            let timer = Instant::now();
+            AudioManager::update_sounds(context);
+            audio_us = timer.elapsed().as_micros();
+
+            let timer = Instant::now();
+            LocalConnections::update_connections(context);
+            local_us = timer.elapsed().as_micros();
+
+            let timer = Instant::now();
             for cb in std::mem::take(context.post_frame_callbacks) {
                 (cb.callback)(context, cb.data);
             }
+            callbacks_us = timer.elapsed().as_micros();
         });
 
+        tracing::info!(target: "llflash_perf", "[RUNTIME_PERF] frame preload_us={} avm2_us={} avm1_us={} audio_us={} local_us={} callbacks_us={} total_us={}", preload_us, avm2_us, avm1_us, audio_us, local_us, callbacks_us, perf_total.elapsed().as_micros());
         self.needs_render = true;
     }
 
     #[instrument(level = "debug", skip_all)]
     pub fn render(&mut self) {
+        let perf_total = Instant::now();
         let invalidated = self.enter_arena(|_, gc_root, _| gc_root.stage.invalidated());
 
         if invalidated {
@@ -2046,6 +2067,7 @@ impl Player {
 
         let mut background_color = Color::WHITE;
 
+        let perf_commands = Instant::now();
         let (cache_draws, commands) = self.enter_arena_mut(|gc_context, gc_root, this| {
             let stage = gc_root.stage;
 
@@ -2082,8 +2104,12 @@ impl Player {
             (cache_draws, commands)
         });
 
+        let commands_us = perf_commands.elapsed().as_micros();
+        let perf_submit = Instant::now();
         self.renderer
             .submit_frame(background_color, commands, cache_draws);
+        let submit_us = perf_submit.elapsed().as_micros();
+        tracing::info!(target: "llflash_perf", "[RUNTIME_PERF] render commands_us={} submit_us={} total_us={}", commands_us, submit_us, perf_total.elapsed().as_micros());
 
         self.needs_render = false;
     }
