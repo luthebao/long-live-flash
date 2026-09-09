@@ -8,6 +8,9 @@ use std::thread;
 use std::time::{Duration, Instant};
 
 pub type WorkerId = u64;
+pub type MessageChannelId = u64;
+
+static NEXT_MESSAGE_CHANNEL_ID: AtomicU64 = AtomicU64::new(1);
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 #[repr(u8)]
@@ -64,13 +67,16 @@ impl MessageChannelExecutionState {
 #[derive(Clone)]
 pub enum WorkerValue {
     Serialized(Vec<u8>),
+    Worker(Arc<WorkerHandle>),
     MessageChannel(Arc<MessageChannelHandle>),
 }
 
 pub struct MessageChannelHandle {
+    id: MessageChannelId,
     sender: WorkerId,
     receiver: WorkerId,
     state: AtomicU8,
+    state_sequence: AtomicU64,
     sequence: AtomicU64,
     queue: Mutex<VecDeque<WorkerValue>>,
     queue_changed: Condvar,
@@ -79,13 +85,19 @@ pub struct MessageChannelHandle {
 impl MessageChannelHandle {
     pub fn new(sender: WorkerId, receiver: WorkerId) -> Arc<Self> {
         Arc::new(Self {
+            id: NEXT_MESSAGE_CHANNEL_ID.fetch_add(1, Ordering::Relaxed),
             sender,
             receiver,
             state: AtomicU8::new(MessageChannelExecutionState::Open as u8),
+            state_sequence: AtomicU64::new(0),
             sequence: AtomicU64::new(0),
             queue: Mutex::new(VecDeque::new()),
             queue_changed: Condvar::new(),
         })
+    }
+
+    pub fn id(&self) -> MessageChannelId {
+        self.id
     }
 
     pub fn sender(&self) -> WorkerId {
@@ -104,6 +116,17 @@ impl MessageChannelHandle {
         self.sequence.load(Ordering::Acquire)
     }
 
+    pub fn state_sequence(&self) -> u64 {
+        self.state_sequence.load(Ordering::Acquire)
+    }
+
+    fn set_state(&self, state: MessageChannelExecutionState) {
+        let previous = self.state.swap(state as u8, Ordering::AcqRel);
+        if previous != state as u8 {
+            self.state_sequence.fetch_add(1, Ordering::AcqRel);
+        }
+    }
+
     pub fn message_available(&self) -> bool {
         !self.queue.lock().unwrap().is_empty()
     }
@@ -114,10 +137,16 @@ impl MessageChannelHandle {
         }
 
         let mut queue = self.queue.lock().unwrap();
-        if queue_limit >= 0 && queue.len() >= queue_limit as usize {
-            return Err(WorkerChannelError::QueueFull);
+        while queue_limit >= 0 && queue.len() >= queue_limit as usize {
+            if self.state() != MessageChannelExecutionState::Open {
+                return Err(WorkerChannelError::Closed);
+            }
+            queue = self.queue_changed.wait(queue).unwrap();
         }
 
+        if self.state() != MessageChannelExecutionState::Open {
+            return Err(WorkerChannelError::Closed);
+        }
         queue.push_back(value);
         self.sequence.fetch_add(1, Ordering::AcqRel);
         drop(queue);
@@ -131,18 +160,19 @@ impl MessageChannelHandle {
         loop {
             if let Some(value) = queue.pop_front() {
                 if queue.is_empty() && self.state() == MessageChannelExecutionState::Closing {
-                    self.state
-                        .store(MessageChannelExecutionState::Closed as u8, Ordering::Release);
-                    self.queue_changed.notify_all();
+                    self.set_state(MessageChannelExecutionState::Closed);
                 }
+                self.queue_changed.notify_all();
                 return Ok(Some(value));
             }
 
             match self.state() {
-                MessageChannelExecutionState::Closed | MessageChannelExecutionState::Closing => {
-                    self.state
-                        .store(MessageChannelExecutionState::Closed as u8, Ordering::Release);
+                MessageChannelExecutionState::Closed => {
                     return Err(WorkerChannelError::Closed);
+                }
+                MessageChannelExecutionState::Closing => {
+                    self.set_state(MessageChannelExecutionState::Closed);
+                    return Ok(None);
                 }
                 MessageChannelExecutionState::Open if !block => return Ok(None),
                 MessageChannelExecutionState::Open => {
@@ -153,21 +183,16 @@ impl MessageChannelHandle {
     }
 
     pub fn close(&self) {
-        let mut queue = self.queue.lock().unwrap();
+        let queue = self.queue.lock().unwrap();
         if self.state() == MessageChannelExecutionState::Closed {
             return;
         }
 
         if queue.is_empty() {
-            self.state
-                .store(MessageChannelExecutionState::Closed as u8, Ordering::Release);
+            self.set_state(MessageChannelExecutionState::Closed);
         } else {
-            self.state
-                .store(MessageChannelExecutionState::Closing as u8, Ordering::Release);
+            self.set_state(MessageChannelExecutionState::Closing);
         }
-        queue.clear();
-        self.state
-            .store(MessageChannelExecutionState::Closed as u8, Ordering::Release);
         drop(queue);
         self.queue_changed.notify_all();
     }
@@ -183,6 +208,7 @@ pub struct WorkerHandle {
     id: WorkerId,
     primordial: bool,
     state: AtomicU8,
+    started: AtomicBool,
     terminate_requested: AtomicBool,
     swf: Mutex<Option<Vec<u8>>>,
     shared_properties: Mutex<HashMap<String, WorkerValue>>,
@@ -194,6 +220,7 @@ impl WorkerHandle {
             id,
             primordial: true,
             state: AtomicU8::new(WorkerExecutionState::Running as u8),
+            started: AtomicBool::new(true),
             terminate_requested: AtomicBool::new(false),
             swf: Mutex::new(None),
             shared_properties: Mutex::new(HashMap::new()),
@@ -205,6 +232,7 @@ impl WorkerHandle {
             id,
             primordial: false,
             state: AtomicU8::new(WorkerExecutionState::New as u8),
+            started: AtomicBool::new(false),
             terminate_requested: AtomicBool::new(false),
             swf: Mutex::new(Some(swf)),
             shared_properties: Mutex::new(HashMap::new()),
@@ -235,8 +263,12 @@ impl WorkerHandle {
         self.shared_properties.lock().unwrap().get(key).cloned()
     }
 
+    pub fn clear_shared_property(&self, key: &str) {
+        self.shared_properties.lock().unwrap().remove(key);
+    }
+
     pub fn terminate(&self) -> bool {
-        if self.primordial || self.state() == WorkerExecutionState::New {
+        if self.primordial || !self.started.load(Ordering::Acquire) {
             return false;
         }
 
@@ -342,13 +374,8 @@ pub fn start_worker(
     }
 
     if worker
-        .state
-        .compare_exchange(
-            WorkerExecutionState::New as u8,
-            WorkerExecutionState::Running as u8,
-            Ordering::AcqRel,
-            Ordering::Acquire,
-        )
+        .started
+        .compare_exchange(false, true, Ordering::AcqRel, Ordering::Acquire)
         .is_err()
     {
         return false;
@@ -409,6 +436,11 @@ fn run_worker_thread(
         .with_player_mode(config.player_mode)
         .with_worker_runtime_context(runtime)
         .build();
+
+    if worker.termination_requested() {
+        return;
+    }
+    worker.set_state(WorkerExecutionState::Running);
 
     let mut last_tick = Instant::now();
     while !worker.termination_requested() {

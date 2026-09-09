@@ -178,7 +178,9 @@ struct GcRootData<'gc> {
     avm2_shared_objects: HashMap<String, SharedObjectObject<'gc>>,
 
     worker_objects: Vec<WorkerObjectWeak<'gc>>,
+    worker_object_cache: HashMap<u64, WorkerObjectWeak<'gc>>,
     worker_message_channels: Vec<MessageChannelObjectWeak<'gc>>,
+    worker_message_channel_cache: HashMap<u64, MessageChannelObjectWeak<'gc>>,
 
     /// Text fields with unbound variable bindings.
     unbound_text_fields: Vec<EditText<'gc>>,
@@ -239,7 +241,9 @@ impl<'gc> GcRootData<'gc> {
         &mut HashMap<String, Object<'gc>>,
         &mut HashMap<String, SharedObjectObject<'gc>>,
         &mut Vec<WorkerObjectWeak<'gc>>,
+        &mut HashMap<u64, WorkerObjectWeak<'gc>>,
         &mut Vec<MessageChannelObjectWeak<'gc>>,
+        &mut HashMap<u64, MessageChannelObjectWeak<'gc>>,
         &mut Vec<EditText<'gc>>,
         &mut Timers<'gc>,
         &mut Option<ContextMenuState<'gc>>,
@@ -266,7 +270,9 @@ impl<'gc> GcRootData<'gc> {
             &mut self.avm1_shared_objects,
             &mut self.avm2_shared_objects,
             &mut self.worker_objects,
+            &mut self.worker_object_cache,
             &mut self.worker_message_channels,
+            &mut self.worker_message_channel_cache,
             &mut self.unbound_text_fields,
             &mut self.timers,
             &mut self.current_context_menu,
@@ -308,7 +314,6 @@ pub struct Player {
 
     /// The runtime we're emulating (Flash Player or Adobe AIR).
     /// In Adobe AIR mode, additional classes are available
-    #[expect(unused)]
     player_runtime: PlayerRuntime,
 
     /// Whether we're emulating the release or the debug build.
@@ -529,6 +534,59 @@ impl Player {
     /// Returns the duration of a single frame.
     fn frame_duration(&self) -> FloatDuration {
         FloatDuration::from_millis(self.frame_time(1000.0))
+    }
+
+    fn poll_worker_events(&mut self) {
+        self.mutate_with_update_context(|context| {
+            let worker_objects = std::mem::take(context.worker_objects);
+            let mut live_worker_objects = Vec::with_capacity(worker_objects.len());
+            let mut changed_workers = Vec::new();
+            for weak in worker_objects {
+                if let Some(worker) = weak.upgrade(context.gc()) {
+                    if worker.observe_state_change().is_some() {
+                        changed_workers.push(worker);
+                    }
+                    live_worker_objects.push(weak);
+                }
+            }
+            *context.worker_objects = live_worker_objects;
+
+            let message_channels = std::mem::take(context.worker_message_channels);
+            let mut live_message_channels = Vec::with_capacity(message_channels.len());
+            let mut channel_events = Vec::new();
+            let mut channel_state_events = Vec::new();
+            let current_worker = context.worker_runtime.current().id();
+            for weak in message_channels {
+                if let Some(channel) = weak.upgrade(context.gc()) {
+                    if channel.observe_state_change().is_some() {
+                        channel_state_events.push(channel);
+                    }
+                    let pending = channel.pending_event_count(current_worker).min(1024);
+                    if pending > 0 {
+                        channel_events.push((channel, pending));
+                    }
+                    live_message_channels.push(weak);
+                }
+            }
+            *context.worker_message_channels = live_message_channels;
+
+            for worker in changed_workers {
+                let event = Avm2EventObject::bare_default_event(context, "workerState");
+                Avm2::dispatch_event(context, event, worker.into());
+            }
+
+            for channel in channel_state_events {
+                let event = Avm2EventObject::bare_default_event(context, "channelState");
+                Avm2::dispatch_event(context, event, channel.into());
+            }
+
+            for (channel, pending) in channel_events {
+                for _ in 0..pending {
+                    let event = Avm2EventObject::bare_default_event(context, "channelMessage");
+                    Avm2::dispatch_event(context, event, channel.into());
+                }
+            }
+        });
     }
 
     pub fn tick(&mut self, dt: FloatDuration) {
@@ -2991,7 +3049,9 @@ impl PlayerBuilder {
             avm1_shared_objects: HashMap::new(),
             avm2_shared_objects: HashMap::new(),
             worker_objects: Vec::new(),
+            worker_object_cache: HashMap::new(),
             worker_message_channels: Vec::new(),
+            worker_message_channel_cache: HashMap::new(),
             stage: Stage::empty(gc_context, fullscreen, fake_movie),
             timers: Timers::new(),
             unbound_text_fields: Vec::new(),

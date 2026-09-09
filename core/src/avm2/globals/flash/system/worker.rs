@@ -5,6 +5,7 @@ use crate::avm2::activation::Activation;
 use crate::avm2::object::{MessageChannelObject, WorkerObject};
 use crate::avm2::parameters::ParametersExt;
 use crate::avm2::value::Value;
+use crate::string::AvmString;
 use crate::worker::{
     MessageChannelHandle, WorkerLaunchConfig, WorkerValue, is_supported, start_worker,
 };
@@ -41,10 +42,7 @@ pub fn get_state<'gc>(
         .as_object()
         .and_then(|object| object.as_worker_object())
         .expect("Worker.state called on non-Worker");
-    Ok(activation
-        .strings()
-        .new_utf8(worker.handle().state().as_str())
-        .into())
+    Ok(AvmString::new_utf8(activation.gc(), worker.handle().state().as_str()).into())
 }
 
 pub fn create_message_channel<'gc>(
@@ -77,11 +75,16 @@ pub fn set_shared_property<'gc>(
         .and_then(|object| object.as_worker_object())
         .expect("Worker.setSharedProperty called on non-Worker");
     let key = args.get_string_non_null(activation, 0, "key")?;
+    let key = key.to_utf8_lossy();
     let value = args.get_value(1);
-    let value = serialize_worker_value(activation, value)?;
-    worker
-        .handle()
-        .set_shared_property(key.to_utf8_lossy().into_owned(), value);
+    if matches!(value, Value::Null | Value::Undefined) {
+        worker.handle().clear_shared_property(&key);
+    } else {
+        let value = serialize_worker_value(activation, value)?;
+        worker
+            .handle()
+            .set_shared_property(key.into_owned(), value);
+    }
     Ok(Value::Undefined)
 }
 
@@ -96,7 +99,7 @@ pub fn get_shared_property<'gc>(
         .expect("Worker.getSharedProperty called on non-Worker");
     let key = args.get_string_non_null(activation, 0, "key")?;
     let Some(value) = worker.handle().get_shared_property(&key.to_utf8_lossy()) else {
-        return Ok(Value::Undefined);
+        return Ok(Value::Null);
     };
     deserialize_worker_value(activation, value)
 }
@@ -146,11 +149,13 @@ pub(crate) fn serialize_worker_value<'gc>(
     activation: &mut Activation<'_, 'gc>,
     value: Value<'gc>,
 ) -> Result<WorkerValue, Error<'gc>> {
-    if let Some(channel) = value
-        .as_object()
-        .and_then(|object| object.as_message_channel_object())
-    {
-        return Ok(WorkerValue::MessageChannel(channel.handle()));
+    if let Some(object) = value.as_object() {
+        if let Some(worker) = object.as_worker_object() {
+            return Ok(WorkerValue::Worker(worker.handle()));
+        }
+        if let Some(channel) = object.as_message_channel_object() {
+            return Ok(WorkerValue::MessageChannel(channel.handle()));
+        }
     }
 
     let amf = crate::avm2::amf::serialize_value(
@@ -181,6 +186,7 @@ pub(crate) fn deserialize_worker_value<'gc>(
     value: WorkerValue,
 ) -> Result<Value<'gc>, Error<'gc>> {
     match value {
+        WorkerValue::Worker(handle) => Ok(WorkerObject::new(activation, handle).into()),
         WorkerValue::MessageChannel(handle) => {
             Ok(MessageChannelObject::new(activation, handle).into())
         }

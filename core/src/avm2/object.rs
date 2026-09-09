@@ -773,6 +773,10 @@ impl<'gc> Object<'gc> {
         pub fn as_shared_object for SharedObjectObject;
         pub fn as_sound_transform for SoundTransformObject;
         pub fn as_style_sheet for StyleSheetObject;
+        pub fn as_worker_object for WorkerObject;
+        pub fn as_worker_domain_object for WorkerDomainObject;
+        pub fn as_message_channel_object for MessageChannelObject;
+        pub fn as_security_domain_object for SecurityDomainObject;
     }
 
     /// Unwrap this object's `Namespace`, if the object is a boxed namespace.

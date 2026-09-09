@@ -1,7 +1,7 @@
 use crate::avm2::activation::Activation;
 use crate::avm2::object::TObject;
 use crate::avm2::object::script_object::ScriptObjectData;
-use crate::worker::MessageChannelHandle;
+use crate::worker::{MessageChannelExecutionState, MessageChannelHandle};
 use core::cell::Cell;
 use core::fmt;
 use gc_arena::{Collect, Gc, GcWeak, Mutation};
@@ -35,6 +35,8 @@ pub struct MessageChannelObjectData<'gc> {
     handle: Arc<MessageChannelHandle>,
     #[collect(require_static)]
     last_observed_sequence: Cell<u64>,
+    #[collect(require_static)]
+    last_observed_state_sequence: Cell<u64>,
 }
 
 impl<'gc> TObject<'gc> for MessageChannelObject<'gc> {
@@ -47,13 +49,19 @@ impl<'gc> MessageChannelObject<'gc> {
     pub fn new(activation: &mut Activation<'_, 'gc>, handle: Arc<MessageChannelHandle>) -> Self {
         let class = activation.avm2().classes().messagechannel;
         let base = ScriptObjectData::new(class);
-        let sequence = handle.sequence();
+        let sequence = if handle.receiver() == activation.context.worker_runtime.current().id() {
+            0
+        } else {
+            handle.sequence()
+        };
+        let state_sequence = handle.state_sequence();
         let object = MessageChannelObject(Gc::new(
             activation.gc(),
             MessageChannelObjectData {
                 base,
                 handle,
                 last_observed_sequence: Cell::new(sequence),
+                last_observed_state_sequence: Cell::new(state_sequence),
             },
         ));
         activation
@@ -75,6 +83,16 @@ impl<'gc> MessageChannelObject<'gc> {
         let sequence = self.0.handle.sequence();
         let previous = self.0.last_observed_sequence.replace(sequence);
         sequence.saturating_sub(previous)
+    }
+
+    pub fn observe_state_change(self) -> Option<MessageChannelExecutionState> {
+        let sequence = self.0.handle.state_sequence();
+        if sequence != self.0.last_observed_state_sequence.get() {
+            self.0.last_observed_state_sequence.set(sequence);
+            Some(self.0.handle.state())
+        } else {
+            None
+        }
     }
 }
 

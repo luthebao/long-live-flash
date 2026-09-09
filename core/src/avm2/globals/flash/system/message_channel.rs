@@ -4,6 +4,7 @@ use crate::avm2::Error;
 use crate::avm2::activation::Activation;
 use crate::avm2::parameters::ParametersExt;
 use crate::avm2::value::Value;
+use crate::string::AvmString;
 use crate::worker::WorkerChannelError;
 
 use super::worker::{deserialize_worker_value, serialize_worker_value};
@@ -79,10 +80,7 @@ pub fn get_state<'gc>(
         .as_object()
         .and_then(|object| object.as_message_channel_object())
         .expect("MessageChannel.state called on non-MessageChannel");
-    Ok(activation
-        .strings()
-        .new_utf8(channel.handle().state().as_str())
-        .into())
+    Ok(AvmString::new_utf8(activation.gc(), channel.handle().state().as_str()).into())
 }
 
 pub fn get_message_available<'gc>(
