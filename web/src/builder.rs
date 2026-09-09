@@ -763,6 +763,10 @@ impl RuffleInstanceBuilder {
             .with_max_execution_duration(self.max_execution_duration)
             .with_player_version(self.player_version)
             .with_player_runtime(self.player_runtime)
+            .with_worker_enabled(
+                js_sys::Reflect::has(&js_sys::global(), &JsValue::from_str("Worker"))
+                    .unwrap_or(false),
+            )
             .with_compatibility_rules(self.compatibility_rules.clone())
             .with_quality(self.quality)
             .with_align(self.stage_align, self.force_align)

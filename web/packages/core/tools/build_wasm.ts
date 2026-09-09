@@ -43,13 +43,18 @@ function cargoBuild({
     features,
     rustFlags,
     extensions,
+    manifestPath,
 }: {
     profile?: string;
     features?: string[];
     rustFlags?: string[];
     extensions?: boolean;
+    manifestPath?: string;
 }) {
     let args = ["build", "--locked", "--target", "wasm32-unknown-unknown"];
+    if (manifestPath) {
+        args.push("--manifest-path", manifestPath);
+    }
     if (!extensions) {
         args.push("-Z");
         args.push("build-std=std,panic_abort");
@@ -144,6 +149,69 @@ function buildWasm(
         });
     }
 }
+function buildWorkerWasm(
+    profile: string,
+    filename: string,
+    optimise: boolean,
+    extensions: boolean,
+    wasmSource: string,
+) {
+    const rustFlags = [
+        "--cfg=web_sys_unstable_apis",
+        '--cfg=getrandom_backend="wasm_js"',
+        "-Aunknown_lints",
+    ];
+    const wasmBindgenFlags = [];
+    const wasmOptFlags = [];
+    const flavor = extensions ? "extensions" : "vanilla";
+    if (extensions) {
+        rustFlags.push(
+            "-C",
+            "target-feature=+bulk-memory,+simd128,+nontrapping-fptoint,+sign-ext,+reference-types",
+        );
+        wasmBindgenFlags.push("--reference-types");
+        wasmOptFlags.push("--enable-reference-types");
+    } else {
+        rustFlags.push("-C", "target-cpu=mvp");
+    }
+
+    let originalWasmPath;
+    if (wasmSource === "cargo" || wasmSource === "cargo_and_store") {
+        console.log(`Building AVM2 worker ${flavor} with cargo...`);
+        cargoBuild({
+            profile,
+            rustFlags,
+            extensions,
+            manifestPath: "../../worker/Cargo.toml",
+        });
+        originalWasmPath = `../../../target/wasm32-unknown-unknown/${profile}/llflash_web_worker.wasm`;
+        if (wasmSource === "cargo_and_store") {
+            copyFileSync(originalWasmPath, `../../dist/${filename}.wasm`);
+        }
+    } else if (wasmSource === "existing") {
+        originalWasmPath = `../../dist/${filename}.wasm`;
+    } else {
+        throw new Error(
+            "Invalid wasm source: must be one of 'cargo', 'cargo_and_store' or 'existing'",
+        );
+    }
+
+    console.log(`Running wasm-bindgen on AVM2 worker ${flavor}...`);
+    runWasmBindgen({
+        path: originalWasmPath,
+        outName: filename,
+        dir: "dist",
+        flags: wasmBindgenFlags,
+    });
+    if (optimise) {
+        console.log(`Running wasm-opt on AVM2 worker ${flavor}...`);
+        runWasmOpt({
+            path: `dist/${filename}_bg.wasm`,
+            flags: wasmOptFlags,
+        });
+    }
+}
+
 function detectWasmOpt() {
     try {
         execFileSync("wasm-opt", ["--version"]);
@@ -165,10 +233,24 @@ if (wasmSource === "cargo_and_store") {
     mkdirSync("../../dist");
 }
 buildWasm("web-wasm-extensions", "llflash_web", hasWasmOpt, true, wasmSource);
+buildWorkerWasm(
+    "web-wasm-extensions",
+    "llflash_web_worker",
+    hasWasmOpt,
+    true,
+    wasmSource,
+);
 if (buildWasmMvp) {
     buildWasm(
         "web-wasm-mvp",
         "llflash_web-wasm_mvp",
+        hasWasmOpt,
+        false,
+        wasmSource,
+    );
+    buildWorkerWasm(
+        "web-wasm-mvp",
+        "llflash_web_worker-wasm_mvp",
         hasWasmOpt,
         false,
         wasmSource,

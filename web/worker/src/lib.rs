@@ -80,4 +80,20 @@ impl Avm2WorkerInstance {
             .unwrap()
             .inject_web_channel_close(channel_id)
     }
+
+    #[wasm_bindgen(js_name = "workerStarted")]
+    pub fn worker_started(&self, worker_id: u64) -> bool {
+        self.player
+            .lock()
+            .unwrap()
+            .web_worker_started(worker_id)
+    }
+
+    #[wasm_bindgen(js_name = "workerTerminated")]
+    pub fn worker_terminated(&self, worker_id: u64) -> bool {
+        self.player
+            .lock()
+            .unwrap()
+            .web_worker_terminated(worker_id)
+    }
 }

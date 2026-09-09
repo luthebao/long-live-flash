@@ -28,6 +28,8 @@ import { showPanicScreen } from "../ui/panic";
 import { createRuffleBuilder } from "../../load-llflash";
 import { lookupElement } from "../register-element";
 import { configureBuilder } from "../builder";
+import { Avm2WorkerHost } from "./avm2-worker-host";
+import type { WebWorkerCommand } from "./avm2-worker-protocol";
 
 const DIMENSION_REGEX = /^\s*(\d+(\.\d+)?(%)?)/;
 
@@ -206,6 +208,7 @@ export class InnerPlayer {
     // Uses a ping-pong ack to avoid message queue build-up if the main thread falls behind.
     // Set when the tab is hidden, cleared when it becomes visible again or the player is destroyed.
     private backgroundWorker: Worker | null;
+    private avm2WorkerHost: Avm2WorkerHost | null = null;
 
     metadata: MovieMetadata | null;
     _readyState: ReadyState;
@@ -366,6 +369,26 @@ export class InnerPlayer {
             handler(command, args);
         }
         return true;
+    }
+
+    public processAvm2WorkerCommands(commands: WebWorkerCommand[]): void {
+        if (!this.avm2WorkerHost) {
+            this.avm2WorkerHost = new Avm2WorkerHost({
+                workerStarted: (workerId) => {
+                    this.instance?.avm2WorkerStarted(workerId);
+                },
+                workerTerminated: (workerId) => {
+                    this.instance?.avm2WorkerTerminated(workerId);
+                },
+                injectMessage: (channelId, value) => {
+                    this.instance?.injectAvm2WorkerMessage(channelId, value);
+                },
+                closeChannel: (channelId) => {
+                    this.instance?.closeAvm2WorkerChannel(channelId);
+                },
+            });
+        }
+        this.avm2WorkerHost.processCommands(commands);
     }
 
     /**
@@ -877,6 +900,8 @@ export class InnerPlayer {
     destroy(): void {
         if (this.instance) {
             this.stopBackgroundTick();
+            this.avm2WorkerHost?.terminateAll();
+            this.avm2WorkerHost = null;
             // Drop the host's reference (e.g. rtmp-bridge's players[])
             // BEFORE `instance.destroy()` removes the wasm-side slot —
             // otherwise the bridge holds a now-invalid RuffleHandle and
