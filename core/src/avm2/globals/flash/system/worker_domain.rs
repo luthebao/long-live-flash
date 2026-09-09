@@ -2,25 +2,55 @@
 
 use crate::avm2::Error;
 use crate::avm2::activation::Activation;
-use crate::avm2::object::{WorkerDomainObject, WorkerObject};
+use crate::avm2::object::{VectorObject, WorkerDomainObject, WorkerObject};
 use crate::avm2::parameters::ParametersExt;
 use crate::avm2::value::Value;
-use crate::avm2_stub_method;
+use crate::avm2::vector::VectorStorage;
 
-/// Implements `WorkerDomain.createWorker`
+pub fn get_is_supported<'gc>(
+    activation: &mut Activation<'_, 'gc>,
+    _this: Value<'gc>,
+    _args: &[Value<'gc>],
+) -> Result<Value<'gc>, Error<'gc>> {
+    Ok(activation.context.worker_runtime.is_enabled().into())
+}
+
 pub fn create_worker<'gc>(
     activation: &mut Activation<'_, 'gc>,
     _this: Value<'gc>,
     args: &[Value<'gc>],
 ) -> Result<Value<'gc>, Error<'gc>> {
-    avm2_stub_method!(activation, "flash.system.WorkerDomain", "createWorker");
+    if !activation.context.worker_runtime.is_enabled() {
+        return Ok(Value::Null);
+    }
 
-    let _swf = args.get_object(activation, 0, "swf")?;
+    let swf = args.get_object(activation, 0, "swf")?;
     let _give_app_privileges = args.get_bool(1);
+    let Some(bytearray) = swf.as_bytearray() else {
+        return Err(Error::rust_error("WorkerDomain.createWorker requires a ByteArray".into()));
+    };
+    let bytes = bytearray.bytes().to_vec();
 
-    let worker = WorkerObject::new(activation);
+    let handle = activation.context.worker_runtime.domain().create_worker(bytes);
+    Ok(WorkerObject::new(activation, handle).into())
+}
 
-    Ok(worker.into())
+pub fn list_workers<'gc>(
+    activation: &mut Activation<'_, 'gc>,
+    _this: Value<'gc>,
+    _args: &[Value<'gc>],
+) -> Result<Value<'gc>, Error<'gc>> {
+    let handles = activation.context.worker_runtime.domain().running_workers();
+    let values = handles
+        .into_iter()
+        .map(|handle| WorkerObject::new(activation, handle).into())
+        .collect();
+    let storage = VectorStorage::from_values(
+        values,
+        false,
+        Some(activation.avm2().classes().worker.inner_class_definition()),
+    );
+    Ok(VectorObject::from_vector(storage, activation).into())
 }
 
 pub fn instantiate_internal<'gc>(
@@ -28,7 +58,5 @@ pub fn instantiate_internal<'gc>(
     _this: Value<'gc>,
     _args: &[Value<'gc>],
 ) -> Result<Value<'gc>, Error<'gc>> {
-    let worker_domain = WorkerDomainObject::new(activation);
-
-    Ok(worker_domain.into())
+    Ok(WorkerDomainObject::new(activation).into())
 }

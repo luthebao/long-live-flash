@@ -238,6 +238,10 @@ pub struct Opt {
     )]
     pub gamepad_button: Vec<(GamepadButton, KeyCode)>,
 
+    /// Disable AVM2 Worker support.
+    #[clap(long)]
+    pub no_worker: bool,
+
     /// Disable AVM2 optimizer.
     /// Note that some early opcode conversions
     /// (like inlining constant pool entries) can't be disabled.

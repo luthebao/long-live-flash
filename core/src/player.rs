@@ -6,7 +6,9 @@ use crate::avm1::Object;
 use crate::avm1::Value;
 use crate::avm1::VariableDumper;
 use crate::avm1::{Activation, ActivationIdentifier};
-use crate::avm2::object::EventObject as Avm2EventObject;
+use crate::avm2::object::{
+    EventObject as Avm2EventObject, MessageChannelObjectWeak, WorkerObjectWeak,
+};
 use crate::avm2::{Activation as Avm2Activation, Avm2, CallStack, SharedObjectObject};
 use crate::backend::navigator::ErrorResponse;
 use crate::backend::navigator::FetchReason;
@@ -57,6 +59,7 @@ use crate::system_properties::SystemProperties;
 use crate::tag_utils::SwfMovie;
 use crate::timer::Timers;
 use crate::vminterface::Instantiator;
+use crate::worker::WorkerRuntimeContext;
 use async_channel::Sender;
 use enumset::EnumSet;
 use gc_arena::lock::GcRefLock;
@@ -174,6 +177,11 @@ struct GcRootData<'gc> {
 
     avm2_shared_objects: HashMap<String, SharedObjectObject<'gc>>,
 
+    worker_objects: Vec<WorkerObjectWeak<'gc>>,
+    worker_object_cache: HashMap<u64, WorkerObjectWeak<'gc>>,
+    worker_message_channels: Vec<MessageChannelObjectWeak<'gc>>,
+    worker_message_channel_cache: HashMap<u64, MessageChannelObjectWeak<'gc>>,
+
     /// Text fields with unbound variable bindings.
     unbound_text_fields: Vec<EditText<'gc>>,
 
@@ -232,6 +240,10 @@ impl<'gc> GcRootData<'gc> {
         &mut LoadManager<'gc>,
         &mut HashMap<String, Object<'gc>>,
         &mut HashMap<String, SharedObjectObject<'gc>>,
+        &mut Vec<WorkerObjectWeak<'gc>>,
+        &mut HashMap<u64, WorkerObjectWeak<'gc>>,
+        &mut Vec<MessageChannelObjectWeak<'gc>>,
+        &mut HashMap<u64, MessageChannelObjectWeak<'gc>>,
         &mut Vec<EditText<'gc>>,
         &mut Timers<'gc>,
         &mut Option<ContextMenuState<'gc>>,
@@ -257,6 +269,10 @@ impl<'gc> GcRootData<'gc> {
             &mut self.load_manager,
             &mut self.avm1_shared_objects,
             &mut self.avm2_shared_objects,
+            &mut self.worker_objects,
+            &mut self.worker_object_cache,
+            &mut self.worker_message_channels,
+            &mut self.worker_message_channel_cache,
             &mut self.unbound_text_fields,
             &mut self.timers,
             &mut self.current_context_menu,
@@ -298,11 +314,12 @@ pub struct Player {
 
     /// The runtime we're emulating (Flash Player or Adobe AIR).
     /// In Adobe AIR mode, additional classes are available
-    #[expect(unused)]
     player_runtime: PlayerRuntime,
 
     /// Whether we're emulating the release or the debug build.
     player_mode: PlayerMode,
+
+    worker_runtime: WorkerRuntimeContext,
 
     swf: Arc<SwfMovie>,
 
@@ -519,7 +536,90 @@ impl Player {
         FloatDuration::from_millis(self.frame_time(1000.0))
     }
 
+    fn poll_worker_events(&mut self) {
+        self.mutate_with_update_context(|context| {
+            let worker_objects = std::mem::take(context.worker_objects);
+            let mut live_worker_objects = Vec::with_capacity(worker_objects.len());
+            let mut changed_workers = Vec::new();
+            for weak in worker_objects {
+                if let Some(worker) = weak.upgrade(context.gc()) {
+                    if worker.observe_state_change().is_some() {
+                        changed_workers.push(worker);
+                    }
+                    live_worker_objects.push(weak);
+                }
+            }
+            *context.worker_objects = live_worker_objects;
+
+            let message_channels = std::mem::take(context.worker_message_channels);
+            let mut live_message_channels = Vec::with_capacity(message_channels.len());
+            let mut channel_events = Vec::new();
+            let mut channel_state_events = Vec::new();
+            let current_worker = context.worker_runtime.current().id();
+            for weak in message_channels {
+                if let Some(channel) = weak.upgrade(context.gc()) {
+                    if channel.observe_state_change().is_some() {
+                        channel_state_events.push(channel);
+                    }
+                    let pending = channel.pending_event_count(current_worker).min(1024);
+                    if pending > 0 {
+                        channel_events.push((channel, pending));
+                    }
+                    live_message_channels.push(weak);
+                }
+            }
+            *context.worker_message_channels = live_message_channels;
+
+            for worker in changed_workers {
+                let event = Avm2EventObject::bare_default_event(context, "workerState");
+                Avm2::dispatch_event(context, event, worker.into());
+            }
+
+            for channel in channel_state_events {
+                let event = Avm2EventObject::bare_default_event(context, "channelState");
+                Avm2::dispatch_event(context, event, channel.into());
+            }
+
+            for (channel, pending) in channel_events {
+                for _ in 0..pending {
+                    let event = Avm2EventObject::bare_default_event(context, "channelMessage");
+                    Avm2::dispatch_event(context, event, channel.into());
+                }
+            }
+        });
+    }
+
+    pub fn take_web_worker_commands(&self) -> Vec<crate::worker::WebWorkerCommand> {
+        self.worker_runtime.take_web_worker_commands()
+    }
+
+    pub fn web_worker_started(&self, worker_id: crate::worker::WorkerId) -> bool {
+        self.worker_runtime.web_worker_started(worker_id)
+    }
+
+    pub fn web_worker_terminated(&self, worker_id: crate::worker::WorkerId) -> bool {
+        self.worker_runtime.web_worker_terminated(worker_id)
+    }
+
+    pub fn inject_web_worker_message(
+        &self,
+        channel_id: crate::worker::MessageChannelId,
+        value: crate::worker::WorkerWireValue,
+    ) -> Result<(), crate::worker::WorkerChannelError> {
+        self.worker_runtime
+            .inject_web_worker_message(channel_id, value)
+    }
+
+    pub fn inject_web_channel_close(
+        &self,
+        channel_id: crate::worker::MessageChannelId,
+    ) -> bool {
+        self.worker_runtime.inject_web_channel_close(channel_id)
+    }
+
     pub fn tick(&mut self, dt: FloatDuration) {
+        self.poll_worker_events();
+
         if !self.is_playing() {
             return;
         }
@@ -2273,6 +2373,10 @@ impl Player {
                 load_manager,
                 avm1_shared_objects,
                 avm2_shared_objects,
+                worker_objects,
+                worker_object_cache,
+                worker_message_channels,
+                worker_message_channel_cache,
                 unbound_text_fields,
                 timers,
                 current_context_menu,
@@ -2290,7 +2394,9 @@ impl Player {
 
             let mut update_context = UpdateContext {
                 player_version: this.player_version,
+                player_runtime: this.player_runtime,
                 player_mode: this.player_mode,
+                worker_runtime: &this.worker_runtime,
                 root_swf: &mut this.swf,
                 library,
                 rng: &mut this.rng,
@@ -2316,6 +2422,10 @@ impl Player {
                 video: this.video.deref_mut(),
                 avm1_shared_objects,
                 avm2_shared_objects,
+                worker_objects,
+                worker_object_cache,
+                worker_message_channels,
+                worker_message_channel_cache,
                 unbound_text_fields,
                 timers,
                 current_context_menu,
@@ -2627,6 +2737,8 @@ pub struct PlayerBuilder {
     player_version: Option<u8>,
     player_runtime: PlayerRuntime,
     player_mode: PlayerMode,
+    worker_enabled: bool,
+    worker_runtime: Option<WorkerRuntimeContext>,
     quality: StageQuality,
     page_url: Option<String>,
     frame_rate: Option<f64>,
@@ -2683,6 +2795,8 @@ impl PlayerBuilder {
             player_version: None,
             player_runtime: PlayerRuntime::default(),
             player_mode: PlayerMode::default(),
+            worker_enabled: true,
+            worker_runtime: None,
             quality: StageQuality::High,
             page_url: None,
             frame_rate: None,
@@ -2872,6 +2986,16 @@ impl PlayerBuilder {
         self
     }
 
+    pub fn with_worker_enabled(mut self, enabled: bool) -> Self {
+        self.worker_enabled = enabled;
+        self
+    }
+
+    pub(crate) fn with_worker_runtime_context(mut self, runtime: WorkerRuntimeContext) -> Self {
+        self.worker_runtime = Some(runtime);
+        self
+    }
+
     // Configure the embedding page's URL (if applicable)
     pub fn with_page_url(mut self, page_url: Option<String>) -> Self {
         self.page_url = page_url;
@@ -2963,6 +3087,10 @@ impl PlayerBuilder {
             },
             avm1_shared_objects: HashMap::new(),
             avm2_shared_objects: HashMap::new(),
+            worker_objects: Vec::new(),
+            worker_object_cache: HashMap::new(),
+            worker_message_channels: Vec::new(),
+            worker_message_channel_cache: HashMap::new(),
             stage: Stage::empty(gc_context, fullscreen, fake_movie),
             timers: Timers::new(),
             unbound_text_fields: Vec::new(),
@@ -3013,6 +3141,10 @@ impl PlayerBuilder {
 
         let player_version = self.player_version.unwrap_or(DEFAULT_PLAYER_VERSION);
         let language = ui.language();
+        let worker_runtime = self
+            .worker_runtime
+            .clone()
+            .unwrap_or_else(|| WorkerRuntimeContext::primordial(self.worker_enabled));
 
         // Instantiate the player.
         let fake_movie = Arc::new(SwfMovie::empty(player_version, None));
@@ -3063,6 +3195,7 @@ impl PlayerBuilder {
                 player_version,
                 player_runtime: self.player_runtime,
                 player_mode: self.player_mode,
+                worker_runtime,
                 run_state: if self.autoplay {
                     RunState::Playing
                 } else {

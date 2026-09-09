@@ -70,6 +70,10 @@ const fallbackWasmName =
     process.env["BUILD_WASM_MVP"] === "true"
         ? "llflash_web-wasm_mvp"
         : "llflash_web";
+const fallbackWorkerWasmName =
+    process.env["BUILD_WASM_MVP"] === "true"
+        ? "llflash_web_worker-wasm_mvp"
+        : "llflash_web_worker";
 
 const options = {
     files: "dist/**",
@@ -80,6 +84,7 @@ const options = {
         /%BUILD_DATE%/g,
         /%COMMIT_HASH%/g,
         /%FALLBACK_WASM%/g,
+        /%FALLBACK_WORKER_WASM%/g,
     ],
     to: [
         versionNumber,
@@ -88,6 +93,7 @@ const options = {
         buildDate,
         commitHash,
         fallbackWasmName,
+        fallbackWorkerWasmName,
     ],
 };
 

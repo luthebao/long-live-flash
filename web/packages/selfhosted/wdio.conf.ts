@@ -197,6 +197,10 @@ services.push([
         folders: [
             { mount: "/dist", path: "./dist" },
             { mount: "/test_assets", path: "./test_assets" },
+            {
+                mount: "/avm2_worker_assets",
+                path: "../../../tests/tests/swfs/avm2/worker_basic",
+            },
             { mount: "/test", path: "./test" },
         ],
         port: 4567,

@@ -3,6 +3,7 @@
 
 pub mod application_domain;
 pub mod capabilities;
+pub mod message_channel;
 pub mod security;
 pub mod security_domain;
 pub mod system;

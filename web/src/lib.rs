@@ -208,6 +208,9 @@ unsafe extern "C" {
 
     #[wasm_bindgen(method, js_name = "reloadWithCanvasRenderer")]
     fn reload_with_canvas_renderer(this: &JavascriptPlayer);
+
+    #[wasm_bindgen(method, js_name = "processAvm2WorkerCommands")]
+    fn process_avm2_worker_commands(this: &JavascriptPlayer, commands: JsValue);
 }
 
 #[derive(Debug, Clone)]
@@ -555,6 +558,39 @@ impl RuffleHandle {
                 .map(|audio| audio.audio_context().clone())
         })
         .unwrap_or_default()
+    }
+
+    #[wasm_bindgen(js_name = "avm2WorkerStarted")]
+    pub fn avm2_worker_started(&self, worker_id: u64) {
+        let _ = self.with_core_mut(|core| {
+            core.web_worker_started(worker_id);
+        });
+    }
+
+    #[wasm_bindgen(js_name = "avm2WorkerTerminated")]
+    pub fn avm2_worker_terminated(&self, worker_id: u64) {
+        let _ = self.with_core_mut(|core| {
+            core.web_worker_terminated(worker_id);
+        });
+    }
+
+    #[wasm_bindgen(js_name = "injectAvm2WorkerMessage")]
+    pub fn inject_avm2_worker_message(
+        &self,
+        channel_id: u64,
+        value: JsValue,
+    ) -> Result<(), JsValue> {
+        let value: llflash_core::worker::WorkerWireValue = serde_wasm_bindgen::from_value(value)
+            .map_err(|error| JsValue::from_str(&format!("Invalid AVM2 Worker message: {error}")))?;
+        self.with_core_mut(|core| core.inject_web_worker_message(channel_id, value))
+            .map_err(|error| JsValue::from_str(&error.to_string()))?
+            .map_err(|error| JsValue::from_str(&format!("Unable to inject Worker message: {error:?}")))
+    }
+
+    #[wasm_bindgen(js_name = "closeAvm2WorkerChannel")]
+    pub fn close_avm2_worker_channel(&self, channel_id: u64) -> bool {
+        self.with_core_mut(|core| core.inject_web_channel_close(channel_id))
+            .unwrap_or(false)
     }
 
     /// Returns whether the `simd128` target feature was enabled at build time.
@@ -1299,6 +1335,25 @@ impl RuffleHandle {
             if core.needs_render() || new_dimensions.is_some() {
                 core.render();
             }
+        });
+
+        self.flush_avm2_worker_commands();
+    }
+
+    fn flush_avm2_worker_commands(self) {
+        let commands = self
+            .with_core_mut(|core| core.take_web_worker_commands())
+            .unwrap_or_default();
+        if commands.is_empty() {
+            return;
+        }
+
+        let Ok(commands) = serde_wasm_bindgen::to_value(&commands) else {
+            tracing::error!("Unable to serialize AVM2 Worker commands");
+            return;
+        };
+        let _ = self.with_instance(|instance| {
+            instance.js_player.process_avm2_worker_commands(commands);
         });
     }
 

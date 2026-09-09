@@ -9,6 +9,7 @@ members = [
     "rtmp",
     "native-host",
     "web",
+    "web/worker",
     "web/packages/extension/safari",
     "wstr",
     "scanner",
