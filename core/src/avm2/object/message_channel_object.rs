@@ -47,6 +47,17 @@ impl<'gc> TObject<'gc> for MessageChannelObject<'gc> {
 
 impl<'gc> MessageChannelObject<'gc> {
     pub fn new(activation: &mut Activation<'_, 'gc>, handle: Arc<MessageChannelHandle>) -> Self {
+        let id = handle.id();
+        if let Some(existing) = activation
+            .context
+            .worker_message_channel_cache
+            .get(&id)
+            .copied()
+            .and_then(|weak| weak.upgrade(activation.gc()))
+        {
+            return existing;
+        }
+
         let class = activation.avm2().classes().messagechannel;
         let base = ScriptObjectData::new(class);
         let sequence = if handle.receiver() == activation.context.worker_runtime.current().id() {
@@ -64,10 +75,12 @@ impl<'gc> MessageChannelObject<'gc> {
                 last_observed_state_sequence: Cell::new(state_sequence),
             },
         ));
+        let weak = MessageChannelObjectWeak(Gc::downgrade(object.0));
+        activation.context.worker_message_channels.push(weak);
         activation
             .context
-            .worker_message_channels
-            .push(MessageChannelObjectWeak(Gc::downgrade(object.0)));
+            .worker_message_channel_cache
+            .insert(id, weak);
         object
     }
 

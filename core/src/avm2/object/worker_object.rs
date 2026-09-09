@@ -44,6 +44,17 @@ impl<'gc> TObject<'gc> for WorkerObject<'gc> {
 
 impl<'gc> WorkerObject<'gc> {
     pub fn new(activation: &mut Activation<'_, 'gc>, handle: Arc<WorkerHandle>) -> Self {
+        let id = handle.id();
+        if let Some(existing) = activation
+            .context
+            .worker_object_cache
+            .get(&id)
+            .copied()
+            .and_then(|weak| weak.upgrade(activation.gc()))
+        {
+            return existing;
+        }
+
         let class = activation.avm2().classes().worker;
         let base = ScriptObjectData::new(class);
         let state = handle.state();
@@ -55,10 +66,9 @@ impl<'gc> WorkerObject<'gc> {
                 last_observed_state: Cell::new(state),
             },
         ));
-        activation
-            .context
-            .worker_objects
-            .push(WorkerObjectWeak(Gc::downgrade(object.0)));
+        let weak = WorkerObjectWeak(Gc::downgrade(object.0));
+        activation.context.worker_objects.push(weak);
+        activation.context.worker_object_cache.insert(id, weak);
         object
     }
 

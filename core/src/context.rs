@@ -164,7 +164,9 @@ pub struct UpdateContext<'gc> {
     pub avm2_shared_objects: &'gc mut HashMap<String, SharedObjectObject<'gc>>,
 
     pub worker_objects: &'gc mut Vec<WorkerObjectWeak<'gc>>,
+    pub worker_object_cache: &'gc mut HashMap<u64, WorkerObjectWeak<'gc>>,
     pub worker_message_channels: &'gc mut Vec<MessageChannelObjectWeak<'gc>>,
+    pub worker_message_channel_cache: &'gc mut HashMap<u64, MessageChannelObjectWeak<'gc>>,
 
     /// Text fields with unbound variable bindings.
     pub unbound_text_fields: &'gc mut Vec<EditText<'gc>>,

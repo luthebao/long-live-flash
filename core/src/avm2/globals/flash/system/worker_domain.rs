@@ -6,14 +6,13 @@ use crate::avm2::object::{VectorObject, WorkerDomainObject, WorkerObject};
 use crate::avm2::parameters::ParametersExt;
 use crate::avm2::value::Value;
 use crate::avm2::vector::VectorStorage;
-use crate::worker::is_supported;
 
 pub fn get_is_supported<'gc>(
-    _activation: &mut Activation<'_, 'gc>,
+    activation: &mut Activation<'_, 'gc>,
     _this: Value<'gc>,
     _args: &[Value<'gc>],
 ) -> Result<Value<'gc>, Error<'gc>> {
-    Ok(is_supported().into())
+    Ok(activation.context.worker_runtime.is_enabled().into())
 }
 
 pub fn create_worker<'gc>(
@@ -21,7 +20,7 @@ pub fn create_worker<'gc>(
     _this: Value<'gc>,
     args: &[Value<'gc>],
 ) -> Result<Value<'gc>, Error<'gc>> {
-    if !is_supported() {
+    if !activation.context.worker_runtime.is_enabled() {
         return Ok(Value::Null);
     }
 

@@ -6,19 +6,17 @@ use crate::avm2::object::{MessageChannelObject, WorkerObject};
 use crate::avm2::parameters::ParametersExt;
 use crate::avm2::value::Value;
 use crate::string::AvmString;
-use crate::worker::{
-    MessageChannelHandle, WorkerLaunchConfig, WorkerValue, is_supported, start_worker,
-};
+use crate::worker::{MessageChannelHandle, WorkerLaunchConfig, WorkerValue, start_worker};
 use flash_lso::amf3::read::AMF3Decoder;
 use flash_lso::types::{AMFVersion, Element};
 use std::rc::Rc;
 
 pub fn get_is_supported<'gc>(
-    _activation: &mut Activation<'_, 'gc>,
+    activation: &mut Activation<'_, 'gc>,
     _this: Value<'gc>,
     _args: &[Value<'gc>],
 ) -> Result<Value<'gc>, Error<'gc>> {
-    Ok(is_supported().into())
+    Ok(activation.context.worker_runtime.is_enabled().into())
 }
 
 pub fn get_is_primordial<'gc>(
@@ -119,6 +117,7 @@ pub fn start<'gc>(
         player_version: activation.context.player_version,
         player_runtime: activation.context.player_runtime,
         player_mode: activation.context.player_mode,
+        worker_enabled: activation.context.worker_runtime.is_enabled(),
     };
     start_worker(activation.context.worker_runtime.domain(), worker, config);
     Ok(Value::Undefined)

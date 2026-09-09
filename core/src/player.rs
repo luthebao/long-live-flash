@@ -2346,7 +2346,9 @@ impl Player {
                 avm1_shared_objects,
                 avm2_shared_objects,
                 worker_objects,
+                worker_object_cache,
                 worker_message_channels,
+                worker_message_channel_cache,
                 unbound_text_fields,
                 timers,
                 current_context_menu,
@@ -2393,7 +2395,9 @@ impl Player {
                 avm1_shared_objects,
                 avm2_shared_objects,
                 worker_objects,
+                worker_object_cache,
                 worker_message_channels,
+                worker_message_channel_cache,
                 unbound_text_fields,
                 timers,
                 current_context_menu,
@@ -2705,6 +2709,7 @@ pub struct PlayerBuilder {
     player_version: Option<u8>,
     player_runtime: PlayerRuntime,
     player_mode: PlayerMode,
+    worker_enabled: bool,
     worker_runtime: Option<WorkerRuntimeContext>,
     quality: StageQuality,
     page_url: Option<String>,
@@ -2762,6 +2767,7 @@ impl PlayerBuilder {
             player_version: None,
             player_runtime: PlayerRuntime::default(),
             player_mode: PlayerMode::default(),
+            worker_enabled: true,
             worker_runtime: None,
             quality: StageQuality::High,
             page_url: None,
@@ -2952,6 +2958,11 @@ impl PlayerBuilder {
         self
     }
 
+    pub fn with_worker_enabled(mut self, enabled: bool) -> Self {
+        self.worker_enabled = enabled;
+        self
+    }
+
     pub(crate) fn with_worker_runtime_context(mut self, runtime: WorkerRuntimeContext) -> Self {
         self.worker_runtime = Some(runtime);
         self
@@ -3102,7 +3113,10 @@ impl PlayerBuilder {
 
         let player_version = self.player_version.unwrap_or(DEFAULT_PLAYER_VERSION);
         let language = ui.language();
-        let worker_runtime = self.worker_runtime.clone().unwrap_or_default();
+        let worker_runtime = self
+            .worker_runtime
+            .clone()
+            .unwrap_or_else(|| WorkerRuntimeContext::primordial(self.worker_enabled));
 
         // Instantiate the player.
         let fake_movie = Arc::new(SwfMovie::empty(player_version, None));

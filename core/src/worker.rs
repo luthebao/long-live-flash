@@ -137,7 +137,7 @@ impl MessageChannelHandle {
         }
 
         let mut queue = self.queue.lock().unwrap();
-        while queue_limit >= 0 && queue.len() >= queue_limit as usize {
+        while queue_limit >= 0 && queue.len() > queue_limit as usize {
             if self.state() != MessageChannelExecutionState::Open {
                 return Err(WorkerChannelError::Closed);
             }
@@ -326,16 +326,29 @@ impl WorkerDomainHandle {
 pub struct WorkerRuntimeContext {
     domain: Arc<WorkerDomainHandle>,
     current: Arc<WorkerHandle>,
+    enabled: bool,
 }
 
 impl WorkerRuntimeContext {
-    pub fn primordial() -> Self {
+    pub fn primordial(enabled: bool) -> Self {
         let (domain, current) = WorkerDomainHandle::new();
-        Self { domain, current }
+        Self {
+            domain,
+            current,
+            enabled: enabled && is_supported(),
+        }
     }
 
-    pub fn background(domain: Arc<WorkerDomainHandle>, current: Arc<WorkerHandle>) -> Self {
-        Self { domain, current }
+    pub fn background(
+        domain: Arc<WorkerDomainHandle>,
+        current: Arc<WorkerHandle>,
+        enabled: bool,
+    ) -> Self {
+        Self {
+            domain,
+            current,
+            enabled: enabled && is_supported(),
+        }
     }
 
     pub fn domain(&self) -> Arc<WorkerDomainHandle> {
@@ -345,11 +358,15 @@ impl WorkerRuntimeContext {
     pub fn current(&self) -> Arc<WorkerHandle> {
         self.current.clone()
     }
+
+    pub fn is_enabled(&self) -> bool {
+        self.enabled
+    }
 }
 
 impl Default for WorkerRuntimeContext {
     fn default() -> Self {
-        Self::primordial()
+        Self::primordial(true)
     }
 }
 
@@ -358,6 +375,7 @@ pub struct WorkerLaunchConfig {
     pub player_version: u8,
     pub player_runtime: PlayerRuntime,
     pub player_mode: PlayerMode,
+    pub worker_enabled: bool,
 }
 
 pub fn is_supported() -> bool {
@@ -369,7 +387,7 @@ pub fn start_worker(
     worker: Arc<WorkerHandle>,
     config: WorkerLaunchConfig,
 ) -> bool {
-    if !is_supported() || worker.is_primordial() {
+    if !config.worker_enabled || !is_supported() || worker.is_primordial() {
         return false;
     }
 
@@ -427,7 +445,7 @@ fn run_worker_thread(
         }
     };
 
-    let runtime = WorkerRuntimeContext::background(domain, worker.clone());
+    let runtime = WorkerRuntimeContext::background(domain, worker.clone(), config.worker_enabled);
     let player = PlayerBuilder::new()
         .with_movie(movie)
         .with_autoplay(true)
@@ -463,5 +481,102 @@ fn run_worker_thread(
         } else {
             thread::yield_now();
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::sync::mpsc;
+
+    fn bytes(value: u8) -> WorkerValue {
+        WorkerValue::Serialized(vec![value])
+    }
+
+    fn byte_value(value: WorkerValue) -> u8 {
+        match value {
+            WorkerValue::Serialized(bytes) => bytes[0],
+            WorkerValue::Worker(_) | WorkerValue::MessageChannel(_) => {
+                panic!("expected serialized test value")
+            }
+        }
+    }
+
+    #[test]
+    fn worker_domain_tracks_primordial_and_background_workers() {
+        let (domain, primordial) = WorkerDomainHandle::new();
+        assert_eq!(primordial.id(), 0);
+        assert!(primordial.is_primordial());
+        assert_eq!(primordial.state(), WorkerExecutionState::Running);
+
+        let worker = domain.create_worker(vec![1, 2, 3]);
+        assert_eq!(worker.id(), 1);
+        assert!(!worker.is_primordial());
+        assert_eq!(worker.state(), WorkerExecutionState::New);
+        assert_eq!(domain.running_workers().len(), 1);
+    }
+
+    #[test]
+    fn shared_properties_are_shared_by_worker_handle() {
+        let (domain, _) = WorkerDomainHandle::new();
+        let worker = domain.create_worker(Vec::new());
+        worker.set_shared_property("answer".into(), bytes(42));
+
+        let value = worker.get_shared_property("answer").unwrap();
+        assert_eq!(byte_value(value), 42);
+
+        worker.clear_shared_property("answer");
+        assert!(worker.get_shared_property("answer").is_none());
+    }
+
+    #[test]
+    fn message_channel_is_fifo_and_tracks_sequence() {
+        let channel = MessageChannelHandle::new(1, 2);
+        assert_eq!(channel.state(), MessageChannelExecutionState::Open);
+        assert_eq!(channel.sequence(), 0);
+        assert!(!channel.message_available());
+
+        channel.send(bytes(1), -1).unwrap();
+        channel.send(bytes(2), -1).unwrap();
+        assert_eq!(channel.sequence(), 2);
+        assert!(channel.message_available());
+
+        assert_eq!(byte_value(channel.receive(false).unwrap().unwrap()), 1);
+        assert_eq!(byte_value(channel.receive(false).unwrap().unwrap()), 2);
+        assert!(channel.receive(false).unwrap().is_none());
+    }
+
+    #[test]
+    fn close_drains_queued_messages_before_closed() {
+        let channel = MessageChannelHandle::new(1, 2);
+        channel.send(bytes(7), -1).unwrap();
+        channel.close();
+        assert_eq!(channel.state(), MessageChannelExecutionState::Closing);
+
+        assert_eq!(byte_value(channel.receive(false).unwrap().unwrap()), 7);
+        assert_eq!(channel.state(), MessageChannelExecutionState::Closed);
+        assert!(matches!(
+            channel.receive(false),
+            Err(WorkerChannelError::Closed)
+        ));
+    }
+
+    #[test]
+    fn queue_limit_blocks_until_receiver_drains() {
+        let channel = MessageChannelHandle::new(1, 2);
+        channel.send(bytes(1), 0).unwrap();
+        let sender = channel.clone();
+        let (done_tx, done_rx) = mpsc::channel();
+
+        let thread = std::thread::spawn(move || {
+            sender.send(bytes(2), 0).unwrap();
+            done_tx.send(()).unwrap();
+        });
+
+        assert!(done_rx.recv_timeout(Duration::from_millis(25)).is_err());
+        assert_eq!(byte_value(channel.receive(false).unwrap().unwrap()), 1);
+        done_rx.recv_timeout(Duration::from_secs(1)).unwrap();
+        assert_eq!(byte_value(channel.receive(false).unwrap().unwrap()), 2);
+        thread.join().unwrap();
     }
 }
