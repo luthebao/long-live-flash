@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AVM2 Worker Browser Smoke Test</title>
+</head>
+<body data-result="pending">
+<pre id="result">PENDING</pre>
+<script>
+(async () => {
+    const output = document.getElementById("result");
+    const trace = [];
+    let rafFired = false;
+    let rafDelta = -1;
+    requestAnimationFrame((first) => {
+        rafFired = true;
+        requestAnimationFrame((second) => { rafDelta = second - first; });
+    });
+    const fail = (error) => {
+        document.body.dataset.result = "fail";
+        output.textContent = "FAIL\n" + (error && error.stack ? error.stack : String(error)) + "\n" + trace.join("\n");
+    };
+    const pass = () => {
+        document.body.dataset.result = "pass";
+        output.textContent = "PASS\n" + trace.join("\n");
+    };
+
+    window.addEventListener("error", (event) => fail(event.error || event.message));
+    window.addEventListener("unhandledrejection", (event) => fail(event.reason));
+
+    try {
+        window.RufflePlayer = window.RufflePlayer || {};
+        window.RufflePlayer.config = {
+            autoplay: "off",
+            logLevel: "info",
+        };
+
+        const script = document.createElement("script");
+        script.src = "/web/packages/selfhosted/dist/llflash.js";
+        script.onload = () => {};
+        script.onerror = () => fail(new Error("Unable to load llflash.js"));
+        document.head.appendChild(script);
+
+        const deadline = performance.now() + 30000;
+        while (!(window.RufflePlayer && window.RufflePlayer.newest && window.RufflePlayer.newest())) {
+            if (performance.now() > deadline) {
+                throw new Error("Llflash public API did not become ready");
+            }
+            await new Promise((resolve) => setTimeout(resolve, 20));
+        }
+
+        const api = window.RufflePlayer.newest();
+
+        const sanityPlayer = api.createPlayer();
+        document.body.appendChild(sanityPlayer);
+        let sanityTrace = "";
+        sanityPlayer.ruffle().traceObserver = (message) => { sanityTrace = message; };
+        await sanityPlayer.ruffle().load("/web/packages/selfhosted/test_assets/example.swf");
+        const sanityLoadDeadline = performance.now() + 10000;
+        while (sanityPlayer.ruffle().readyState !== 2) {
+            if (performance.now() > sanityLoadDeadline) {
+                throw new Error("Sanity SWF did not reach ReadyState=2");
+            }
+            await new Promise((resolve) => setTimeout(resolve, 10));
+        }
+        sanityPlayer.ruffle().resume();
+        const sanityDeadline = performance.now() + 5000;
+        while (sanityTrace !== "Hello from Flash!") {
+            if (performance.now() > sanityDeadline) {
+                throw new Error("Sanity AVM2 SWF did not execute; trace=" + sanityTrace);
+            }
+            await new Promise((resolve) => setTimeout(resolve, 10));
+        }
+        sanityPlayer.remove();
+
+        const player = api.createPlayer();
+        document.body.appendChild(player);
+        player.ruffle().traceObserver = (message) => {
+            trace.push(message);
+            if (
+                trace.includes("supported=true") &&
+                trace.includes("domainSupported=true") &&
+                trace.includes("primordial=true") &&
+                trace.includes("workerState=running") &&
+                trace.includes("result=42") &&
+                trace.includes("label=worker-ok") &&
+                trace.includes("messageAvailable=false") &&
+                trace.includes("terminate=true")
+            ) {
+                pass();
+            }
+        };
+
+        const response = await fetch("/tests/tests/swfs/avm2/worker_basic/Test.swf");
+        if (!response.ok) {
+            throw new Error("Unable to fetch worker SWF fixture: " + response.status);
+        }
+        const data = new Uint8Array(await response.arrayBuffer());
+        if (data.length < 4 || data[0] !== 0x46 || data[1] !== 0x57 || data[2] !== 0x53) {
+            throw new Error("Worker fixture is not FWS");
+        }
+        data[3] = 17;
+
+        await player.ruffle().load({ data, swfFileName: "worker_basic.swf" });
+        const loadDeadline = performance.now() + 10000;
+        while (player.ruffle().readyState !== 2) {
+            if (performance.now() > loadDeadline) {
+                throw new Error("Worker SWF did not reach ReadyState=2; state=" + player.ruffle().readyState);
+            }
+            await new Promise((resolve) => setTimeout(resolve, 10));
+        }
+        player.ruffle().resume();
+
+        setTimeout(() => {
+            if (document.body.dataset.result === "pending") {
+                fail(new Error(
+                    "Timed out waiting for AVM2 Worker round-trip; readyState=" +
+                    player.ruffle().readyState +
+                    ", isPlaying=" + player.ruffle().isPlaying +
+                    ", rafFired=" + rafFired +
+                    ", rafDelta=" + rafDelta
+                ));
+            }
+        }, 20000);
+    } catch (error) {
+        fail(error);
+    }
+})();
+</script>
+</body>
+</html>

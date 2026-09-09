@@ -72,7 +72,10 @@ pub enum WorkerValue {
 }
 
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-#[cfg_attr(feature = "serde", serde(tag = "kind", rename_all = "camelCase"))]
+#[cfg_attr(
+    feature = "serde",
+    serde(tag = "kind", rename_all = "camelCase", rename_all_fields = "camelCase")
+)]
 #[derive(Clone, Debug)]
 pub enum WorkerWireValue {
     Serialized {
@@ -117,7 +120,10 @@ pub struct WebWorkerBootstrap {
 }
 
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-#[cfg_attr(feature = "serde", serde(tag = "type", rename_all = "camelCase"))]
+#[cfg_attr(
+    feature = "serde",
+    serde(tag = "type", rename_all = "camelCase", rename_all_fields = "camelCase")
+)]
 #[derive(Clone, Debug)]
 pub enum WebWorkerCommand {
     SpawnWorker {
@@ -1081,6 +1087,30 @@ mod tests {
         assert!(traces.iter().any(|line| line == "label=worker-ok"));
         assert!(traces.iter().any(|line| line == "messageAvailable=false"));
         assert!(traces.iter().any(|line| line == "terminate=true"));
+    }
+
+    #[cfg(feature = "serde")]
+    #[test]
+    fn web_worker_wire_schema_uses_camel_case_fields() {
+        let command = WebWorkerCommand::SendMessage {
+            channel_id: 7,
+            sender_worker_id: 1,
+            receiver_worker_id: 2,
+            value: WorkerWireValue::MessageChannel {
+                channel_id: 9,
+                sender_worker_id: 3,
+                receiver_worker_id: 4,
+            },
+        };
+        let json = serde_json::to_value(command).unwrap();
+        assert_eq!(json["type"], "sendMessage");
+        assert_eq!(json["channelId"], 7);
+        assert_eq!(json["senderWorkerId"], 1);
+        assert_eq!(json["receiverWorkerId"], 2);
+        assert_eq!(json["value"]["kind"], "messageChannel");
+        assert_eq!(json["value"]["channelId"], 9);
+        assert_eq!(json["value"]["senderWorkerId"], 3);
+        assert_eq!(json["value"]["receiverWorkerId"], 4);
     }
 
     #[test]

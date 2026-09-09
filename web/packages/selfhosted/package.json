@@ -25,10 +25,15 @@
         "llflash-core": "^1.0.0"
     },
     "devDependencies": {
+        "@tsconfig/strictest": "^2.0.8",
         "@types/chai": "^5.2.3",
         "@types/chai-html": "^3.0.0",
         "@types/node": "^22.10.0",
+        "@wdio/globals": "^9.27.1",
+        "@wdio/mocha-framework": "^9.27.1",
+        "@wdio/types": "^9.27.1",
         "json5": "^2.2.3",
+        "terser-webpack-plugin": "^5.6.0",
         "ts-node": "^10.9.2",
         "webpack": "^5.106.2",
         "webpack-cli": "^7.0.2",

@@ -209,6 +209,7 @@ export class InnerPlayer {
     // Set when the tab is hidden, cleared when it becomes visible again or the player is destroyed.
     private backgroundWorker: Worker | null;
     private avm2WorkerHost: Avm2WorkerHost | null = null;
+    private traceObserverValue: ((message: string) => void) | null = null;
 
     metadata: MovieMetadata | null;
     _readyState: ReadyState;
@@ -771,11 +772,13 @@ export class InnerPlayer {
             }
         }
 
-        this.instance = await builder.build(this.container, this).catch((e) => {
+        const instance = await builder.build(this.container, this).catch((e) => {
             console.error(`Serious error loading Llflash: ${e}`);
             this.panic(e);
             throw e;
         });
+        instance.set_trace_observer(this.traceObserverValue);
+        this.instance = instance;
 
         // RTMP bridge: hand the just-built RuffleHandle to the host
         // (extension or selfhosted page) so it can dispatch inbound
@@ -2045,6 +2048,7 @@ export class InnerPlayer {
      * @param observer The observer that will be called for each trace.
      */
     set traceObserver(observer: ((message: string) => void) | null) {
+        this.traceObserverValue = observer;
         this.instance?.set_trace_observer(observer);
     }
 
