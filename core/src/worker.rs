@@ -487,7 +487,25 @@ fn run_worker_thread(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::backend::log::LogBackend;
     use std::sync::mpsc;
+
+    struct TestLog {
+        traces: Arc<Mutex<Vec<String>>>,
+    }
+
+    impl LogBackend for TestLog {
+        fn avm_trace(&self, message: &str) {
+            self.traces.lock().unwrap().push(message.to_string());
+        }
+
+        fn avm_warning(&self, message: &str) {
+            self.traces
+                .lock()
+                .unwrap()
+                .push(format!("warning:{message}"));
+        }
+    }
 
     fn bytes(value: u8) -> WorkerValue {
         WorkerValue::Serialized(vec![value])
@@ -500,6 +518,26 @@ mod tests {
                 panic!("expected serialized test value")
             }
         }
+    }
+
+    #[test]
+    fn worker_runtime_can_be_disabled() {
+        let runtime = WorkerRuntimeContext::primordial(false);
+        assert!(!runtime.is_enabled());
+
+        let worker = runtime.domain().create_worker(vec![1, 2, 3]);
+        let started = start_worker(
+            runtime.domain(),
+            worker.clone(),
+            WorkerLaunchConfig {
+                player_version: crate::DEFAULT_PLAYER_VERSION,
+                player_runtime: PlayerRuntime::FlashPlayer,
+                player_mode: PlayerMode::Release,
+                worker_enabled: false,
+            },
+        );
+        assert!(!started);
+        assert_eq!(worker.state(), WorkerExecutionState::New);
     }
 
     #[test]
@@ -578,5 +616,73 @@ mod tests {
         done_rx.recv_timeout(Duration::from_secs(1)).unwrap();
         assert_eq!(byte_value(channel.receive(false).unwrap().unwrap()), 2);
         thread.join().unwrap();
+    }
+
+    fn worker_test_movie() -> SwfMovie {
+        let mut bytes =
+            include_bytes!("../../tests/tests/swfs/avm2/worker_basic/Test.swf").to_vec();
+        assert_eq!(&bytes[0..3], b"FWS");
+        bytes[3] = 17;
+        SwfMovie::from_data(&bytes, "file:///worker_basic.swf".into(), None).unwrap()
+    }
+
+    #[test]
+    fn avm2_worker_executes_on_background_runtime_and_returns_message() {
+        let traces = Arc::new(Mutex::new(Vec::new()));
+        let player = PlayerBuilder::new()
+            .with_movie(worker_test_movie())
+            .with_autoplay(true)
+            .with_log(TestLog {
+                traces: traces.clone(),
+            })
+            .build();
+
+        for _ in 0..100 {
+            player
+                .lock()
+                .unwrap()
+                .tick(FloatDuration::from_millis(1000.0 / 30.0));
+            if traces
+                .lock()
+                .unwrap()
+                .iter()
+                .any(|line| line == "result=42")
+            {
+                break;
+            }
+            thread::sleep(Duration::from_millis(10));
+        }
+
+        let traces = traces.lock().unwrap();
+        assert!(traces.iter().any(|line| line == "supported=true"));
+        assert!(traces.iter().any(|line| line == "domainSupported=true"));
+        assert!(traces.iter().any(|line| line == "primordial=true"));
+        assert!(traces.iter().any(|line| line == "result=42"));
+        assert!(traces.iter().any(|line| line == "label=worker-ok"));
+        assert!(traces.iter().any(|line| line == "messageAvailable=false"));
+        assert!(traces.iter().any(|line| line == "terminate=true"));
+    }
+
+    #[test]
+    fn avm2_worker_disabled_is_visible_to_actionscript() {
+        let traces = Arc::new(Mutex::new(Vec::new()));
+        let player = PlayerBuilder::new()
+            .with_movie(worker_test_movie())
+            .with_autoplay(true)
+            .with_worker_enabled(false)
+            .with_log(TestLog {
+                traces: traces.clone(),
+            })
+            .build();
+
+        player
+            .lock()
+            .unwrap()
+            .tick(FloatDuration::from_millis(1000.0 / 30.0));
+
+        let traces = traces.lock().unwrap();
+        assert!(traces.iter().any(|line| line == "supported=false"));
+        assert!(traces.iter().any(|line| line == "domainSupported=false"));
+        assert!(!traces.iter().any(|line| line.starts_with("result=")));
     }
 }
