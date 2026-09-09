@@ -3,7 +3,7 @@ use crate::tag_utils::SwfMovie;
 use llflash_common::duration::FloatDuration;
 use std::collections::{HashMap, VecDeque};
 use std::sync::atomic::{AtomicBool, AtomicU64, AtomicU8, Ordering};
-use std::sync::{Arc, Condvar, Mutex};
+use std::sync::{Arc, Condvar, Mutex, Weak};
 use std::thread;
 use std::time::{Duration, Instant};
 
@@ -71,6 +71,74 @@ pub enum WorkerValue {
     MessageChannel(Arc<MessageChannelHandle>),
 }
 
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "serde", serde(tag = "kind", rename_all = "camelCase"))]
+#[derive(Clone, Debug)]
+pub enum WorkerWireValue {
+    Serialized {
+        bytes: Vec<u8>,
+    },
+    Worker {
+        worker_id: WorkerId,
+        primordial: bool,
+    },
+    MessageChannel {
+        channel_id: MessageChannelId,
+        sender_worker_id: WorkerId,
+        receiver_worker_id: WorkerId,
+    },
+}
+
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "serde", serde(rename_all = "camelCase"))]
+#[derive(Clone, Debug)]
+pub struct WebWorkerSharedProperty {
+    pub key: String,
+    pub value: WorkerWireValue,
+}
+
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "serde", serde(rename_all = "camelCase"))]
+#[derive(Clone, Copy, Debug)]
+pub struct WebWorkerLaunchConfig {
+    pub player_version: u8,
+    pub player_runtime: u8,
+    pub player_mode: u8,
+}
+
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "serde", serde(rename_all = "camelCase"))]
+#[derive(Clone, Debug)]
+pub struct WebWorkerBootstrap {
+    pub worker_id: WorkerId,
+    pub swf_bytes: Vec<u8>,
+    pub config: WebWorkerLaunchConfig,
+    pub shared_properties: Vec<WebWorkerSharedProperty>,
+}
+
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "serde", serde(tag = "type", rename_all = "camelCase"))]
+#[derive(Clone, Debug)]
+pub enum WebWorkerCommand {
+    SpawnWorker {
+        bootstrap: WebWorkerBootstrap,
+    },
+    SendMessage {
+        channel_id: MessageChannelId,
+        sender_worker_id: WorkerId,
+        receiver_worker_id: WorkerId,
+        value: WorkerWireValue,
+    },
+    CloseChannel {
+        channel_id: MessageChannelId,
+        sender_worker_id: WorkerId,
+        receiver_worker_id: WorkerId,
+    },
+    TerminateWorker {
+        worker_id: WorkerId,
+    },
+}
+
 pub struct MessageChannelHandle {
     id: MessageChannelId,
     sender: WorkerId,
@@ -84,8 +152,16 @@ pub struct MessageChannelHandle {
 
 impl MessageChannelHandle {
     pub fn new(sender: WorkerId, receiver: WorkerId) -> Arc<Self> {
+        Self::with_id(
+            NEXT_MESSAGE_CHANNEL_ID.fetch_add(1, Ordering::Relaxed),
+            sender,
+            receiver,
+        )
+    }
+
+    fn with_id(id: MessageChannelId, sender: WorkerId, receiver: WorkerId) -> Arc<Self> {
         Arc::new(Self {
-            id: NEXT_MESSAGE_CHANNEL_ID.fetch_add(1, Ordering::Relaxed),
+            id,
             sender,
             receiver,
             state: AtomicU8::new(MessageChannelExecutionState::Open as u8),
@@ -239,6 +315,18 @@ impl WorkerHandle {
         })
     }
 
+    fn proxy(id: WorkerId, primordial: bool, state: WorkerExecutionState) -> Arc<Self> {
+        Arc::new(Self {
+            id,
+            primordial,
+            state: AtomicU8::new(state as u8),
+            started: AtomicBool::new(state != WorkerExecutionState::New),
+            terminate_requested: AtomicBool::new(false),
+            swf: Mutex::new(None),
+            shared_properties: Mutex::new(HashMap::new()),
+        })
+    }
+
     pub fn id(&self) -> WorkerId {
         self.id
     }
@@ -267,6 +355,15 @@ impl WorkerHandle {
         self.shared_properties.lock().unwrap().remove(key);
     }
 
+    fn shared_property_snapshot(&self) -> Vec<(String, WorkerValue)> {
+        self.shared_properties
+            .lock()
+            .unwrap()
+            .iter()
+            .map(|(key, value)| (key.clone(), value.clone()))
+            .collect()
+    }
+
     pub fn terminate(&self) -> bool {
         if self.primordial || !self.started.load(Ordering::Acquire) {
             return false;
@@ -292,6 +389,9 @@ impl WorkerHandle {
 pub struct WorkerDomainHandle {
     next_id: AtomicU64,
     workers: Mutex<Vec<Arc<WorkerHandle>>>,
+    channels: Mutex<HashMap<MessageChannelId, Weak<MessageChannelHandle>>>,
+    #[cfg(target_family = "wasm")]
+    web_commands: Mutex<VecDeque<WebWorkerCommand>>,
 }
 
 impl WorkerDomainHandle {
@@ -300,6 +400,9 @@ impl WorkerDomainHandle {
         let domain = Arc::new(Self {
             next_id: AtomicU64::new(1),
             workers: Mutex::new(vec![primordial.clone()]),
+            channels: Mutex::new(HashMap::new()),
+            #[cfg(target_family = "wasm")]
+            web_commands: Mutex::new(VecDeque::new()),
         });
         (domain, primordial)
     }
@@ -311,6 +414,69 @@ impl WorkerDomainHandle {
         worker
     }
 
+    pub fn create_message_channel(
+        &self,
+        sender: WorkerId,
+        receiver: WorkerId,
+    ) -> Arc<MessageChannelHandle> {
+        let channel = MessageChannelHandle::new(sender, receiver);
+        self.register_channel(channel.clone());
+        channel
+    }
+
+    fn register_channel(&self, channel: Arc<MessageChannelHandle>) {
+        self.channels
+            .lock()
+            .unwrap()
+            .insert(channel.id(), Arc::downgrade(&channel));
+    }
+
+    fn channel_by_id(&self, channel_id: MessageChannelId) -> Option<Arc<MessageChannelHandle>> {
+        self.channels
+            .lock()
+            .unwrap()
+            .get(&channel_id)
+            .and_then(Weak::upgrade)
+    }
+
+    fn worker_by_id(&self, worker_id: WorkerId) -> Option<Arc<WorkerHandle>> {
+        self.workers
+            .lock()
+            .unwrap()
+            .iter()
+            .find(|worker| worker.id() == worker_id)
+            .cloned()
+    }
+
+    fn ensure_worker_proxy(
+        &self,
+        worker_id: WorkerId,
+        primordial: bool,
+    ) -> Arc<WorkerHandle> {
+        if let Some(worker) = self.worker_by_id(worker_id) {
+            return worker;
+        }
+
+        let worker = WorkerHandle::proxy(worker_id, primordial, WorkerExecutionState::Running);
+        self.workers.lock().unwrap().push(worker.clone());
+        worker
+    }
+
+    fn ensure_channel_proxy(
+        &self,
+        channel_id: MessageChannelId,
+        sender: WorkerId,
+        receiver: WorkerId,
+    ) -> Arc<MessageChannelHandle> {
+        if let Some(channel) = self.channel_by_id(channel_id) {
+            return channel;
+        }
+
+        let channel = MessageChannelHandle::with_id(channel_id, sender, receiver);
+        self.register_channel(channel.clone());
+        channel
+    }
+
     pub fn running_workers(&self) -> Vec<Arc<WorkerHandle>> {
         self.workers
             .lock()
@@ -319,6 +485,87 @@ impl WorkerDomainHandle {
             .filter(|worker| worker.state() == WorkerExecutionState::Running)
             .cloned()
             .collect()
+    }
+
+    #[cfg(target_family = "wasm")]
+    fn enqueue_web_command(&self, command: WebWorkerCommand) {
+        self.web_commands.lock().unwrap().push_back(command);
+    }
+
+    #[cfg(target_family = "wasm")]
+    fn take_web_commands(&self) -> Vec<WebWorkerCommand> {
+        self.web_commands.lock().unwrap().drain(..).collect()
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    fn take_web_commands(&self) -> Vec<WebWorkerCommand> {
+        Vec::new()
+    }
+
+    fn mark_worker_state(&self, worker_id: WorkerId, state: WorkerExecutionState) -> bool {
+        let Some(worker) = self.worker_by_id(worker_id) else {
+            return false;
+        };
+        worker.set_state(state);
+        true
+    }
+
+    fn inject_wire_message(
+        &self,
+        channel_id: MessageChannelId,
+        value: WorkerWireValue,
+    ) -> Result<(), WorkerChannelError> {
+        let Some(channel) = self.channel_by_id(channel_id) else {
+            return Err(WorkerChannelError::Closed);
+        };
+        let value = WorkerValue::from_wire(self, value);
+        channel.send(value, -1)
+    }
+
+    fn close_wire_channel(&self, channel_id: MessageChannelId) -> bool {
+        let Some(channel) = self.channel_by_id(channel_id) else {
+            return false;
+        };
+        channel.close();
+        true
+    }
+}
+
+impl WorkerValue {
+    fn to_wire(&self) -> WorkerWireValue {
+        match self {
+            WorkerValue::Serialized(bytes) => WorkerWireValue::Serialized {
+                bytes: bytes.clone(),
+            },
+            WorkerValue::Worker(worker) => WorkerWireValue::Worker {
+                worker_id: worker.id(),
+                primordial: worker.is_primordial(),
+            },
+            WorkerValue::MessageChannel(channel) => WorkerWireValue::MessageChannel {
+                channel_id: channel.id(),
+                sender_worker_id: channel.sender(),
+                receiver_worker_id: channel.receiver(),
+            },
+        }
+    }
+
+    fn from_wire(domain: &WorkerDomainHandle, value: WorkerWireValue) -> Self {
+        match value {
+            WorkerWireValue::Serialized { bytes } => WorkerValue::Serialized(bytes),
+            WorkerWireValue::Worker {
+                worker_id,
+                primordial,
+            } => WorkerValue::Worker(domain.ensure_worker_proxy(worker_id, primordial)),
+            WorkerWireValue::MessageChannel {
+                channel_id,
+                sender_worker_id,
+                receiver_worker_id,
+            } => WorkerValue::MessageChannel(domain.ensure_channel_proxy(
+                channel_id,
+                sender_worker_id,
+                receiver_worker_id,
+            )),
+        }
     }
 }
 
@@ -362,6 +609,113 @@ impl WorkerRuntimeContext {
     pub fn is_enabled(&self) -> bool {
         self.enabled
     }
+
+    pub fn send_message(
+        &self,
+        channel: Arc<MessageChannelHandle>,
+        value: WorkerValue,
+        queue_limit: i32,
+    ) -> Result<(), WorkerChannelError> {
+        #[cfg(not(target_family = "wasm"))]
+        {
+            channel.send(value, queue_limit)
+        }
+
+        #[cfg(target_family = "wasm")]
+        {
+            if channel.receiver() == self.current.id() {
+                return channel.send(value, queue_limit);
+            }
+
+            self.domain.enqueue_web_command(WebWorkerCommand::SendMessage {
+                channel_id: channel.id(),
+                sender_worker_id: channel.sender(),
+                receiver_worker_id: channel.receiver(),
+                value: value.to_wire(),
+            });
+            Ok(())
+        }
+    }
+
+    pub fn close_channel(&self, channel: Arc<MessageChannelHandle>) {
+        channel.close();
+        #[cfg(target_family = "wasm")]
+        if channel.sender() != channel.receiver() {
+            self.domain.enqueue_web_command(WebWorkerCommand::CloseChannel {
+                channel_id: channel.id(),
+                sender_worker_id: channel.sender(),
+                receiver_worker_id: channel.receiver(),
+            });
+        }
+    }
+
+    pub fn terminate_worker(&self, worker: Arc<WorkerHandle>) -> bool {
+        if !worker.terminate() {
+            return false;
+        }
+
+        #[cfg(target_family = "wasm")]
+        self.domain
+            .enqueue_web_command(WebWorkerCommand::TerminateWorker {
+                worker_id: worker.id(),
+            });
+        true
+    }
+
+    pub fn take_web_worker_commands(&self) -> Vec<WebWorkerCommand> {
+        self.domain.take_web_commands()
+    }
+
+    pub fn web_worker_started(&self, worker_id: WorkerId) -> bool {
+        self.domain
+            .mark_worker_state(worker_id, WorkerExecutionState::Running)
+    }
+
+    pub fn web_worker_terminated(&self, worker_id: WorkerId) -> bool {
+        self.domain
+            .mark_worker_state(worker_id, WorkerExecutionState::Terminated)
+    }
+
+    pub fn inject_web_worker_message(
+        &self,
+        channel_id: MessageChannelId,
+        value: WorkerWireValue,
+    ) -> Result<(), WorkerChannelError> {
+        self.domain.inject_wire_message(channel_id, value)
+    }
+
+    pub fn inject_web_channel_close(&self, channel_id: MessageChannelId) -> bool {
+        self.domain.close_wire_channel(channel_id)
+    }
+
+    pub fn web_background_from_bootstrap(bootstrap: &WebWorkerBootstrap) -> Self {
+        let primordial = WorkerHandle::proxy(0, true, WorkerExecutionState::Running);
+        let current = WorkerHandle::proxy(
+            bootstrap.worker_id,
+            false,
+            WorkerExecutionState::Running,
+        );
+        let domain = Arc::new(WorkerDomainHandle {
+            next_id: AtomicU64::new(bootstrap.worker_id.saturating_add(1)),
+            workers: Mutex::new(vec![primordial, current.clone()]),
+            channels: Mutex::new(HashMap::new()),
+            #[cfg(target_family = "wasm")]
+            web_commands: Mutex::new(VecDeque::new()),
+        });
+
+        for property in &bootstrap.shared_properties {
+            current.set_shared_property(
+                property.key.clone(),
+                WorkerValue::from_wire(&domain, property.value.clone()),
+            );
+        }
+
+        Self {
+            domain,
+            current,
+            enabled: true,
+        }
+    }
 }
 
 impl Default for WorkerRuntimeContext {
@@ -378,8 +732,41 @@ pub struct WorkerLaunchConfig {
     pub worker_enabled: bool,
 }
 
+impl WorkerLaunchConfig {
+    fn to_web(self) -> WebWorkerLaunchConfig {
+        WebWorkerLaunchConfig {
+            player_version: self.player_version,
+            player_runtime: match self.player_runtime {
+                PlayerRuntime::FlashPlayer => 0,
+                PlayerRuntime::AIR => 1,
+            },
+            player_mode: match self.player_mode {
+                PlayerMode::Release => 0,
+                PlayerMode::Debug => 1,
+            },
+        }
+    }
+
+    fn from_web(config: WebWorkerLaunchConfig) -> Self {
+        Self {
+            player_version: config.player_version,
+            player_runtime: if config.player_runtime == 1 {
+                PlayerRuntime::AIR
+            } else {
+                PlayerRuntime::FlashPlayer
+            },
+            player_mode: if config.player_mode == 1 {
+                PlayerMode::Debug
+            } else {
+                PlayerMode::Release
+            },
+            worker_enabled: true,
+        }
+    }
+}
+
 pub fn is_supported() -> bool {
-    cfg!(not(target_family = "wasm"))
+    true
 }
 
 pub fn start_worker(
@@ -424,8 +811,22 @@ pub fn start_worker(
 
     #[cfg(target_family = "wasm")]
     {
-        let _ = (domain, worker, swf_bytes, config);
-        false
+        let shared_properties = worker
+            .shared_property_snapshot()
+            .into_iter()
+            .map(|(key, value)| WebWorkerSharedProperty {
+                key,
+                value: value.to_wire(),
+            })
+            .collect();
+        let bootstrap = WebWorkerBootstrap {
+            worker_id: worker.id(),
+            swf_bytes,
+            config: config.to_web(),
+            shared_properties,
+        };
+        domain.enqueue_web_command(WebWorkerCommand::SpawnWorker { bootstrap });
+        true
     }
 }
 
@@ -482,6 +883,25 @@ fn run_worker_thread(
             thread::yield_now();
         }
     }
+}
+
+pub fn build_web_worker_player(
+    bootstrap: WebWorkerBootstrap,
+) -> Result<Arc<Mutex<crate::Player>>, String> {
+    let url = format!("worker://{}.swf", bootstrap.worker_id);
+    let movie = SwfMovie::from_data(&bootstrap.swf_bytes, url, None)
+        .map_err(|error| format!("Unable to parse worker SWF: {error:?}"))?;
+    let config = WorkerLaunchConfig::from_web(bootstrap.config);
+    let runtime = WorkerRuntimeContext::web_background_from_bootstrap(&bootstrap);
+
+    Ok(PlayerBuilder::new()
+        .with_movie(movie)
+        .with_autoplay(true)
+        .with_player_version(Some(config.player_version))
+        .with_player_runtime(config.player_runtime)
+        .with_player_mode(config.player_mode)
+        .with_worker_runtime_context(runtime)
+        .build())
 }
 
 #[cfg(test)]

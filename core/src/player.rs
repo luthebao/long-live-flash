@@ -589,6 +589,34 @@ impl Player {
         });
     }
 
+    pub fn take_web_worker_commands(&self) -> Vec<crate::worker::WebWorkerCommand> {
+        self.worker_runtime.take_web_worker_commands()
+    }
+
+    pub fn web_worker_started(&self, worker_id: crate::worker::WorkerId) -> bool {
+        self.worker_runtime.web_worker_started(worker_id)
+    }
+
+    pub fn web_worker_terminated(&self, worker_id: crate::worker::WorkerId) -> bool {
+        self.worker_runtime.web_worker_terminated(worker_id)
+    }
+
+    pub fn inject_web_worker_message(
+        &self,
+        channel_id: crate::worker::MessageChannelId,
+        value: crate::worker::WorkerWireValue,
+    ) -> Result<(), crate::worker::WorkerChannelError> {
+        self.worker_runtime
+            .inject_web_worker_message(channel_id, value)
+    }
+
+    pub fn inject_web_channel_close(
+        &self,
+        channel_id: crate::worker::MessageChannelId,
+    ) -> bool {
+        self.worker_runtime.inject_web_channel_close(channel_id)
+    }
+
     pub fn tick(&mut self, dt: FloatDuration) {
         self.poll_worker_events();
 

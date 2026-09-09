@@ -28,8 +28,10 @@ pub fn send<'gc>(
 
     let value = serialize_worker_value(activation, args.get_value(0))?;
     let queue_limit = args.get_i32(1);
-    handle
-        .send(value, queue_limit)
+    activation
+        .context
+        .worker_runtime
+        .send_message(handle, value, queue_limit)
         .map_err(channel_error_to_avm)?;
     Ok(Value::Undefined)
 }
@@ -59,7 +61,7 @@ pub fn receive<'gc>(
 }
 
 pub fn close<'gc>(
-    _activation: &mut Activation<'_, 'gc>,
+    activation: &mut Activation<'_, 'gc>,
     this: Value<'gc>,
     _args: &[Value<'gc>],
 ) -> Result<Value<'gc>, Error<'gc>> {
@@ -67,7 +69,10 @@ pub fn close<'gc>(
         .as_object()
         .and_then(|object| object.as_message_channel_object())
         .expect("MessageChannel.close called on non-MessageChannel");
-    channel.handle().close();
+    activation
+        .context
+        .worker_runtime
+        .close_channel(channel.handle());
     Ok(Value::Undefined)
 }
 

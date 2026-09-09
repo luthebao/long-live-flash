@@ -6,7 +6,7 @@ use crate::avm2::object::{MessageChannelObject, WorkerObject};
 use crate::avm2::parameters::ParametersExt;
 use crate::avm2::value::Value;
 use crate::string::AvmString;
-use crate::worker::{MessageChannelHandle, WorkerLaunchConfig, WorkerValue, start_worker};
+use crate::worker::{WorkerLaunchConfig, WorkerValue, start_worker};
 use flash_lso::amf3::read::AMF3Decoder;
 use flash_lso::types::{AMFVersion, Element};
 use std::rc::Rc;
@@ -59,7 +59,11 @@ pub fn create_message_channel<'gc>(
         .ok_or_else(|| Error::rust_error("Worker receiver is not a Worker".into()))?
         .handle();
 
-    let handle = MessageChannelHandle::new(sender.id(), receiver.id());
+    let handle = activation
+        .context
+        .worker_runtime
+        .domain()
+        .create_message_channel(sender.id(), receiver.id());
     Ok(MessageChannelObject::new(activation, handle).into())
 }
 
@@ -124,7 +128,7 @@ pub fn start<'gc>(
 }
 
 pub fn terminate<'gc>(
-    _activation: &mut Activation<'_, 'gc>,
+    activation: &mut Activation<'_, 'gc>,
     this: Value<'gc>,
     _args: &[Value<'gc>],
 ) -> Result<Value<'gc>, Error<'gc>> {
@@ -132,7 +136,11 @@ pub fn terminate<'gc>(
         .as_object()
         .and_then(|object| object.as_worker_object())
         .expect("Worker.terminate called on non-Worker");
-    Ok(worker.handle().terminate().into())
+    Ok(activation
+        .context
+        .worker_runtime
+        .terminate_worker(worker.handle())
+        .into())
 }
 
 pub fn instantiate_internal<'gc>(
