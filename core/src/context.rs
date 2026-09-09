@@ -1,6 +1,6 @@
 //! Contexts and helper types passed between functions.
 
-use crate::PlayerMode;
+use crate::{PlayerMode, PlayerRuntime};
 use crate::avm_rng::AvmRng;
 use crate::avm1::Attribute;
 use crate::avm1::Avm1;
@@ -8,6 +8,7 @@ use crate::avm1::{Object as Avm1Object, Value as Avm1Value};
 use crate::avm2::Activation as Avm2Activation;
 use crate::avm2::api_version::ApiVersion;
 use crate::avm2::{Avm2, LoaderInfoObject, SharedObjectObject, SoundChannelObject};
+use crate::avm2::object::{MessageChannelObjectWeak, WorkerObjectWeak};
 use crate::backend::{
     audio::{AudioBackend, AudioManager, SoundHandle, SoundInstanceHandle},
     log::LogBackend,
@@ -39,6 +40,7 @@ use crate::system_properties::SystemProperties;
 use crate::tag_utils::{SwfMovie, SwfSlice};
 use crate::timer::Timers;
 use crate::vminterface::Instantiator;
+use crate::worker::WorkerRuntimeContext;
 use async_channel::Sender;
 use core::fmt;
 use gc_arena::{Collect, Mutation};
@@ -82,7 +84,9 @@ pub struct UpdateContext<'gc> {
     /// variables.
     pub player_version: u8,
 
+    pub player_runtime: PlayerRuntime,
     pub player_mode: PlayerMode,
+    pub worker_runtime: &'gc WorkerRuntimeContext,
 
     /// Requests that the player re-renders after this execution (e.g. due to `updateAfterEvent`).
     pub needs_render: &'gc mut bool,
@@ -158,6 +162,9 @@ pub struct UpdateContext<'gc> {
 
     /// Shared objects cache
     pub avm2_shared_objects: &'gc mut HashMap<String, SharedObjectObject<'gc>>,
+
+    pub worker_objects: &'gc mut Vec<WorkerObjectWeak<'gc>>,
+    pub worker_message_channels: &'gc mut Vec<MessageChannelObjectWeak<'gc>>,
 
     /// Text fields with unbound variable bindings.
     pub unbound_text_fields: &'gc mut Vec<EditText<'gc>>,

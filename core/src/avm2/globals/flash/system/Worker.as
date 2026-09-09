@@ -1,23 +1,15 @@
 package flash.system {
-    import __ruffle__.stub_getter;
-    import __ruffle__.stub_method;
-
-    import flash.events.Event;
     import flash.events.EventDispatcher;
     import flash.system.MessageChannel;
 
     [API("682")]
     [Llflash(Abstract)]
     public final class Worker extends EventDispatcher {
-        public static function get isSupported():Boolean {
-            return false;
-        }
+        public static native function get isSupported():Boolean;
 
         private static var _current:Worker;
 
         public static function get current():Worker {
-            stub_getter("flash.system.Worker", "current");
-
             if (!_current) {
                 _current = instantiateInternal();
             }
@@ -25,21 +17,14 @@ package flash.system {
             return _current;
         }
 
+        public native function get isPrimordial():Boolean;
+        public native function get state():String;
+
         public native function createMessageChannel(receiver:Worker):MessageChannel;
-
-        public function setSharedProperty(key:String, value:*):void {
-            stub_method("flash.system.Worker", "setSharedProperty");
-        }
-
-        public function getSharedProperty(key:String):* {
-            stub_method("flash.system.Worker", "getSharedProperty");
-        }
-
-        public function start():void {
-            this.dispatchEvent(new Event(Event.WORKER_STATE));
-
-            stub_method("flash.system.Worker", "start");
-        }
+        public native function setSharedProperty(key:String, value:*):void;
+        public native function getSharedProperty(key:String):*;
+        public native function start():void;
+        public native function terminate():Boolean;
 
         private static native function instantiateInternal():Worker;
     }

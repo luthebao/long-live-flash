@@ -6,7 +6,9 @@ use crate::avm1::Object;
 use crate::avm1::Value;
 use crate::avm1::VariableDumper;
 use crate::avm1::{Activation, ActivationIdentifier};
-use crate::avm2::object::EventObject as Avm2EventObject;
+use crate::avm2::object::{
+    EventObject as Avm2EventObject, MessageChannelObjectWeak, WorkerObjectWeak,
+};
 use crate::avm2::{Activation as Avm2Activation, Avm2, CallStack, SharedObjectObject};
 use crate::backend::navigator::ErrorResponse;
 use crate::backend::navigator::FetchReason;
@@ -57,6 +59,7 @@ use crate::system_properties::SystemProperties;
 use crate::tag_utils::SwfMovie;
 use crate::timer::Timers;
 use crate::vminterface::Instantiator;
+use crate::worker::WorkerRuntimeContext;
 use async_channel::Sender;
 use enumset::EnumSet;
 use gc_arena::lock::GcRefLock;
@@ -174,6 +177,9 @@ struct GcRootData<'gc> {
 
     avm2_shared_objects: HashMap<String, SharedObjectObject<'gc>>,
 
+    worker_objects: Vec<WorkerObjectWeak<'gc>>,
+    worker_message_channels: Vec<MessageChannelObjectWeak<'gc>>,
+
     /// Text fields with unbound variable bindings.
     unbound_text_fields: Vec<EditText<'gc>>,
 
@@ -232,6 +238,8 @@ impl<'gc> GcRootData<'gc> {
         &mut LoadManager<'gc>,
         &mut HashMap<String, Object<'gc>>,
         &mut HashMap<String, SharedObjectObject<'gc>>,
+        &mut Vec<WorkerObjectWeak<'gc>>,
+        &mut Vec<MessageChannelObjectWeak<'gc>>,
         &mut Vec<EditText<'gc>>,
         &mut Timers<'gc>,
         &mut Option<ContextMenuState<'gc>>,
@@ -257,6 +265,8 @@ impl<'gc> GcRootData<'gc> {
             &mut self.load_manager,
             &mut self.avm1_shared_objects,
             &mut self.avm2_shared_objects,
+            &mut self.worker_objects,
+            &mut self.worker_message_channels,
             &mut self.unbound_text_fields,
             &mut self.timers,
             &mut self.current_context_menu,
@@ -303,6 +313,8 @@ pub struct Player {
 
     /// Whether we're emulating the release or the debug build.
     player_mode: PlayerMode,
+
+    worker_runtime: WorkerRuntimeContext,
 
     swf: Arc<SwfMovie>,
 
@@ -520,6 +532,8 @@ impl Player {
     }
 
     pub fn tick(&mut self, dt: FloatDuration) {
+        self.poll_worker_events();
+
         if !self.is_playing() {
             return;
         }
@@ -2273,6 +2287,8 @@ impl Player {
                 load_manager,
                 avm1_shared_objects,
                 avm2_shared_objects,
+                worker_objects,
+                worker_message_channels,
                 unbound_text_fields,
                 timers,
                 current_context_menu,
@@ -2290,7 +2306,9 @@ impl Player {
 
             let mut update_context = UpdateContext {
                 player_version: this.player_version,
+                player_runtime: this.player_runtime,
                 player_mode: this.player_mode,
+                worker_runtime: &this.worker_runtime,
                 root_swf: &mut this.swf,
                 library,
                 rng: &mut this.rng,
@@ -2316,6 +2334,8 @@ impl Player {
                 video: this.video.deref_mut(),
                 avm1_shared_objects,
                 avm2_shared_objects,
+                worker_objects,
+                worker_message_channels,
                 unbound_text_fields,
                 timers,
                 current_context_menu,
@@ -2627,6 +2647,7 @@ pub struct PlayerBuilder {
     player_version: Option<u8>,
     player_runtime: PlayerRuntime,
     player_mode: PlayerMode,
+    worker_runtime: Option<WorkerRuntimeContext>,
     quality: StageQuality,
     page_url: Option<String>,
     frame_rate: Option<f64>,
@@ -2683,6 +2704,7 @@ impl PlayerBuilder {
             player_version: None,
             player_runtime: PlayerRuntime::default(),
             player_mode: PlayerMode::default(),
+            worker_runtime: None,
             quality: StageQuality::High,
             page_url: None,
             frame_rate: None,
@@ -2872,6 +2894,11 @@ impl PlayerBuilder {
         self
     }
 
+    pub(crate) fn with_worker_runtime_context(mut self, runtime: WorkerRuntimeContext) -> Self {
+        self.worker_runtime = Some(runtime);
+        self
+    }
+
     // Configure the embedding page's URL (if applicable)
     pub fn with_page_url(mut self, page_url: Option<String>) -> Self {
         self.page_url = page_url;
@@ -2963,6 +2990,8 @@ impl PlayerBuilder {
             },
             avm1_shared_objects: HashMap::new(),
             avm2_shared_objects: HashMap::new(),
+            worker_objects: Vec::new(),
+            worker_message_channels: Vec::new(),
             stage: Stage::empty(gc_context, fullscreen, fake_movie),
             timers: Timers::new(),
             unbound_text_fields: Vec::new(),
@@ -3013,6 +3042,7 @@ impl PlayerBuilder {
 
         let player_version = self.player_version.unwrap_or(DEFAULT_PLAYER_VERSION);
         let language = ui.language();
+        let worker_runtime = self.worker_runtime.clone().unwrap_or_default();
 
         // Instantiate the player.
         let fake_movie = Arc::new(SwfMovie::empty(player_version, None));
@@ -3063,6 +3093,7 @@ impl PlayerBuilder {
                 player_version,
                 player_runtime: self.player_runtime,
                 player_mode: self.player_mode,
+                worker_runtime,
                 run_state: if self.autoplay {
                     RunState::Playing
                 } else {
